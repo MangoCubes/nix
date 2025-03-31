@@ -1,0 +1,30 @@
+# Edit this configuration file to define what should be installed on
+# your system. Help is available in the configuration.nix(5) man page, on
+# https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
+
+{
+  imports = [
+    ./environment.nix
+    ./home.nix
+    ./networking.nix
+    ./programs.nix
+    ./security.nix
+    ./services.nix
+    ./boot.nix
+    ../packages/korean-input.nix
+    ../packages/bluetooth.nix
+    ../packages/fonts.nix
+    ../packages/greetd.nix
+    ../packages/kdeconnect.nix
+    ../packages/traefik.nix
+  ];
+  powerManagement.enable = true;
+  programs.nix-ld.enable = true;
+
+  systemd.sleep.extraConfig = ''
+    AllowSuspend=yes
+    AllowHibernation=yes
+    AllowHybridSleep=no
+    AllowSuspendThenHibernate=no
+  '';
+}

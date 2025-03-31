@@ -1,0 +1,11 @@
+.stfolder/
+.stignore
+.ignore.txt
+/**/hardware-configuration.nix
+result
+common/packages/home/podman/syncthing/config-client.xml
+common/packages/home/podman/syncthing/config.xml
+/**/unused/
+res
+server/server-media
+secrets

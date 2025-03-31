@@ -1,0 +1,9 @@
+## Rules
+- `secrets` folders contain secrets that are necessary at the build time (i.e. secrets that cannot be secured with AGS) as well as secrets that are encrypted with AGS
+## What does this repo not have?
+ - All `hardware-configuration.nix`: Why are you using mine?
+ - All secrets: These are imported by a submodule in a different repo. Search by the string `inputs.secrets` if you want to use my config.
+ - Syncthing configuration file: Either remove it, or put your .xml file.
+ - ags widget code: These are in another repository.
+ - /res, where wallpapers and public key are stored
+ - Entire server-media config

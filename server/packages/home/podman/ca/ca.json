@@ -1,0 +1,73 @@
+{
+	"root": "/home/step/certs/root_ca.crt",
+	"crt": "/home/step/certs/intermediate_ca.crt",
+	"key": "/home/step/secrets/intermediate_ca_key",
+	"address": ":9000",
+	"dnsNames": [
+		"localhost",
+		"ca.local",
+		"ca"
+	],
+	"logger": {
+		"format": "text"
+	},
+	"crl": {
+		"enabled": false
+	},
+	"db": {
+		"type": "bbolt",
+		"dataSource": "/home/step/db/bolt.db"
+	},
+	"authority": {
+		"disableIssuedAtCheck": false,
+		"claims": {
+			"minTLSCertDuration": "5m",
+			"maxTLSCertDuration": "24h",
+			"defaultTLSCertDuration": "24h",
+			"disableRenewal": false,
+			"allowRenewalAfterExpiry": false,
+			"minHostSSHCertDuration": "5m",
+			"maxHostSSHCertDuration": "1680h",
+			"defaultHostSSHCertDuration": "720h",
+			"minUserSSHCertDuration": "5m",
+			"maxUserSSHCertDuration": "24h",
+			"defaultUserSSHCertDuration": "16h"
+		},
+		"policy": {
+			"x509": {
+				"allow": {
+					"dns": [
+						"*.local",
+						"*.work.local",
+						"*.laptop.local",
+						"*.main.local",
+						"*.server-main.local",
+						"*.server-network.local"
+					]
+				}
+			},
+			"ssh": {
+				"user": {
+					"allow": {
+						"email": [
+							"@local"
+						]
+					}
+				},
+				"host": {
+					"allow": {
+						"dns": [
+							"*.local"
+						]
+					}
+				}
+			}
+		},
+		"provisioners": [
+			{
+				"type": "ACME",
+				"name": "intranet"
+			}
+		]
+	}
+}

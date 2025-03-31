@@ -1,0 +1,23 @@
+{
+	"groups": {
+    	"group:desktop": [],
+    	"group:server": [],
+    	"group:all": []
+  	},
+    "acls": [
+		{
+		    "action": "accept",
+		    "src": ["*"],
+		    "dst": ["*:*"]
+		},
+		{
+		    "action": "accept",
+		    "src": [
+				"*"
+		    ],
+		    "dst": [
+				"autogroup:internet:*"
+		    ]
+		}
+    ]
+}
