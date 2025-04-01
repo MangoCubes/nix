@@ -7,6 +7,7 @@
         ../packages/home/podman/mariadb.nix
         ../packages/home/podman/ampache.nix
         ../packages/home/podman/nextcloud.nix
+        ../packages/home/podman/matrix.nix
         ../packages/home/podman/redlib-vpn.nix
         ../packages/home/podman/searxng.nix
         ((import ../packages/home/podman/proton.nix) { name = "redlib"; })
