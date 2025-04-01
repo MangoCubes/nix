@@ -90,7 +90,7 @@ in
             "${dynamicFile}:/etc/traefik/config.yaml"
             "traefik:/etc/traefik/ssl"
             "/etc/ssl/certs/ca-certificates.crt:/etc/ssl/certs/ca-certificates.crt"
-            "${../../../res/keys/root.crt}:/etc/ssl/certs/home.crt"
+            "${../../../secrets/res/keys/root.crt}:/etc/ssl/certs/home.crt"
             "/run/user/1000/podman/podman.sock:/run/user/1000/podman/podman.sock"
           ];
           labels = {

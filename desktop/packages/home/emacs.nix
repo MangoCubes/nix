@@ -8,7 +8,7 @@
 let
   configFile = if headless then "headless.el" else "desktop.el";
   vars = ''
-    (defvar banner "${../../../res/media/emacs/banner.jpg}")
+    (defvar banner "${../../../secrets/res/media/emacs/banner.jpg}")
     (defvar default-size ${toString (scale * 100)})
   '';
   configData = ''
