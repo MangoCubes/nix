@@ -2,9 +2,18 @@
 let
   extensionsBase = {
     "*".installation_mode = "blocked"; # blocks all addons except the ones specified below
+    # The ID of each plugin can be found in about:support when you install them
+    # The install_url seems to be https://addons.mozilla.org/firefox/downloads/latest/<NAME>/latest.xpi,
+    # where the <NAME> part is https://addons.mozilla.org/en-US/firefox/addon/<NAME> in the addon URL
+
     # uBlock Origin
     "uBlock0@raymondhill.net" = {
       install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
+      installation_mode = "force_installed";
+    };
+    # Bypass right click and select protection
+    "{9350bc42-47fb-4598-ae0f-825e3dd9ceba}" = {
+      install_url = "https://addons.mozilla.org/firefox/downloads/latest/absolute-enable-right-click/latest.xpi";
       installation_mode = "force_installed";
     };
     # KeepassXC
@@ -17,6 +26,7 @@ let
       install_url = "https://addons.mozilla.org/firefox/downloads/latest/sleeping-hatsune-miku-animate2/latest.xpi";
       installation_mode = "force_installed";
     };
+    # Vimium
     "{d7742d87-e61d-4b78-b8a1-b469842139fa}" = {
       install_url = "https://addons.mozilla.org/firefox/downloads/latest/vimium-ff/latest.xpi";
       installation_mode = "force_installed";

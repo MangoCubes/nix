@@ -18,6 +18,9 @@ let
 in
 lib.mkMerge [
   {
+    # Don't suggest translation
+    "browser.translations.automaticallyPopup" = lock-false;
+
     "browser.contentblocking.category" = (lock-string "strict");
     "browser.topsites.contile.enabled" = lock-false;
     "browser.search.suggest.enabled" = lock-false;
@@ -39,14 +42,20 @@ lib.mkMerge [
     "browser.policies.runOncePerModification.searchInNavBar" = (lock-string "unified");
     "browser.policies.runOncePerModification.displayBookmarksToolbar" = (lock-string "always");
     "browser.policies.runOncePerModification.displayMenuBar" = (lock-string "true");
+
+    # Disable telemetry
     "app.shield.optoutstudies.enabled" = lock-false;
     "toolkit.telemetry.enabled" = lock-false;
+
+    # Enable tracking protection
     "privacy.trackingprotection.pbmode.enabled" = lock-true;
     "privacy.trackingprotection.fingerprinting.enabled" = lock-true;
     "privacy.trackingprotection.enabled" = lock-true;
     "privacy.trackingprotection.cryptomining.enabled" = lock-true;
 
     "media.autoplay.enabled" = lock-false;
+
+    # Remove pocket
     "browser.newtabpage.activity-stream.section.highlights.includePocket" = lock-false;
     "extensions.pocket.enabled" = lock-false;
 
@@ -79,5 +88,9 @@ lib.mkMerge [
 
     # Always show top navigation bar in popups
     "browser.link.open_newwindow.restriction" = (lock-string 0);
+
+    # Seriously? Some sites are using this to prevent people from reverse-engineering the site.
+    # Don't stop on "debugger" statement
+    "devtools.debugger.pause-on-debugger-statement" = lock-false;
   }
 ]
