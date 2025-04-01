@@ -1,2 +1,15 @@
-{ username, pkgs, lib, ... }:
-((import ../../common/packages/podman/traefik.nix) { inherit pkgs username lib; })
+{
+  username,
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
+((import ../../common/packages/podman/traefik.nix) {
+  inherit
+    pkgs
+    username
+    lib
+    inputs
+    ;
+})

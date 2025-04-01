@@ -3,6 +3,7 @@
   hostname,
   lib,
   headless,
+  inputs,
   ...
 }:
 {
@@ -11,7 +12,9 @@
     if [ ! -f "$FILE" ]; then
       mkdir -p ${config.home.homeDirectory}/Sync
       mkdir -p ${config.home.homeDirectory}/.podman/syncthing
-      cp ${if headless then ./syncthing/config.xml else ./syncthing/config-client.xml} $FILE
+      cp ${
+        if headless then inputs.secrets.hm.syncthing.config else inputs.secrets.hm.syncthing.config-client
+      } $FILE
     fi
   '';
   services.podman.containers.syncthing = (

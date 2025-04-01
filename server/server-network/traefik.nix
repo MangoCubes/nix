@@ -2,6 +2,7 @@
   username,
   pkgs,
   lib,
+  inputs,
   ...
 }:
 let
@@ -25,5 +26,6 @@ in
     static
     pkgs
     lib
+    inputs
     ;
 })

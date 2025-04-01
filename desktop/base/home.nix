@@ -49,7 +49,7 @@
             nix-alien
           ]);
         file.".config/configMedia" = {
-          source = ../../secrets/res/media;
+          source = "${inputs.secrets.res}/media";
           recursive = true;
         };
       };

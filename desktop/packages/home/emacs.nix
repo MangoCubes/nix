@@ -2,13 +2,14 @@
   unstable,
   headless,
   pkgs,
+  inputs,
   scale,
   ...
 }:
 let
   configFile = if headless then "headless.el" else "desktop.el";
   vars = ''
-    (defvar banner "${../../../secrets/res/media/emacs/banner.jpg}")
+    (defvar banner "${inputs.secrets.res}/media/emacs/banner.jpg")
     (defvar default-size ${toString (scale * 100)})
   '';
   configData = ''

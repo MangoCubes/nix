@@ -2,6 +2,7 @@
   username,
   pkgs,
   lib,
+  inputs,
   ...
 }:
 let
@@ -20,6 +21,7 @@ in
     username
     dynamic
     static
+    inputs
     pkgs
     lib
     ;

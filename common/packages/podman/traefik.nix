@@ -4,6 +4,8 @@
   pkgs,
   username,
   lib,
+  inputs,
+  ...
 }:
 let
   dynamicFile = (pkgs.formats.yaml { }).generate "config.yml" (
@@ -90,7 +92,7 @@ in
             "${dynamicFile}:/etc/traefik/config.yaml"
             "traefik:/etc/traefik/ssl"
             "/etc/ssl/certs/ca-certificates.crt:/etc/ssl/certs/ca-certificates.crt"
-            "${../../../secrets/res/keys/root.crt}:/etc/ssl/certs/home.crt"
+            "${inputs.secrets.res}/keys/root.crt:/etc/ssl/certs/home.crt"
             "/run/user/1000/podman/podman.sock:/run/user/1000/podman/podman.sock"
           ];
           labels = {
