@@ -15,6 +15,10 @@ let
       name = "Home Manager";
       url = "https://home-manager-options.extranix.com/?release=master&query=";
     }
+    {
+      name = "IEEEXplore";
+      url = "https://ieeexplore.ieee.org/search/searchresult.jsp?newsearch=true&queryText=";
+    }
   ];
 in
 pkgs.writeShellScriptBin "rofi-engines" ''

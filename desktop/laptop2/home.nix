@@ -9,6 +9,7 @@
       ];
       home.packages = [
         unfreeUnstable.osu-lazer-bin
+        pkgs.kolourpaint
       ];
     };
 }
