@@ -236,9 +236,13 @@ in
         ]);
       windowrulev2 = [
         "suppressevent maximize, class:.*"
-        "stayfocused, class:^(pinentry-)"
+        # Ensure KDE polkit is always floating
         "stayfocused, title:^rofi"
         "float, title:^rofi"
+        # Ensure KDE polkit is always floating
+        "stayfocused, class:^org.kde.polkit"
+        "float, class:^org.kde.polkit"
+
       ];
     };
   };
@@ -252,9 +256,9 @@ in
       wallpaper = [ (", " + pic) ];
     };
   };
-  # Run hyprpolkit service
-  systemd.user.services.hyprpolkitagent = {
-    Unit.Description = "hyprpolkitagent";
+  # Run polkit service
+  systemd.user.services.polkit = {
+    Unit.Description = "KDE polkit";
     Install = {
       WantedBy = [ "graphical-session.target" ];
       Wants = [ "graphical-session.target" ];
@@ -262,7 +266,7 @@ in
     };
     Service = {
       Type = "simple";
-      ExecStart = "${pkgs.hyprpolkitagent}/libexec/hyprpolkitagent";
+      ExecStart = "${pkgs.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1";
       Restart = "on-failure";
       RestartSec = 1;
       TimeoutStopSec = 10;

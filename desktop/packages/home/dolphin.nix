@@ -14,9 +14,12 @@
       kio-fuse
       kio-extras
       kio-admin
+      qt6ct
     ]
   );
-
+  home.sessionVariables = {
+    QT_QPA_PLATFORMTHEME = "qt6ct";
+  };
   systemd.user.services.dolphin = {
     Unit = {
       Description = "Dolphin file manager";
@@ -31,7 +34,7 @@
       BusName = "org.freedesktop.FileManager1";
       # Maybe use this later
       # PATH=$PATH:${lib.makeBinPath [ pkgs.gawk pkgs.coreutils pkgs.acpi ]}
-      ExecStart = "${unstable.kdePackages.dolphin}/bin/dolphin";
+      ExecStart = "${unstable.kdePackages.dolphin}/bin/dolphin --daemon";
     };
   };
 }
