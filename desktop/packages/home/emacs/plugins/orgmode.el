@@ -1,3 +1,4 @@
+(require 'org)
 
 (add-hook 'org-mode-hook 'display-line-numbers-mode)
 (setq org-M-RET-may-split-line nil)
@@ -12,4 +13,4 @@
 (add-hook 'org-mode-hook 'orgmode-keybinds)
 
 ;; Set orgmode latex size
-(setq org-format-latex-options (plist-put org-format-latex-options :scale 3.0))
+(setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))

@@ -1,5 +1,3 @@
-;;;; Open dashboard on startup
-(dashboard-setup-startup-hook)
 ;;
 ;;;; Open dashboard on opening emacsclient
 ;;(setq initial-buffer-choice (lambda () (get-buffer-create dashboard-buffer-name)))
@@ -25,6 +23,8 @@
 ;;)
 (straight-use-package 'dashboard)
 (straight-use-package 'all-the-icons)
+;;;; Open dashboard on startup
+(dashboard-setup-startup-hook)
 
 (use-package dashboard
   :ensure t
