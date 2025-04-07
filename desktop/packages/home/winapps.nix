@@ -2,7 +2,7 @@
   config,
   lib,
   inputs,
-  pkgs,
+  unstable,
   scale,
   ...
 }:
@@ -114,7 +114,7 @@ let
   '';
   command = ''systemctl --user start podman-WinApps && (xfreerdp /cert:tofu /d:"" /u:"Windows" /p:"Password" /scale:"${
     toString (if scale == 2 then 180 else 100)
-  }" +auto-reconnect +home-drive -wallpaper +dynamic-resolution /v:"127.0.0.1" &)'';
+  }" -grab-keyboard +clipboard /t:Windows +home-drive -wallpaper +dynamic-resolution /v:"127.0.0.1" &)'';
 in
 {
   wayland.windowManager.hyprland.settings.bind = [
@@ -129,7 +129,7 @@ in
   home.packages = [
     inputs.winapps.packages.x86_64-linux.winapps-launcher
     inputs.winapps.packages.x86_64-linux.winapps
-    pkgs.freerdp
+    unstable.freerdp
   ];
   services.podman.containers.WinApps = {
     image = "ghcr.io/dockur/windows:latest";
@@ -154,6 +154,9 @@ in
       "${config.home.homeDirectory}/Windows/data:/data"
       "${config.home.homeDirectory}/Windows/storage:/storage"
     ];
-    devices = [ "/dev/kvm" "/dev/net/tun" ];
+    devices = [
+      "/dev/kvm"
+      "/dev/net/tun"
+    ];
   };
 }

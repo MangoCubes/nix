@@ -1,5 +1,6 @@
 { inputs, ... }:
 {
+  services.printing.enable = true;
   imports = [
     inputs.secrets.hw.work
     ./boot.nix

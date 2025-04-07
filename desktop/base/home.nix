@@ -38,6 +38,7 @@
             adwaita-icon-theme
             jmtpfs
             vlc
+            sshpass
           ])
           ++ (with pkgs; [
             mullvad-browser
