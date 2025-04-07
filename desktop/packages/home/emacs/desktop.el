@@ -2,6 +2,7 @@
 (load-relative "./common.el")
 (load-relative "./plugins/mouse.el")
 (load-relative "./plugins/org-download.el")
+(load-relative "./plugins/fonts.el")
 
 (cond
   ((eq window-system 'x) (load-relative "./plugins/x11.el"))

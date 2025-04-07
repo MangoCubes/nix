@@ -14,7 +14,5 @@
 ;;(global-font-lock-mode 1)
 (setq display-line-numbers-type 'relative)  ;; Set line numbers to relative
 
-;; Set default font size
-(set-face-attribute 'default nil :height default-size)
 ;; Remove sound
 (setq visible-bell 1)

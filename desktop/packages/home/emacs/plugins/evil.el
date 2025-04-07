@@ -1,6 +1,7 @@
 ;; Install packages
 (straight-use-package 'evil)
 (straight-use-package 'evil-collection)
+(straight-use-package 'undo-tree)
 
 ;; Set up Evil collection
 (setq evil-want-keybinding nil)

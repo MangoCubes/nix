@@ -267,4 +267,4 @@
 (setq doom-modeline-after-update-env-hook nil)
 
 ;; Set font
-(set-face-attribute 'mode-line nil :height default-size)
+;; (set-face-attribute 'mode-line nil :height default-size)
