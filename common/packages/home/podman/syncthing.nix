@@ -7,14 +7,15 @@
   ...
 }:
 {
+  imports = [
+    (if headless then inputs.secrets.hm.syncthing.server else inputs.secrets.hm.syncthing.client)
+  ];
   home.activation.syncthing = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     FILE=${config.home.homeDirectory}/.podman/syncthing/config.xml
     if [ ! -f "$FILE" ]; then
       mkdir -p ${config.home.homeDirectory}/Sync
       mkdir -p ${config.home.homeDirectory}/.podman/syncthing
-      cp ${
-        if headless then inputs.secrets.hm.syncthing.config else inputs.secrets.hm.syncthing.config-client
-      } $FILE
+      cp ${config.home.homeDirectory}/.config/sops-nix/secrets/syncthing $FILE
     fi
   '';
   services.podman.containers.syncthing = (
