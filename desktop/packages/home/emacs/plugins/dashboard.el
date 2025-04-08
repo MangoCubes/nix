@@ -22,7 +22,6 @@
 ;;	(dashboard-setup-startup-hook)
 ;;)
 (straight-use-package 'dashboard)
-(straight-use-package 'all-the-icons)
 ;;;; Open dashboard on startup
 (dashboard-setup-startup-hook)
 
@@ -30,12 +29,9 @@
   :ensure t
   :config
   (setq dashboard-startup-banner banner)
-  (setq dashboard-icon-type 'all-the-icons)
 	(setq dashboard-set-heading-icons t)
 	(setq dashboard-set-file-icons t)
-	;;(dashboard-modify-heading-icons '((recents . "nf-oct-file_text") (bookmarks . "nf-oct-book")))
-	(dashboard-modify-heading-icons '((recents . "file-text")
-                                  (bookmarks . "book")))
+	(dashboard-modify-heading-icons '((recents . "nf-oct-file_text") (bookmarks . "nf-oct-book")))
 	(setq dashboard-items '((recents . 5)
                         (bookmarks . 5)
                         ))

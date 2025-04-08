@@ -266,5 +266,5 @@
 (setq doom-modeline-before-update-env-hook nil)
 (setq doom-modeline-after-update-env-hook nil)
 
-;; Set font
-;; (set-face-attribute 'mode-line nil :height default-size)
+(setq nerd-icons-font-family "FiraCode Nerd Font Mono")
+
