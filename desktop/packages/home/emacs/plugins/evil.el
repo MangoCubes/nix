@@ -22,7 +22,8 @@
 
 ;; Allow moving between lines
 (setq evil-cross-lines t)
-
+;; Use evil mode in minibuffer
+(setq evil-want-minibuffer t)
 
 (use-package evil-collection
   :after evil

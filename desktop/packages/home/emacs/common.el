@@ -15,4 +15,4 @@
 (load-relative "./plugins/lsp.el")
 (load-relative "./plugins/yn.el")
 (load-relative "./plugins/line-number.el")
-(load-relative "./plugins/orgmode.el")
+(load-relative "./plugins/keybinds.el")

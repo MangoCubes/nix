@@ -2,6 +2,8 @@
 (load-relative "./common.el")
 (load-relative "./plugins/mouse.el")
 (load-relative "./plugins/org-download.el")
+(load-relative "./plugins/orgmode.el")
+(load-relative "./plugins/org-roam.el")
 (load-relative "./plugins/fonts.el")
 
 (cond
