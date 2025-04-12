@@ -11,8 +11,10 @@
       ...
     }:
     {
-      home.activation.temp = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      home.activation.dirs = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
         mkdir -p ${config.home.homeDirectory}/Temp
+        mkdir -p ${config.home.homeDirectory}/LocalDocuments
+        mkdir -p ${config.home.homeDirectory}/Downloads
       '';
       imports = [
         ../packages/home/cursor.nix
@@ -28,6 +30,12 @@
         ../packages/home/dolphin.nix
       ];
 
+      xdg.configFile."configMedia" = {
+        source = "${inputs.secrets.res}/media";
+        recursive = true;
+      };
+      xdg.configFile."keepassxc".source =
+        config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Sync/LinuxConfig/keepassxc";
       home = {
         packages =
           (with unstable; [
@@ -39,6 +47,7 @@
             jmtpfs
             vlc
             sshpass
+            sops
           ])
           ++ (with pkgs; [
             mullvad-browser
@@ -49,10 +58,6 @@
           ++ (with inputs.nix-alien.packages.${system}; [
             nix-alien
           ]);
-        file.".config/configMedia" = {
-          source = "${inputs.secrets.res}/media";
-          recursive = true;
-        };
       };
     };
 }

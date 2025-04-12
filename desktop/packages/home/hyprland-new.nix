@@ -243,6 +243,9 @@ in
         "stayfocused, class:^org.kde.polkit"
         "float, class:^org.kde.polkit"
 
+        "stayfocused, title:^Unlock Database"
+        "float, title:^Unlock Database"
+
       ];
     };
   };
