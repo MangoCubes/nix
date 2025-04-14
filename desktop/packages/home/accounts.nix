@@ -1,41 +1,44 @@
 { config, inputs, ... }:
 {
-  # I don't think you're supposed to use these...
+  imports = [
+    inputs.secrets.hm.accounts
+  ];
 
-  imports = [ inputs.secrets.hm.accounts ];
-
-  programs.neomutt = {
+  programs.khal = {
     enable = true;
   };
-  programs.khal = {
+  services.mbsync.enable = true;
+  programs.mbsync = {
     enable = true;
   };
   services.vdirsyncer.enable = true;
   programs.vdirsyncer.enable = true;
   accounts = {
-    email.accounts = {
-      personal = {
-        address = "admin@skew.ch";
-        imap = {
-          host = "mail.skew.ch";
-          tls.enable = true;
+    email = {
+      maildirBasePath = ".mail";
+      accounts = {
+        personal = {
+          address = "admin@skew.ch";
+          imap = {
+            host = "mail.skew.ch";
+            tls.enable = true;
+          };
+          smtp = {
+            host = "mail.skew.ch";
+            tls.enable = true;
+          };
+          mbsync = {
+            enable = true;
+            create = "both";
+          };
+          passwordCommand = [
+            "cat"
+            "${config.home.homeDirectory}/.config/sops-nix/secrets/mail"
+          ];
+          primary = true;
+          realName = "Admin";
+          userName = "admin@skew.ch";
         };
-        smtp = {
-          host = "mail.skew.ch";
-          tls.enable = true;
-        };
-        mbsync = {
-          enable = true;
-          create = "both";
-        };
-        neomutt.enable = true;
-        passwordCommand = [
-          "cat"
-          "${config.home.homeDirectory}/.config/sops-nix/secrets/mail"
-        ];
-        primary = true;
-        realName = "Admin";
-        userName = "Admin";
       };
     };
     calendar = {

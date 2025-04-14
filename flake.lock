@@ -943,8 +943,8 @@
         "unstablePkg": "unstablePkg"
       },
       "locked": {
-        "lastModified": 1744458194,
-        "narHash": "sha256-yRmzLtNffx3gzHxvuPopQFs97dhj2p2IYr98hPFXYyA=",
+        "lastModified": 1744601285,
+        "narHash": "sha256-5cpApkTLt+H5VhzRPMFkCcfp2Dgt5Kj6S5voUeEBc+k=",
         "path": "/home/main/Sync/NixConfig/secrets",
         "type": "path"
       },
