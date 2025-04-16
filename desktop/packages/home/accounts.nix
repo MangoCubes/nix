@@ -13,11 +13,17 @@
   };
   services.vdirsyncer.enable = true;
   programs.vdirsyncer.enable = true;
+  programs.notmuch = {
+    hooks.preNew = "mbsync --all";
+    enable = true;
+  };
   accounts = {
     email = {
       maildirBasePath = ".mail";
       accounts = {
         personal = {
+          notmuch.enable = true;
+          imapnotify.onNotifyPost = "";
           address = "admin@skew.ch";
           imap = {
             host = "mail.skew.ch";

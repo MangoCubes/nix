@@ -11,6 +11,7 @@ let
   vars = ''
     (defvar banner "${inputs.secrets.res}/media/emacs/banner.jpg")
     (defvar default-scale ${toString (scale)})
+    (defvar my-use-straight nil "If non-nil, the package will be installed using straight.")
   '';
   configData = ''
     (require 'package)
@@ -79,7 +80,10 @@ in
     enable = true;
     package = unstable.emacs;
     extraConfig = configData;
-    # extraPackages = epkgs: with epkgs; [ ];
+    # extraPackages =
+    #   epkgs: with epkgs; [
+    #     mu4e
+    #   ];
   };
   services.emacs = {
     enable = true;

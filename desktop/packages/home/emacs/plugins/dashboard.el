@@ -30,6 +30,8 @@
   :config
   (setq dashboard-startup-banner banner)
 	(setq dashboard-set-heading-icons t)
+	(setq dashboard-image-banner-max-height 300)  ;; Set the maximum height
+	(setq dashboard-image-banner-max-width 700)    ;; Set the maximum width
 	(setq dashboard-set-file-icons t)
 	(dashboard-modify-heading-icons '((recents . "nf-oct-file_text") (bookmarks . "nf-oct-book")))
 	(setq dashboard-items '((recents . 5)

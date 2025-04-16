@@ -5,6 +5,7 @@
 (load-relative "./plugins/orgmode.el")
 (load-relative "./plugins/org-roam.el")
 (load-relative "./plugins/fonts.el")
+(load-relative "./plugins/notmuch.el")
 
 (cond
   ((eq window-system 'x) (load-relative "./plugins/x11.el"))

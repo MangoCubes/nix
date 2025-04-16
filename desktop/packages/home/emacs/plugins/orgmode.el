@@ -1,3 +1,4 @@
+(straight-use-package 'org)
 (require 'org)
 
 (add-hook 'org-mode-hook 'display-line-numbers-mode)

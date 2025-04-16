@@ -15,8 +15,9 @@ let
   # textEditor = ''kitty nvim ~/Sync/Quick\ Sync/Org/main.org'';
   textEditor = ''kitty -d ${config.home.homeDirectory}/Sync/Notes/MD nvim .'';
   mod = "SUPER";
-  notes = ''kitty -d ${config.home.homeDirectory}/Sync/Notes/ nvim .'';
+  # notes = ''kitty -d ${config.home.homeDirectory}/Sync/Notes/ nvim .'';
   emacsOrg = ''emacsclient -c --eval '(find-file "${config.home.homeDirectory}/Sync/Notes/Org/Main.org")' '';
+  mail = ''emacsclient -c -e '(notmuch-search "tag:inbox")' '';
   pic =
     if presentation then
       "${config.home.homeDirectory}/.config/configMedia/wallpaper/sc2.png"
@@ -66,6 +67,7 @@ in
         ++ [
           ''${mod}, Tab, workspace, previous''
           ''${mod}, Q, killactive,''
+          # Click to kill a window
           ''${mod} SHIFT, Q, exec, hyprctl kill''
           ''${mod} SHIFT, escape, exit,''
           ''${mod}, V, togglefloating,''
@@ -121,8 +123,7 @@ in
             ]
         ))
         ++ [
-          ''${mod}, O, exec, ${notes}''
-          ''${mod} SHIFT, O, exec, ${emacsOrg}''
+          ''${mod}, O, exec, ${emacsOrg}''
           ''${mod}, K, workspace, name:keepass''
           ''${mod} SHIFT, M, workspace, name:music''
           ''${mod} SHIFT, A, workspace, name:notes''
@@ -137,7 +138,7 @@ in
           ''${mod}, E, exec, ${fileManager}''
           ''${mod} SHIFT, E, exec, ${altFileManager}''
           ''${mod}, T, exec, ${terminal}''
-          # ''${mod}, M, exec, ${mail}''
+          ''${mod}, M, exec, ${mail}''
           ''${mod}, L, exec, hyprlock''
           ''${mod}, N, exec, rofi -show nix -modes "nix:rofi-env"''
           ''${mod} SHIFT, N, exec, rofi-env NixConfig''
@@ -260,6 +261,7 @@ in
     };
   };
   # Run polkit service
+  # I use KDE polkit because it allows selecting a user
   systemd.user.services.polkit = {
     Unit.Description = "KDE polkit";
     Install = {
@@ -343,8 +345,4 @@ in
       };
     };
   };
-  # xdg.configFile."hypr/" = {
-  #   source = ./hypr;
-  #   recursive = true;
-  # };
 }
