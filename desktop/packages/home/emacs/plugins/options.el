@@ -12,9 +12,16 @@
 (setq standard-indent 4)
 (setq-default tab-width 4)
 ;;(global-font-lock-mode 1)
-(setq display-line-numbers-type 'relative)  ;; Set line numbers to relative
 
 ;; Remove sound
 (setq visible-bell 1)
+
 ;; Use visual line mode
-(global-visual-line-mode 1)
+(add-hook 'prog-mode-hook 'visual-line-mode)
+
+;; Set line numbers to relative
+(setq display-line-numbers-type 'relative)
+;; Enable line number in most modes
+(add-hook 'prog-mode-hook 'display-line-numbers-mode)
+
+

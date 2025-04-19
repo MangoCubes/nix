@@ -23,6 +23,7 @@ let
       "${config.home.homeDirectory}/.config/configMedia/wallpaper/sc2.png"
     else
       "${config.home.homeDirectory}/.config/configMedia/wallpaper/miku.png";
+  lock = "keepassxc --lock && hyprlock";
 in
 {
   wayland.windowManager.hyprland = {
@@ -139,7 +140,7 @@ in
           ''${mod} SHIFT, E, exec, ${altFileManager}''
           ''${mod}, T, exec, ${terminal}''
           ''${mod}, M, exec, ${mail}''
-          ''${mod}, L, exec, hyprlock''
+          ''${mod}, L, exec, ${lock}''
           ''${mod}, N, exec, rofi -show nix -modes "nix:rofi-env"''
           ''${mod} SHIFT, N, exec, rofi-env NixConfig''
           ''${mod}, B, exec, rofi -show browser -modes "browser:rofi-browser"''
@@ -283,13 +284,13 @@ in
       general = {
         # after_sleep_cmd = "hyprctl dispatch dpms on";
         ignore_dbus_inhibit = false;
-        lock_cmd = "hyprlock";
+        lock_cmd = lock;
       };
 
       listener = [
         {
           timeout = 600;
-          on-timeout = "hyprlock";
+          on-timeout = lock;
         }
       ];
     };
