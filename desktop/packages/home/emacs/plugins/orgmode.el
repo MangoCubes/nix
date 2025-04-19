@@ -15,3 +15,4 @@
 
 ;; Set orgmode latex size
 (setq org-format-latex-options (plist-put org-format-latex-options :scale (* default-scale 1.5)))
+(setq org-default-notes-file "~/Sync/Notes/Org/Agenda/Captures.org")

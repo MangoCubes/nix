@@ -6,8 +6,10 @@
 ;; Set up Evil collection
 (setq evil-want-keybinding nil)
 (setq evil-want-integration t)
+;; Set up better undo
 (setq evil-want-fine-undo t)
-
+;; Use visual line instead of actual lines
+(setq evil-respect-visual-line-mode t)
 ;; Set up undotree
 (use-package undo-tree
   :ensure t
@@ -41,3 +43,5 @@
 
 ;; Make find-file count as jump
 (evil-add-command-properties #'find-file :jump t)
+;; Make mouse click count as jump
+(evil-add-command-properties #'mouse-set-point :jump t)

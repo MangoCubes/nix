@@ -105,6 +105,7 @@
           presentation ? false,
           scale ? 1,
           monitors ? 1,
+          emacsScale ? 1,
         }:
         [
           # This includes my basic desktop environment setup
@@ -127,6 +128,7 @@
                   monitors
                   presentation
                   system
+                  emacsScale
                   ;
                 username = "main";
               };
@@ -171,6 +173,7 @@
           presentation,
           monitors ? 1,
           scale ? 1,
+          emacsScale ? 1,
         }:
         (sysBase {
           inherit hostname;
@@ -269,6 +272,7 @@
         presentation = false;
       });
       nixosConfigurations.work = nixpkgs.lib.nixosSystem (genDesktop {
+        emacsScale = 1.5;
         hostname = "work";
         presentation = false;
         monitors = 2;

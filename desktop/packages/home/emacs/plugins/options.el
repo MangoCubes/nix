@@ -16,3 +16,5 @@
 
 ;; Remove sound
 (setq visible-bell 1)
+;; Use visual line mode
+(global-visual-line-mode 1)
