@@ -24,6 +24,8 @@
       gch = "nix-collect-garbage -d";
       dol = "sudo nix profile wipe-history --profile /nix/var/nix/profiles/system --older-than 1d";
       km = ''echo "Copy the following into hardware-configuration.nix to get the OS to reboot."; nixos-generate-config --show-hardware-config'';
+      currentboot = ''journalctl -o short-precise -k'';
+      lastboot = ''journalctl -o short-precise -k -b -1'';
     };
   };
 }
