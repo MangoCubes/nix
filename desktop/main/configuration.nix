@@ -6,6 +6,7 @@
     ./home.nix
     (import ../packages/android.nix { androidStudio = true; })
     ../../common/packages/rclone.nix
+    ../packages/steam.nix
   ];
   hardware.opentabletdriver.enable = true;
 }

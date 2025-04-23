@@ -4,6 +4,8 @@
     config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Sync/LinuxConfig/kde/kdeglobals";
   xdg.configFile."dolphinrc".source =
     config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Sync/LinuxConfig/kde/dolphinrc";
+  xdg.configFile."qt6ct".source =
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Sync/LinuxConfig/qt6ct";
   home.packages = (
     with unstable.kdePackages;
     [

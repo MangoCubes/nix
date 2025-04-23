@@ -118,7 +118,7 @@ let
 in
 {
   wayland.windowManager.hyprland.settings.bind = [
-    ''SUPER, W, exec, ${command}''
+    ''SUPER SHIFT, W, exec, ${command}''
   ];
   programs.bash.shellAliases.rdp = command;
   home.activation.winapps = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
@@ -129,7 +129,8 @@ in
   home.packages = [
     inputs.winapps.packages.x86_64-linux.winapps-launcher
     inputs.winapps.packages.x86_64-linux.winapps
-    unstable.freerdp
+    # This shouldn't work though??
+    unstable.freerdp3
   ];
   services.podman.containers.WinApps = {
     image = "ghcr.io/dockur/windows:latest";

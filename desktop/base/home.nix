@@ -27,7 +27,7 @@
         ../packages/home/accounts.nix
         ../packages/home/hyprland-new.nix
         ../packages/home/ags.nix
-        ../packages/home/dolphin.nix
+        ../packages/home/kde.nix
       ];
 
       xdg.configFile."configMedia" = {
