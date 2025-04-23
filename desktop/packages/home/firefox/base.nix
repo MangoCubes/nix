@@ -18,10 +18,12 @@ let
 in
 lib.mkMerge [
   {
-    # Don't suggest translation
+    # Don't suggest translation, I know how to speak Korean
     "browser.translations.automaticallyPopup" = lock-false;
 
     "browser.contentblocking.category" = (lock-string "strict");
+
+    # No, don't show me things I am not interested in
     "browser.topsites.contile.enabled" = lock-false;
     "browser.search.suggest.enabled" = lock-false;
     "browser.search.suggest.enabled.private" = lock-false;
@@ -53,6 +55,7 @@ lib.mkMerge [
     "privacy.trackingprotection.enabled" = lock-true;
     "privacy.trackingprotection.cryptomining.enabled" = lock-true;
 
+    # Computer may speak only when I tell it to
     "media.autoplay.enabled" = lock-false;
 
     # Remove pocket
@@ -92,5 +95,12 @@ lib.mkMerge [
     # Seriously? Some sites are using this to prevent people from reverse-engineering the site.
     # Don't stop on "debugger" statement
     "devtools.debugger.pause-on-debugger-statement" = lock-false;
+
+    # KDE integration for file picker and other stuff
+    "widget.use-xdg-desktop-portal.file-picker" = (lock-string 1);
+    "widget.use-xdg-desktop-portal.mime-handler" = (lock-string 1);
+    "widget.use-xdg-desktop-portal.settings" = (lock-string 1);
+    "widget.use-xdg-desktop-portal.location" = (lock-string 1);
+    "widget.use-xdg-desktop-portal.open-uri" = (lock-string 1);
   }
 ]
