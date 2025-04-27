@@ -23,9 +23,8 @@
 ;;)
 (straight-use-package 'dashboard)
 ;;;; Open dashboard on startup
-;; (dashboard-setup-startup-hook)
 
-(setq org-format-latex-options (plist-put org-format-latex-options :scale ))
+;; (setq org-format-latex-options (plist-put org-format-latex-options :scale ))
 (use-package dashboard
   :ensure t
   :config
@@ -39,4 +38,9 @@
                         (bookmarks . 5)
                         ))
   (dashboard-setup-startup-hook))
-(setq initial-buffer-choice (lambda () (get-buffer-create dashboard-buffer-name)))
+
+;; (add-hook 'server-after-make-frame-hook (lambda()
+;;     (switch-to-buffer dashboard-buffer-name)
+;;     (dashboard-mode)
+;;     (dashboard-insert-startupify-lists)
+;;     (dashboard-refresh-buffer)))

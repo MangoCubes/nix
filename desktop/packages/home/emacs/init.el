@@ -21,7 +21,7 @@
 
 ;; Some variables must be defined to use this emacs configuration independently
 ;; Refer to emacs.nix in my NixOS configuration for more information
-(defvar banner "/home/main/.config/configMedia/emacs/banner.txt")
-(defvar default-scale 1)
+(defvar banner "~/.config/configMedia/emacs/banner.jpg")
+(defvar default-scale 2)
 (load-relative "./desktop.el")
 

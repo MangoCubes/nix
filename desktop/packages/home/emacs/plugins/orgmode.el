@@ -3,8 +3,8 @@
 
 ;; Org-mode isn't prog-mode, and line number needs to be added manually
 (add-hook 'org-mode-hook 'display-line-numbers-mode)
-;; Same goes for visual line mode
-(add-hook 'org-mode-hook 'visual-line-mode)
+;; ;; Same goes for visual line mode
+;; (add-hook 'org-mode-hook 'visual-line-mode)
 
 ;; M-RET never splits a line
 (setq org-M-RET-may-split-line nil)
