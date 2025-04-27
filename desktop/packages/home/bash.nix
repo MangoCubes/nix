@@ -30,6 +30,7 @@
         rebuildp = ''${reloadSecrets} && sudo nixos-rebuild --flake path://${config.home.homeDirectory}/Sync/NixConfig#${hostname}Presentation switch'';
         rebuildr = "rebuild && reboot";
         rebuilds = reloadSecrets;
+        updateunstable = "nix flake update --flake path://${config.home.homeDirectory}/Sync/NixConfig unstablePkg";
         # Bunch of commands I seem to use a lot
         listen = "nc -lk";
       }

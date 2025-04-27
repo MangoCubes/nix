@@ -61,7 +61,7 @@ in
         dap-lldb.enable = true;
         dap-ui.enable = true;
         dap-virtual-text.enable = true;
-        notify.enable = true;
+        # notify.enable = true;
         gitsigns.enable = true;
         neoscroll = {
           enable = true;
@@ -162,9 +162,9 @@ in
         };
         lsp-format.enable = true;
         neoclip.enable = true;
-        smear-cursor = {
-          enable = true;
-        };
+        # smear-cursor = {
+        #   enable = true;
+        # };
       }
       // {
         grug-far.enable = true;

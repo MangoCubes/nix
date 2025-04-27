@@ -13,6 +13,7 @@
       window_padding_width = 0;
       background_opacity = "0.5";
       background_blur = 5;
+      cursor_trail = 1;
     };
   };
 }
