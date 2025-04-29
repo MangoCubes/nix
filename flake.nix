@@ -272,7 +272,7 @@
         presentation = false;
       });
       nixosConfigurations.work = nixpkgs.lib.nixosSystem (genDesktop {
-        emacsScale = 1.5;
+        emacsScale = 1.6;
         hostname = "work";
         presentation = false;
         monitors = 2;

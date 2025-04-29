@@ -3,14 +3,14 @@
   headless,
   pkgs,
   inputs,
-  scale,
+  emacsScale,
   ...
 }:
 let
   configFile = if headless then "headless.el" else "desktop.el";
   vars = ''
     (defvar banner "${inputs.secrets.res}/media/emacs/banner.jpg")
-    (defvar default-scale ${toString (scale)})
+    (defvar default-scale ${(toString emacsScale)})
     (defvar my-use-straight nil "If non-nil, the package will be installed using straight.")
   '';
   configData = ''
@@ -42,7 +42,7 @@ let
 in
 {
   # Short for Emacs Server
-  programs.bash.shellAliases.es = "emacs -q --daemon --load ~/Sync/NixConfig/desktop/packages/home/emacs/init.el";
+  programs.bash.shellAliases.es = "emacs -q --fg-daemon --load ~/Sync/NixConfig/desktop/packages/home/emacs/init.el";
   # programs.bash.shellAliases.e = "emacsclient -c";
   # programs.bash.shellAliases.te = "kitty --detach emacsclient -c";
   home.packages = (
