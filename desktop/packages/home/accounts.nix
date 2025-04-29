@@ -1,20 +1,29 @@
-{ config, inputs, ... }:
+{
+  config,
+  inputs,
+  pkgs,
+  ...
+}:
 {
   imports = [
     inputs.secrets.hm.accounts
   ];
 
-  programs.khal = {
+  # programs.khal = {
+  #   enable = true;
+  # };
+  services.mbsync = {
+    frequency = "*:0/5";
     enable = true;
+    postExec = "${pkgs.notmuch}/bin/notmuch new";
   };
-  services.mbsync.enable = true;
   programs.mbsync = {
     enable = true;
   };
   services.vdirsyncer.enable = true;
   programs.vdirsyncer.enable = true;
   programs.notmuch = {
-    hooks.preNew = "mbsync --all";
+    # hooks.preNew = "mbsync --all";
     enable = true;
   };
   accounts = {
@@ -71,10 +80,10 @@
         primaryCollection = "post-grad";
         # Note that setting this variable does not automatically install khal
         # This merely grants khal access to this calendar
-        khal = {
-          enable = true;
-          type = "discover";
-        };
+        # khal = {
+        #   enable = true;
+        #   type = "discover";
+        # };
       };
     };
   };
