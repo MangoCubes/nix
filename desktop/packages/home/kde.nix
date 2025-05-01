@@ -17,6 +17,7 @@
       kio-extras
       kio-admin
       qt6ct
+      okular
     ]
   );
   home.sessionVariables = {

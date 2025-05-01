@@ -192,6 +192,7 @@
                 scale
                 monitors
                 presentation
+                emacsScale
                 ;
               headless = false;
             });
@@ -272,13 +273,14 @@
         presentation = false;
       });
       nixosConfigurations.work = nixpkgs.lib.nixosSystem (genDesktop {
-        emacsScale = 1.6;
+        emacsScale = 2;
         hostname = "work";
         presentation = false;
         monitors = 2;
         scale = 2;
       });
       nixosConfigurations.workPresentation = nixpkgs.lib.nixosSystem (genDesktop {
+        emacsScale = 2;
         hostname = "work";
         presentation = true;
         monitors = 2;

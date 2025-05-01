@@ -129,8 +129,7 @@ in
   home.packages = [
     inputs.winapps.packages.x86_64-linux.winapps-launcher
     inputs.winapps.packages.x86_64-linux.winapps
-    # This shouldn't work though??
-    unstable.freerdp3
+    unstable.freerdp
   ];
   services.podman.containers.WinApps = {
     image = "ghcr.io/dockur/windows:latest";

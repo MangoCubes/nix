@@ -17,6 +17,7 @@
         unstable.webcord
         unstable.feishin
         unfreeUnstable.osu-lazer-bin
+        pkgs.ghidra
       ];
     };
 }
