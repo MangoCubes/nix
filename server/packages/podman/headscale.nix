@@ -1,9 +1,10 @@
-{ username, pkgs, ... }: 
+{ username, pkgs, ... }:
+# podman exec vpn headscale nodes register --user main --key mkey:<KEY>
 let
   policy = ./headscale/policy.json;
   config = ((pkgs.formats.yaml { }).generate "config.yml" (import ./headscale/config.nix));
 in
-{ 
+{
   boot.kernel.sysctl = {
     "net.ipv4.conf.all.forwarding" = 1;
   };

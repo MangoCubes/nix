@@ -335,7 +335,7 @@ in
     opts = {
       number = true;
       shiftwidth = 4;
-      autochdir = true;
+      # autochdir = true;
       # virtualedit = "onemore";
       tabstop = 4;
       expandtab = false;
