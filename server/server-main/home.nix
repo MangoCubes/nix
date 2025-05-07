@@ -19,6 +19,7 @@
         # ../packages/home/podman/lemmy.nix
         ../packages/home/podman/pgadmin.nix
         ../packages/home/podman/kavita.nix
+        ../packages/home/podman/jellyfin.nix
         ../packages/home/podman/redis.nix
       ];
     };

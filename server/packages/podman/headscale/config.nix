@@ -1,6 +1,6 @@
 { inputs, ... }:
 let
-  devices = inputs.secrets.nixosModules.default.addresses.local;
+  devices = inputs.secrets.addresses.local;
   recordsBuilder =
     serviceName:
     (builtins.foldl' (
@@ -37,6 +37,7 @@ let
       (mainServer "mitmweb")
       (mainServer "pg")
       (mainServer "manga")
+      (mainServer "media")
     ];
 in
 {

@@ -1,8 +1,15 @@
-{ username, pkgs, ... }:
+{
+  username,
+  pkgs,
+  inputs,
+  ...
+}:
 # podman exec vpn headscale nodes register --user main --key mkey:<KEY>
 let
   policy = ./headscale/policy.json;
-  config = ((pkgs.formats.yaml { }).generate "config.yml" (import ./headscale/config.nix));
+  config = (
+    (pkgs.formats.yaml { }).generate "config.yml" ((import ./headscale/config.nix) { inherit inputs; })
+  );
 in
 {
   boot.kernel.sysctl = {
