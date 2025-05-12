@@ -8,6 +8,8 @@
 let
   # Disable if headless
   dih = attrset: (if (headless) then { } else attrset);
+  # Empty if headless
+  eih = attrset: (if (headless) then [ ] else attrset);
 in
 {
   imports = [ inputs.nixvim.homeManagerModules.nixvim ];
@@ -56,7 +58,9 @@ in
       register = "unnamedplus";
     };
     plugins =
-      dih {
+      (dih {
+        nix.enable = true;
+        treesitter.enable = true;
         dap.enable = true;
         dap-lldb.enable = true;
         dap-ui.enable = true;
@@ -165,7 +169,7 @@ in
         # smear-cursor = {
         #   enable = true;
         # };
-      }
+      })
       // {
         grug-far.enable = true;
         lz-n.enable = true;
@@ -199,8 +203,6 @@ in
         gitignore.enable = true;
         yazi.enable = true;
         telescope.enable = true;
-        nix.enable = true;
-        treesitter.enable = true;
         image = {
           enable = true;
           backend = "kitty";
@@ -250,14 +252,17 @@ in
           enable = true;
           autoEnableSources = true;
           settings = {
-            sources = [
-              { name = "cmp-dictionary"; }
-              { name = "cmp-dap"; }
-              { name = "nvim_lsp"; }
-              { name = "path"; }
-              { name = "buffer"; }
-              { name = "orgmode"; }
-            ];
+            sources =
+              [
+                { name = "path"; }
+                { name = "buffer"; }
+              ]
+              ++ (eih [
+                { name = "cmp-dictionary"; }
+                { name = "cmp-dap"; }
+                { name = "nvim_lsp"; }
+                { name = "orgmode"; }
+              ]);
             mapping = {
               "<Up>" = "cmp.mapping.select_prev_item()";
               "<Down>" = "cmp.mapping.select_next_item()";

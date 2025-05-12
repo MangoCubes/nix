@@ -15,7 +15,8 @@
       ];
       home.packages = [
         unstable.webcord
-        unstable.feishin
+        # Relies on EOLd version of electron and Nix is complaining
+        # unstable.feishin
         unfreeUnstable.osu-lazer-bin
         pkgs.ghidra
       ];

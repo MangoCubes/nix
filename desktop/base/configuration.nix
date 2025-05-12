@@ -27,4 +27,5 @@
     AllowHybridSleep=no
     AllowSuspendThenHibernate=no
   '';
+  systemd.services.NetworkManager-wait-online.enable = false;
 }
