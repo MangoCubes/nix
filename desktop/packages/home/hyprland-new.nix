@@ -8,7 +8,7 @@
   ...
 }:
 let
-  terminal = "kitty";
+  terminal = ''kitty nvim -c 'autocmd TermClose * execute "q!"' -c 'terminal' -n +star'';
   fileManager = "kitty yazi";
   altFileManager = "dolphin";
   menu = "rofi -show drun";
@@ -212,7 +212,7 @@ in
 
         follow_mouse = 1;
 
-        sensitivity = 0.5;
+        sensitivity = 0.7;
         accel_profile = "flat";
         touchpad.natural_scroll = true;
 
@@ -282,7 +282,7 @@ in
     enable = true;
     settings = {
       general = {
-        # after_sleep_cmd = "hyprctl dispatch dpms on";
+        after_sleep_cmd = "hyprctl dispatch dpms on";
         ignore_dbus_inhibit = false;
         lock_cmd = lock;
       };
@@ -291,6 +291,11 @@ in
         {
           timeout = 600;
           on-timeout = lock;
+        }
+        {
+          timeout = 630;
+          on-timeout = "hyprctl dispatch dpms off";
+          on-resume = "hyprctl dispatch dpms on";
         }
       ];
     };

@@ -8,6 +8,7 @@
   # imports = [ inputs.secrets.nixosModules.test ];
   # builtins.trace config.domains
   programs.bash = {
+    # initExtra = "nvim -c terminal +star \n";
     shellAliases =
       let
         reloadSecrets = "sudo nix flake update secrets --flake ${config.home.homeDirectory}/Sync/NixConfig";
