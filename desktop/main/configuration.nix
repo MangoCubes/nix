@@ -7,6 +7,7 @@
     (import ../packages/android.nix { androidStudio = true; })
     ../../common/packages/rclone.nix
     ../packages/steam.nix
+    ../packages/wireshark.nix
   ];
   hardware.opentabletdriver.enable = true;
 }

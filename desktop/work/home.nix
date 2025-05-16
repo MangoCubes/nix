@@ -19,6 +19,7 @@
         # unstable.feishin
         unfreeUnstable.osu-lazer-bin
         pkgs.ghidra
+        unstable.gdb
       ];
     };
 }

@@ -1,4 +1,4 @@
-{ username, ... }:
+{ username, unstable, ... }:
 {
   home-manager.users."${username}" =
     { pkgs, unfreeUnstable, ... }:
@@ -9,7 +9,8 @@
       ];
       home.packages = [
         unfreeUnstable.osu-lazer-bin
-        pkgs.kolourpaint
+        unstable.krita
+        unstable.gdb
       ];
     };
 }
