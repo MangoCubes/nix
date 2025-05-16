@@ -9,7 +9,7 @@
 (load-relative "./plugins/neotree.el")
 (load-relative "./plugins/which-key.el")
 (load-relative "./plugins/doom-modeline.el")
-;;(load-relative "./plugins/multiple-cursors.el")
+(load-relative "./plugins/multiple-cursors.el")
 (load-relative "./plugins/theme.el")
 (load-relative "./plugins/tabs.el")
 (load-relative "./plugins/lsp.el")

@@ -7,6 +7,7 @@
 (load-relative "./plugins/fonts.el")
 (load-relative "./plugins/notmuch.el")
 (load-relative "./plugins/highlight.el")
+(load-relative "./plugins/xkcd.el")
 
 (cond
   ((eq window-system 'x) (load-relative "./plugins/x11.el"))
