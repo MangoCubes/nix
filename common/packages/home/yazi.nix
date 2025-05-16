@@ -39,13 +39,6 @@ in
             orphan = true;
           }
         ];
-        vscode = [
-          {
-            run = ''codium "$@"'';
-            desc = "VSCode";
-            orphan = true;
-          }
-        ];
         terminal = [
           {
             run = ''kitty "$@"'';
@@ -60,18 +53,11 @@ in
             orphan = true;
           }
         ];
-        untar = [
-          {
-            run = ''f="$@" && n="''${f%.*}" && mkdir "$n" && tar -xzf "$f" -C "$n"'';
-            desc = "Untar";
-            orphan = true;
-          }
-        ];
         extract = [
           {
-            run = ''f="$@" && n="''${f%.*}" && mkdir "$n" && unzip "$f" -d "$n"'';
+            run = ''ouch decompress $@ -d out'';
             desc = "Extract";
-            # orphan = true;
+            orphan = true;
           }
         ];
       };
@@ -90,11 +76,11 @@ in
         }
         {
           name = "*.tgz";
-          use = [ "untar" ];
+          use = [ "extract" ];
         }
         {
           name = "*.tar.gz";
-          use = [ "untar" ];
+          use = [ "extract" ];
         }
         {
           name = "*.nix";
@@ -116,7 +102,6 @@ in
           use = [
             "terminal"
             "edit"
-            "vscode"
           ];
         }
         # Text
@@ -146,10 +131,6 @@ in
         # JSON
         {
           mime = "application/{jsonx-ndjson}";
-          use = [ "edit" ];
-        }
-        {
-          mime = "*/javascript";
           use = [ "edit" ];
         }
         # Empty file
@@ -246,14 +227,26 @@ in
           run = "plugin projects 'merge all'";
           desc = "Merge current project to other projects";
         }
-        # {
-        #   on = [
-        #     "c"
-        #     "a"
-        #   ];
-        #   run = "plugin compress";
-        #   desc = "Archive selected files";
-        # }
+        {
+          on = [
+            "c"
+            "z"
+          ];
+          run = [
+            ''shell 'ouch compress $@ compressed.zip' ''
+          ];
+          desc = "Archive selected files to .zip";
+        }
+        {
+          on = [
+            "c"
+            "t"
+          ];
+          run = [
+            ''shell 'ouch compress $@ compressed.tar.gz' ''
+          ];
+          desc = "Archive selected files to .tar.gz";
+        }
         {
           on = [
             "M"

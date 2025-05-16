@@ -27,7 +27,7 @@
           nix-tree
           btop
           fzf
-          p7zip
+          ouch
         ]
       );
 
