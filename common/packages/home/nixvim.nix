@@ -509,7 +509,7 @@ in
         action = "<cmd>Yazi toggle<CR>";
       }
       {
-        key = "<Esc>";
+        key = "<C-Esc>";
         action = "<C-\\><C-n>";
         mode = "t";
       }
@@ -681,6 +681,13 @@ in
     ];
     extraConfigLua = ''
       vim.o.exrc = true
+      vim.api.nvim_create_autocmd("TermOpen", {
+          pattern = "*",
+          callback = function()
+              vim.opt_local.number = true
+              vim.opt_local.relativenumber = true
+          end,
+      })
     '';
   };
   xdg.mimeApps.defaultApplications."text/plain" = "nvim.desktop";
