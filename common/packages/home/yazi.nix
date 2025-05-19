@@ -53,6 +53,13 @@ in
             orphan = true;
           }
         ];
+        dolphin = [
+          {
+            run = ''dolphin "$@"'';
+            desc = "Open in Dolphin";
+            orphan = true;
+          }
+        ];
         extract = [
           {
             run = ''ouch decompress $@ -d out'';
@@ -101,6 +108,7 @@ in
           name = "*/";
           use = [
             "terminal"
+            "dolphin"
             "edit"
           ];
         }
@@ -144,6 +152,7 @@ in
           use = [
             "open"
             "edit"
+            "dolphin"
           ];
         }
       ];

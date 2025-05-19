@@ -244,7 +244,7 @@ in
         # Ensure KDE polkit is always floating
         "stayfocused, class:^org.kde.polkit"
         "float, class:^org.kde.polkit"
-
+        # Ensure Unlock Database prompt of KeepassXC is always on top
         "stayfocused, title:^Unlock Database"
         "float, title:^Unlock Database"
 
