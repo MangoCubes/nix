@@ -90,6 +90,10 @@ in
           use = [ "extract" ];
         }
         {
+          name = "*.tar";
+          use = [ "extract" ];
+        }
+        {
           name = "*.nix";
           use = [
             "edit"

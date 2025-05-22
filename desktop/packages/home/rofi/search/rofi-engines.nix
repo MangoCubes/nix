@@ -5,7 +5,7 @@ let
   engines = [
     {
       name = "DuckDuckGo";
-      url = "https://duckduckgo.com/?q=";
+      url = "https://duckduckgo.com/html/?q=";
     }
     {
       name = "Nix Packages";
@@ -18,6 +18,10 @@ let
     {
       name = "IEEEXplore";
       url = "https://ieeexplore.ieee.org/search/searchresult.jsp?newsearch=true&queryText=";
+    }
+    {
+      name = "Google";
+      url = "https://www.google.com/search?q=";
     }
   ];
 in

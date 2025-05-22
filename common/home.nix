@@ -28,6 +28,7 @@
           btop
           fzf
           ouch
+          rclone
         ]
       );
 

@@ -12,18 +12,15 @@
     shellAliases =
       let
         reloadSecrets = "sudo nix flake update secrets --flake ${config.home.homeDirectory}/Sync/NixConfig";
-        remotes = inputs.secrets.addresses.global;
+        remotes = inputs.secrets.servers;
         cmds = builtins.foldl' (
           acc: hostname:
-          let
-            ip = remotes.${hostname};
-          in
           acc
           // {
             "rebuild-${hostname}" =
-              "${reloadSecrets} && nixos-rebuild --flake ${config.home.homeDirectory}/Sync/NixConfig#${hostname} --target-host main@${ip} --use-remote-sudo switch";
+              "${reloadSecrets} && nixos-rebuild --flake ${config.home.homeDirectory}/Sync/NixConfig#${hostname} --target-host main@${hostname} --use-remote-sudo switch";
           }
-        ) { } (builtins.attrNames remotes);
+        ) { } remotes;
       in
       {
         genimage = "nix build ~/Sync/NixConfig#nixosConfigurations.build-qcow2.config.system.build.qcow2 --impure";

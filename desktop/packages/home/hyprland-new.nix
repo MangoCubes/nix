@@ -170,21 +170,29 @@ in
         allow_tearing = false;
         layout = "dwindle";
       };
-      decoration = {
-        rounding = 0;
+      decoration =
+        {
+          rounding = 0;
 
-        active_opacity = 1;
-        inactive_opacity = 0.8;
+          active_opacity = 1;
+          inactive_opacity = if presentation then 1 else 0.8;
 
-        # drop_shadow = false;
-        blur = {
-          enabled = true;
-          size = 10;
-          passes = 2;
+          # drop_shadow = false;
+        }
+        // (
+          if presentation then
+            { }
+          else
+            {
+              blur = {
+                enabled = true;
+                size = 10;
+                passes = 2;
 
-          vibrancy = 0.1696;
-        };
-      };
+                vibrancy = 0.1696;
+              };
+            }
+        );
       animations = {
         enabled = true;
 
@@ -212,7 +220,7 @@ in
 
         follow_mouse = 1;
 
-        sensitivity = 0.7;
+        sensitivity = 0.5;
         accel_profile = "flat";
         touchpad.natural_scroll = true;
 
