@@ -12,5 +12,6 @@ function(state)
   else
     command = "xdg-open " .. filepath
   end
-  os.execute("(" .. command .. "& )")
+  vim.notify("Opening file " .. filepath .. "!")
+  os.execute("(" .. command .. " &)")
 end

@@ -53,6 +53,18 @@ in
     ]
   );
   xdg = {
+    # Use xdg-mime query filetype <FILE> to determine a file's mime type
+    dataFile."mime/packages/orgmode.xml".text = ''
+      <?xml version="1.0" encoding="utf-8"?>
+      <mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
+      <mime-type type="text/org">
+        <glob pattern="*.org"/>
+        <comment>OrgMode documents</comment>
+      </mime-type>
+      </mime-info>
+    '';
+    # Use xdg-mime query default <FILETYPE> to query what would be opened when this file is opened
+    mimeApps.defaultApplications."text/org" = "emacs-nw.desktop";
     desktopEntries = {
       emacs = {
         name = "Emacs Client";
@@ -60,15 +72,21 @@ in
         exec = ''emacsclient -c'';
         terminal = false;
         # categories = [ "Application" "Network" "WebBrowser" ];
-        mimeType = [ "text/plain" ];
+        mimeType = [
+          "text/plain"
+          "text/org"
+        ];
       };
       emacs-nw = {
         name = "Emacs Client (No Window)";
         genericName = "Text Editor";
-        exec = ''emacsclient -nw'';
-        terminal = true;
+        exec = ''kitty emacsclient -nw'';
+        # terminal = true;
         # categories = [ "Application" "Network" "WebBrowser" ];
-        mimeType = [ "text/plain" ];
+        mimeType = [
+          "text/plain"
+          "text/org"
+        ];
       };
       emacsclient = {
         noDisplay = true;
