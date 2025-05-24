@@ -187,7 +187,7 @@ in
         };
         auto-save = {
           enable = true;
-          settings.condition = (builtins.readFile ./neovim/auto-save.lua);
+          settings.condition = (builtins.readFile ./nixvim/auto-save.lua);
         };
         comment = {
           enable = true;
@@ -327,6 +327,15 @@ in
           enableGitStatus = true;
           enableModifiedMarkers = true;
           enableRefreshOnWrite = true;
+          window = {
+            sameLevel = true;
+            mappings = {
+              "gx" = {
+                command.__raw = (builtins.readFile ./nixvim/xdg-open.lua);
+                desc = "open_with_system_defaults";
+              };
+            };
+          };
         };
         web-devicons.enable = true;
         which-key.enable = true;
@@ -354,331 +363,329 @@ in
     viAlias = true;
     vimAlias = true;
 
-    keymaps = [
+    keymaps = (
+      (eih [
+        {
+          key = "<M-S-s>";
+          action = "<cmd>DapNew<CR>";
+          mode = "n";
+          options = {
+            noremap = true;
+            silent = true;
+          };
+        }
+        {
+          key = "<M-e>";
+          action = "<cmd>DapEval<CR>";
+          mode = "n";
+          options = {
+            noremap = true;
+            silent = true;
+          };
+        }
+        {
+          key = "<M-Left>";
+          action = "<cmd>DapStepOut<CR>";
+          mode = "n";
+          options = {
+            noremap = true;
+            silent = true;
+          };
+        }
+        {
+          key = "<M-CR>";
+          action = "<cmd>DapContinue<CR>";
+          mode = "n";
+          options = {
+            noremap = true;
+            silent = true;
+          };
+        }
+        {
+          key = "<M-Right>";
+          action = "<cmd>DapStepIn<CR>";
+          mode = "n";
+          options = {
+            noremap = true;
+            silent = true;
+          };
+        }
+        {
+          key = "<M-Down>";
+          action = "<cmd>DapStepOver<CR>";
+          mode = "n";
+          options = {
+            noremap = true;
+            silent = true;
+          };
+        }
+        {
+          key = "<M-q>";
+          action = "<cmd>DapTerminate<CR>";
+          mode = "n";
+          options = {
+            noremap = true;
+            silent = true;
+          };
+        }
+        {
+          key = "<M-b>";
+          action = "<cmd>DapToggleBreakpoint<CR>";
+          mode = "n";
+          options = {
+            noremap = true;
+            silent = true;
+          };
+        }
+        {
+          key = "<M-t>";
+          action = "<cmd>DapVirtualTextToggle<CR>";
+          mode = "n";
+          options = {
+            noremap = true;
+            silent = true;
+          };
+        }
+        {
+          key = "<M-S-t>";
+          action = "<cmd>DapVirtualTextForceRefresh<CR>";
+          mode = "n";
+          options = {
+            noremap = true;
+            silent = true;
+          };
+        }
+        {
+          key = "<leader>py";
+          action = ''<cmd>silent exec "!kitty yazi &"<CR>'';
+          options.desc = "Launch Yazi";
+        }
+        {
+          key = "<leader>pt";
+          action = ''<cmd>silent exec "!kitty &"<CR>'';
+          options.desc = "Launch Kitty terminal";
+        }
+      ])
+      ++ [
+        {
+          key = "<leader>s";
+          action = ":Neotree<CR>";
+          options.desc = "Open Neotree";
+        }
+        {
+          key = "<leader>S";
+          action = ":Neotree reveal<CR>";
+          options.desc = "Reveal the current file in Neotree";
+        }
+        {
+          key = "<leader>g";
+          action = ":LazyGit<CR>";
+          options.desc = "Open LazyGit";
+        }
+        {
+          key = "<leader>tn";
+          action = "<cmd>tabnew<CR><cmd>Neotree<CR>";
+          options.desc = "Open a new tab";
+        }
+        {
+          key = "<leader>tq";
+          action = "<cmd>tabclose<CR>";
+          options.desc = "Close tab";
+        }
+        {
+          key = "<leader>d";
+          action = "<cmd>diffthis<CR>";
+          options.desc = "Diff this file";
+        }
+        {
+          key = "<leader>fn";
+          action = ''<cmd>Telescope notify<CR>'';
+          options.desc = "View all notifications";
+        }
+        {
+          key = "<leader>tt";
+          action = "<cmd>tabnew | term<CR>";
+          options.desc = "Open a new tab and open a terminal";
+        }
+        {
+          key = "<leader>y";
+          action = "<cmd>Yazi<CR>";
+        }
+        {
+          key = "<leader>Y";
+          action = "<cmd>Yazi cwd<CR>";
+        }
+        {
+          key = "<leader>r";
+          action = "<cmd>Yazi toggle<CR>";
+        }
+        {
+          key = "<C-Esc>";
+          action = "<C-\\><C-n>";
+          mode = "t";
+        }
+        {
+          key = "<C-`>";
+          action = ":belowright split | resize 15 | terminal<CR>";
+        }
+        {
+          key = "<C-n>";
+          action = "<cmd>vnew<CR>";
+        }
 
-      {
-        key = "<M-S-s>";
-        action = "<cmd>DapNew<CR>";
-        mode = "n";
-        options = {
-          noremap = true;
-          silent = true;
-        };
-      }
-      {
-        key = "<M-e>";
-        action = "<cmd>DapEval<CR>";
-        mode = "n";
-        options = {
-          noremap = true;
-          silent = true;
-        };
-      }
-      {
-        key = "<M-Left>";
-        action = "<cmd>DapStepOut<CR>";
-        mode = "n";
-        options = {
-          noremap = true;
-          silent = true;
-        };
-      }
-      {
-        key = "<M-CR>";
-        action = "<cmd>DapContinue<CR>";
-        mode = "n";
-        options = {
-          noremap = true;
-          silent = true;
-        };
-      }
-      {
-        key = "<M-Right>";
-        action = "<cmd>DapStepIn<CR>";
-        mode = "n";
-        options = {
-          noremap = true;
-          silent = true;
-        };
-      }
-      {
-        key = "<M-Down>";
-        action = "<cmd>DapStepOver<CR>";
-        mode = "n";
-        options = {
-          noremap = true;
-          silent = true;
-        };
-      }
-      {
-        key = "<M-q>";
-        action = "<cmd>DapTerminate<CR>";
-        mode = "n";
-        options = {
-          noremap = true;
-          silent = true;
-        };
-      }
-      {
-        key = "<M-b>";
-        action = "<cmd>DapToggleBreakpoint<CR>";
-        mode = "n";
-        options = {
-          noremap = true;
-          silent = true;
-        };
-      }
-      {
-        key = "<M-t>";
-        action = "<cmd>DapVirtualTextToggle<CR>";
-        mode = "n";
-        options = {
-          noremap = true;
-          silent = true;
-        };
-      }
-      {
-        key = "<M-S-t>";
-        action = "<cmd>DapVirtualTextForceRefresh<CR>";
-        mode = "n";
-        options = {
-          noremap = true;
-          silent = true;
-        };
-      }
-      {
-        key = "<leader>s";
-        action = ":Neotree<CR>";
-        options.desc = "Open Neotree";
-      }
-      {
-        key = "<leader>S";
-        action = ":Neotree reveal<CR>";
-        options.desc = "Reveal the current file in Neotree";
-      }
-      {
-        key = "<leader>g";
-        action = ":LazyGit<CR>";
-        options.desc = "Open LazyGit";
-      }
-      {
-        key = "<leader>tn";
-        action = "<cmd>tabnew<CR><cmd>Neotree<CR>";
-        options.desc = "Open a new tab";
-      }
-      {
-        key = "<leader>tq";
-        action = "<cmd>tabclose<CR>";
-        options.desc = "Close tab";
-      }
-      {
-        key = "<leader>d";
-        action = "<cmd>diffthis<CR>";
-        options.desc = "Diff this file";
-      }
-      {
-        key = "<leader>py";
-        action = ''<cmd>silent exec "!kitty yazi &"<CR>'';
-        options.desc = "Launch Yazi";
-      }
-      {
-        key = "<leader>pt";
-        action = ''<cmd>silent exec "!kitty &"<CR>'';
-        options.desc = "Launch Kitty terminal";
-      }
-      {
-        key = "<leader>fn";
-        action = ''<cmd>Telescope notify<CR>'';
-        options.desc = "View all notifications";
-      }
-      {
-        key = "<leader>tt";
-        action = "<cmd>tabnew | term<CR>";
-        options.desc = "Open a new tab and open a terminal";
-      }
-      {
-        key = "<leader>y";
-        action = "<cmd>Yazi<CR>";
-      }
-      {
-        key = "<leader>Y";
-        action = "<cmd>Yazi cwd<CR>";
-      }
-      {
-        key = "<leader>r";
-        action = "<cmd>Yazi toggle<CR>";
-      }
-      {
-        key = "<C-Esc>";
-        action = "<C-\\><C-n>";
-        mode = "t";
-      }
-      {
-        key = "<C-`>";
-        action = ":belowright split | resize 15 | terminal<CR>";
-      }
-      {
-        key = "<C-n>";
-        action = "<cmd>vnew<CR>";
-      }
+        # {
+        #   key = "<leader>";
+        #   action = "<cmd>w %:r-tmp.%:e<CR>";
+        #   options.desc = "Temporarily save a file";
+        # }
+        {
+          key = "g<Left>";
+          action = "^";
+          mode = "n";
+          options.silent = true;
+        }
+        {
+          key = "g<Right>";
+          action = "$";
+          mode = "n";
+          options.silent = true;
+        }
+        {
+          key = "g<UP>";
+          action = "gg";
+          mode = "n";
+          options.silent = true;
+        }
+        {
+          key = "g<DOWN>";
+          action = "G";
+          mode = "n";
+          options.silent = true;
+        }
+        {
+          key = "<Down>";
+          action = "gj";
+          mode = "n";
+          options.silent = true;
+        }
+        {
+          key = "<Up>";
+          action = "gk";
+          mode = "n";
+          options.silent = true;
+        }
+        {
+          key = "<Down>";
+          action = "<C-o>gj";
+          mode = "i";
+          options.silent = true;
+        }
+        {
+          key = "gD";
+          action = "<cmd>lua vim.lsp.buf.declaration()<CR>";
+          options.desc = "Go to declaration";
+        }
 
-      # {
-      #   key = "<leader>";
-      #   action = "<cmd>w %:r-tmp.%:e<CR>";
-      #   options.desc = "Temporarily save a file";
-      # }
-      {
-        key = "g<Left>";
-        action = "^";
-        mode = "n";
-        options.silent = true;
-      }
-      {
-        key = "g<Right>";
-        action = "$";
-        mode = "n";
-        options.silent = true;
-      }
-      {
-        key = "g<UP>";
-        action = "gg";
-        mode = "n";
-        options.silent = true;
-      }
-      {
-        key = "g<DOWN>";
-        action = "G";
-        mode = "n";
-        options.silent = true;
-      }
-      {
-        key = "<Down>";
-        action = "gj";
-        mode = "n";
-        options.silent = true;
-      }
-      {
-        key = "<Up>";
-        action = "gk";
-        mode = "n";
-        options.silent = true;
-      }
-      {
-        key = "<Down>";
-        action = "<C-o>gj";
-        mode = "i";
-        options.silent = true;
-      }
-      {
-        key = "gD";
-        action = "<cmd>lua vim.lsp.buf.declaration()<CR>";
-        options.desc = "Go to declaration";
-      }
+        {
+          key = "gd";
+          action = "<cmd>lua vim.lsp.buf.definition()<CR>";
+          options.desc = "Go to definition";
+        }
 
-      {
-        key = "gd";
-        action = "<cmd>lua vim.lsp.buf.definition()<CR>";
-        options.desc = "Go to definition";
-      }
+        {
+          key = "K";
+          action = "<cmd>lua vim.lsp.buf.hover()<CR>";
+          options.desc = "Show information at the cursor";
+        }
 
-      {
-        key = "K";
-        action = "<cmd>lua vim.lsp.buf.hover()<CR>";
-        options.desc = "Show information at the cursor";
-      }
+        {
+          key = "gr";
+          action = "<cmd>lua vim.lsp.buf.references()<CR>";
+        }
 
-      {
-        key = "gr";
-        action = "<cmd>lua vim.lsp.buf.references()<CR>";
-      }
+        {
+          key = "gs";
+          action = "<cmd>lua vim.lsp.buf.signature_help()<CR>";
+        }
 
-      {
-        key = "gs";
-        action = "<cmd>lua vim.lsp.buf.signature_help()<CR>";
-      }
+        {
+          key = "gi";
+          action = "<cmd>lua vim.lsp.buf.implementation()<CR>";
+          options.desc = "Go to implementation";
+        }
 
-      {
-        key = "gi";
-        action = "<cmd>lua vim.lsp.buf.implementation()<CR>";
-        options.desc = "Go to implementation";
-      }
+        {
+          key = "gy";
+          action = "<cmd>lua vim.lsp.buf.type_definition()<CR>";
+        }
 
-      {
-        key = "gy";
-        action = "<cmd>lua vim.lsp.buf.type_definition()<CR>";
-      }
+        {
+          key = "<A-w>";
+          action = "<cmd>lua vim.lsp.buf.document_symbol()<CR>";
+        }
 
-      {
-        key = "<A-w>";
-        action = "<cmd>lua vim.lsp.buf.document_symbol()<CR>";
-      }
+        {
+          key = "<A-W>";
+          action = "<cmd>lua vim.lsp.buf.workspace_symbol()<CR>";
+        }
 
-      {
-        key = "<A-W>";
-        action = "<cmd>lua vim.lsp.buf.workspace_symbol()<CR>";
-      }
+        {
+          key = "<A-f>";
+          action = "<cmd>lua vim.lsp.buf.code_action()<CR>";
+        }
 
-      {
-        key = "<A-f>";
-        action = "<cmd>lua vim.lsp.buf.code_action()<CR>";
-      }
+        {
+          key = "S";
+          action = "<cmd>lua vim.diagnostic.open_float()<CR>";
+          options.desc = "Show warnings and errors at the cursor";
+        }
 
-      {
-        key = "S";
-        action = "<cmd>lua vim.diagnostic.open_float()<CR>";
-        options.desc = "Show warnings and errors at the cursor";
-      }
+        {
+          key = "<A-r>";
+          action = "<cmd>lua vim.lsp.buf.rename()<CR>";
+          options.desc = "Rename a variable";
+        }
 
-      {
-        key = "<A-r>";
-        action = "<cmd>lua vim.lsp.buf.rename()<CR>";
-        options.desc = "Rename a variable";
-      }
+        {
+          key = "<leader>=";
+          action = "<cmd>lua vim.lsp.buf.format()<CR>";
+        }
 
-      {
-        key = "<leader>=";
-        action = "<cmd>lua vim.lsp.buf.format()<CR>";
-      }
+        {
+          key = "<A-i>";
+          action = "<cmd>lua vim.lsp.buf.incoming_calls()<CR>";
+        }
 
-      {
-        key = "<A-i>";
-        action = "<cmd>lua vim.lsp.buf.incoming_calls()<CR>";
-      }
+        {
+          key = "<A-o>";
+          action = "<cmd>lua vim.lsp.buf.outgoing_calls()<CR>";
+        }
+        {
+          key = "<leader>c";
+          action = ''<cmd>lua require("notify").dismiss({pending = true, silent = true})<CR>'';
+          options.desc = "Clear all notifications";
+        }
+        {
+          key = "<Up>";
+          action = "<C-o>gk";
+          mode = "i";
+          options.silent = true;
+        }
+        {
+          key = "<A-CR>";
+          action = ''<cmd>lua require("orgmode").action("org_mappings.meta_return")<CR>'';
+        }
+        {
+          key = "<A-RIGHT>";
+          action = ''<cmd>lua require("orgmode").action("org_mappings.do_promote")<CR>'';
+        }
+        {
+          key = "<A-LEFT>";
+          action = ''<cmd>lua require("orgmode").action("org_mappings.do_demote")<CR>'';
+        }
 
-      {
-        key = "<A-o>";
-        action = "<cmd>lua vim.lsp.buf.outgoing_calls()<CR>";
-      }
-      {
-        key = "<leader>c";
-        action = ''<cmd>lua require("notify").dismiss({pending = true, silent = true})<CR>'';
-        options.desc = "Clear all notifications";
-      }
-      {
-        key = "<Up>";
-        action = "<C-o>gk";
-        mode = "i";
-        options.silent = true;
-      }
-
-      {
-        key = "<leader>e";
-        action = ''<cmd>lua require("nabla").enable_virt({autogen = true,})<CR>'';
-      }
-      {
-        key = "<A-CR>";
-        action = ''<cmd>lua require("orgmode").action("org_mappings.meta_return")<CR>'';
-      }
-      {
-        key = "<A-RIGHT>";
-        action = ''<cmd>lua require("orgmode").action("org_mappings.do_promote")<CR>'';
-      }
-      {
-        key = "<A-LEFT>";
-        action = ''<cmd>lua require("orgmode").action("org_mappings.do_demote")<CR>'';
-      }
-
-    ];
+      ]
+    );
     extraConfigLua = ''
       vim.o.exrc = true
       vim.api.nvim_create_autocmd("TermOpen", {
