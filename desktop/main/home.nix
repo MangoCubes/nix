@@ -10,7 +10,7 @@
     {
       imports = [
         ../packages/home/factorio.nix
-        ../packages/home/winapps.nix
+        ../packages/home/windows.nix
       ];
       home.packages = [
         unfreeUnstable.osu-lazer-bin

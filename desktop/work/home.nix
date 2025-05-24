@@ -11,7 +11,7 @@
     {
       imports = [
         ../packages/home/obs.nix
-        ../packages/home/winapps.nix
+        ../packages/home/windows.nix
       ];
       home.packages = [
         unstable.webcord
