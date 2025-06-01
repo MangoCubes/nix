@@ -26,6 +26,7 @@ let
   lock = "keepassxc --lock && hyprlock";
 in
 {
+  home.packages = [ pkgs.playerctl ];
   wayland.windowManager.hyprland = {
     # package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
     # package = unstable.hyprland;
@@ -97,20 +98,16 @@ in
                 cropped = ''${fullscreen} -g "$(${pkgs.slurp}/bin/slurp)"'';
                 # Given a language, extract text from it
                 capture = lang: ''${pkgs.tesseract}/bin/tesseract stdin stdout -l ${lang}'';
-                # Save content to XClip (I don't think it is working)
-                saveToXClipImage = ''${pkgs.xclip}/bin/xclip -selection clipboard -t image/png -i'';
-                # Copy text to XClip (I don't think it is working)
-                saveToXClip = ''${pkgs.xclip}/bin/xclip -selection clipboard -i'';
               in
               [
                 # Select an area, then capture text in it in English
-                ''${mod}, ${key}, exec, ${cropped} - | ${capture "eng"} | wl-copy; wl-paste | ${saveToXClip}''
+                ''${mod}, ${key}, exec, ${cropped} - | ${capture "eng"} | wl-copy''
                 # Select an area, then capture text in it in Korean
-                ''${mod} SHIFT, ${key}, exec, ${cropped} - | ${capture "kor"} | wl-copy; wl-paste | ${saveToXClip}''
+                ''${mod} SHIFT, ${key}, exec, ${cropped} - | ${capture "kor"} | wl-copy''
                 # Capture the whole screen, then copy it to clipboard
-                '', ${key}, exec, ${fullscreen} - | wl-copy; wl-paste | ${saveToXClipImage}''
+                '', ${key}, exec, ${fullscreen} - | wl-copy''
                 # Select an area, then copy it to clipboard
-                ''SHIFT, ${key}, exec, ${cropped} - | wl-copy; wl-paste | ${saveToXClipImage}''
+                ''SHIFT, ${key}, exec, ${cropped} - | wl-copy''
                 # Capture the whole screen, then save it
                 ''CTRL, ${key}, exec, ${fullscreen}''
                 # Select an area, then save it
@@ -141,6 +138,7 @@ in
           ''${mod}, T, exec, ${terminal}''
           ''${mod}, M, exec, ${mail}''
           ''${mod}, L, exec, ${lock}''
+          # ''${mod} SHIFT, L, exec, ${lock} && sleep 1 && hyprctl dispatch dpms off''
           ''${mod}, N, exec, rofi -show nix -modes "nix:rofi-env"''
           ''${mod} SHIFT, N, exec, rofi-env NixConfig''
           ''${mod}, B, exec, rofi -show browser -modes "browser:rofi-browser"''
@@ -157,6 +155,17 @@ in
       bindm = [
         ''${mod}, mouse:272, movewindow''
         ''${mod}, mouse:273, resizewindow''
+      ];
+      bindel = [
+        '', XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+''
+        '', XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-''
+
+      ];
+      bindl = [
+        '', XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle''
+        '', XF86AudioPlay, exec, playerctl play-pause''
+        '', XF86AudioPrev, exec, playerctl previous''
+        '', XF86AudioNext, exec, playerctl next''
       ];
       # debug.disable_logs = false;
       xwayland.force_zero_scaling = true;
@@ -220,7 +229,7 @@ in
 
         follow_mouse = 1;
 
-        sensitivity = 0.5;
+        sensitivity = 0.5 * scale;
         accel_profile = "flat";
         touchpad.natural_scroll = true;
 
@@ -311,6 +320,10 @@ in
   programs.hyprlock = {
     enable = true;
     settings = {
+      general = {
+        grace = 3;
+        ignore_empty_input = true;
+      };
       input-field = {
         monitor = "";
         size = "300, 50";
