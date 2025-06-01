@@ -8,6 +8,6 @@
     ../../common/packages/rclone.nix
     ../packages/steam.nix
     ../packages/wireshark.nix
+    ../packages/tablet.nix
   ];
-  hardware.opentabletdriver.enable = true;
 }
