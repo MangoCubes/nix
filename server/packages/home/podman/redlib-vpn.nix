@@ -10,11 +10,13 @@ let
     if [[ $status != 2* ]]; then
     	echo "Ratelimited!"
         echo "Stopping Redlib..."
+        ${pkgs.systemd}/bin/systemctl --user stop podman-anubis-redlib-vpn
         ${pkgs.systemd}/bin/systemctl --user stop podman-redlib-vpn
         echo "Restarting VPN..."
     	${pkgs.systemd}/bin/systemctl --user restart podman-proton-redlib
     	echo "Starting Redlib..."
     	${pkgs.systemd}/bin/systemctl --user start podman-redlib-vpn
+        ${pkgs.systemd}/bin/systemctl --user start podman-anubis-redlib-vpn
     else
       echo "Server is working!"
     fi
