@@ -1,4 +1,7 @@
-{ name }:
+{
+  name,
+  useInternalDns ? false,
+}:
 {
   config,
   inputs,
@@ -17,5 +20,15 @@
       devices = [ "/dev/net/tun:/dev/net/tun" ];
       environmentFile = [ ''${config.home.homeDirectory}/.config/sops-nix/secrets/proton-${name}'' ];
     }
+    // (
+      if useInternalDns then
+        {
+          environment = {
+            "DNS_KEEP_NAMESERVER" = "on";
+          };
+        }
+      else
+        { }
+    )
   );
 }

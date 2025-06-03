@@ -63,14 +63,15 @@ in
       "REDLIB_DEFAULT_HIDE_SCORE" = "off";
       "REDLIB_DEFAULT_FIXED_NAVBAR" = "on";
     };
-    labels = {
-      "traefik.enable" = "true";
-      "traefik.http.routers.redlib-vpn.rule" = "Host(\\`r.genit.al\\`)";
-      "traefik.http.routers.redlib-vpn.entrypoints" = "websecure";
-      "traefik.http.routers.redlib-vpn.service" = "s-redlib-vpn";
-      "traefik.http.routers.redlib-vpn.tls" = "true";
-      "traefik.http.services.s-redlib-vpn.loadbalancer.server.port" = "8080";
-    };
+    # Intended to be used with Anubis
+    # labels = {
+    #   "traefik.enable" = "true";
+    #   "traefik.http.routers.redlib-vpn.rule" = "Host(\\`r.genit.al\\`)";
+    #   "traefik.http.routers.redlib-vpn.entrypoints" = "websecure";
+    #   "traefik.http.routers.redlib-vpn.service" = "s-redlib-vpn";
+    #   "traefik.http.routers.redlib-vpn.tls" = "true";
+    #   "traefik.http.services.s-redlib-vpn.loadbalancer.server.port" = "8080";
+    # };
   };
   # This runs check-ratelimit.service every 5 minutes
   systemd.user.timers."check-ratelimit-redlib" = {

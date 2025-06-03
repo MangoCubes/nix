@@ -17,6 +17,7 @@
   needRoot ? false,
   dependsOn ? [ ],
   exec ? null,
+  dns ? null,
 }:
 # If domain = null, then it should not be accessible from outside
 # URL is expected in the following form
@@ -64,7 +65,10 @@ let
         (builtins.foldl' (acc: elem: acc + connector + elem) head rest)
       );
   requires = "--requires=" + (joinStr dependsOn ",");
-  args = extraPodmanArgs ++ (if (builtins.length dependsOn == 0) then [ ] else [ requires ]);
+  args =
+    extraPodmanArgs
+    ++ (if (builtins.length dependsOn == 0) then [ ] else [ requires ])
+    ++ (if dns == null then [ ] else [ "--dns=${dns}" ]);
   traefikLabels =
     if (domain == null) then
       { }
