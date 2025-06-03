@@ -7,7 +7,6 @@
     {
       config,
       lib,
-      hostname,
       ...
     }:
     {
@@ -16,7 +15,6 @@
       '';
       services.podman.containers.adguard = (
         (import ../../../lib/podman.nix) {
-          inherit hostname;
           image = "adguard/adguardhome";
           name = "adguard";
           needRoot = true;

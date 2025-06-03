@@ -1,5 +1,4 @@
 {
-  hostname,
   config,
   lib,
   pkgs,
@@ -19,7 +18,6 @@
   '';
   services.podman.containers.cloud = (
     (import ../../../../lib/podman.nix) {
-      inherit hostname;
       image = "linuxserver/nextcloud:latest";
       name = "cloud";
       domain = [

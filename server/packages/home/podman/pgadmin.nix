@@ -1,5 +1,4 @@
 {
-  hostname,
   config,
   lib,
   inputs,
@@ -13,7 +12,6 @@
   '';
   services.podman.containers.pgadmin = (
     (import ../../../../lib/podman.nix) {
-      inherit hostname;
       image = "dpage/pgadmin4";
       name = "pgadmin";
       volumes = [

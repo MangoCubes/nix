@@ -1,8 +1,6 @@
-{ hostname, ... }:
 {
   services.podman.containers.phpmyadmin = (
     (import ../../../../lib/podman.nix) {
-      inherit hostname;
       image = "lscr.io/linuxserver/phpmyadmin";
       name = "phpmyadmin";
       volumes = [

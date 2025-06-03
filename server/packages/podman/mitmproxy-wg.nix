@@ -12,8 +12,6 @@
     {
       services.podman.containers.mitm = (
         (import ../../../lib/podman.nix) {
-
-          hostname = "mitmproxy";
           image = "mitmproxy/mitmproxy";
           name = "mitm";
           domain = [

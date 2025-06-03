@@ -1,5 +1,4 @@
 {
-  hostname,
   config,
   lib,
   ...
@@ -16,7 +15,6 @@
 
   services.podman.containers.ampache = (
     (import ../../../../lib/podman.nix) {
-      inherit hostname;
       image = "ampache/ampache:nosql";
       name = "ampache";
       domain = [

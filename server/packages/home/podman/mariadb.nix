@@ -1,5 +1,4 @@
 {
-  hostname,
   lib,
   config,
   inputs,
@@ -16,7 +15,6 @@
 
   services.podman.containers.mariadb = (
     (import ../../../../lib/podman.nix) {
-      inherit hostname;
       domain = null;
       image = "mariadb:lts";
       name = "mariadb";

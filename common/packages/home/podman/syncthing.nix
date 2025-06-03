@@ -20,7 +20,6 @@
   '';
   services.podman.containers.syncthing = (
     (import ../../../../lib/podman.nix) {
-      inherit hostname;
       needRoot = true;
       image = "syncthing/syncthing";
       name = "syncthing";

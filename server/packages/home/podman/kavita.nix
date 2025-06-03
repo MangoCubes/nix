@@ -1,5 +1,4 @@
 {
-  hostname,
   config,
   lib,
   ...
@@ -10,7 +9,6 @@
   '';
   services.podman.containers.kavita = (
     (import ../../../../lib/podman.nix) {
-      inherit hostname;
       image = "jvmilazz0/kavita:latest";
       name = "kavita";
       volumes = [

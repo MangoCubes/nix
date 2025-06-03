@@ -1,5 +1,4 @@
 {
-  hostname,
   config,
   lib,
   ...
@@ -10,7 +9,6 @@
   '';
   services.podman.containers.jellyfin = (
     (import ../../../../lib/podman.nix) {
-      inherit hostname;
       image = "lscr.io/linuxserver/jellyfin:latest";
       name = "jellyfin";
       volumes = [

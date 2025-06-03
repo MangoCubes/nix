@@ -2,7 +2,6 @@
 {
   services.podman.containers.element = (
     (import ../../../../lib/podman.nix) {
-      hostname = "element";
       image = "vectorim/element-web";
       name = "element";
       environment = {
@@ -27,7 +26,6 @@
   '';
   services.podman.containers.matrix = (
     (import ../../../../lib/podman.nix) {
-      hostname = "matrix";
       image = "matrixdotorg/synapse";
       name = "matrix";
       volumes = [

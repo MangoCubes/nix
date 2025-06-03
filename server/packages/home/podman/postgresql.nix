@@ -1,5 +1,4 @@
 {
-  hostname,
   config,
   lib,
   inputs,
@@ -14,7 +13,6 @@
 
   services.podman.containers.postgresql = (
     (import ../../../../lib/podman.nix) {
-      inherit hostname;
       image = "postgres:17";
       network = "container:proton-inv";
       name = "postgresql";

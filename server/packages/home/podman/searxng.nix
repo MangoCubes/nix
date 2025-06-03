@@ -1,8 +1,7 @@
-{ hostname, config, ... }:
+{ config, ... }:
 {
   services.podman.containers.search = (
     (import ../../../../lib/podman.nix) {
-      inherit hostname;
       image = "searxng/searxng:latest";
       name = "search";
       domain = [

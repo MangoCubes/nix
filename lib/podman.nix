@@ -15,7 +15,6 @@
   addCapabilities ? [ ],
   devices ? [ ],
   needRoot ? false,
-  hostname,
   dependsOn ? [ ],
   exec ? null,
 }:

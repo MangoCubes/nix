@@ -1,6 +1,5 @@
 {
   config,
-  hostname,
   inputs,
   ...
 }:
@@ -8,7 +7,6 @@
   imports = [ inputs.secrets.hm.ca ];
   services.podman.containers.ca = (
     (import ../../../../lib/podman.nix) {
-      inherit hostname;
       image = "smallstep/step-ca";
       name = "ca";
       needRoot = true;
