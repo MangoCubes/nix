@@ -164,6 +164,12 @@ in
     keymap = {
       manager.prepend_keymap = [
         {
+          on = "T";
+          run = [
+            ''shell --orphan -- kitty $(dirname "$@") ''
+          ];
+        }
+        {
           on = "U";
           run = [
             ''shell 'umount "$@"' ''

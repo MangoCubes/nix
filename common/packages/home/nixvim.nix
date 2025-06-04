@@ -456,6 +456,11 @@ in
           };
         }
         {
+          key = "<leader>ca";
+          action = ''<cmd>let @+ = expand("%:p")<CR>'';
+          options.desc = "Copy absolute filename";
+        }
+        {
           key = "<leader>py";
           action = ''<cmd>silent exec "!kitty yazi &"<CR>'';
           options.desc = "Launch Yazi";
@@ -661,7 +666,7 @@ in
           action = "<cmd>lua vim.lsp.buf.outgoing_calls()<CR>";
         }
         {
-          key = "<leader>c";
+          key = "<leader>n";
           action = ''<cmd>lua require("notify").dismiss({pending = true, silent = true})<CR>'';
           options.desc = "Clear all notifications";
         }
