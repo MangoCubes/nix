@@ -5,7 +5,7 @@
 (straight-use-package 'lsp-mode)
 
 (require 'lsp-mode)
-
+(setq lsp-keymap-prefix "M-l")
 ;; Enable LSP for Lua mode
 (add-hook 'lua-mode-hook #'lsp)
 

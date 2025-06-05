@@ -5,7 +5,7 @@
 (load-relative "./plugins/others.el")
 (load-relative "./plugins/projectile.el")
 ;; (load-relative "./plugins/dirvish.el")
-;;(load-relative "./plugins/treemacs.el")
+;; (load-relative "./plugins/treemacs.el")
 (load-relative "./plugins/neotree.el")
 (load-relative "./plugins/which-key.el")
 (load-relative "./plugins/doom-modeline.el")

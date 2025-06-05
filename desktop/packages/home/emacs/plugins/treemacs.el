@@ -80,13 +80,14 @@
     (treemacs-hide-gitignored-files-mode nil))
   :bind
   (:map global-map
-        ("M-0"       . treemacs-select-window)
-        ("C-x t 1"   . treemacs-delete-other-windows)
-        ("C-x t t"   . treemacs)
-        ("C-x t d"   . treemacs-select-directory)
-        ("C-x t B"   . treemacs-bookmark)
-        ("C-x t C-t" . treemacs-find-file)
-        ("C-x t M-t" . treemacs-find-tag)))
+        ;; ("M-0"       . treemacs-select-window)
+        ;; ("C-x t 1"   . treemacs-delete-other-windows)
+        ((kbd "<leader>s") . treemacs)
+        ;; ("C-x t d"   . treemacs-select-directory)
+        ;; ("C-x t B"   . treemacs-bookmark)
+        ;; ("C-x t C-t" . treemacs-find-file)
+        ;; ("C-x t M-t" . treemacs-find-tag)))
+		))
 
 (use-package treemacs-evil
   :after (treemacs evil)
@@ -114,4 +115,4 @@
   :ensure t
   :config (treemacs-set-scope-type 'Tabs))
 
-(treemacs-start-on-boot)
+;; (treemacs-start-on-boot)
