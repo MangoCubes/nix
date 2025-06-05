@@ -1,6 +1,7 @@
 .stfolder/
 .stignore
 .ignore.txt
+*~undo-tree~
 /**/hardware-configuration.nix
 result
 common/packages/home/podman/syncthing/config-client.xml
