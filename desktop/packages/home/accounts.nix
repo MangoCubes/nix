@@ -9,11 +9,11 @@
     inputs.secrets.hm.accounts
   ];
 
-  # programs.khal = {
-  #   enable = true;
-  # };
+  programs.khal = {
+    enable = true;
+  };
   services.mbsync = {
-    frequency = "*:0/5";
+    frequency = "*:0/1";
     enable = true;
     postExec = "${pkgs.notmuch}/bin/notmuch new";
   };
@@ -23,16 +23,15 @@
   services.vdirsyncer.enable = true;
   programs.vdirsyncer.enable = true;
   programs.notmuch = {
-    # hooks.preNew = "mbsync --all";
+    # hooks.postNew = "(kitty &)";
     enable = true;
   };
   accounts = {
     email = {
-      maildirBasePath = ".mail";
+      maildirBasePath = "${config.home.homeDirectory}/.mail";
       accounts = {
         personal = {
           notmuch.enable = true;
-          imapnotify.onNotifyPost = "";
           address = "admin@skew.ch";
           imap = {
             host = "mail.skew.ch";
@@ -57,7 +56,7 @@
       };
     };
     calendar = {
-      basePath = "./.calendar";
+      basePath = "${config.home.homeDirectory}/.calendar";
       accounts."personal" = {
         primary = true;
         vdirsyncer = {
@@ -80,10 +79,10 @@
         primaryCollection = "post-grad";
         # Note that setting this variable does not automatically install khal
         # This merely grants khal access to this calendar
-        # khal = {
-        #   enable = true;
-        #   type = "discover";
-        # };
+        khal = {
+          enable = true;
+          type = "discover";
+        };
       };
     };
   };
