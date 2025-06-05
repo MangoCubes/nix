@@ -2,12 +2,33 @@
   config,
   inputs,
   pkgs,
+  unstable,
   ...
 }:
 {
   imports = [
     inputs.secrets.hm.accounts
   ];
+
+  home.packages = [
+    unstable.calcure
+  ];
+  xdg.configFile."calcure/config.ini".text = (
+    (import ./accounts/calcure.nix) {
+      dirName = "${config.home.homeDirectory}/.calendar/personal";
+      calendars = [
+        "coupon"
+        "dorm"
+        "general"
+        "lessons"
+        "post-grad"
+        "projects"
+        "school"
+        "school-schedule"
+        "uk"
+      ];
+    }
+  );
 
   programs.khal = {
     enable = true;
