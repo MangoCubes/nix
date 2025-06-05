@@ -8,8 +8,9 @@
   ...
 }:
 let
-  terminal = ''kitty nvim -c 'autocmd TermClose * execute "q!"' -c 'terminal' -n +star'';
-  fileManager = "kitty yazi";
+  kitty = "kitty -o confirm_os_window_close=0";
+  terminal = ''${kitty} nvim -c 'autocmd TermClose * execute "q!"' -c 'terminal' -n +star'';
+  fileManager = "${kitty} yazi";
   altFileManager = "dolphin";
   menu = "rofi -show drun";
   # textEditor = ''kitty nvim ~/Sync/Quick\ Sync/Org/main.org'';
