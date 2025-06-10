@@ -4,9 +4,11 @@
   presentation,
   pkgs,
   lib,
+  inputs,
   config,
   ...
 }:
+#
 let
   kitty = "kitty -o confirm_os_window_close=0";
   terminal = ''${kitty} nvim -c 'autocmd TermClose * execute "q!"' -c 'terminal' -n +star'';
@@ -29,11 +31,57 @@ in
 {
   home.packages = [ pkgs.playerctl ];
   wayland.windowManager.hyprland = {
+    plugins = [
+      pkgs.hyprlandPlugins.hyprscroller
+    ];
     # package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
     # package = unstable.hyprland;
     # portalPackage = hyprpkg;
     systemd.variables = [ "--all" ];
     enable = true;
+    extraConfig =
+      let
+        submaps = {
+          window = {
+            settings = {
+              bind = [
+                '', escape, submap, reset''
+                '', up, scroller:cyclesize, 1''
+                '', down, scroller:cyclesize, -1''
+                # '', right, scroller:cyclewidth, 1''
+                # '', left, scroller:cyclewidth, -1''
+                # '', F, scroller:setwidth, one''
+                # '', F, scroller:setheight, one''
+                ''${mod}, W, scroller:toggleoverview''
+                ''${mod}, W, submap, reset''
+                '', P, scroller:pin''
+                '', P, submap, reset''
+                '', catchall, submap, reset''
+              ];
+              # bindm = [
+              #   ", mouse:272, movewindow"
+              # ];
+            };
+
+            extraConfig = "";
+          };
+        };
+      in
+      lib.concatStringsSep "\n" (
+        lib.mapAttrsToList (
+          name: submap:
+          (
+            "submap = ${name}\n"
+            + lib.optionalString (submap.settings != { }) (
+              inputs.home-manager.lib.hm.generators.toHyprconf {
+                attrs = submap.settings;
+              }
+            )
+            + lib.optionalString (submap.extraConfig != "") submap.extraConfig
+            + "submap = reset"
+          )
+        ) submaps
+      );
     settings = {
       monitor = ",preferred,auto,${toString scale}";
       exec-once = [
@@ -49,6 +97,12 @@ in
       ];
       # So that Super + Tab works
       binds.allow_workspace_cycles = true;
+      plugin.scroller = {
+        column_widths = "onehalf twothirds one";
+        window_heights = "onehalf twothirds one";
+        column_default_width = "twothirds";
+        # window_default_height = "twothirds";
+      };
       bind =
         (
           # workspaces
@@ -75,12 +129,20 @@ in
           ''${mod} SHIFT, escape, exit,''
           ''${mod}, V, togglefloating,''
           ''${mod}, J, togglesplit, dwindle''
-          ''${mod}, F, fullscreen, 0''
+          ''${mod} SHIFT, F, fullscreen, 0''
           ''${mod}, left, movefocus, l''
           ''${mod}, right, movefocus, r''
           ''${mod}, up, movefocus, u''
           ''${mod}, down, movefocus, d''
+          ''${mod}, W, submap, window''
+          ''${mod}, F, fullscreen, 0''
 
+          ''${mod}, bracketleft, scroller:setmode, row''
+          ''${mod}, bracketright, scroller:setmode, col''
+          ''${mod} SHIFT, up, scroller:movewindow, u''
+          ''${mod} SHIFT, down, scroller:movewindow, d''
+          ''${mod} SHIFT, left, scroller:movewindow, l''
+          ''${mod} SHIFT, right, scroller:movewindow, r''
         ]
         ++ (builtins.concatLists (
           builtins.map
@@ -126,7 +188,6 @@ in
           ''${mod}, K, workspace, name:keepass''
           ''${mod} SHIFT, M, workspace, name:music''
           ''${mod} SHIFT, A, workspace, name:notes''
-          ''${mod}, P, workspace, name:config''
           ''${mod}, C, swapactiveworkspaces, 0 1''
           ''${mod}, S, exec, rofi-search''
 
@@ -148,9 +209,9 @@ in
           ''${mod}, SPACE, exec, rofi -show calc''
 
           ''${mod} SHIFT, B, exec, mullvad-browser''
-          ''${mod} SHIFT, F, exec, firefox''
+          # ''${mod} SHIFT, F, exec, firefox''
           ''${mod} SHIFT, T, exec, ${textEditor}''
-          ''${mod} SHIFT, V, exec, codium --password-store="gnome-libsecret"''
+          # ''${mod} SHIFT, V, exec, codium --password-store="gnome-libsecret"''
 
         ];
       bindm = [
@@ -178,7 +239,7 @@ in
         "col.inactive_border" = "rgba(5a676bff)";
         resize_on_border = false;
         allow_tearing = false;
-        layout = "dwindle";
+        layout = "scroller"; # "dwindle";
       };
       decoration =
         {
@@ -255,6 +316,7 @@ in
           "10, monitor:DP-2, default:true"
         ]);
       windowrulev2 = [
+        "bordercolor rgb(ff629d), tag: scroller:pinned"
         "suppressevent maximize, class:.*"
         # Ensure KDE polkit is always floating
         "stayfocused, title:^rofi"

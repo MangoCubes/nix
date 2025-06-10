@@ -115,6 +115,7 @@
           (home-manager.nixosModules.home-manager)
           {
             home-manager = {
+              backupFileExtension = "backup";
               # Home manager function has a special argument "unstable", which allows me to access unstable repo
               extraSpecialArgs = {
                 inherit
