@@ -8,7 +8,13 @@
     (import ../packages/android.nix { androidStudio = false; })
     ../packages/wireshark.nix
   ];
-  services.logind.lidSwitch = "suspend";
+  services.logind = {
+    lidSwitch = "suspend";
+    extraConfig = ''
+      # don’t shutdown when power button is short-pressed
+      HandlePowerKey=ignore
+    '';
+  };
   services.logrotate.checkConfig = false;
   system.stateVersion = "24.11";
 }
