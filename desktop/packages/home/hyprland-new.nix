@@ -47,7 +47,9 @@ in
               bind = [
                 '', escape, submap, reset''
                 '', up, scroller:cyclesize, 1''
+                '', up, submap, reset''
                 '', down, scroller:cyclesize, -1''
+                '', down, submap, reset''
                 # '', right, scroller:cyclewidth, 1''
                 # '', left, scroller:cyclewidth, -1''
                 # '', F, scroller:setwidth, one''
@@ -98,10 +100,10 @@ in
       # So that Super + Tab works
       binds.allow_workspace_cycles = true;
       plugin.scroller = {
-        column_widths = "onehalf twothirds one";
-        window_heights = "onehalf twothirds one";
-        column_default_width = "twothirds";
-        # window_default_height = "twothirds";
+        column_widths = "onehalf threequarters one";
+        window_heights = "onehalf threequarters one";
+        column_default_width = "threequarters";
+        # window_default_height = "threequarters";
       };
       bind =
         (
@@ -251,6 +253,7 @@ in
           # drop_shadow = false;
         }
         // (
+          # if presentation || laptop then
           if presentation then
             { }
           else
@@ -278,12 +281,13 @@ in
           "workspaces, 1, 3, default"
         ];
       };
-      dwindle = {
-        pseudotile = true;
-        preserve_split = true;
-      };
+      # dwindle = {
+      #   pseudotile = true;
+      #   preserve_split = true;
+      # };
       # master.new_is_master = true;
       misc = {
+        # vfr = true;
         force_default_wallpaper = -1;
         disable_hyprland_logo = false;
       };
