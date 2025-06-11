@@ -166,7 +166,7 @@ in
         {
           on = "T";
           run = [
-            ''shell --orphan -- kitty $(dirname "$@") ''
+            ''shell --orphan -- kitty -d "$(dirname '$@')" ''
           ];
         }
         {
