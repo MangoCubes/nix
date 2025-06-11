@@ -7,6 +7,7 @@
     ./networking.nix
     (import ../packages/android.nix { androidStudio = false; })
     ../packages/wireshark.nix
+    ../packages/saleae.nix
   ];
   services.logind = {
     lidSwitch = "suspend";

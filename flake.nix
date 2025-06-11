@@ -103,6 +103,8 @@
           hostname,
           headless,
           presentation ? false,
+          # presentation,
+          # isLaptop,
           scale ? 1,
           monitors ? 1,
           emacsScale ? 1,
