@@ -249,6 +249,16 @@ in
         {
           on = [
             "c"
+            "b"
+          ];
+          run = [
+            ''shell 'cat "$@" | wl-copy' ''
+          ];
+          desc = "Copy file into clipboard";
+        }
+        {
+          on = [
+            "c"
             "z"
           ];
           run = [
