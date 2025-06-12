@@ -2,14 +2,14 @@
   pkgs,
   inputs,
   unstable,
-  headless,
+  device,
   ...
 }:
 let
   # Disable if headless
-  dih = attrset: (if (headless) then { } else attrset);
+  dih = attrset: (if device == "server" then { } else attrset);
   # Empty if headless
-  eih = attrset: (if (headless) then [ ] else attrset);
+  eih = attrset: (if device == "server" then [ ] else attrset);
 in
 {
   imports = [ inputs.nixvim.homeManagerModules.nixvim ];

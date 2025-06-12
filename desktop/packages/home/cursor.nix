@@ -1,4 +1,4 @@
-{ pkgs, presentation, ... }:
+{ pkgs, device, ... }:
 {
   home.pointerCursor =
     let
@@ -18,7 +18,7 @@
         '';
       };
     in
-    if presentation then
+    if device.presentation then
       (getFrom "https://github.com/ful1e5/Google_Cursor/releases/download/v2.0.0/GoogleDot-Black.tar.gz"
         "sha256-pb2U9j1m8uJaILxUxKqp8q9FGuwzZsQvhPP3bfGZL5I="
         "GoogleDot-Black"

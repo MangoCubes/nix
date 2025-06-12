@@ -1,16 +1,15 @@
 {
   unstable,
-  headless,
+  device,
   pkgs,
   inputs,
-  emacsScale,
   ...
 }:
 let
-  configFile = if headless then "headless.el" else "desktop.el";
+  configFile = if device == "server" then "headless.el" else "desktop.el";
   vars = ''
     (defvar banner "${inputs.secrets.res}/media/emacs/banner.jpg")
-    (defvar default-scale ${(toString emacsScale)})
+    (defvar default-scale ${(toString device.emacsScale)})
     (defvar my-use-straight nil "If non-nil, the package will be installed using straight.")
   '';
   configData = ''
@@ -105,7 +104,7 @@ in
   };
   services.emacs = {
     enable = true;
-    startWithUserSession = if headless then true else "graphical";
+    startWithUserSession = if device == "server" then true else "graphical";
   };
   systemd.user.services.emacs = {
     Service = {

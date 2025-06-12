@@ -74,14 +74,15 @@
         inherit system;
         config.allowUnfree = true;
       };
+      unfree = import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+      };
     in
-    # unfree = import nixpkgs {
-    #   inherit system;
-    #   config.allowUnfree = true;
-    # };
     let
+      # This sets the base system arguments
       sysBase =
-        { hostname, headless }:
+        { hostname, device }:
         {
           # This particular line is equivalent to system = "x86_64-linux"
           inherit system;
@@ -91,23 +92,19 @@
             inherit
               inputs
               unstable
+              unfree
               unfreeUnstable
               hostname
-              headless
+              device
               ;
             username = "main";
           };
         };
+      # This creates the modules that would be used alongside baseModules
       baseModules =
         {
           hostname,
-          headless,
-          presentation ? false,
-          # presentation,
-          # isLaptop,
-          scale ? 1,
-          monitors ? 1,
-          emacsScale ? 1,
+          device,
         }:
         [
           # This includes my basic desktop environment setup
@@ -126,12 +123,8 @@
                   unstable
                   colours
                   hostname
-                  headless
-                  scale
-                  monitors
-                  presentation
+                  device
                   system
-                  emacsScale
                   ;
                 username = "main";
               };
@@ -161,146 +154,222 @@
         ];
     in
     let
-      genHome =
+      # genHome =
+      #   {
+      #     hostname,
+      #   }:
+      #   {
+      #     modules = [
+      #       ./desktop/${hostname}/home.nix
+      #     ];
+      #   };
+      genSystem =
         {
           hostname,
-        }:
-        {
-          modules = [
-            ./desktop/${hostname}/home.nix
-          ];
-        };
-      genDesktop =
-        {
-          hostname,
-          presentation,
-          monitors ? 1,
-          scale ? 1,
-          emacsScale ? 1,
+          device,
         }:
         (sysBase {
-          inherit hostname;
-          headless = false;
+          inherit hostname device;
         })
         // {
           modules =
-            [
-              ./desktop/base/configuration.nix
-              # This includes per-machine config based on the flake name
-              ./desktop/${hostname}/configuration.nix
-            ]
+            (
+              if device.type == "desktop" || device.type == "laptop" then
+                [
+                  ./desktop/base/configuration.nix
+                  # This includes per-machine config based on the flake name
+                  ./desktop/${hostname}/configuration.nix
+                ]
+              else if device.type == "server" then
+                [
+                  ./server/base/configuration.nix
+                  # This includes per-machine config based on the flake name
+                  ./server/${hostname}/configuration.nix
+                ]
+              else
+                builtins.throw "Invalid device type: ${device.type}"
+            )
             ++ (baseModules {
               inherit
                 hostname
-                scale
-                monitors
-                presentation
-                emacsScale
+                device
                 ;
-              headless = false;
-            });
-        };
-      genServer =
-        { hostname }:
-        (sysBase {
-          inherit hostname;
-          headless = true;
-        })
-        // {
-          modules =
-            [
-              ./server/base/configuration.nix
-              # This includes per-machine config based on the flake name
-              ./server/${hostname}/configuration.nix
-            ]
-            ++ (baseModules {
-              inherit hostname;
-              headless = true;
             });
         };
       genImage =
-        { hostname, headless }:
-        (sysBase { inherit hostname headless; })
+        { hostname, device }:
+        (sysBase { inherit hostname device; })
         // {
           modules = [
             ./server/image/qcow.nix
             ./server/base/configuration.nix
             # This includes per-machine config based on the flake name
             ./server/${hostname}/configuration.nix
-          ] ++ (baseModules { inherit hostname headless; });
+          ] ++ (baseModules { inherit hostname device; });
         };
     in
     {
       # Generate config for each machine I have
-      homeConfigurations.portable = inputs.home-manager.lib.homeManagerConfiguration (
-        ({
-          pkgs = unstable;
-        })
-        // (genHome {
-          hostname = "portable";
-        })
-      );
-      # nixosConfigurations.laptop2 = nixpkgs.lib.nixosSystem ({
-      #   modules = [
-      #
-      #     ./common/environment.nix
-      #     ./common/networking.nix
-      #     ./common/security.nix
-      #     ./common/time.nix
-      #     ./common/users.nix
-      #
-      #     ./desktop/laptop2/configuration.nix
-      #     ./desktop/base/networking.nix
-      #     ./desktop/base/home.nix
-      #     ./desktop/base/boot.nix
-      #   ];
-      # });
-      nixosConfigurations.laptop2 = nixpkgs.lib.nixosSystem (genDesktop {
+      # homeConfigurations.portable = inputs.home-manager.lib.homeManagerConfiguration (
+      #   ({
+      #     pkgs = unstable;
+      #   })
+      #   // (genHome {
+      #     hostname = "portable";
+      #   })
+      # );
+      # {
+      #   hostname = string;
+      #   device = {
+      #     type = "laptop";
+      #     emacsScale = number;
+      #     scale = number;
+      #     presentation = bool;
+      #     monitors = {
+      #       x = number;
+      #       y = number;
+      #     }[];
+      #   } | {
+      #     type = "server";
+      #   } | {
+      #     type = "desktop";
+      #     scale = number;
+      #     emacsScale = number;
+      #     presentation = bool;
+      #     monitors = {
+      #       x = number;
+      #       y = number;
+      #     }[];
+      #   };
+      # }
+      nixosConfigurations.laptop2 = nixpkgs.lib.nixosSystem (genSystem {
         hostname = "laptop2";
-        presentation = false;
+        device = {
+          type = "laptop";
+          emacsScale = 1;
+          scale = 1;
+          presentation = false;
+          monitors = [
+            {
+              x = 1920;
+              y = 1200;
+            }
+          ];
+        };
       });
-      nixosConfigurations.laptop2Presentation = nixpkgs.lib.nixosSystem (genDesktop {
+      nixosConfigurations.laptop2Presentation = nixpkgs.lib.nixosSystem (genSystem {
         hostname = "laptop2";
-        presentation = true;
+        device = {
+          type = "laptop";
+          emacsScale = 1;
+          scale = 1;
+          presentation = true;
+          monitors = [
+            {
+              x = 1920;
+              y = 1200;
+            }
+          ];
+        };
       });
-      nixosConfigurations.laptop = nixpkgs.lib.nixosSystem (genDesktop {
+      nixosConfigurations.laptop = nixpkgs.lib.nixosSystem (genSystem {
         hostname = "laptop";
-        presentation = false;
+        device = {
+          type = "laptop";
+          emacsScale = 1;
+          scale = 1;
+          presentation = false;
+          monitors = [
+            {
+              x = 1920;
+              y = 1080;
+            }
+          ];
+        };
       });
-      nixosConfigurations.laptopPresentation = nixpkgs.lib.nixosSystem (genDesktop {
+      nixosConfigurations.laptopPresentation = nixpkgs.lib.nixosSystem (genSystem {
         hostname = "laptop";
-        presentation = true;
+        device = {
+          type = "laptop";
+          emacsScale = 1;
+          scale = 1;
+          presentation = true;
+          monitors = [
+            {
+              x = 1920;
+              y = 1080;
+            }
+          ];
+        };
       });
-      nixosConfigurations.main = nixpkgs.lib.nixosSystem (genDesktop {
+      nixosConfigurations.main = nixpkgs.lib.nixosSystem (genSystem {
         hostname = "main";
-        presentation = false;
+        device = {
+          type = "desktop";
+          emacsScale = 1;
+          scale = 1;
+          presentation = false;
+          monitors = [
+            {
+              x = 1920;
+              y = 1080;
+            }
+          ];
+        };
       });
-      nixosConfigurations.work = nixpkgs.lib.nixosSystem (genDesktop {
-        emacsScale = 2;
+      nixosConfigurations.work = nixpkgs.lib.nixosSystem (genSystem {
         hostname = "work";
-        presentation = false;
-        monitors = 2;
-        scale = 2;
+        device = {
+          type = "desktop";
+          emacsScale = 2;
+          scale = 2;
+          presentation = false;
+          monitors = [
+            {
+              x = 3840;
+              y = 2160;
+            }
+            {
+              x = 3840;
+              y = 2160;
+            }
+          ];
+        };
       });
-      nixosConfigurations.workPresentation = nixpkgs.lib.nixosSystem (genDesktop {
-        emacsScale = 2;
+      nixosConfigurations.workPresentation = nixpkgs.lib.nixosSystem (genSystem {
         hostname = "work";
-        presentation = true;
-        monitors = 2;
-        scale = 2;
+        device = {
+          type = "desktop";
+          emacsScale = 2;
+          scale = 2;
+          presentation = true;
+          monitors = [
+            {
+              x = 3840;
+              y = 2160;
+            }
+            {
+              x = 3840;
+              y = 2160;
+            }
+          ];
+        };
       });
-      nixosConfigurations.server-main = nixpkgs.lib.nixosSystem (genServer {
+      nixosConfigurations.server-main = nixpkgs.lib.nixosSystem (genSystem {
         hostname = "server-main";
+        device.type = "server";
       });
-      nixosConfigurations.server-network = nixpkgs.lib.nixosSystem (genServer {
+      nixosConfigurations.server-network = nixpkgs.lib.nixosSystem (genSystem {
         hostname = "server-network";
+        device.type = "server";
       });
-      nixosConfigurations.server-media = nixpkgs.lib.nixosSystem (genServer {
+      nixosConfigurations.server-media = nixpkgs.lib.nixosSystem (genSystem {
         hostname = "server-media";
+        device.type = "server";
       });
       nixosConfigurations.build-qcow2 = nixpkgs.lib.nixosSystem (genImage {
         hostname = "PLACEHOLDER";
-        headless = true;
+        device.type = "server";
       });
     };
 }

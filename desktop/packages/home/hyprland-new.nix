@@ -1,11 +1,9 @@
 {
-  scale,
-  monitors,
-  presentation,
   pkgs,
   lib,
   inputs,
   config,
+  device,
   ...
 }:
 #
@@ -22,7 +20,7 @@ let
   emacsOrg = ''emacsclient -c --eval '(find-file "${config.home.homeDirectory}/Sync/Notes/Org/Main.org")' '';
   mail = ''emacsclient -c -e '(notmuch-search "tag:inbox")' '';
   pic =
-    if presentation then
+    if device.presentation then
       "${config.home.homeDirectory}/.config/configMedia/wallpaper/sc2.png"
     else
       "${config.home.homeDirectory}/.config/configMedia/wallpaper/miku.png";
@@ -85,7 +83,7 @@ in
         ) submaps
       );
     settings = {
-      monitor = ",preferred,auto,${toString scale}";
+      monitor = ",preferred,auto,${toString device.scale}";
       exec-once = [
         terminal
         # I need Korean
@@ -248,13 +246,13 @@ in
           rounding = 0;
 
           active_opacity = 1;
-          inactive_opacity = if presentation then 1 else 0.8;
+          inactive_opacity = if device.presentation then 1 else 0.8;
 
           # drop_shadow = false;
         }
         // (
           # if presentation || laptop then
-          if presentation then
+          if device.presentation then
             { }
           else
             {
@@ -295,7 +293,7 @@ in
 
         follow_mouse = 1;
 
-        sensitivity = 0.5 * scale;
+        sensitivity = 0.5 * device.scale;
         accel_profile = "flat";
         touchpad.natural_scroll = true;
 
@@ -307,7 +305,7 @@ in
         [
           "name:keepass, on-created-empty:keepassxc ${config.home.homeDirectory}/Sync/Passwords/Passwords.kdbx"
         ]
-        ++ (lib.optionals (monitors == 2) [
+        ++ (lib.optionals ((builtins.length device.monitors) == 2) [
           "1, monitor:DP-1, default:true"
           "3, monitor:DP-1, default:true"
           "5, monitor:DP-1, default:true"
