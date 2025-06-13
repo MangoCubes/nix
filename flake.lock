@@ -429,7 +429,7 @@
         "hyprutils": "hyprutils",
         "hyprwayland-scanner": "hyprwayland-scanner",
         "nixpkgs": [
-          "nixpkgs"
+          "unstablePkg"
         ],
         "pre-commit-hooks": "pre-commit-hooks",
         "systems": "systems",
@@ -783,16 +783,16 @@
     },
     "nixpkgs_4": {
       "locked": {
-        "lastModified": 1746422338,
-        "narHash": "sha256-NTtKOTLQv6dPfRe00OGSywg37A1FYqldS6xiNmqBUYc=",
+        "lastModified": 1749727998,
+        "narHash": "sha256-mHv/yeUbmL91/TvV95p+mBVahm9mdQMJoqaTVTALaFw=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "5b35d248e9206c1f3baf8de6a7683fee126364aa",
+        "rev": "fd487183437963a59ba763c0cc4f27e3447dd6dd",
         "type": "github"
       },
       "original": {
         "owner": "nixos",
-        "ref": "nixos-24.11",
+        "ref": "nixos-25.05",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -943,7 +943,7 @@
         "unstablePkg": "unstablePkg"
       },
       "locked": {
-        "lastModified": 1749814812,
+        "lastModified": 1749817453,
         "narHash": "sha256-hmNsRTSwuWC5oe3n6EIPryDTz8+BF0TWroGYPZhagjs=",
         "path": "/home/main/Sync/NixConfig/secrets",
         "type": "path"

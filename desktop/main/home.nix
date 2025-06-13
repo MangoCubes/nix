@@ -17,7 +17,6 @@
         unstable.webcord
         unstable.prismlauncher
         pkgs.feishin
-        pkgs.kolourpaint
       ];
     };
 }
