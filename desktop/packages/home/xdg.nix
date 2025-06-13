@@ -17,17 +17,20 @@
     portal = {
       enable = true;
       configPackages = with pkgs; [
+        kdePackages.xdg-desktop-portal-kde
+      ];
+      extraPortals = with pkgs; [
         # xdg-desktop-portal-hyprland
         kdePackages.xdg-desktop-portal-kde
       ];
-      config = {
-        hyprland = {
-          default = [
-            "hyprland"
-            "kde"
-          ];
-        };
-      };
+      # config = {
+      #   hyprland = {
+      #     default = [
+      #       "hyprland"
+      #       "kde"
+      #     ];
+      #   };
+      # };
     };
   };
 }

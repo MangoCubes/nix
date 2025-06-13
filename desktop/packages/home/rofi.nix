@@ -30,6 +30,7 @@
       display-calc = "󰪚 Calc ";
       show-icons = true;
     };
+    package = pkgs.rofi-wayland;
     terminal = "kitty";
     plugins = [
       pkgs.rofi-calc

@@ -2,7 +2,7 @@
 
 let
   tuigreet = "${pkgs.greetd.tuigreet}/bin/tuigreet";
-  session = "Hyprland";
+  session = "niri";
 in
 
 {

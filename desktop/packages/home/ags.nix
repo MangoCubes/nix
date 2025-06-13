@@ -12,7 +12,6 @@
       with inputs.ags.packages.${unstable.system};
       [
         battery
-        hyprland
         mpris
         wireplumber
         notifd

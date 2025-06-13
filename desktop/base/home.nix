@@ -25,7 +25,8 @@
         ../packages/home/rofi.nix
         ../packages/home/bash.nix
         ../packages/home/accounts.nix
-        ../packages/home/hyprland-new.nix
+        # ../packages/home/hyprland-new.nix
+        ../packages/home/niri.nix
         ../packages/home/ags.nix
         ../packages/home/kde.nix
       ];

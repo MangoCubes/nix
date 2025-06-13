@@ -49,6 +49,7 @@ in
     [
       perl538Packages.LaTeXML
       texliveMedium
+      xwayland-satellite
     ]
   );
   xdg = {
@@ -95,7 +96,7 @@ in
   };
   programs.emacs = {
     enable = true;
-    package = unstable.emacs;
+    package = unstable.emacs-gtk;
     extraConfig = configData;
     # extraPackages =
     #   epkgs: with epkgs; [

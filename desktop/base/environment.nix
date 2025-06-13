@@ -9,6 +9,7 @@
     brightnessctl
   ];
   environment.sessionVariables = {
+    QT_QPA_PLATFORM = "wayland";
     NIXOS_OZONE_WL = "1";
     NIX_PROFILES = "${builtins.concatStringsSep " " (
       lib.lists.reverseList config.environment.profiles
