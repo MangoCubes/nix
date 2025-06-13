@@ -1,4 +1,5 @@
 {
+  unstable,
   pkgs,
   lib,
   inputs,
@@ -30,11 +31,13 @@ in
   home.packages = [ pkgs.playerctl ];
   wayland.windowManager.hyprland = {
     plugins = [
-      pkgs.hyprlandPlugins.hyprscroller
+      # (pkgs.callPackage ./hyprland/hyprscroller.nix { })
+      # inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprscrolling
+      pkgs.hyprlandPlugins.hyprscrolling
     ];
-    # package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-    # package = unstable.hyprland;
-    # portalPackage = hyprpkg;
+    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+    portalPackage =
+      inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
     systemd.variables = [ "--all" ];
     enable = true;
     extraConfig =
@@ -44,17 +47,17 @@ in
             settings = {
               bind = [
                 '', escape, submap, reset''
-                '', up, scroller:cyclesize, 1''
+                # '', up, hyprscrolling:colresize, +conf''
                 '', up, submap, reset''
-                '', down, scroller:cyclesize, -1''
+                # '', down, hyprscrolling:colresize, -conf''
                 '', down, submap, reset''
                 # '', right, scroller:cyclewidth, 1''
                 # '', left, scroller:cyclewidth, -1''
                 # '', F, scroller:setwidth, one''
                 # '', F, scroller:setheight, one''
-                ''${mod}, W, scroller:toggleoverview''
+                # ''${mod}, W, scroller:toggleoverview''
                 ''${mod}, W, submap, reset''
-                '', P, scroller:pin''
+                # '', P, scroller:pin''
                 '', P, submap, reset''
                 '', catchall, submap, reset''
               ];
@@ -97,12 +100,12 @@ in
       ];
       # So that Super + Tab works
       binds.allow_workspace_cycles = true;
-      plugin.scroller = {
-        column_widths = "onehalf threequarters one";
-        window_heights = "onehalf threequarters one";
-        column_default_width = "threequarters";
-        # window_default_height = "threequarters";
-      };
+      # plugin.hyprscrolling = {
+      #   fullscreen_on_one_column = true;
+      #   column_width = 0.8;
+      #   explicit_column_widths = "0.333,0.5,0.8,1";
+      #   focus_fit_method = 0;
+      # };
       bind =
         (
           # workspaces
@@ -137,12 +140,10 @@ in
           ''${mod}, W, submap, window''
           ''${mod}, F, fullscreen, 0''
 
-          ''${mod}, bracketleft, scroller:setmode, row''
-          ''${mod}, bracketright, scroller:setmode, col''
-          ''${mod} SHIFT, up, scroller:movewindow, u''
-          ''${mod} SHIFT, down, scroller:movewindow, d''
-          ''${mod} SHIFT, left, scroller:movewindow, l''
-          ''${mod} SHIFT, right, scroller:movewindow, r''
+          # ''${mod}, bracketleft, scroller:setmode, row''
+          # ''${mod}, bracketright, scroller:setmode, col''
+          # ''${mod} SHIFT, left, hyprscrolling:move, -col''
+          # ''${mod} SHIFT, right, hyprscrolling:move, +col''
         ]
         ++ (builtins.concatLists (
           builtins.map
@@ -239,7 +240,7 @@ in
         "col.inactive_border" = "rgba(5a676bff)";
         resize_on_border = false;
         allow_tearing = false;
-        layout = "scroller"; # "dwindle";
+        layout = "dwindle";
       };
       decoration =
         {
@@ -251,8 +252,7 @@ in
           # drop_shadow = false;
         }
         // (
-          # if presentation || laptop then
-          if device.presentation then
+          if device.presentation || device.type == "laptop" then
             { }
           else
             {
@@ -285,7 +285,7 @@ in
       # };
       # master.new_is_master = true;
       misc = {
-        # vfr = true;
+        vfr = device.type == "laptop";
         force_default_wallpaper = -1;
         disable_hyprland_logo = false;
       };
@@ -318,7 +318,7 @@ in
           "10, monitor:DP-2, default:true"
         ]);
       windowrulev2 = [
-        "bordercolor rgb(ff629d), tag: scroller:pinned"
+        # "bordercolor rgb(ff629d), tag: scroller:pinned"
         "suppressevent maximize, class:.*"
         # Ensure KDE polkit is always floating
         "stayfocused, title:^rofi"
@@ -354,7 +354,7 @@ in
     };
     Service = {
       Type = "simple";
-      ExecStart = "${pkgs.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1";
+      ExecStart = "${pkgs.kdePackages.polkit-kde-agent-1}/libexec/polkit-kde-authentication-agent-1";
       Restart = "on-failure";
       RestartSec = 1;
       TimeoutStopSec = 10;

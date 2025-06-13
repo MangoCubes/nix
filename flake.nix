@@ -5,6 +5,7 @@
       "https://cache.nixos.org/"
       "https://hyprland.cachix.org"
     ];
+    trusted-substituters = [ "https://hyprland.cachix.org" ];
     trusted-public-keys = [
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
@@ -37,6 +38,10 @@
     winapps = {
       url = "github:winapps-org/winapps";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+    hyprland-plugins = {
+      url = "github:hyprwm/hyprland-plugins";
+      inputs.hyprland.follows = "hyprland";
     };
     nix-alien.url = "github:thiagokokada/nix-alien";
     secrets = {
