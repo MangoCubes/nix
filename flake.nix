@@ -3,20 +3,14 @@
     substituters = [
       "https://nix-community.cachix.org"
       "https://cache.nixos.org/"
-      "https://hyprland.cachix.org"
     ];
-    trusted-substituters = [ "https://hyprland.cachix.org" ];
+    trusted-substituters = [ ];
     trusted-public-keys = [
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-      "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
     ];
   };
   inputs = {
-    hyprland = {
-      url = "github:hyprwm/Hyprland";
-      inputs.nixpkgs.follows = "unstablePkg";
-    };
     nixvim = {
       url = "github:nix-community/nixvim";
       # If using a stable channel you can use `url = "github:nix-community/nixvim/nixos-<version>"`
@@ -39,10 +33,6 @@
       url = "github:winapps-org/winapps";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    hyprland-plugins = {
-      url = "github:hyprwm/hyprland-plugins";
-      inputs.hyprland.follows = "hyprland";
-    };
     nix-alien.url = "github:thiagokokada/nix-alien";
     secrets = {
       url = "path:/home/main/Sync/NixConfig/secrets";
@@ -60,7 +50,6 @@
       home-manager,
       unstablePkg,
       sops-nix,
-      hyprland,
       ...
     }:
     let
