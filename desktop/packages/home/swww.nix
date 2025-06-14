@@ -1,5 +1,4 @@
 {
-  lib,
   device,
   config,
   unstable,
@@ -43,8 +42,8 @@ in
   home.sessionVariables = {
     WALLPAPER = "${img}";
   };
-  home.activation.swww = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    ${unstable.swww}/bin/swww img --transition-type center --transition-step 90 ${img}
-  '';
+  # home.activation.swww = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+  #   ${unstable.swww}/bin/swww img --transition-type center --transition-step 90 ${img}
+  # '';
 
 }

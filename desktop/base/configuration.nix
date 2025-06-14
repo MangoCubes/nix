@@ -17,6 +17,7 @@
     ../packages/greetd.nix
     ../packages/kdeconnect.nix
     ../packages/traefik.nix
+    ../packages/swaylock.nix
   ];
   powerManagement.enable = true;
   programs.nix-ld.enable = true;
