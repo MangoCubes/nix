@@ -29,6 +29,7 @@
         ../packages/home/niri.nix
         ../packages/home/ags.nix
         ../packages/home/kde.nix
+        ../packages/home/korean.nix
       ];
 
       xdg.configFile."configMedia" = {

@@ -11,7 +11,7 @@
     ./security.nix
     ./services.nix
     ./boot.nix
-    ../packages/korean-input.nix
+    ../packages/kmonad.nix
     ../packages/bluetooth.nix
     ../packages/fonts.nix
     ../packages/greetd.nix
