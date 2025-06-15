@@ -2,7 +2,7 @@
 
 let
   tuigreet = "${pkgs.greetd.tuigreet}/bin/tuigreet";
-  session = "niri";
+  session = "niri-session";
 in
 
 {
@@ -10,7 +10,7 @@ in
     enable = true;
     settings = {
       default_session = {
-        command = "${tuigreet} --greeting 'Welcome to NixOS!' --asterisks --remember --remember-user-session --time --cmd ${session}";
+        command = "${tuigreet} --greeting 'Welcome to NixOS!' --asterisks --remember --time --cmd ${session}";
         user = "greeter";
       };
     };
