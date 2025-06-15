@@ -9,6 +9,7 @@
 (load-relative "./plugins/highlight.el")
 (load-relative "./plugins/xkcd.el")
 (load-relative "./plugins/lsp.el")
+(load-relative "./plugins/korean.el")
 
 (cond
   ((eq window-system 'x) (load-relative "./plugins/x11.el"))

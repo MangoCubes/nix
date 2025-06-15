@@ -316,7 +316,7 @@
         hostname = "work";
         device = {
           type = "desktop";
-          emacsScale = 2;
+          emacsScale = 1;
           scale = 2;
           presentation = false;
           monitors = [
@@ -335,7 +335,7 @@
         hostname = "work";
         device = {
           type = "desktop";
-          emacsScale = 2;
+          emacsScale = 1;
           scale = 2;
           presentation = true;
           monitors = [
