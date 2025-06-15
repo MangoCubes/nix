@@ -1,26 +1,17 @@
 {
   config,
   lib,
-  unstable,
   ...
 }:
-let
-  command = ''systemctl --user start podman-windows && ${unstable.remmina}/bin/remmina -c ${config.home.homeDirectory}/.config/remmina/rdp.remmina'';
-in
 {
-  wayland.windowManager.hyprland.settings.bind = [
-    ''SUPER SHIFT, W, exec, ${command}''
-  ];
   home.activation.windows = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     mkdir -p ${config.home.homeDirectory}/Windows/storage
     mkdir -p ${config.home.homeDirectory}/Windows/data
   '';
-  # xdg.configFile."windows/rdp.remmina".text = (builtins.readFile ./windows/rdp.remmina);
-  xdg.configFile."remmina/rdp.remmina".source =
-    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Sync/LinuxConfig/remmina/rdp.remmina";
-  home.packages = [
-    unstable.remmina
-  ];
+  # xdg.configFile."remmina/rdp.remmina".source =
+  #   config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Sync/LinuxConfig/remmina/rdp.remmina";
+  # xdg.configFile."remmina/remmina.pref".source =
+  #   config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Sync/LinuxConfig/remmina/remmina.pref";
   services.podman.containers.windows = {
     image = "ghcr.io/dockur/windows:latest";
     autoStart = false;

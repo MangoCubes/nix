@@ -1,7 +1,7 @@
 {
   pkgs,
   config,
-  unstable,
+  device,
   hostname,
   ...
 }:
@@ -23,7 +23,9 @@ let
             exit 1
         fi
     fi
-    ${unstable.remmina}/bin/remmina -c ${config.home.homeDirectory}/.config/remmina/rdp.remmina
+    DISPLAY=:0 ${pkgs.freerdp3}/bin/xfreerdp /cert:tofu /d:"" /u:"Windows" /p:"Password" /scale:${
+      toString (if device.scale == 2 then 180 else 100)
+    } -grab-keyboard +clipboard /t:Windows +home-drive -wallpaper +dynamic-resolution /v:"127.0.0.1"
   '';
   configFile = if hostname == "work" then "config-work.kdl" else "config.kdl";
 in
