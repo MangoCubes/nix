@@ -2,6 +2,7 @@
   pkgs,
   config,
   unstable,
+  hostname,
   ...
 }:
 let
@@ -24,6 +25,7 @@ let
     fi
     ${unstable.remmina}/bin/remmina -c ${config.home.homeDirectory}/.config/remmina/rdp.remmina
   '';
+  configFile = if hostname == "work" then "config-work.kdl" else "config.kdl";
 in
 
 {
@@ -36,5 +38,5 @@ in
       run-windows
     ];
   xdg.configFile."niri/config.kdl".source =
-    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Sync/LinuxConfig/niri/config.kdl";
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Sync/LinuxConfig/niri/${configFile}";
 }
