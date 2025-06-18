@@ -74,6 +74,8 @@
         inherit system;
         config.allowUnfree = true;
       };
+      username = "main";
+      homeDir = "/home/${username}";
     in
     let
       # This sets the base system arguments
@@ -92,8 +94,10 @@
               unfreeUnstable
               hostname
               device
+              username
+              homeDir
               ;
-            username = "main";
+
           };
         };
       # This creates the modules that would be used alongside baseModules
@@ -121,8 +125,9 @@
                   hostname
                   device
                   system
+                  username
+                  homeDir
                   ;
-                username = "main";
               };
             };
           }

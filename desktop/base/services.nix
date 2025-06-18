@@ -5,7 +5,7 @@
     # Power manager, required to get brightness control
     upower.enable = true;
     # For getting USBs
-    udisks2.enable = true;
+    # udisks2.enable = true;
     # Audio
     pipewire = {
       enable = true;
