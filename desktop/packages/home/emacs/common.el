@@ -1,4 +1,5 @@
 (load-relative "./plugins/evil.el")
+(load-relative "./plugins/evil-collection.el")
 (load-relative "./plugins/company.el")
 ;; (load-relative "./plugins/dashboard.el")
 (load-relative "./plugins/options.el")

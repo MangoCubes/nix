@@ -107,13 +107,10 @@ in
     enable = true;
     startWithUserSession = if device == "server" then true else "graphical";
   };
-  systemd.user.services.emacs = {
-    Service = {
-      TimeoutStopSec = 10;
-      TimeoutStartSec = 3600;
-    };
-  };
-  #home.sessionVariables = {
-  #  EDITOR = "emacsclient -nw";
-  #};
+  # systemd.user.services.emacs = {
+  #   Service = {
+  #     TimeoutStopSec = 10;
+  #     TimeoutStartSec = 3600;
+  #   };
+  # };
 }
