@@ -1,3 +1,4 @@
+(setq evil-want-keybinding nil)
 ;; Install packages
 (straight-use-package 'evil)
 (straight-use-package 'undo-tree)

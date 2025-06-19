@@ -1,8 +1,7 @@
 
+(setq evil-want-integration t)
 (straight-use-package 'evil-collection)
 ;; Set up Evil collection
-(setq evil-want-keybinding nil)
-(setq evil-want-integration t)
 
 (use-package evil-collection
   :after evil

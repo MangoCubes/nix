@@ -29,12 +29,6 @@
     (let ((org-latex-preview-default-process 'dvi)) ; Change to 'pdf if needed
 	  (let ((current-prefix-arg '(2))) (org-latex-preview)))))
 
-(defun my/org-mode-save-hook ()
-  "Function to run after saving an Org mode file."
-  (when (eq major-mode 'org-mode)
-    'my/org-latex-preview-entire-document))
-
-(add-hook 'after-save-hook 'my/org-mode-save-hook)
 
 
 ;; Set orgmode latex size
@@ -47,6 +41,22 @@
 (require 'org-appear)
 (add-hook 'org-mode-hook 'org-appear-mode)
 
+(defun my/org-mode-setup ()
+  "Automatically run `org-id-get-create` when creating a new Org document."
+  (when (and (buffer-file-name)
+    	(string= (file-name-extension (buffer-file-name)) "org")
+		(not (string-match-p (format-time-string "^%Y-%m-%d") (file-name-nondirectory (buffer-file-name)))))
+    (org-id-get-create)))
+
+(add-hook 'org-mode-hook 'my/org-mode-setup)
+
+
+(defun my/org-mode-save-hook ()
+  "Function to run after saving an Org mode file."
+  (when (eq major-mode 'org-mode)
+    'my/org-latex-preview-entire-document))
+
+(add-hook 'after-save-hook 'my/org-mode-save-hook)
 ;; Add org-fragtop
 ;; It automatically converts maths equations to latex fragments
 ;; Unfortunately, this is buggy
