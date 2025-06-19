@@ -18,6 +18,7 @@
         ./packages/home/nixvim.nix
         ./packages/home/bash.nix
         ./packages/home/yazi.nix
+        ./packages/home/scripts.nix
       ];
 
       home.packages = (
