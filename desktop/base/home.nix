@@ -51,6 +51,7 @@
             vlc
             sshpass
             sops
+            devenv
           ])
           ++ (with pkgs; [
             mullvad-browser
