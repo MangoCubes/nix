@@ -171,6 +171,9 @@ in
         # };
       })
       // {
+        marks = {
+          enable = true;
+        };
         grug-far.enable = true;
         lz-n.enable = true;
         lualine = {
