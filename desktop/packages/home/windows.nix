@@ -6,24 +6,31 @@
   ...
 }:
 let
-  run-windows = pkgs.writeShellScriptBin "run-windows" ''
-    SERVICE_NAME="podman-windows"  # Replace with your service name
+  username = "Windows";
+  password = "Password";
+  container = ''podman run -d --name windows --env CPU_CORES=4 --env DISK_SIZE=64G --env HOME=/home/main/Windows --env LANGUAGE=Korean --env PASSWORD=Password --env RAM_SIZE=4G --env USERNAME=${username} --env VERSION=10 --device /dev/kvm --device /dev/net/tun --publish 8006:8006 --publish 3389:3389/tcp --publish 3389:3389/udp --volume ${config.home.homeDirectory}/Windows/data:/data --volume ${config.home.homeDirectory}/Windows/storage:/storage ghcr.io/dockur/windows:latest'';
+  start-rdp = pkgs.writeShellScriptBin "run-windows" ''
+    # Container name
+    CONTAINER_NAME="windows"
 
-    if systemctl --user is-active --quiet $SERVICE_NAME; then
-        echo "$SERVICE_NAME is already running."
+    # Check if the container exists
+    if podman ps -a --format '{{.Names}}' | grep -w "$CONTAINER_NAME" > /dev/null; then
+      # Container exists
+      if podman ps --format '{{.Names}}' | grep -w "$CONTAINER_NAME" > /dev/null; then
+        # Container is running
+        echo "Container '$CONTAINER_NAME' is already running."
+      else
+        # Container is stopped, start it
+        echo "Starting container '$CONTAINER_NAME'."
+        podman rm -f "$CONTAINER_NAME"
+        ${container}
+      fi
     else
-        echo "$SERVICE_NAME is not running. Starting it now..."
-        systemctl --user start $SERVICE_NAME
-
-        # Optionally, check if the service started successfully
-        if systemctl --user is-active --quiet $SERVICE_NAME; then
-            echo "$SERVICE_NAME started successfully."
-        else
-            echo "Failed to start $SERVICE_NAME."
-            exit 1
-        fi
+      echo "Creating container '$CONTAINER_NAME'."
+      ${container}
     fi
-    DISPLAY=:0 ${pkgs.freerdp3}/bin/xfreerdp /cert:tofu /d:"" /u:"Windows" /p:"Password" /scale:${
+
+    ${pkgs.freerdp3}/bin/xfreerdp /cert:tofu /d:"" /u:"${username}" /p:"${password}" /scale:${
       toString (if device.scale == 2 then 180 else 100)
     } -grab-keyboard +clipboard /t:Windows +home-drive -wallpaper +dynamic-resolution /v:"127.0.0.1"
   '';
@@ -31,7 +38,7 @@ let
 in
 {
   home.packages = [
-    run-windows
+    start-rdp
   ];
 
   home.activation.windows = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
@@ -42,32 +49,4 @@ in
   #   config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Sync/LinuxConfig/remmina/rdp.remmina";
   # xdg.configFile."remmina/remmina.pref".source =
   #   config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Sync/LinuxConfig/remmina/remmina.pref";
-  services.podman.containers.windows = {
-    image = "ghcr.io/dockur/windows:latest";
-    autoStart = false;
-    environment = {
-      "VERSION" = "10";
-      "RAM_SIZE" = "4G"; # RAM allocated to the Windows VM.
-      "CPU_CORES" = "4"; # CPU cores allocated to the Windows VM.
-      "DISK_SIZE" = "64G"; # Size of the primary hard disk.
-      #DISK2_SIZE: "32G" # Uncomment to add an additional hard disk to the Windows VM. Ensure it is mounted as a volume below.
-      "USERNAME" = "Windows"; # Edit here to set a custom Windows username. The default is 'MyWindowsUser'.
-      "PASSWORD" = "Password"; # Edit here to set a password for the Windows user. The default is 'MyWindowsPassword'.
-      "HOME" = "${config.home.homeDirectory}/Windows"; # Set path to Linux user home folder.
-      "LANGUAGE" = "Korean";
-    };
-    ports = [
-      "8006:8006"
-      "3389:3389/tcp"
-      "3389:3389/udp"
-    ];
-    volumes = [
-      "${config.home.homeDirectory}/Windows/data:/data"
-      "${config.home.homeDirectory}/Windows/storage:/storage"
-    ];
-    devices = [
-      "/dev/kvm"
-      "/dev/net/tun"
-    ];
-  };
 }
