@@ -39,6 +39,15 @@ in
             orphan = true;
           }
         ];
+        devenv = [
+          {
+            run = ''kitty bash -c "devenv shell"'';
+            for = "unix";
+            desc = "Dev Shell";
+            orphan = true;
+          }
+        ];
+
         terminal = [
           {
             run = ''kitty "$@"'';
@@ -97,6 +106,7 @@ in
           name = "*.nix";
           use = [
             "edit"
+            "devenv"
             "nix"
           ];
         }
