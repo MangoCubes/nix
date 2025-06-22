@@ -96,7 +96,7 @@ in
   };
   programs.emacs = {
     enable = true;
-    package = unstable.emacs-pgtk;
+    package = unstable.emacs; # unstable.emacs-pgtk;
     extraConfig = configData;
     # extraPackages =
     #   epkgs: with epkgs; [
