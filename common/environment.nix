@@ -11,8 +11,6 @@
     traceroute
     git
     dnsutils
-    unzip
-    zip
     lsof
   ];
 }
