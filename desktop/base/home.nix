@@ -31,6 +31,7 @@
         ../packages/home/kde.nix
         ../packages/home/korean.nix
         ../packages/home/polkit.nix
+        ../packages/home/wlr-which-key.nix
       ];
 
       xdg.configFile."configMedia" = {

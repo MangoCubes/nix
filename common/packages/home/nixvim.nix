@@ -470,7 +470,7 @@ in
         }
         {
           key = "<leader>pt";
-          action = ''<cmd>silent exec "!kitty &"<CR>'';
+          action = ''<cmd>silent exec "!kitty bash &"<CR>'';
           options.desc = "Launch Kitty terminal";
         }
       ])
