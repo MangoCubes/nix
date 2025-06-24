@@ -15,6 +15,7 @@
         mpris
         wireplumber
         notifd
+        tray
       ]
     );
     systemd.enable = true;
