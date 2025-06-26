@@ -1,3 +1,5 @@
+# For remote access. My main user "main" has a weak password, but cannot be used for remote login.
+# Instead, there is a user named "access" which has a strong password, but can be used to log in over SSH.
 let
   sideUser = "access";
 in
