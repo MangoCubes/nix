@@ -71,7 +71,7 @@ in
         ];
         extract = [
           {
-            run = ''ouch decompress $@ -d out'';
+            run = ''for file in "$@"; do f=''${file##*/}; ouch decompress $file -d "./''${f%.*}"; done;'';
             desc = "Extract";
             orphan = true;
           }
