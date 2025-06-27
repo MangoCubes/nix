@@ -17,7 +17,7 @@
         unstable.webcord
         unstable.prismlauncher
         pkgs.feishin
-        pkgs.rnote
+        pkgs.xournalpp
       ];
     };
 }

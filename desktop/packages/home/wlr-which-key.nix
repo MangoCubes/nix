@@ -1,11 +1,25 @@
 {
-  unstable,
   config,
+  pkgs,
   ...
 }:
+let
+  wlrWhichKey = import ./build/wlr-which-key.nix {
+    inherit (pkgs)
+      lib
+      rustPlatform
+      fetchFromGitHub
+      pkg-config
+      cairo
+      glib
+      libxkbcommon
+      pango
+      ;
+  };
+in
 {
   home.packages = [
-    unstable.wlr-which-key
+    wlrWhichKey
   ];
 
   xdg.configFile."wlr-which-key/config.yaml".source =
