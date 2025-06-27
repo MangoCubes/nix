@@ -16,7 +16,7 @@
         inputs.sops-nix.homeManagerModules.sops
         ./packages/home/podman/syncthing.nix
         ./packages/home/nixvim.nix
-        ./packages/home/bash.nix
+        ./packages/home/zsh.nix
         ./packages/home/yazi.nix
         ./packages/home/scripts.nix
       ];
