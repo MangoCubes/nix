@@ -34,7 +34,7 @@
   home.sessionVariables = {
     # GTK_IM_MODULE = "wayland";
     QT_IM_MODULE = "fcitx";
-    QT_IM_MODULES = "wayland;fcitx;ibus";
+    QT_IM_MODULES = "fcitx;wayland;ibus";
     XMODIFIERS = "@im=fcitx";
   };
 }

@@ -97,10 +97,10 @@ lib.mkMerge [
     "devtools.debugger.pause-on-debugger-statement" = lock-false;
 
     # KDE integration for file picker and other stuff
-    "widget.use-xdg-desktop-portal.file-picker" = (lock-string 1);
-    "widget.use-xdg-desktop-portal.mime-handler" = (lock-string 1);
-    "widget.use-xdg-desktop-portal.settings" = (lock-string 1);
-    "widget.use-xdg-desktop-portal.location" = (lock-string 1);
-    "widget.use-xdg-desktop-portal.open-uri" = (lock-string 1);
+    "widget.use-xdg-desktop-portal.file-picker" = (lock-string 2);
+    "widget.use-xdg-desktop-portal.mime-handler" = (lock-string 2);
+    "widget.use-xdg-desktop-portal.settings" = (lock-string 2);
+    "widget.use-xdg-desktop-portal.location" = (lock-string 2);
+    "widget.use-xdg-desktop-portal.open-uri" = (lock-string 2);
   }
 ]
