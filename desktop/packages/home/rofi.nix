@@ -6,6 +6,9 @@
   ...
 }:
 {
+  imports = [
+    ./rofi/rofi-simplelogin.nix
+  ];
   home.packages = [
     (import ./rofi/search/rofi-engines.nix {
       inherit pkgs;
