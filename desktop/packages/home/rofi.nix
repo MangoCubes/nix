@@ -17,7 +17,7 @@
     })
     (import ./rofi/rofi-removable.nix { inherit pkgs; })
     (import ./rofi/search/rofi-search.nix { inherit pkgs; })
-    (import ./rofi/search/rofi-input.nix { inherit pkgs; })
+    (import ./rofi/rofi-input.nix { inherit pkgs; })
     (import ./rofi/rofi-env.nix { inherit pkgs; })
   ];
   programs.rofi = {
