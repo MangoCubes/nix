@@ -1,4 +1,4 @@
-{ pkgs, lib }:
+{ pkgs, lib, ... }:
 let
   printEngines = { name, ... }: name;
   printURL = { url, name }: ''if [[ "$name" == "${name}" ]]; then echo "${url}"; exit 0; fi'';
@@ -24,10 +24,13 @@ let
       url = "https://www.google.com/search?q=";
     }
   ];
+  rofi-engines = pkgs.writeShellScriptBin "rofi-engines" ''
+    name=$(echo "${lib.strings.concatStringsSep "\n" (map printEngines engines)}" | rofi -dmenu)
+    if [ -z "$name" ]; then exit 1; fi
+    ${lib.strings.concatStringsSep "\n" (map printURL engines)}
+    exit 1;
+  '';
 in
-pkgs.writeShellScriptBin "rofi-engines" ''
-  name=$(echo "${lib.strings.concatStringsSep "\n" (map printEngines engines)}" | rofi -dmenu)
-  if [ -z "$name" ]; then exit 1; fi
-  ${lib.strings.concatStringsSep "\n" (map printURL engines)}
-  exit 1;
-''
+{
+  home.packages = [ rofi-engines ];
+}

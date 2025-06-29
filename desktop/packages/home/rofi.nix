@@ -8,20 +8,12 @@
 {
   imports = [
     ./rofi/rofi-simplelogin.nix
-  ];
-  home.packages = [
-    (import ./rofi/search/rofi-engines.nix {
-      inherit pkgs;
-      inherit lib;
-    })
-    (import ./rofi/rofi-browser.nix {
-      inherit pkgs;
-      inherit lib;
-    })
-    (import ./rofi/rofi-removable.nix { inherit pkgs; })
-    (import ./rofi/search/rofi-search.nix { inherit pkgs; })
-    (import ./rofi/rofi-input.nix { inherit pkgs; })
-    (import ./rofi/rofi-env.nix { inherit pkgs; })
+    ./rofi/search/rofi-engines.nix
+    ./rofi/rofi-browser.nix
+    ./rofi/rofi-removable.nix
+    ./rofi/search/rofi-search.nix
+    ./rofi/rofi-input.nix
+    ./rofi/rofi-env.nix
   ];
   programs.rofi = {
     enable = true;
