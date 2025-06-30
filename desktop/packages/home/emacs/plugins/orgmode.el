@@ -41,12 +41,19 @@
 (require 'org-appear)
 (add-hook 'org-mode-hook 'org-appear-mode)
 
+
 (defun my/org-mode-setup ()
-  "Automatically run `org-id-get-create` when creating a new Org document."
+  "Automatically run `org-id-get-create` when creating a new Org document, and create TITLE"
   (when (and (buffer-file-name)
-    	(string= (file-name-extension (buffer-file-name)) "org")
-		(not (string-match-p (format-time-string "^%Y-%m-%d") (file-name-nondirectory (buffer-file-name)))))
-    (org-id-get-create)))
+			 (eq major-mode 'org-mode)
+			 (not (string-match-p (format-time-string "^%Y-%m-%d") (file-name-nondirectory (buffer-file-name)))))
+    (org-id-get-create))
+  (when (and (buffer-file-name)
+			 (eq major-mode 'org-mode)
+    		 (not (re-search-forward "^#\\+TITLE:" nil t)))
+  (let ((filename (file-name-sans-extension (file-name-nondirectory (buffer-file-name)))))
+    (goto-char (point-max))
+    (insert (format "\n#+TITLE: %s\n" filename)))))
 
 (add-hook 'org-mode-hook 'my/org-mode-setup)
 
