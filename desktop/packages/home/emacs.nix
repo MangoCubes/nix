@@ -103,10 +103,10 @@ in
     #     mu4e
     #   ];
   };
-  services.emacs = {
-    enable = true;
-    startWithUserSession = if device == "server" then true else "graphical";
-  };
+  # services.emacs = {
+  #   enable = true;
+  #   startWithUserSession = if device == "server" then true else "graphical";
+  # };
   # systemd.user.services.emacs = {
   #   Service = {
   #     TimeoutStopSec = 10;
