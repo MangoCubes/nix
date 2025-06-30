@@ -12,13 +12,13 @@
       imports = [
         ../packages/home/obs.nix
         ../packages/home/windows.nix
+        ../packages/home/ghidra.nix
       ];
       home.packages = [
         unstable.webcord
         # Relies on EOLd version of electron and Nix is complaining
         # unstable.feishin
         unfreeUnstable.osu-lazer-bin
-        pkgs.ghidra
         unstable.gdb
       ];
     };
