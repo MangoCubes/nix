@@ -1,4 +1,9 @@
-{ pkgs, config, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 {
   xdg = {
     desktopEntries."org.fcitx.fcitx5-migrator" = {
@@ -24,13 +29,17 @@
     # type = "fcitx5";
     # enable = true;
     enabled = "fcitx5";
-    fcitx5.addons = with pkgs; [
-      fcitx5-mozc
-      fcitx5-hangul
-      fcitx5-gtk
-      fcitx5-nord
-    ];
+    fcitx5 = {
+      addons = with pkgs; [
+        fcitx5-mozc
+        fcitx5-hangul
+        fcitx5-gtk
+        fcitx5-nord
+      ];
+      waylandFrontend = true;
+    };
   };
+  systemd.user.services.fcitx5-daemon.Install.WantedBy = lib.mkForce [ ];
   home.sessionVariables = {
     # GTK_IM_MODULE = "wayland";
     QT_IM_MODULE = "fcitx";

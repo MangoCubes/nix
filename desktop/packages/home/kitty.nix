@@ -1,8 +1,14 @@
+{ pkgs, ... }:
+let
+  detached = pkgs.writeShellScriptBin "t" ''d kitty bash'';
+in
 {
   programs.bash.shellAliases = {
     fastfetch = "fastfetch --logo ~/.config/configMedia/logo/nix.png --logo-type kitty-direct --logo-width 30 --logo-height 14";
-    t = "kitty & disown";
   };
+  home.packages = [
+    detached
+  ];
   programs.kitty = {
     enable = true;
     settings = {
