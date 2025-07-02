@@ -5,7 +5,7 @@
     ./boot.nix
     ./home.nix
     (import ../packages/android.nix { androidStudio = true; })
-    ../../common/packages/rclone.nix
+    ../../common/packages/rclone-mega.nix
     ../packages/steam.nix
     ../packages/wireshark.nix
     ../packages/tablet.nix
