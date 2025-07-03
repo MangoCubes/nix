@@ -14,6 +14,7 @@ in
     enable = true;
     #    enableNushellIntegration = true;
     settings = {
+      mgr.linemode = "mtime";
       opener = {
         sops = [
           {
@@ -174,6 +175,46 @@ in
     keymap = {
       manager.prepend_keymap = [
         {
+          on = [
+            "m"
+          ];
+          run = "plugin bookmarks save";
+          desc = "Save current position as a bookmark";
+        }
+
+        {
+          on = [
+            "`"
+          ];
+          run = "plugin bookmarks jump";
+          desc = "Jump to a bookmark";
+        }
+        {
+          on = [
+            "'"
+          ];
+          run = "plugin bookmarks jump";
+          desc = "Jump to a bookmark";
+        }
+
+        {
+          on = [
+            "b"
+            "d"
+          ];
+          run = "plugin bookmarks delete";
+          desc = "Delete a bookmark";
+        }
+
+        {
+          on = [
+            "b"
+            "D"
+          ];
+          run = "plugin bookmarks delete_all";
+          desc = "Delete all bookmarks";
+        }
+        {
           on = "T";
           run = [
             ''shell --orphan -- kitty -d "$(dirname '$@')" ''
@@ -316,33 +357,16 @@ in
           rev = "main";
           sha256 = "sha256-XHGlQn0Nsxh/WScz4v2I+IWvzGJ9QTXbB7zgSCPQ+E0=";
         };
+        bookmarks = pkgs.fetchFromGitHub {
+          owner = "dedukun";
+          repo = "bookmarks.yazi";
+          rev = "main";
+          sha256 = "sha256-Ry3V29T7lij5JR68gTINXtOEgbrYPwd5zQDEa2kfpTA=";
+        };
       };
-    initLua = ''
-            -- require("full-border"):setup()
-            require("projects"):setup({
-              save = {
-                method = "lua", -- yazi | lua
-                lua_save_path = "${stateFile}", -- windows: "%APPDATA%/yazi/state/projects.json", unix: "~/.config/yazi/state/projects.json"
-              },
-              last = {
-                update_after_save = true,
-                update_after_load = true,
-              },
-              merge = {
-                quit_after_merge = false,
-              },
-              notify = {
-                enable = true,
-                title = "Projects",
-                timeout = 3,
-                level = "info",
-              },
-            })
-            return {
-      	      entry = function()
-      		    local h = cx.active.current.hovered
-      		    ya.manager_emit(h and h.cha.is_dir and "enter" or "open", { hovered = true })
-      	      end,
-            }'';
+
+    initLua = builtins.replaceStrings [ "<StateFile>" ] [ stateFile ] (
+      builtins.readFile ./yazi/init.lua
+    );
   };
 }
