@@ -2,36 +2,37 @@
   config,
   inputs,
   hostname,
+  pkgs,
   ...
 }:
+let
+  writeAlias =
+    a: builtins.attrValues (builtins.mapAttrs (key: value: (pkgs.writeShellScriptBin key value)) a);
+  aliases =
+    let
+      reloadSecrets = "sudo nix flake update secrets --flake ${config.home.homeDirectory}/Sync/NixConfig";
+      remotes = inputs.secrets.servers;
+      cmds = builtins.foldl' (
+        acc: hostname:
+        acc
+        // {
+          "rebuild-${hostname}" =
+            "${reloadSecrets} && nixos-rebuild --flake ${config.home.homeDirectory}/Sync/NixConfig#${hostname} --target-host main@${hostname} --use-remote-sudo switch";
+        }
+      ) { } remotes;
+    in
+    {
+      genimage = "nix build ~/Sync/NixConfig#nixosConfigurations.build-qcow2.config.system.build.qcow2 --impure";
+      rebuild = ''${reloadSecrets} && sudo nixos-rebuild --flake path://${config.home.homeDirectory}/Sync/NixConfig#${hostname} switch'';
+      rebuildp = ''${reloadSecrets} && sudo nixos-rebuild --flake path://${config.home.homeDirectory}/Sync/NixConfig#${hostname}Presentation switch'';
+      rebuildr = "rebuild && reboot";
+      rebuilds = reloadSecrets;
+      updateunstable = "nix flake update --flake path://${config.home.homeDirectory}/Sync/NixConfig unstablePkg";
+      # Bunch of commands I seem to use a lot
+      listen = "nc -lk";
+    }
+    // cmds;
+in
 {
-  # imports = [ inputs.secrets.nixosModules.test ];
-  # builtins.trace config.domains
-  programs.bash = {
-    # initExtra = "nvim -c terminal +star \n";
-    shellAliases =
-      let
-        reloadSecrets = "sudo nix flake update secrets --flake ${config.home.homeDirectory}/Sync/NixConfig";
-        remotes = inputs.secrets.servers;
-        cmds = builtins.foldl' (
-          acc: hostname:
-          acc
-          // {
-            "rebuild-${hostname}" =
-              "${reloadSecrets} && nixos-rebuild --flake ${config.home.homeDirectory}/Sync/NixConfig#${hostname} --target-host main@${hostname} --use-remote-sudo switch";
-          }
-        ) { } remotes;
-      in
-      {
-        genimage = "nix build ~/Sync/NixConfig#nixosConfigurations.build-qcow2.config.system.build.qcow2 --impure";
-        rebuild = ''${reloadSecrets} && sudo nixos-rebuild --flake path://${config.home.homeDirectory}/Sync/NixConfig#${hostname} switch'';
-        rebuildp = ''${reloadSecrets} && sudo nixos-rebuild --flake path://${config.home.homeDirectory}/Sync/NixConfig#${hostname}Presentation switch'';
-        rebuildr = "rebuild && reboot";
-        rebuilds = reloadSecrets;
-        updateunstable = "nix flake update --flake path://${config.home.homeDirectory}/Sync/NixConfig unstablePkg";
-        # Bunch of commands I seem to use a lot
-        listen = "nc -lk";
-      }
-      // cmds;
-  };
+  home.packages = (writeAlias aliases);
 }
