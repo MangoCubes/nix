@@ -23,10 +23,13 @@ let
     in
     {
       genimage = "nix build ~/Sync/NixConfig#nixosConfigurations.build-qcow2.config.system.build.qcow2 --impure";
-      rebuild = ''${reloadSecrets} && sudo nixos-rebuild --flake path://${config.home.homeDirectory}/Sync/NixConfig#${hostname} switch'';
-      rebuildp = ''${reloadSecrets} && sudo nixos-rebuild --flake path://${config.home.homeDirectory}/Sync/NixConfig#${hostname}Presentation switch'';
+      rebuild = ''sudo nixos-rebuild --flake path://${config.home.homeDirectory}/Sync/NixConfig#${hostname} switch'';
+      rebuildp = ''sudo nixos-rebuild --flake path://${config.home.homeDirectory}/Sync/NixConfig#${hostname}Presentation switch'';
+      rebuilda = ''rebuilds && rebuild'';
+      rebuildap = ''rebuilds && rebuildp'';
       rebuildr = "rebuild && reboot";
       rebuilds = reloadSecrets;
+      rb = ''kitty sh -c "rebuild; read"'';
       updateunstable = "nix flake update --flake path://${config.home.homeDirectory}/Sync/NixConfig unstablePkg";
       # Bunch of commands I seem to use a lot
       listen = "nc -lk";
