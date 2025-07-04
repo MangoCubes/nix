@@ -32,6 +32,7 @@
         ../packages/home/korean.nix
         ../packages/home/polkit.nix
         ../packages/home/wlr-which-key.nix
+        ../packages/home/nextcloud.nix
       ];
 
       xdg.configFile."configMedia" = {
@@ -56,7 +57,6 @@
           ])
           ++ (with pkgs; [
             mullvad-browser
-            nextcloud-client
             tor-browser
             # nyxt
           ])
