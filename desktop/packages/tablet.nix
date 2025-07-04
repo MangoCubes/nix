@@ -1,5 +1,6 @@
 { username, ... }:
 {
+  features.tablet = true;
   hardware.opentabletdriver.enable = true;
   home-manager.users."${username}" =
     {

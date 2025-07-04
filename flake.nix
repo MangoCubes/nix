@@ -146,6 +146,28 @@
           hostname,
           device,
         }:
+        let
+          extraOptions = (
+            { config, lib, ... }:
+            {
+              options = {
+                features = lib.mkOption {
+                  type = lib.types.submodule {
+                    options = {
+                      tablet = lib.mkOption {
+                        type = lib.types.bool;
+                        default = false;
+                      };
+                    };
+                  };
+                  default = {
+                    tablet = false;
+                  };
+                };
+              };
+            }
+          );
+        in
         (sysBase {
           inherit hostname device;
           extraModules = (
@@ -154,48 +176,7 @@
                 ./desktop/base/configuration.nix
                 # This includes per-machine config based on the flake name
                 ./desktop/${hostname}/configuration.nix
-                (
-                  { config, lib, ... }:
-                  {
-                    options = {
-                      features = lib.mkOption {
-                        type = lib.types.submodule {
-                          options = {
-                            tablet = lib.mkOption {
-                              type = lib.types.boolean;
-                              # default = device.features.tablet;
-                            };
-                          };
-                        };
-                      };
-                      # domains = lib.mkOption {
-                      #   type = (
-                      #     with lib.types;
-                      #     listOf (submodule {
-                      #       options = {
-                      #         scope = (
-                      #           mkOption {
-                      #             type = (
-                      #               enum [
-                      #                 "device"
-                      #                 "global"
-                      #               ]
-                      #             );
-                      #           }
-                      #         );
-                      #         name = (
-                      #           mkOption {
-                      #             type = str;
-                      #           }
-                      #         );
-                      #       };
-                      #     })
-                      #   );
-                      #   default = [ ];
-                      # };
-                    };
-                  }
-                )
+                extraOptions
               ]
             else if device.type == "server" then
               [
@@ -324,7 +305,6 @@
         device = {
           type = "desktop";
           emacsScale = 1;
-          features.tablet = true;
           scale = 1;
           presentation = false;
           monitors = [
