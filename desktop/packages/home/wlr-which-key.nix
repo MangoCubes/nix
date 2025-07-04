@@ -1,5 +1,4 @@
 {
-  config,
   pkgs,
   ...
 }:
@@ -23,8 +22,12 @@ in
     pkgs.xclip
   ];
 
-  xdg.configFile."wlr-which-key/config.yaml".source =
-    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Sync/LinuxConfig/wlr-which-key/config.yaml";
-  xdg.configFile."wlr-which-key/media.yaml".source =
-    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Sync/LinuxConfig/wlr-which-key/media.yaml";
+  xdg.configFile = {
+    "wlr-which-key/config.yaml".source = (
+      (pkgs.formats.yaml { }).generate "config.yml" (import ./wlr-which-key/config.nix)
+    );
+    "wlr-which-key/media.yaml".source = (
+      (pkgs.formats.yaml { }).generate "media.yml" (import ./wlr-which-key/media.nix)
+    );
+  };
 }

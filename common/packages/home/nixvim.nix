@@ -360,6 +360,7 @@ in
       # concealcursor = "nc";
       whichwrap = "<,>,[,]";
       ignorecase = true;
+      smartcase = true;
       relativenumber = true;
     };
 
