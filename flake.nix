@@ -80,7 +80,11 @@
     let
       # This sets the base system arguments
       sysBase =
-        { hostname, device }:
+        {
+          hostname,
+          device,
+          extraModules,
+        }:
         {
           # This particular line is equivalent to system = "x86_64-linux"
           inherit system;
@@ -97,62 +101,35 @@
               username
               homeDir
               ;
-
           };
-        };
-      # This creates the modules that would be used alongside baseModules
-      baseModules =
-        {
-          hostname,
-          device,
-        }:
-        [
-          # This includes my basic desktop environment setup
-          ./common/configuration.nix
-          # This includes home manager module
-          # This is not a function
-          (home-manager.nixosModules.home-manager)
-          {
-            home-manager = {
-              backupFileExtension = "backup";
-              # Home manager function has a special argument "unstable", which allows me to access unstable repo
-              extraSpecialArgs = {
-                inherit
-                  inputs
-                  unfreeUnstable
-                  unstable
-                  colours
-                  hostname
-                  device
-                  system
-                  username
-                  homeDir
-                  ;
+          modules = [
+            # This includes my basic desktop environment setup
+            ./common/configuration.nix
+            # This includes home manager module
+            # This is not a function
+            (home-manager.nixosModules.home-manager)
+            {
+              home-manager = {
+                backupFileExtension = "backup";
+                # Home manager function has a special argument "unstable", which allows me to access unstable repo
+                extraSpecialArgs = {
+                  inherit
+                    inputs
+                    unfreeUnstable
+                    unstable
+                    colours
+                    hostname
+                    device
+                    system
+                    username
+                    homeDir
+                    ;
+                };
               };
-            };
-          }
-          sops-nix.nixosModules.sops
-          #  (
-          #    { config, lib, ... }:
-          #    {
-          #      options = {
-          #        domains = lib.mkOption {
-          #          type = (with lib.types; listOf (submodule {
-          #            options = {
-          #              scope = (mkOption {
-          #                type = (enum ["device" "global"]);
-          #              });
-          #              name = (mkOption {
-          #                type = str;
-          #              });
-          #            };
-          #          }));
-          #          default = [];
-          #        };
-          #      };
-          #    }
-          #  )
-        ];
+            }
+            sops-nix.nixosModules.sops
+          ] ++ extraModules;
+        };
     in
     let
       # genHome =
@@ -171,43 +148,76 @@
         }:
         (sysBase {
           inherit hostname device;
-        })
-        // {
-          modules =
-            (
-              if device.type == "desktop" || device.type == "laptop" then
-                [
-                  ./desktop/base/configuration.nix
-                  # This includes per-machine config based on the flake name
-                  ./desktop/${hostname}/configuration.nix
-                ]
-              else if device.type == "server" then
-                [
-                  ./server/base/configuration.nix
-                  # This includes per-machine config based on the flake name
-                  ./server/${hostname}/configuration.nix
-                ]
-              else
-                builtins.throw "Invalid device type: ${device.type}"
-            )
-            ++ (baseModules {
-              inherit
-                hostname
-                device
-                ;
-            });
-        };
+          extraModules = (
+            if device.type == "desktop" || device.type == "laptop" then
+              [
+                ./desktop/base/configuration.nix
+                # This includes per-machine config based on the flake name
+                ./desktop/${hostname}/configuration.nix
+                (
+                  { config, lib, ... }:
+                  {
+                    options = {
+                      features = lib.mkOption {
+                        type = lib.types.submodule {
+                          options = {
+                            tablet = lib.mkOption {
+                              type = lib.types.boolean;
+                              # default = device.features.tablet;
+                            };
+                          };
+                        };
+                      };
+                      # domains = lib.mkOption {
+                      #   type = (
+                      #     with lib.types;
+                      #     listOf (submodule {
+                      #       options = {
+                      #         scope = (
+                      #           mkOption {
+                      #             type = (
+                      #               enum [
+                      #                 "device"
+                      #                 "global"
+                      #               ]
+                      #             );
+                      #           }
+                      #         );
+                      #         name = (
+                      #           mkOption {
+                      #             type = str;
+                      #           }
+                      #         );
+                      #       };
+                      #     })
+                      #   );
+                      #   default = [ ];
+                      # };
+                    };
+                  }
+                )
+              ]
+            else if device.type == "server" then
+              [
+                ./server/base/configuration.nix
+                # This includes per-machine config based on the flake name
+                ./server/${hostname}/configuration.nix
+              ]
+            else
+              builtins.throw "Invalid device type: ${device.type}"
+          );
+        });
       genImage =
         { hostname, device }:
-        (sysBase { inherit hostname device; })
-        // {
-          modules = [
+        (sysBase {
+          inherit hostname device;
+          extraModules = [
             ./server/image/qcow.nix
             ./server/base/configuration.nix
             # This includes per-machine config based on the flake name
             ./server/${hostname}/configuration.nix
-          ] ++ (baseModules { inherit hostname device; });
-        };
+          ];
+        });
     in
     {
       # Generate config for each machine I have
@@ -223,6 +233,9 @@
       #   hostname = string;
       #   device = {
       #     type = "laptop";
+      #     features = {
+      #       tablet = bool;
+      #     };
       #     emacsScale = number;
       #     scale = number;
       #     presentation = bool;
@@ -234,6 +247,9 @@
       #     type = "server";
       #   } | {
       #     type = "desktop";
+      #     features = {
+      #       tablet = bool;
+      #     };
       #     scale = number;
       #     emacsScale = number;
       #     presentation = bool;
@@ -308,6 +324,7 @@
         device = {
           type = "desktop";
           emacsScale = 1;
+          features.tablet = true;
           scale = 1;
           presentation = false;
           monitors = [
