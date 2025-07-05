@@ -93,6 +93,7 @@ let
       id,
       internal ? false,
       engines ? [ ],
+      ...
     }:
     {
       "${name}" = lib.mkMerge [

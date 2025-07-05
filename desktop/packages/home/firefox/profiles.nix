@@ -1,19 +1,32 @@
 [
   {
     name = "School";
+    alias = [ "Research" ];
     id = 0;
   }
   {
-    name = "Local";
+    name = "Intranet";
+    alias = [
+      "Proxmox"
+      "Debian"
+      "Syncthing"
+      "Local"
+    ];
     id = 1;
   }
   {
     name = "SelfHosted";
+    alias = [
+      "Cloud"
+      "Music"
+      "Anime"
+    ];
     id = 2;
   }
   {
     name = "Development";
     id = 3;
+    alias = [ "Flare" ];
     engines = [
       "Nix Packages"
       "NixOS Wiki"
@@ -26,6 +39,7 @@
   }
   {
     name = "Personal";
+    alias = [ "Mail" ];
     id = 5;
   }
   {
@@ -34,16 +48,7 @@
     internal = true;
   }
   {
-    name = "Intranet";
-    id = 7;
-    internal = true;
-  }
-  {
-    name = "Research";
-    id = 8;
-  }
-  {
     name = "Official";
-    id = 9;
+    id = 7;
   }
 ]
