@@ -8,14 +8,14 @@ let
     a: builtins.attrValues (builtins.mapAttrs (key: value: (pkgs.writeShellScriptBin key value)) a);
   aliases = {
     # Baseline commands only
-    jl = "sudo journalctl -xeu";
-    jul = "journalctl --user -xeu";
-    ss = "sudo systemctl status";
-    sr = "sudo systemctl restart";
-    sp = "sudo systemctl stop";
-    sus = "systemctl --user status";
-    sur = "systemctl --user restart";
-    sup = "systemctl --user stop";
+    jl = "sudo journalctl -xeu $@";
+    jul = "journalctl --user -xeu $@";
+    ss = "sudo systemctl status $@";
+    sr = "sudo systemctl restart $@";
+    sp = "sudo systemctl stop $@";
+    sus = "systemctl --user status $@";
+    sur = "systemctl --user restart $@";
+    sup = "systemctl --user stop $@";
     update = "sudo nix-channel --update";
     hml = "journalctl -u home-manager-${username}.service -b";
     gc = "sudo nix-collect-garbage -d";

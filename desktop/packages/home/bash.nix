@@ -32,7 +32,7 @@ let
       rb = ''kitty sh -c "rebuild; read"'';
       updateunstable = "nix flake update --flake path://${config.home.homeDirectory}/Sync/NixConfig unstablePkg";
       # Bunch of commands I seem to use a lot
-      listen = "nc -lk";
+      listen = "nc -lk $@";
     }
     // cmds;
 in
