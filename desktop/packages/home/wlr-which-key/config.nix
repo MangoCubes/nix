@@ -73,6 +73,11 @@ let
             cmd = "wl-paste | xclip -selection clipboard -target image/png";
           }
           {
+            key = "b";
+            desc = " Open browser";
+            cmd = "mullvad-browser $(wl-paste) --new-instance";
+          }
+          {
             key = "a";
             desc = "󰧬 Create alias";
             cmd = "rofi-sl";
