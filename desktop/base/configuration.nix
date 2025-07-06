@@ -21,12 +21,12 @@
   ];
   powerManagement.enable = true;
   programs.nix-ld.enable = true;
-
+  boot.kernelParams = [ "mem_sleep_default=s2idle" ];
   systemd.sleep.extraConfig = ''
-    AllowSuspend=yes
-    AllowHibernation=yes
-    AllowHybridSleep=no
-    AllowSuspendThenHibernate=no
+      AllowSuspend=yes
+      AllowHibernation=yes
+    #   AllowHybridSleep=no
+    #   AllowSuspendThenHibernate=no
   '';
   systemd.services.NetworkManager-wait-online.enable = false;
 }
