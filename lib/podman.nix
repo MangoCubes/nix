@@ -41,7 +41,7 @@ let
           };
     in
     {
-      "traefik.http.routers.${entry.routerName}.rule" = "Host(\\`${entry.url}\\`)";
+      "traefik.http.routers.${entry.routerName}.rule" = "Host(`${entry.url}`)";
       "traefik.http.routers.${entry.routerName}.entrypoints" = "websecure";
       "traefik.http.routers.${entry.routerName}.service" = "s-${entry.routerName}";
       "traefik.http.routers.${entry.routerName}.tls" = "true";
