@@ -23,7 +23,10 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "unstablePkg";
     };
-    ags.url = "github:aylur/ags";
+    ags = {
+      url = "github:aylur/ags";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     kmonad = {
       url = "github:kmonad/kmonad?dir=nix";
       inputs.nixpkgs.follows = "nixpkgs";

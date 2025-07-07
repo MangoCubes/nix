@@ -23,14 +23,9 @@ let
     echo "Done!"
   '';
 in
-let
-  check = (import ./scripts/ratelimitCheck.nix { inherit pkgs; });
-in
-
 {
   home.packages = [
     rateLimitCheckRedlib
-    check
   ];
 
   services.podman.containers.redlib-vpn = {
@@ -91,13 +86,6 @@ in
     Service = {
       Type = "oneshot";
       ExecStart = "${rateLimitCheckRedlib}/bin/rateLimitCheckRedlib";
-    };
-  };
-  systemd.user.services."check-test" = {
-    Unit.Description = "Check if Redlib is ratelimited.";
-    Service = {
-      Type = "oneshot";
-      ExecStart = "${check}/bin/ratelimitcheck";
     };
   };
 }
