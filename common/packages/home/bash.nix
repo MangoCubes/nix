@@ -16,7 +16,6 @@ let
     sus = "systemctl --user status $@";
     sur = "systemctl --user restart $@";
     sup = "systemctl --user stop $@";
-    update = "sudo nix-channel --update";
     hml = "journalctl -u home-manager-${username}.service -b";
     gc = "sudo nix-collect-garbage -d";
     gch = "nix-collect-garbage -d";
