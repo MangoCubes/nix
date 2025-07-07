@@ -28,7 +28,7 @@
       volumes = [
         #  "${config.home.homeDirectory}/.config/sops-nix/secrets/ampache:/var/www/config/ampache.cfg.php"
         "${config.home.homeDirectory}/.podman/ampache:/var/www/config"
-        "${config.home.homeDirectory}/Mount/media/Library/Music:/media"
+        "${config.home.homeDirectory}/Mounts/media/Library/Music:/media"
       ];
     }
   );

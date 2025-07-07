@@ -29,7 +29,7 @@ in
       ];
       labels = {
         "traefik.enable" = "true";
-        "traefik.http.routers.vpn.rule" = "Host(\\`newvpn.skew.ch\\`)";
+        "traefik.http.routers.vpn.rule" = "Host(`newvpn.skew.ch`)";
         "traefik.http.routers.vpn.entrypoints" = "websecure";
         "traefik.http.routers.vpn.service" = "s-vpn";
         "traefik.http.services.s-vpn.loadbalancer.server.port" = "8080";

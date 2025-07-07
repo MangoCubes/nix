@@ -17,6 +17,7 @@
         mkdir -p ${config.home.homeDirectory}/Downloads
       '';
       imports = [
+        ../../common/packages/home/nixvim.nix
         ../packages/home/cursor.nix
         ../packages/home/emacs.nix
         ../packages/home/firefox.nix

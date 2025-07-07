@@ -21,6 +21,7 @@ in
   home.packages = [
     wlrWhichKey
     pkgs.xclip
+    pkgs.pulseaudio
   ];
 
   xdg.configFile = {
