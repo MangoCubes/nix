@@ -152,10 +152,10 @@ in
               };
             };
             jsonls.enable = true;
-            hls = {
-              enable = true;
-              installGhc = true;
-            };
+            # hls = {
+            #   enable = true;
+            #   installGhc = true;
+            # };
             rust_analyzer = {
               enable = true;
               installCargo = false;
@@ -285,18 +285,18 @@ in
 
               "<Esc>" = ''
                 function (fallback)
-                                            if (cmp.visible()) then
-                                              cmp.abort()
-                                              vim.defer_fn(
-                                                function ()
-                                                  vim.cmd("stopinsert")
-                                                end,
-                                                0 -- 0 milliseconds
-                                              )
-                                            else
-                                              fallback()
-                                            end
-                                        end'';
+                  if (cmp.visible()) then
+                    cmp.abort()
+                    vim.defer_fn(
+                      function ()
+                        vim.cmd("stopinsert")
+                      end,
+                      0 -- 0 milliseconds
+                    )
+                  else
+                    fallback()
+                  end
+                end'';
             };
             preselect = "cmp.PreselectMode.None";
           };

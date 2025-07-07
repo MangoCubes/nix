@@ -10,14 +10,14 @@
     }:
     {
       imports = [
-        ../packages/home/obs.nix
+        # ../packages/home/obs.nix
         ../packages/home/windows.nix
         ../packages/home/ghidra.nix
       ];
       home.packages = [
         unstable.webcord
         pkgs.feishin
-        unfreeUnstable.osu-lazer-bin
+        # unfreeUnstable.osu-lazer-bin
         unstable.gdb
       ];
     };

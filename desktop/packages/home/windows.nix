@@ -3,6 +3,7 @@
   lib,
   pkgs,
   device,
+  unstable,
   ...
 }:
 let
@@ -30,7 +31,7 @@ let
       ${container}
     fi
 
-    ${pkgs.freerdp3}/bin/xfreerdp /cert:tofu /d:"" /u:"${username}" /p:"${password}" /scale:${
+    ${unstable.freerdp}/bin/xfreerdp /cert:tofu /d:"" /u:"${username}" /p:"${password}" /scale:${
       toString (if device.scale == 2 then 180 else 100)
     } -grab-keyboard +clipboard /t:Windows +home-drive -wallpaper +dynamic-resolution /v:"127.0.0.1"
   '';

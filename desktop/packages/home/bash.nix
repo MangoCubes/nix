@@ -34,6 +34,7 @@ let
       update = "nix flake update --flake path://${config.home.homeDirectory}/Sync/NixConfig";
       # Bunch of commands I seem to use a lot
       listen = "nc -lk $@";
+      optimise = "nix-store --optimise";
     }
     // cmds;
 in
