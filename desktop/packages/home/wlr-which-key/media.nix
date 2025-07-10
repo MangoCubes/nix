@@ -26,13 +26,13 @@ let
     {
       key = "Up";
       desc = "󰝝 Volume Up";
-      cmd = "pactl set-sink-volume @DEFAULT_SINK@ +5%";
+      cmd = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.02+";
       keep_open = true;
     }
     {
       key = "Down";
       desc = "󰝞 Volume Down";
-      cmd = "pactl set-sink-volume @DEFAULT_SINK@ -5%";
+      cmd = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.02-";
       keep_open = true;
     }
     {
