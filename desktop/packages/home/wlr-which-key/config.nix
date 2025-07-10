@@ -3,7 +3,7 @@ let
   theme = (import ./theme.nix);
   menu =
     (
-      if config.features.tablet then
+      if config.custom.features.tablet then
         [
           {
             key = "t";

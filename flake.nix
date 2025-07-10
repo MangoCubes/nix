@@ -154,17 +154,40 @@
             { config, lib, ... }:
             {
               options = {
-                features = lib.mkOption {
+                custom = lib.mkOption {
                   type = lib.types.submodule {
+                    # networking = lib.mkOption {
+                    #   type = lib.types.submodule {
+                    #     options = {
+                    #       primary = lib.mkOption {
+                    #         type = lib.types.str;
+                    #         default = "";
+                    #       };
+                    #     };
+                    #   };
+                    #   default = {
+                    #     primary = "";
+                    #   };
+                    # };
                     options = {
-                      tablet = lib.mkOption {
-                        type = lib.types.bool;
-                        default = false;
+                      features = lib.mkOption {
+                        type = lib.types.submodule {
+                          options = {
+                            tablet = lib.mkOption {
+                              type = lib.types.bool;
+                              default = false;
+                            };
+                          };
+                        };
+                        default = {
+                          tablet = false;
+                        };
                       };
                     };
                   };
                   default = {
-                    tablet = false;
+                    features.tablet = false;
+                    # networking.primary = "";
                   };
                 };
               };
