@@ -1,4 +1,4 @@
-{ username, ... }:
+{ username, config, ... }:
 {
   home-manager.users."${username}" =
     {
@@ -12,9 +12,13 @@
       ];
     };
   # For MITM purpose
-  # iptables -t nat -A PREROUTING -i <Device Name> -p tcp --dport 80 -j REDIRECT --to-port 8080 # Redirect HTTP to the MITMProxy
-  # iptables -t nat -A PREROUTING -i <Device Name> -p tcp --dport 443 -j REDIRECT --to-port 8080 # Redirect HTTPS to the MITMProxy
+  #
+  #
   networking.firewall = {
+    extraCommands = ''
+      iptables -t nat -A PREROUTING -i ${config.custom.networking.primary} -p tcp --dport 80 -j REDIRECT --to-port 8080 # Redirect HTTP to the MITMProxy
+      iptables -t nat -A PREROUTING -i ${config.custom.networking.primary} -p tcp --dport 443 -j REDIRECT --to-port 8080 # Redirect HTTPS to the MITMProxy
+    '';
     enable = true;
     allowedTCPPorts = [
       8080

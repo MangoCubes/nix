@@ -156,20 +156,20 @@
               options = {
                 custom = lib.mkOption {
                   type = lib.types.submodule {
-                    # networking = lib.mkOption {
-                    #   type = lib.types.submodule {
-                    #     options = {
-                    #       primary = lib.mkOption {
-                    #         type = lib.types.str;
-                    #         default = "";
-                    #       };
-                    #     };
-                    #   };
-                    #   default = {
-                    #     primary = "";
-                    #   };
-                    # };
                     options = {
+                      networking = lib.mkOption {
+                        type = lib.types.submodule {
+                          options = {
+                            primary = lib.mkOption {
+                              type = lib.types.str;
+                              default = "";
+                            };
+                          };
+                        };
+                        default = {
+                          primary = "";
+                        };
+                      };
                       features = lib.mkOption {
                         type = lib.types.submodule {
                           options = {
@@ -187,7 +187,7 @@
                   };
                   default = {
                     features.tablet = false;
-                    # networking.primary = "";
+                    networking.primary = "";
                   };
                 };
               };
