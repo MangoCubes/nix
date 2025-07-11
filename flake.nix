@@ -164,6 +164,9 @@
                               type = lib.types.str;
                               default = "";
                             };
+                            secondary = lib.mkOption {
+                              type = lib.types.str;
+                            };
                           };
                         };
                         default = {
@@ -187,7 +190,6 @@
                   };
                   default = {
                     features.tablet = false;
-                    networking.primary = "";
                   };
                 };
               };

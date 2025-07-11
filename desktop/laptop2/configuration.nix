@@ -2,6 +2,7 @@
 {
   imports = [
     inputs.secrets.hw.laptop2
+    ../packages/mitmproxy-wifi.nix
     ./boot.nix
     ./home.nix
     ./networking.nix
