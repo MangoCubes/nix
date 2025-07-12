@@ -27,6 +27,7 @@ in
         "${policy}:/etc/headscale/policy.json"
         "vpn:/var/lib/headscale"
       ];
+      extraConfig.Quadlet.DefaultDependencies = false;
       labels = {
         "traefik.enable" = "true";
         "traefik.http.routers.vpn.rule" = "Host(`newvpn.skew.ch`)";

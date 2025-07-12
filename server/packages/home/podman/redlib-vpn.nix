@@ -29,6 +29,7 @@ in
   ];
 
   services.podman.containers.redlib-vpn = {
+    extraConfig.Quadlet.DefaultDependencies = false;
     image = "quay.io/redlib/redlib:latest";
     autoStart = true;
     network = [ "container:proton-redlib" ];
