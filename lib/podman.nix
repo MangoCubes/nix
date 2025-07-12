@@ -91,6 +91,7 @@ in
     devices
     exec
     ;
+  extraConfig.Quadlet.DefaultDependencies = false;
   extraPodmanArgs = args;
   # autoUpdate = "registry";
   user = if needRoot then 0 else null;
