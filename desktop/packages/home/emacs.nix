@@ -41,7 +41,8 @@ let
 in
 {
   # Short for Emacs Server
-  programs.bash.shellAliases.es = "emacs -q --fg-daemon --load ~/Sync/NixConfig/desktop/packages/home/emacs/init.el";
+  programs.bash.shellAliases.er = "emacsclient -e '(kill-emacs)'; emacs -q --daemon --load ~/Sync/NixConfig/desktop/packages/home/emacs/init.el";
+  programs.bash.shellAliases.ef = "emacs -q --fg-daemon --load ~/Sync/NixConfig/desktop/packages/home/emacs/init.el";
   # programs.bash.shellAliases.e = "emacsclient -c";
   # programs.bash.shellAliases.te = "kitty --detach emacsclient -c";
   home.packages = (

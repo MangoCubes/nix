@@ -21,20 +21,20 @@ in
         ];
       }
     ];
-    iconUpdateURL = icons.nix;
+    icon = icons.nix;
     updateInterval = everyDay;
     definedAliases = [ "@np" ];
   };
 
   "NixOS Wiki" = {
     urls = [ { template = "https://wiki.nixos.org/index.php?search={searchTerms}"; } ];
-    iconUpdateURL = icons.nix;
+    icon = icons.nix;
     updateInterval = everyDay;
     definedAliases = [ "@nw" ];
   };
   "Home Manager Options" = {
     urls = [ { template = "https://home-manager-options.extranix.com/?query={searchTerms}"; } ];
-    iconUpdateURL = icons.nix;
+    icon = icons.nix;
     updateInterval = everyDay;
     definedAliases = [ "@nw" ];
   };

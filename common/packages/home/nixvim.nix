@@ -362,6 +362,11 @@ in
       ignorecase = true;
       smartcase = true;
       relativenumber = true;
+      fillchars.fold = " ";
+      foldmethod = "expr";
+      foldexpr = "v:lua.vim.treesitter.foldexpr()";
+      foldenable = false;
+      foldlevel = 99;
     };
 
     viAlias = true;
