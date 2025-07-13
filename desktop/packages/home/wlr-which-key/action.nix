@@ -28,19 +28,8 @@ let
     ++ [
       {
         key = "m";
-        desc = "  Mail";
-        submenu = [
-          {
-            key = "m";
-            desc = "  View Mail";
-            cmd = ''env DISPLAY=:0 emacsclient -c -e '(notmuch-search "tag:inbox")' '';
-          }
-          {
-            key = "n";
-            desc = " 󱋈 Sync Mail";
-            cmd = ''mbsync -aL && notmuch new'';
-          }
-        ];
+        desc = " 󱋈 Sync Mail";
+        cmd = ''mbsync -aL && notmuch new'';
       }
       {
         key = "p";

@@ -24,13 +24,16 @@ in
   ];
 
   xdg.configFile = {
-    "wlr-which-key/config.yaml".source = (
-      (pkgs.formats.yaml { }).generate "config.yml" (
-        (import ./wlr-which-key/config.nix) { config = osConfig; }
+    "wlr-which-key/action.yaml".source = (
+      (pkgs.formats.yaml { }).generate "action.yml" (
+        (import ./wlr-which-key/action.nix) { config = osConfig; }
       )
     );
     "wlr-which-key/media.yaml".source = (
       (pkgs.formats.yaml { }).generate "media.yml" (import ./wlr-which-key/media.nix)
+    );
+    "wlr-which-key/advrun.yaml".source = (
+      (pkgs.formats.yaml { }).generate "advrun.yml" (import ./wlr-which-key/advrun.nix)
     );
   };
 }
