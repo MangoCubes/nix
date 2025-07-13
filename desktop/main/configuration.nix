@@ -9,5 +9,6 @@
     ../packages/steam.nix
     ../packages/wireshark.nix
     ../packages/tablet.nix
+    ../packages/nvidia.nix
   ];
 }
