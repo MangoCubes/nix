@@ -71,6 +71,11 @@ let
             desc = "󰧬 Create alias";
             cmd = "rofi-sl";
           }
+          {
+            key = "s";
+            desc = "󰱘 Send clipboard";
+            cmd = ''kdeconnect-cli -n "Pixel 6" --send-clipboard'';
+          }
         ];
       }
     ];
