@@ -1,12 +1,9 @@
 {
-  pkgs,
   unstable,
   config,
   ...
 }:
 {
-  # Run polkit service
-  # I use KDE polkit because it allows selecting a user
   xdg.configFile."kdeglobals".source =
     config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Sync/LinuxConfig/kde/kdeglobals";
   xdg.configFile."dolphinrc".source =
