@@ -1,6 +1,6 @@
 require("bookmarks"):setup({
-	last_directory = { enable = false, persist = false, mode = "dir" },
-	persist = "none",
+	last_directory = { enable = true, persist = true, mode = "dir" },
+	persist = "all",
 	desc_format = "full",
 	file_pick_mode = "hover",
 	custom_desc_input = false,

@@ -297,7 +297,11 @@ in
             mappings = {
               "gx" = {
                 command.__raw = (builtins.readFile ./nixvim/xdg-open.lua);
-                desc = "open_with_system_defaults";
+                desc = "Open file in external application";
+              };
+              "gX" = {
+                command.__raw = (builtins.readFile ./nixvim/open-terminal.lua);
+                desc = "Open file location in terminal";
               };
             };
           };
