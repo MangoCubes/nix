@@ -9,7 +9,7 @@ let
     }
     {
       name = "Nix Packages";
-      url = "https://search.nixos.org/packages?channel=24.11&from=0&size=50&sort=relevance&type=packages&query=";
+      url = "https://search.nixos.org/packages?channel=unstable&from=0&size=50&sort=relevance&type=packages&query=";
     }
     {
       name = "Home Manager";
