@@ -86,45 +86,7 @@ in
           };
         };
         # noice.enable = true;
-        orgmode = {
-          settings = {
-            org_agenda_files = "~/Sync/Notes/**/*";
-            org_default_notes_file = "~/Sync/Notes/main.org";
-          };
-          enable = true;
-        };
 
-        nabla.enable = true;
-        obsidian = {
-          enable = true;
-          settings = {
-            workspaces = [
-              {
-                name = "Notes";
-                path = "~/Sync/Notes/";
-              }
-            ];
-            completion.nvim_cmp = true;
-            note_id_func.__raw = ''
-              function(title)
-                -- Create note IDs in a Zettelkasten format with a timestamp and a suffix.
-                -- In this case a note with the title 'My new note' will be given an ID that looks
-                -- like '1657296016-my-new-note', and therefore the file name '1657296016-my-new-note.md'
-                local suffix = ""
-                if title ~= nil then
-                  -- If title is given, transform it into valid file name.
-                  suffix = title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
-                else
-                  -- If title is nil, just add 4 random uppercase letters to the suffix.
-                  for _ = 1, 4 do
-                    suffix = suffix .. string.char(math.random(65, 90))
-                  end
-                end
-                return tostring(os.time()) .. "-" .. suffix
-              end
-            '';
-          };
-        };
         # nvim-jdtls.enable = true;
         navic = {
           enable = true;
