@@ -22,8 +22,8 @@
         ../packages/home/podman/phpmyadmin.nix
         # ../packages/home/podman/invidious.nix
         ../packages/home/podman/postgresql.nix
-        # ../packages/home/podman/mitmproxy.nix
-        # ../packages/home/podman/lemmy.nix
+        # ../packages/home/podman/gitea.nix
+        ../packages/home/podman/website.nix
         ../packages/home/podman/pgadmin.nix
         ../packages/home/podman/kavita.nix
         ../packages/home/podman/jellyfin.nix
