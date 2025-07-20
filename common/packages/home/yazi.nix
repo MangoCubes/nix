@@ -16,6 +16,13 @@ in
     settings = {
       mgr.linemode = "mtime";
       opener = {
+        apk = [
+          {
+            run = ''adb install "$@"'';
+            desc = "Install Application";
+            orphan = true;
+          }
+        ];
         sops = [
           {
             run = ''kitty sops "$@"'';
@@ -34,7 +41,7 @@ in
         ];
         nix = [
           {
-            run = ''nix-shell "$@"'';
+            run = ''kitty bash -c "nix-shell \"$@\""'';
             for = "unix";
             desc = "Nix Shell";
             orphan = true;
@@ -79,6 +86,10 @@ in
         ];
       };
       open.rules = [
+        {
+          name = "*.apk";
+          use = [ "apk" ];
+        }
         {
           name = "*.enc.*";
           use = [ "sops" ];
