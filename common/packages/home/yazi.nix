@@ -184,7 +184,7 @@ in
       ];
     };
     keymap = {
-      manager.prepend_keymap = [
+      mgr.prepend_keymap = [
         {
           on = [
             "m"
@@ -368,7 +368,7 @@ in
           rev = "main";
           sha256 = "sha256-XHGlQn0Nsxh/WScz4v2I+IWvzGJ9QTXbB7zgSCPQ+E0=";
         };
-        bookmarks = pkgs.fetchFromGitHub {
+        yamb = pkgs.fetchFromGitHub {
           owner = "h-hg";
           repo = "yamb.yazi";
           rev = "main";
