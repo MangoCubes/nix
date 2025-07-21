@@ -189,7 +189,7 @@ in
           on = [
             "m"
           ];
-          run = "plugin bookmarks save";
+          run = "plugin yamb save";
           desc = "Save current position as a bookmark";
         }
 
@@ -197,14 +197,14 @@ in
           on = [
             "`"
           ];
-          run = "plugin bookmarks jump";
+          run = "plugin yamb jump_by_key";
           desc = "Jump to a bookmark";
         }
         {
           on = [
             "'"
           ];
-          run = "plugin bookmarks jump";
+          run = "plugin yamb jump_by_key";
           desc = "Jump to a bookmark";
         }
 
@@ -213,7 +213,7 @@ in
             "b"
             "d"
           ];
-          run = "plugin bookmarks delete";
+          run = "plugin yamb delete_by_key";
           desc = "Delete a bookmark";
         }
 
@@ -222,7 +222,7 @@ in
             "b"
             "D"
           ];
-          run = "plugin bookmarks delete_all";
+          run = "plugin yamb delete_all";
           desc = "Delete all bookmarks";
         }
         {
@@ -369,15 +369,15 @@ in
           sha256 = "sha256-XHGlQn0Nsxh/WScz4v2I+IWvzGJ9QTXbB7zgSCPQ+E0=";
         };
         bookmarks = pkgs.fetchFromGitHub {
-          owner = "dedukun";
-          repo = "bookmarks.yazi";
+          owner = "h-hg";
+          repo = "yamb.yazi";
           rev = "main";
-          sha256 = "sha256-Ry3V29T7lij5JR68gTINXtOEgbrYPwd5zQDEa2kfpTA=";
+          sha256 = "sha256-NMxZ8/7HQgs+BsZeH4nEglWsRH2ibAzq7hRSyrtFDTA=";
         };
       };
 
-    initLua = builtins.replaceStrings [ "<StateFile>" ] [ stateFile ] (
-      builtins.readFile ./yazi/init.lua
-    );
+    initLua =
+      (builtins.readFile ./yazi/yamb.lua)
+      + (builtins.replaceStrings [ "<StateFile>" ] [ stateFile ] (builtins.readFile ./yazi/init.lua));
   };
 }
