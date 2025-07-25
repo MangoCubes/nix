@@ -170,7 +170,7 @@ in
         telescope.enable = true;
         image = {
           enable = true;
-          backend = "kitty";
+          settings.backend = "kitty";
         };
         startify = {
           enable = true;
@@ -217,17 +217,16 @@ in
           enable = true;
           autoEnableSources = true;
           settings = {
-            sources =
-              [
-                { name = "path"; }
-                { name = "buffer"; }
-              ]
-              ++ (eih [
-                { name = "cmp-dictionary"; }
-                { name = "cmp-dap"; }
-                { name = "nvim_lsp"; }
-                { name = "orgmode"; }
-              ]);
+            sources = [
+              { name = "path"; }
+              { name = "buffer"; }
+            ]
+            ++ (eih [
+              { name = "cmp-dictionary"; }
+              { name = "cmp-dap"; }
+              { name = "nvim_lsp"; }
+              { name = "orgmode"; }
+            ]);
             mapping = {
               "<Up>" = "cmp.mapping.select_prev_item()";
               "<Down>" = "cmp.mapping.select_next_item()";

@@ -186,44 +186,14 @@ in
     keymap = {
       mgr.prepend_keymap = [
         {
-          on = [
-            "m"
-          ];
-          run = "plugin yamb save";
-          desc = "Save current position as a bookmark";
-        }
-
-        {
-          on = [
-            "`"
-          ];
-          run = "plugin yamb jump_by_key";
+          on = "`";
+          run = "plugin bunny";
           desc = "Jump to a bookmark";
         }
         {
-          on = [
-            "'"
-          ];
-          run = "plugin yamb jump_by_key";
-          desc = "Jump to a bookmark";
-        }
-
-        {
-          on = [
-            "b"
-            "d"
-          ];
-          run = "plugin yamb delete_by_key";
-          desc = "Delete a bookmark";
-        }
-
-        {
-          on = [
-            "b"
-            "D"
-          ];
-          run = "plugin yamb delete_all";
-          desc = "Delete all bookmarks";
+          on = "'";
+          run = "plugin bunny fuzzy";
+          desc = "Jump to a bookmark by fzf";
         }
         {
           on = "T";
@@ -368,16 +338,22 @@ in
           rev = "main";
           sha256 = "sha256-XHGlQn0Nsxh/WScz4v2I+IWvzGJ9QTXbB7zgSCPQ+E0=";
         };
-        yamb = pkgs.fetchFromGitHub {
-          owner = "h-hg";
-          repo = "yamb.yazi";
+        bunny = pkgs.fetchFromGitHub {
+          owner = "stelcodes";
+          repo = "bunny.yazi";
           rev = "main";
-          sha256 = "sha256-NMxZ8/7HQgs+BsZeH4nEglWsRH2ibAzq7hRSyrtFDTA=";
+          sha256 = "sha256-mdVCZMvoe9agrnX7aZeGf0oXGffE2Fhk9f1JNbir8+Q=";
         };
+        # yamb = pkgs.fetchFromGitHub {
+        #   owner = "h-hg";
+        #   repo = "yamb.yazi";
+        #   rev = "main";
+        #   sha256 = "sha256-NMxZ8/7HQgs+BsZeH4nEglWsRH2ibAzq7hRSyrtFDTA=";
+        # };
       };
 
     initLua =
-      (builtins.readFile ./yazi/yamb.lua)
+      (builtins.readFile ./yazi/bunny.lua)
       + (builtins.replaceStrings [ "<StateFile>" ] [ stateFile ] (builtins.readFile ./yazi/init.lua));
   };
 }
