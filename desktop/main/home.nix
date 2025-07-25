@@ -11,6 +11,7 @@
       imports = [
         ../packages/home/factorio.nix
         ../packages/home/windows.nix
+        ../packages/home/lutris.nix
       ];
       home.packages = [
         unfreeUnstable.osu-lazer-bin
