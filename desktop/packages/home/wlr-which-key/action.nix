@@ -7,7 +7,7 @@ let
         [
           {
             key = "t";
-            desc = "  Tablet Driver";
+            desc = " Tablet Driver";
             submenu = [
               {
                 key = "n";
@@ -28,12 +28,12 @@ let
     ++ [
       {
         key = "m";
-        desc = " 󱋈 Sync Mail";
+        desc = "󱋈 Sync Mail";
         cmd = ''mbsync -aL && notmuch new'';
       }
       {
         key = "p";
-        desc = "  Power";
+        desc = " Power";
         submenu = [
           {
             key = "s";
@@ -53,8 +53,26 @@ let
         ];
       }
       {
+        key = "b";
+        desc = "󰃠 Brightness";
+        submenu = [
+          {
+            key = "Up";
+            desc = " Increase Brightness";
+            cmd = "brightnessctl s +5%";
+            keep_open = true;
+          }
+          {
+            key = "Down";
+            desc = " Decrease Brightness";
+            cmd = "brightnessctl s 5%-";
+            keep_open = true;
+          }
+        ];
+      }
+      {
         key = "c";
-        desc = " 󱉨 Clipboard";
+        desc = "󱉨 Clipboard";
         submenu = [
           {
             key = "i";

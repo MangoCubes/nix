@@ -5,7 +5,7 @@
     ./boot.nix
     ./home.nix
     ../packages/wireshark.nix
-    ../../common/packages/rclone.nix
+    ../../common/packages/rclone-mega.nix
   ];
   services.logind.lidSwitch = "suspend";
 }

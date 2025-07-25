@@ -3,12 +3,12 @@ let
   menu = [
     {
       key = "m";
-      desc = "  View Mail";
+      desc = " View Mail";
       cmd = ''env DISPLAY=:0 emacsclient -c -e '(notmuch-search "tag:inbox")' '';
     }
     {
       key = "w";
-      desc = "  Run Windows";
+      desc = " Run Windows";
       cmd = ''run-windows'';
     }
   ];
