@@ -170,7 +170,7 @@ in
         telescope.enable = true;
         image = {
           enable = true;
-          settings.backend = "kitty";
+          backend = "kitty";
         };
         startify = {
           enable = true;
