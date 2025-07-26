@@ -3,8 +3,9 @@
   ...
 }:
 {
-  # virtualisation.containers.enable = true;
+  # When using home-manager podman, this option must be enabled
   virtualisation.podman.enable = true;
+
   home-manager.users."${username}" =
     { pkgs, ... }:
     {
@@ -23,7 +24,6 @@
             network.default_rootless_network_cmd = "slirp4netns";
           };
           storage = {
-            # storage.driver = "vfs";
             storage.driver = "overlay";
             storage.options.overlay.mount_program = "${pkgs.fuse-overlayfs}/bin/fuse-overlayfs";
           };
@@ -39,6 +39,5 @@
         pcrv = "podman compose down -v && podman compose up -d";
         pcrvl = "podman compose down -v && podman compose up -d && podman compose logs -f";
       };
-
     };
 }

@@ -10,9 +10,9 @@
   imports = [
     (
       if device == "server" then
-        inputs.secrets.hm.syncthing.server
+        inputs.secrets.hm.syncthing-server
       else
-        inputs.secrets.hm.syncthing.client
+        inputs.secrets.hm.syncthing-client
     )
   ];
   home.activation.syncthing = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
