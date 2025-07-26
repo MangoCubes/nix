@@ -1,8 +1,26 @@
 { username, ... }:
 {
   home-manager.users."${username}" =
-    { unstable, colours, ... }:
     {
+      pkgs,
+      unstable,
+      colours,
+      ...
+    }:
+    let
+      onlock = pkgs.writeShellScriptBin "onlock" ''keepassxc --lock; ${unstable.swaylock-effects}/bin/swaylock'';
+      onunlock = pkgs.writeShellScriptBin "onunlock" '''';
+    in
+    {
+      services.swayidle = {
+        enable = true;
+        timeouts = [
+          {
+            command = ''${onlock}/bin/onlock'';
+            timeout = 60;
+          }
+        ];
+      };
       programs.swaylock = {
         enable = true;
         package = unstable.swaylock-effects;
