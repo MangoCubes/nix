@@ -17,7 +17,7 @@
         timeouts = [
           {
             command = ''${onlock}/bin/onlock'';
-            timeout = 60;
+            timeout = 300;
           }
         ];
       };
