@@ -1,6 +1,7 @@
 {
   unstable,
   config,
+  pkgs,
   ...
 }:
 {
@@ -8,23 +9,29 @@
     config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Sync/LinuxConfig/kde/kdeglobals";
   xdg.configFile."dolphinrc".source =
     config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Sync/LinuxConfig/kde/dolphinrc";
-  xdg.configFile."qt6ct".source =
-    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Sync/LinuxConfig/qt6ct";
+  xdg.configFile."Kvantum".source =
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Sync/LinuxConfig/themeing/Kvantum";
   home.packages = (
     with unstable.kdePackages;
     [
       dolphin
       qtsvg
-      ark
       breeze-icons
       kio-fuse
-      kio-extras
-      kio-admin
-      qt6ct
       okular
     ]
   );
-  home.sessionVariables = {
-    QT_QPA_PLATFORMTHEME = "qt6ct";
+  qt = {
+    enable = true;
+    platformTheme.name = "kde6";
+    style.name = "kvantum";
   };
+
+  # xdg.configFile = {
+  #   "Kvantum/kvantum.kvconfig".text = ''
+  #     [General]
+  #     theme=GraphiteNordDark
+  #   '';
+  #   "Kvantum/GraphiteNord".source = "${pkgs.graphite-kde-theme}/share/Kvantum/GraphiteNord";
+  # };
 }

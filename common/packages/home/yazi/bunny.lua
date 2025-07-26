@@ -3,6 +3,7 @@ require("bunny"):setup({
 		{ key = "/",          path = "/", },
 		{ key = "T",          path = "/tmp", },
 		{ key = "D",          path = "~/Documents",    desc = "Documents" },
+		{ key = "s",          path = "~/Sync" },
 		{ key = { "l", "s" }, path = "~/.local/share", desc = "Local share" },
 		{ key = { "l", "b" }, path = "~/.local/bin",   desc = "Local bin" },
 		{ key = { "l", "t" }, path = "~/.local/state", desc = "Local state" },
