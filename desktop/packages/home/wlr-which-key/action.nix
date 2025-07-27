@@ -12,12 +12,17 @@ let
               {
                 key = "n";
                 desc = " Normal";
-                cmd = "otd loadsettings ~/Documents/Computer/Tablet\\ Driver\\ Settings/Normal.json";
+                cmd = "otd loadsettings ${config.home.homeDirectory}/Sync/GeneralConfig/Tablet/Writing.json";
+              }
+              {
+                key = "f";
+                desc = " FPS";
+                cmd = "otd loadsettings ${config.home.homeDirectory}/Sync/GeneralConfig/Tablet/FPS.json";
               }
               {
                 key = "w";
                 desc = " Writing";
-                cmd = "otd loadsettings ~/Documents/Computer/Tablet\\ Driver\\ Settings/Writing.json";
+                cmd = "otd loadsettings ${config.home.homeDirectory}/Sync/GeneralConfig/Tablet/Writing.json";
               }
             ];
           }

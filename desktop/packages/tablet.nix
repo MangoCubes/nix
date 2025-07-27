@@ -9,7 +9,7 @@
     }:
     {
       xdg.configFile."OpenTabletDriver/settings.json".source =
-        config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Sync/LinuxConfig/tablet/settings.json";
+        config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Sync/GeneralConfig/Tablet/Normal.json";
     };
 
 }
