@@ -131,7 +131,8 @@
               };
             }
             sops-nix.nixosModules.sops
-          ] ++ extraModules;
+          ]
+          ++ extraModules;
         };
     in
     let
@@ -229,6 +230,9 @@
         });
     in
     {
+      devShell.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.mkShell {
+        packages = [ ]; # Add any packages you want in the shell
+      };
       # Generate config for each machine I have
       # homeConfigurations.portable = inputs.home-manager.lib.homeManagerConfiguration (
       #   ({

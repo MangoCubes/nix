@@ -29,7 +29,7 @@ if len(sys.argv) <= 1:
             print(f"{key}")
     sys.exit(0)
 elif len(sys.argv) == 2:
-    subprocess.Popen(["kitty", "nix-shell", data[sys.argv[1]]['path'], "--command", data[sys.argv[1]]['command']], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    subprocess.Popen(["kitty", "bash", "-c", data[sys.argv[1]]['command']], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     sys.exit(0)
 else:
     print(f"Invalid number of arguments.")
