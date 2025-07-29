@@ -77,6 +77,9 @@
         inherit system;
         config.allowUnfree = true;
       };
+      pkgs = import nixpkgs {
+        inherit system;
+      };
       username = "main";
       homeDir = "/home/${username}";
     in
@@ -231,7 +234,7 @@
     in
     {
       devShell.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.mkShell {
-        packages = [ ]; # Add any packages you want in the shell
+        packages = [ pkgs.bash ];
       };
       # Generate config for each machine I have
       # homeConfigurations.portable = inputs.home-manager.lib.homeManagerConfiguration (

@@ -6,53 +6,28 @@
   ...
 }:
 let
-  configFile = if device == "server" then "headless.el" else "desktop.el";
-  vars = ''
-    (defvar banner "${inputs.secrets.res}/media/emacs/banner.jpg")
-    (defvar default-scale ${(toString device.emacsScale)})
-    (defvar my-use-straight nil "If non-nil, the package will be installed using straight.")
-  '';
-  configData = ''
-    (require 'package)
-    (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
-    (setq package-enable-at-startup nil)
-    (defvar bootstrap-version)
-    (let ((bootstrap-file
-           (expand-file-name
-            "straight/repos/straight.el/bootstrap.el"
-            (or (bound-and-true-p straight-base-dir)
-                user-emacs-directory)))
-          (bootstrap-version 7))
-      (unless (file-exists-p bootstrap-file)
-        (with-current-buffer
-            (url-retrieve-synchronously
-             "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
-             'silent 'inhibit-cookies)
-          (goto-char (point-max))
-          (eval-print-last-sexp)))
-      (load bootstrap-file nil 'nomessage))
-
-    (straight-use-package 'load-relative)
-
-    ${vars}
-
-    (load-file "${./emacs}/${configFile}")
-  '';
+  # configFile = if device == "server" then "headless.el" else "desktop.el";
+  # vars = ''
+  #   (defvar banner "${inputs.secrets.res}/media/emacs/banner.jpg")
+  #   (defvar default-scale ${(toString device.emacsScale)})
+  #   (defvar my-use-straight nil "If non-nil, the package will be installed using straight.")
+  # '';
+  envs = ''DEFAULT_SCALE=${(toString device.emacsScale)}'';
+  init = "~/Sync/EmacsConfig/init.el";
+  emacsload = pkgs.writeShellScriptBin "emacsload" ''${envs} emacs -q --daemon --load ${init}'';
 in
 {
   # Short for Emacs Server
-  programs.bash.shellAliases.er = "emacsclient -e '(kill-emacs)'; emacs -q --daemon --load ~/Sync/NixConfig/desktop/packages/home/emacs/init.el";
-  programs.bash.shellAliases.ef = "emacs -q --fg-daemon --load ~/Sync/NixConfig/desktop/packages/home/emacs/init.el";
-  # programs.bash.shellAliases.e = "emacsclient -c";
-  # programs.bash.shellAliases.te = "kitty --detach emacsclient -c";
-  home.packages = (
-    with pkgs;
-    [
-      perl538Packages.LaTeXML
-      texliveMedium
-      xwayland-satellite
-    ]
-  );
+  programs.bash.shellAliases.er = "emacsclient -e '(kill-emacs)'; emacsload";
+  programs.bash.shellAliases.ef = "${envs} emacs -q --fg-daemon --load ${init}";
+  home.packages = [
+    emacsload
+  ]
+  ++ (with pkgs; [
+    perl538Packages.LaTeXML
+    texliveMedium
+    xwayland-satellite
+  ]);
   xdg = {
     # Use xdg-mime query filetype <FILE> to determine a file's mime type
     dataFile."mime/packages/orgmode.xml".text = ''
@@ -98,20 +73,5 @@ in
   programs.emacs = {
     enable = true;
     package = unstable.emacs; # unstable.emacs-pgtk;
-    extraConfig = configData;
-    # extraPackages =
-    #   epkgs: with epkgs; [
-    #     mu4e
-    #   ];
   };
-  # services.emacs = {
-  #   enable = true;
-  #   startWithUserSession = if device == "server" then true else "graphical";
-  # };
-  # systemd.user.services.emacs = {
-  #   Service = {
-  #     TimeoutStopSec = 10;
-  #     TimeoutStartSec = 3600;
-  #   };
-  # };
 }

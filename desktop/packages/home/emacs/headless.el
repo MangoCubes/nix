@@ -1,2 +1,0 @@
-(load-relative "./common.el")
-
