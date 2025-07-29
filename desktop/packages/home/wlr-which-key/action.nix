@@ -8,23 +8,27 @@ let
           {
             key = "t";
             desc = " Tablet Driver";
-            submenu = [
-              {
-                key = "n";
-                desc = " Normal";
-                cmd = "otd loadsettings ${config.home.homeDirectory}/Sync/GeneralConfig/Tablet/Writing.json";
-              }
-              {
-                key = "f";
-                desc = " FPS";
-                cmd = "otd loadsettings ${config.home.homeDirectory}/Sync/GeneralConfig/Tablet/FPS.json";
-              }
-              {
-                key = "w";
-                desc = " Writing";
-                cmd = "otd loadsettings ${config.home.homeDirectory}/Sync/GeneralConfig/Tablet/Writing.json";
-              }
-            ];
+            submenu =
+              let
+                load = name: "otd loadsettings ${config.home.homeDirectory}/Sync/GeneralConfig/Tablet/${name}.json";
+              in
+              [
+                {
+                  key = "n";
+                  desc = " Normal";
+                  cmd = (load "Normal");
+                }
+                {
+                  key = "f";
+                  desc = " FPS";
+                  cmd = (load "FPS");
+                }
+                {
+                  key = "w";
+                  desc = " Writing";
+                  cmd = (load "Writing");
+                }
+              ];
           }
         ]
       else
