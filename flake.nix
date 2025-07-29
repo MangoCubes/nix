@@ -134,8 +134,7 @@
               };
             }
             sops-nix.nixosModules.sops
-          ]
-          ++ extraModules;
+          ] ++ extraModules;
         };
     in
     let

@@ -1,9 +1,9 @@
-{ config }:
+{ config, osConfig }:
 let
   theme = (import ./theme.nix);
   menu =
     (
-      if config.custom.features.tablet then
+      if osConfig.custom.features.tablet then
         [
           {
             key = "t";
