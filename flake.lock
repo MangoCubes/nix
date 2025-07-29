@@ -395,11 +395,11 @@
     },
     "nixpkgs_5": {
       "locked": {
-        "lastModified": 1753345091,
-        "narHash": "sha256-CdX2Rtvp5I8HGu9swBmYuq+ILwRxpXdJwlpg8jvN4tU=",
+        "lastModified": 1753489912,
+        "narHash": "sha256-uDCFHeXdRIgJpYmtcUxGEsZ+hYlLPBhR83fdU+vbC1s=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "3ff0e34b1383648053bba8ed03f201d3466f90c9",
+        "rev": "13e8d35b7d6028b7198f8186bc0347c6abaa2701",
         "type": "github"
       },
       "original": {
@@ -511,8 +511,8 @@
         "unstablePkg": "unstablePkg"
       },
       "locked": {
-        "lastModified": 1753536492,
-        "narHash": "sha256-LTjJWPagJwaF+g2nBGiSCiV+H41IaaeUhgg6eo8RDL0=",
+        "lastModified": 1753714160,
+        "narHash": "sha256-pVuvY4zJhcW9UnFjw5WuD7sZviqJvuR+L8Z7saFKJFY=",
         "path": "/home/main/Sync/NixConfig/secrets",
         "type": "path"
       },
