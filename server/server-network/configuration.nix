@@ -11,5 +11,6 @@
 
     ../packages/podman/adguard.nix
     ../packages/podman/headscale.nix
+    ../base/configuration.nix
   ];
 }

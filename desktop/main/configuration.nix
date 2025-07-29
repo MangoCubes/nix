@@ -5,6 +5,7 @@
     ./boot.nix
     ./home.nix
     ../packages/mikuboot.nix
+    ../base/configuration.nix
     (import ../packages/android.nix { androidStudio = true; })
     ../../common/packages/rclone-mega.nix
     # ../packages/steam.nix

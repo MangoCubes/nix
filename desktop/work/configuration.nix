@@ -8,6 +8,7 @@
     ./home.nix
     ../packages/rclone-school.nix
     ../packages/wireshark.nix
+    ../base/configuration.nix
     # ../packages/waydroid.nix
     (import ../packages/android.nix {
       androidStudio = false;

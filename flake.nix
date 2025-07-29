@@ -204,14 +204,12 @@
           extraModules = (
             if device.type == "desktop" || device.type == "laptop" then
               [
-                ./desktop/base/configuration.nix
                 # This includes per-machine config based on the flake name
                 ./desktop/${hostname}/configuration.nix
                 extraOptions
               ]
             else if device.type == "server" then
               [
-                ./server/base/configuration.nix
                 # This includes per-machine config based on the flake name
                 ./server/${hostname}/configuration.nix
               ]

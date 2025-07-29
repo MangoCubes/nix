@@ -6,5 +6,6 @@
     inputs.secrets.config.server-media
     ../../common/packages/rclone.nix
     ../packages/xfce.nix
+    ../base/configuration.nix
   ];
 }

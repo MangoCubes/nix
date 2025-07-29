@@ -7,6 +7,7 @@
     ../packages/wireshark.nix
     ../../common/packages/rclone-mega.nix
     ../packages/sunshine.nix
+    ../base/configuration.nix
     (import ../packages/android.nix {
       androidStudio = false;
       heimdall = false;
