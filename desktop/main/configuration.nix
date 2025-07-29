@@ -4,6 +4,7 @@
     inputs.secrets.hw.main
     ./boot.nix
     ./home.nix
+    ../packages/mikuboot.nix
     (import ../packages/android.nix { androidStudio = true; })
     ../../common/packages/rclone-mega.nix
     # ../packages/steam.nix
