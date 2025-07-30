@@ -6,8 +6,22 @@
 }:
 let
   stateFile = "/home/${username}/Sync/LinuxConfig/data/yazi/projects.json";
+  linktofile = pkgs.writeShellScriptBin "linktofile" ''cat "$@" > "$@-temp" && rm "$@" && mv "$@-temp" "$@"'';
+  pastecp = pkgs.writeShellScriptBin "pastecp" ''
+    OUTPUT=$(wl-paste)
+    if [ "$(echo "$OUTPUT" | grep -c -v '^file:///' )" -eq 0 ]; then
+      echo "$OUTPUT" | while read -r line; do
+        FILE_PATH="''${line#file://}"
+        cp "$FILE_PATH" .
+      done
+    fi
+  '';
 in
 {
+  home.packages = [
+    linktofile
+    pastecp
+  ];
   programs.bash.shellAliases.y = "kitty yazi . & disown";
   programs.yazi = {
     package = unstable.yazi;
@@ -215,6 +229,13 @@ in
           ];
         }
         {
+          on = "p";
+          run = [
+            ''shell 'pastecp' ''
+            "paste"
+          ];
+        }
+        {
           on = [
             "c"
             "m"
@@ -281,12 +302,32 @@ in
         {
           on = [
             "c"
-            "b"
+            "c"
           ];
           run = [
             ''shell 'cat "$@" | wl-copy' ''
           ];
           desc = "Copy file into clipboard";
+        }
+        {
+          on = [
+            "c"
+            "L"
+          ];
+          run = [
+            ''shell 'linktofile $@' ''
+          ];
+          desc = "Convert a link into a regular file";
+        }
+        {
+          on = [
+            "c"
+            "p"
+          ];
+          run = [
+            ''copy path''
+          ];
+          desc = "Copy path of the file";
         }
         {
           on = [
