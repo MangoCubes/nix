@@ -14,14 +14,14 @@ let
   # '';
   envs = ''DEFAULT_SCALE=${(toString device.emacsScale)}'';
   init = "~/Sync/EmacsConfig/init.el";
-  emacsload = pkgs.writeShellScriptBin "emacsload" ''${envs} emacs -q --daemon --load ${init}'';
+  loademacs = pkgs.writeShellScriptBin "loademacs" ''${envs} emacs -q --daemon --load ${init}'';
 in
 {
   # Short for Emacs Server
-  programs.bash.shellAliases.er = "emacsclient -e '(kill-emacs)'; emacsload";
+  programs.bash.shellAliases.er = "emacsclient -e '(kill-emacs)'; loademacs";
   programs.bash.shellAliases.ef = "${envs} emacs -q --fg-daemon --load ${init}";
   home.packages = [
-    emacsload
+    loademacs
   ]
   ++ (with pkgs; [
     perl538Packages.LaTeXML

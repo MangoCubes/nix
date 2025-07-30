@@ -1,3 +1,5 @@
+# NixVim documentation
+# https://mattsturgeon.github.io/nixvim/
 {
   pkgs,
   inputs,
@@ -292,6 +294,7 @@ in
           enableModifiedMarkers = true;
           enableRefreshOnWrite = true;
           window = {
+            insertAs = "sibling";
             sameLevel = true;
             mappings = {
               "gx" = {
