@@ -28,6 +28,7 @@
         ../packages/home/accounts.nix
         ../packages/home/swww.nix
         ../packages/home/niri.nix
+        ../packages/home/fnott.nix
         ../packages/home/ags.nix
         ../packages/home/kde.nix
         ../packages/home/korean.nix

@@ -6,7 +6,6 @@ import subprocess
 
 class Env(TypedDict):
     command: str
-    path: str
 
 Envs = Dict[str, Env]
 
@@ -25,8 +24,7 @@ except FileNotFoundError:
 
 if len(sys.argv) <= 1:
     for key in data.keys():
-        if os.path.exists(data[key]['path']):
-            print(f"{key}")
+        print(f"{key}")
     sys.exit(0)
 elif len(sys.argv) == 2:
     subprocess.Popen(["kitty", "bash", "-c", data[sys.argv[1]]['command']], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
