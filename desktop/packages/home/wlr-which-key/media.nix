@@ -1,27 +1,28 @@
 let
   theme = (import ./theme.nix);
+  player = ''-p $(ags request "player get")'';
   menu = [
     {
       key = "Right";
       desc = "󱇸 Skip 5 seconds";
-      cmd = "playerctl position 5+";
+      cmd = "playerctl ${player} position 5+";
       keep_open = true;
     }
     {
       key = "Left";
       desc = "󱇹 Rewind 5 seconds";
-      cmd = "playerctl position 5-";
+      cmd = "playerctl ${player} position 5-";
       keep_open = true;
     }
     {
       key = "Ctrl+Right";
       desc = " Skip";
-      cmd = "playerctl next";
+      cmd = "playerctl ${player} next";
     }
     {
       key = "Ctrl+Left";
       desc = " Go Back";
-      cmd = "playerctl previous";
+      cmd = "playerctl ${player} previous";
     }
     {
       key = "Up";
@@ -38,12 +39,28 @@ let
     {
       key = " ";
       desc = "󰐎 Play/Pause";
-      cmd = "playerctl play-pause";
+      cmd = "playerctl ${player} play-pause";
     }
     {
       key = "q";
       desc = "󰓛 Stop";
-      cmd = "playerctl stop";
+      cmd = "playerctl ${player} stop";
+    }
+    {
+      key = "p";
+      desc = "󰥠 Player";
+      submenu = [
+        {
+          key = "Left";
+          desc = "󰮳 Previous Player";
+          cmd = ''ags request "player prev"'';
+        }
+        {
+          key = "Right";
+          desc = "󰮱 Next Player";
+          cmd = ''ags request "player next"'';
+        }
+      ];
     }
   ];
 in
