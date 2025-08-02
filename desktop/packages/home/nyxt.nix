@@ -1,6 +1,6 @@
 { pkgs, config, ... }:
 let
-  nyxttemp = pkgs.writeShellScriptBin "nyxttemp" ''nyxt -p nosave -c ${config.home.homeDirectory}/.config/nyxt/config.lisp'';
+  nyxttemp = pkgs.writeShellScriptBin "nyxttemp" ''nyxt -p nosave -c ${config.home.homeDirectory}/.config/nyxt/config.lisp -S'';
 in
 {
   home.packages = [
