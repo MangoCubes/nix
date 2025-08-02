@@ -1,14 +1,18 @@
 { config, colours }:
 let
   inherit (config.lib.formats.rasi) mkLiteral;
+  miku = mkLiteral "#${colours.miku}";
+  teto = mkLiteral "#${colours.teto}";
+  light = mkLiteral "#${colours.primaryBg}";
+  dark = mkLiteral "#${colours.secondaryBg}";
 in
 {
   "*" = {
-    selected-normal-foreground = mkLiteral colours.darkBg;
-    foreground = mkLiteral colours.primary;
+    selected-normal-foreground = dark;
+    foreground = miku;
     normal-foreground = mkLiteral "@foreground";
     alternate-normal-background = mkLiteral "rgba ( 255, 255, 255, 7 % )";
-    red = mkLiteral colours.highlight;
+    red = teto;
     selected-urgent-foreground = mkLiteral "@selected-normal-foreground";
     blue = mkLiteral "rgba ( 38, 139, 210, 100 % )";
     urgent-foreground = mkLiteral "rgba ( 255, 153, 153, 100 % )";
@@ -21,7 +25,7 @@ in
     # bordercolor = mkLiteral "@foreground";
     alternate-normal-foreground = mkLiteral "@foreground";
     normal-background = mkLiteral "rgba ( 0, 0, 0, 0 % )";
-    lightfg = mkLiteral colours.lightBg;
+    lightfg = light;
     selected-normal-background = mkLiteral "@foreground";
     border-color = mkLiteral "@foreground";
     spacing = mkLiteral "2";

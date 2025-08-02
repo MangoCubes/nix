@@ -26,14 +26,14 @@
 
         # Default values, may be overridden in 'urgency' specific sections
         # layer=top
-        background = "24292bd0"; # colours.lightBg;
+        background = colours.secondaryBgTr;
 
-        border-color = "47c8c0ff"; # colours.primary;
+        border-color = colours.mikuTr;
         # border-radius=0
         border-size = 4 * device.scale;
 
-        # padding-vertical=20
-        # padding-horizontal=20
+        padding-vertical = 12;
+        padding-horizontal = 12;
 
         # dpi-aware=no
 

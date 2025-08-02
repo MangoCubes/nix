@@ -59,10 +59,13 @@
     let
       system = "x86_64-linux";
       colours = {
-        primary = "#47c8c0";
-        lightBg = "#5a676b";
-        highlight = "#ff629d";
-        darkBg = "#24292b";
+        miku = "47c8c0";
+        mikuTr = "47c8c0ff";
+        teto = "ff629d";
+        primaryBg = "5a676b";
+        primaryBgTr = "5a676bd0";
+        secondaryBg = "24292b";
+        secondaryBgTr = "24292bd0";
       };
     in
     let
