@@ -32,7 +32,7 @@ let
     fi
 
     ${unstable.freerdp}/bin/xfreerdp /cert:tofu /d:"" /u:"${username}" /p:"${password}" /scale:${
-      toString (if device.scale == 2 then 180 else 100)
+      toString (if device.scale == 1 then 100 else 180)
     } -grab-keyboard +clipboard /t:Windows +home-drive -wallpaper +dynamic-resolution /v:"127.0.0.1"
   '';
 

@@ -1,4 +1,4 @@
-{ colours, ... }:
+{ colours, device, ... }:
 {
   services.fnott = {
     enable = true;
@@ -9,15 +9,15 @@
         # For documentation on these options, see `man fnott.ini`
 
         # Global values
-        # output=<undefined>#
-        # min-width=0
-        # max-width=0
-        # max-height=0
+        output = "DP-1";
+        min-width = 50;
+        max-width = 500;
+        # max-height=50
         # stacking-order=bottom-up
         # anchor=top-right
-        edge-margin-vertical = 6;
-        edge-margin-horizontal = 6;
-        notification-margin = 6;
+        edge-margin-vertical = 4 * device.scale;
+        edge-margin-horizontal = 4 * device.scale;
+        notification-margin = 4 * device.scale;
         # icon-theme=hicolor
         # max-icon-size=32
         # selection-helper=dmenu
@@ -30,7 +30,7 @@
 
         border-color = "47c8c0ff"; # colours.primary;
         # border-radius=0
-        border-size = 6;
+        border-size = 4 * device.scale;
 
         # padding-vertical=20
         # padding-horizontal=20

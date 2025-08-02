@@ -134,7 +134,8 @@
               };
             }
             sops-nix.nixosModules.sops
-          ] ++ extraModules;
+          ]
+          ++ extraModules;
         };
     in
     let
@@ -352,7 +353,7 @@
         device = {
           type = "desktop";
           emacsScale = 1;
-          scale = 2;
+          scale = 1.5;
           presentation = false;
           monitors = [
             {
@@ -371,7 +372,7 @@
         device = {
           type = "desktop";
           emacsScale = 1;
-          scale = 2;
+          scale = 1.5;
           presentation = true;
           monitors = [
             {
