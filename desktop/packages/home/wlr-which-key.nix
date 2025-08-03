@@ -17,6 +17,11 @@ let
       pango
       ;
   };
+  genFile = name: {
+    "wlr-which-key/${name}.yaml".source = (
+      (pkgs.formats.yaml { }).generate "${name}.yml" (import ./wlr-which-key/${name}.nix)
+    );
+  };
 in
 {
   home.packages = [
@@ -30,11 +35,8 @@ in
         (import ./wlr-which-key/action.nix) { inherit config osConfig; }
       )
     );
-    "wlr-which-key/media.yaml".source = (
-      (pkgs.formats.yaml { }).generate "media.yml" (import ./wlr-which-key/media.nix)
-    );
-    "wlr-which-key/advrun.yaml".source = (
-      (pkgs.formats.yaml { }).generate "advrun.yml" (import ./wlr-which-key/advrun.nix)
-    );
-  };
+  }
+  // (genFile "media")
+  // (genFile "autosetup")
+  // (genFile "advrun");
 }
