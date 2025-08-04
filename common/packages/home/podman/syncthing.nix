@@ -4,8 +4,23 @@
   lib,
   device,
   inputs,
+  pkgs,
   ...
 }:
+let
+  st-reset-database = pkgs.writeShellScriptBin "st-reset-database" ''
+    systemctl --user stop podman-syncthing || { echo "Failed to stop Syncthing."; exit 1; }
+    podman run --rm -e GUID=0 -e PUID=0 --user 0 --volume ${config.home.homeDirectory}/Sync:/var/syncthing/data \
+      --volume ${config.home.homeDirectory}/.podman/syncthing:/var/syncthing/config syncthing/syncthing --reset-database;
+    systemctl --user restart podman-syncthing
+  '';
+  st-reset-deltas = pkgs.writeShellScriptBin "st-reset-deltas" ''
+    systemctl --user stop podman-syncthing || { echo "Failed to stop Syncthing."; exit 1; }
+    podman run --rm -e GUID=0 -e PUID=0 --user 0 --volume ${config.home.homeDirectory}/Sync:/var/syncthing/data \
+      --volume ${config.home.homeDirectory}/.podman/syncthing:/var/syncthing/config syncthing/syncthing --reset-deltas;
+    systemctl --user restart podman-syncthing
+  '';
+in
 {
   imports = [
     (
@@ -15,14 +30,20 @@
         inputs.secrets.hm.syncthing-client
     )
   ];
-  home.activation.syncthing = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    FILE=${config.home.homeDirectory}/.podman/syncthing/config.xml
-    if [ ! -f "$FILE" ]; then
-      mkdir -p ${config.home.homeDirectory}/Sync
-      mkdir -p ${config.home.homeDirectory}/.podman/syncthing
-      cp ${config.home.homeDirectory}/.config/sops-nix/secrets/syncthing $FILE
-    fi
-  '';
+  home = {
+    packages = [
+      st-reset-deltas
+      st-reset-database
+    ];
+    activation.syncthing = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      FILE=${config.home.homeDirectory}/.podman/syncthing/config.xml
+      if [ ! -f "$FILE" ]; then
+        mkdir -p ${config.home.homeDirectory}/Sync
+        mkdir -p ${config.home.homeDirectory}/.podman/syncthing
+        cp ${config.home.homeDirectory}/.config/sops-nix/secrets/syncthing $FILE
+      fi
+    '';
+  };
   services.podman.containers.syncthing = (
     (import ../../../../lib/podman.nix) {
       needRoot = true;
@@ -44,6 +65,7 @@
           port = 8384;
         }
       ];
+      exec = "--reset-deltas";
       extraPodmanArgs = [ "--hostname=${hostname}" ];
       ports = [
         "22000:22000/tcp"
