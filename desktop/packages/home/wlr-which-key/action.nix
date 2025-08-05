@@ -112,7 +112,7 @@ let
           {
             key = "b";
             desc = " Open browser";
-            cmd = "mullvad-browser $(wl-paste) --new-window";
+            cmd = "browser $(wl-paste)";
           }
           {
             key = "a";

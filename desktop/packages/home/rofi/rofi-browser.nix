@@ -21,7 +21,7 @@ let
       else
         first=''${1%% *}
         ${lib.strings.concatStringsSep "\n" (map openBrowser envs)}
-        (exec mullvad-browser $@ &> /dev/null &); exit 0;
+        (exec browser $@ &> /dev/null &); exit 0;
     fi
   '';
 in

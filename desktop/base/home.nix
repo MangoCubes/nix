@@ -61,7 +61,6 @@
           ++ (with pkgs; [
             mullvad-browser
             tor-browser
-            # nyxt
           ])
           ++ (with inputs.nix-alien.packages.${system}; [
             nix-alien

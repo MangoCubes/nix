@@ -47,8 +47,7 @@ in
         ];
         pdf = [
           {
-            run = ''mullvad-browser --new-window "$@"'';
-            for = "unix";
+            run = ''browser "$@"'';
             desc = "Browser";
             orphan = true;
           }
