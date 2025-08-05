@@ -11,6 +11,11 @@ let
       desc = "Overview";
       cmd = ''niri msg action toggle-overview'';
     }
+    {
+      key = "t";
+      desc = "Tabbed Display";
+      cmd = ''toggle-column-tabbed-display'';
+    }
   ];
 in
 theme // { inherit menu; }
