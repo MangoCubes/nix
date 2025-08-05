@@ -52,6 +52,11 @@ let
         ];
       }
       {
+        key = "l";
+        desc = " Lock";
+        cmd = ''swaylock'';
+      }
+      {
         key = "m";
         desc = "󱋈 Sync Mail";
         cmd = ''mbsync -aL && notmuch new'';

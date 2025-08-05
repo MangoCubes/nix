@@ -38,5 +38,6 @@ in
   }
   // (genFile "media")
   // (genFile "autosetup")
+  // (genFile "niri")
   // (genFile "advrun");
 }
