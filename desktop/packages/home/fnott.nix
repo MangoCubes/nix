@@ -1,4 +1,7 @@
 { colours, device, ... }:
+let
+  width = builtins.floor (4 * device.scale);
+in
 {
   services.fnott = {
     enable = true;
@@ -15,9 +18,9 @@
         # max-height=50
         # stacking-order=bottom-up
         # anchor=top-right
-        edge-margin-vertical = 4 * device.scale;
-        edge-margin-horizontal = 4 * device.scale;
-        notification-margin = 4 * device.scale;
+        edge-margin-vertical = width;
+        edge-margin-horizontal = width;
+        notification-margin = width;
         # icon-theme=hicolor
         # max-icon-size=32
         # selection-helper=dmenu
@@ -30,7 +33,7 @@
 
         border-color = colours.mikuTr;
         # border-radius=0
-        border-size = 4 * device.scale;
+        border-size = width;
 
         padding-vertical = 12;
         padding-horizontal = 12;
