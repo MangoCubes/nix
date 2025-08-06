@@ -1,10 +1,12 @@
 { pkgs, config, ... }:
 let
   browser = pkgs.writeShellScriptBin "browser" ''qutebrowser --temp-basedir -C ${config.home.homeDirectory}/.config/qutebrowser/config.py $@'';
+  profilebrowser = pkgs.writeShellScriptBin "profilebrowser" ''qutebrowser -B ${config.home.homeDirectory}/Sync/Browsers/$@ -C ${config.home.homeDirectory}/.config/qutebrowser/config.py'';
 in
 {
   home.packages = [
     pkgs.qutebrowser
+    profilebrowser
     browser
   ];
   xdg.configFile."qutebrowser/config.py".source =
