@@ -116,10 +116,7 @@ in
               };
             };
             jsonls.enable = true;
-            # hls = {
-            #   enable = true;
-            #   installGhc = true;
-            # };
+            hls.enable = true;
             rust_analyzer = {
               enable = true;
               installCargo = false;
