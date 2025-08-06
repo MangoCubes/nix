@@ -52,6 +52,11 @@ in
             desc = "Browser";
             orphan = true;
           }
+          {
+            run = ''pdfjam --outfile "$@" --angle 270 --fitpaper true --rotateoversize true "$@"'';
+            desc = "Rotate";
+            orphan = true;
+          }
         ];
         nix = [
           {
@@ -230,10 +235,11 @@ in
         }
         {
           on = "p";
-          run = [
-            ''shell 'pastecp' ''
-            "paste"
-          ];
+          run = "paste";
+        }
+        {
+          on = "P";
+          run = ''shell 'pastecp' '';
         }
         {
           on = [
@@ -245,7 +251,7 @@ in
         }
         {
           on = [
-            "P"
+            "W"
             "s"
           ];
           run = "plugin projects save";
@@ -253,7 +259,7 @@ in
         }
         {
           on = [
-            "P"
+            "W"
             "l"
           ];
           run = "plugin projects load";
@@ -261,15 +267,15 @@ in
         }
         {
           on = [
-            "P"
-            "P"
+            "W"
+            "W"
           ];
           run = "plugin projects load_last";
           desc = "Load last project";
         }
         {
           on = [
-            "P"
+            "W"
             "d"
           ];
           run = "plugin projects delete";
@@ -277,7 +283,7 @@ in
         }
         {
           on = [
-            "P"
+            "W"
             "D"
           ];
           run = "plugin projects delete_all";
@@ -285,7 +291,7 @@ in
         }
         {
           on = [
-            "P"
+            "W"
             "m"
           ];
           run = "plugin projects 'merge current'";
@@ -293,7 +299,7 @@ in
         }
         {
           on = [
-            "P"
+            "W"
             "M"
           ];
           run = "plugin projects 'merge all'";
