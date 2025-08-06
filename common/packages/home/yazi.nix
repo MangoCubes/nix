@@ -22,6 +22,7 @@ in
     linktofile
     pastecp
   ];
+  xdg.mimeApps.defaultApplications."inode/directory" = "yazi.desktop";
   programs.bash.shellAliases.y = "kitty yazi . & disown";
   programs.yazi = {
     package = unstable.yazi;
