@@ -48,7 +48,7 @@
     internal = true;
   }
   {
-    name = "Official";
-    id = 7;
+    name = "Sandbox";
+    id = 9;
   }
 ]

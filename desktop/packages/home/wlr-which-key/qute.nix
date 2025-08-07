@@ -11,6 +11,16 @@ let
       desc = "SelfHosted";
       cmd = ''profilebrowser SelfHosted'';
     }
+    {
+      key = "d";
+      desc = "Development";
+      cmd = ''profilebrowser Development'';
+    }
+    {
+      key = "i";
+      desc = "Intranet";
+      cmd = ''profilebrowser Intranet'';
+    }
   ];
 in
 theme // { inherit menu; }
