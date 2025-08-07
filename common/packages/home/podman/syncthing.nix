@@ -8,6 +8,9 @@
   ...
 }:
 let
+  st-clear = pkgs.writeShellScriptBin "st-clear" ''
+    find . -type f -name '*sync-conflict*' -exec rm {} +
+  '';
   st-reset-database = pkgs.writeShellScriptBin "st-reset-database" ''
     systemctl --user stop podman-syncthing || { echo "Failed to stop Syncthing."; exit 1; }
     podman run --rm -e GUID=0 -e PUID=0 --user 0 --volume ${config.home.homeDirectory}/Sync:/var/syncthing/data \
@@ -32,6 +35,7 @@ in
   ];
   home = {
     packages = [
+      st-clear
       st-reset-deltas
       st-reset-database
     ];

@@ -3,8 +3,9 @@ require("bunny"):setup({
 		{ key = "/",          path = "/", },
 		{ key = "T",          path = "/tmp", },
 		{ key = "t",          path = "~/Temp", },
-		{ key = "D",          path = "~/Documents",       desc = "Documents" },
-		{ key = "d",          path = "~/Downloads",       desc = "Downloads" },
+		{ key = "D",          path = "~/Documents",          desc = "Documents" },
+		{ key = "d",          path = "~/Downloads",          desc = "Downloads" },
+		{ key = "p",          path = "~/Documents/Projects", desc = "Projects" },
 		-- Quick sync gets its own unique hotkey because it should be fast
 		{ key = "q",          path = "~/Sync/Quick Sync" },
 
@@ -15,9 +16,9 @@ require("bunny"):setup({
 		{ key = { "s", "l" }, path = "~/Sync/LinuxConfig" },
 		{ key = { "s", "q" }, path = "~/Sync/Quick Sync" },
 
-		{ key = { "l", "s" }, path = "~/.local/share",    desc = "Local share" },
-		{ key = { "l", "b" }, path = "~/.local/bin",      desc = "Local bin" },
-		{ key = { "l", "t" }, path = "~/.local/state",    desc = "Local state" },
+		{ key = { "l", "s" }, path = "~/.local/share",       desc = "Local share" },
+		{ key = { "l", "b" }, path = "~/.local/bin",         desc = "Local bin" },
+		{ key = { "l", "t" }, path = "~/.local/state",       desc = "Local state" },
 
 		{ key = { "m", "w" }, path = "~/Mounts/Work" },
 		{ key = { "m", "c" }, path = "~/Mounts/Cloud" },
