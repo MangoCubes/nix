@@ -10,9 +10,9 @@
     ../packages/wireshark.nix
     ../base/configuration.nix
     # ../packages/waydroid.nix
-    (import ../packages/android.nix {
-      androidStudio = false;
-      heimdall = true;
-    })
+    # (import ../packages/android.nix {
+    #   androidStudio = false;
+    #   heimdall = true;
+    # })
   ];
 }
