@@ -1,4 +1,9 @@
-{ unstable, inputs, ... }:
+{
+  unstable,
+  inputs,
+  lib,
+  ...
+}:
 {
   imports = [ inputs.ags.homeManagerModules.default ];
   programs.ags = {
@@ -19,5 +24,14 @@
       ]
     );
     systemd.enable = true;
+  };
+  systemd.user.services.ags = {
+    Unit = {
+      After = lib.mkForce [ ];
+      PartOf = lib.mkForce [ ];
+    };
+    Install = {
+      WantedBy = lib.mkForce [ ];
+    };
   };
 }
