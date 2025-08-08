@@ -6,7 +6,6 @@
   ...
 }:
 {
-  imports = [ inputs.secrets.hm.cloud ];
   home.activation.cloud = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     mkdir -p ${config.home.homeDirectory}/.podman/cloud
     # mkdir -p ${config.home.homeDirectory}/.podman/cloud/config
@@ -16,8 +15,13 @@
     # mkdir -p ${config.home.homeDirectory}/.podman/cloud/data
     # ${pkgs.rootlesskit}/bin/rootlesskit chown -R 1000:1000 ${config.home.homeDirectory}/.podman/cloud
   '';
-  services.podman.containers.cloud = (
-    (import ../../../../lib/podman.nix) {
+  imports = [
+    inputs.secrets.hm.cloud
+    ((import ../../../../lib/podman.nix) {
+      dependsOn = [
+        "traefik"
+        "mariadb"
+      ];
       image = "linuxserver/nextcloud:latest";
       name = "cloud";
       domain = [
@@ -62,6 +66,6 @@
         "traefik.http.routers.cloud.middlewares" =
           "m-cloud@docker,m-cloud-dav@docker,m-cloud-webfinger@docker,m-cloud-nodeinfo@docker";
       };
-    }
-  );
+    })
+  ];
 }

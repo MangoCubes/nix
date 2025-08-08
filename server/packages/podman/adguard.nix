@@ -13,8 +13,9 @@
       home.activation.adguard = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
         mkdir -p ${config.home.homeDirectory}/.podman/adguard
       '';
-      services.podman.containers.adguard = (
-        (import ../../../lib/podman.nix) {
+      imports = [
+        ((import ../../../lib/podman.nix) {
+          dependsOn = null;
           image = "adguard/adguardhome";
           name = "adguard";
           needRoot = true;
@@ -32,7 +33,7 @@
               port = 80;
             }
           ];
-        }
-      );
+        })
+      ];
     };
 }

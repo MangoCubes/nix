@@ -10,8 +10,9 @@
       ...
     }:
     {
-      services.podman.containers.mitm = (
-        (import ../../../lib/podman.nix) {
+      imports = [
+        ((import ../../../lib/podman.nix) {
+          dependsOn = [ "traefik" ];
           image = "mitmproxy/mitmproxy";
           name = "mitm";
           domain = [
@@ -27,7 +28,7 @@
           volumes = [
             "${config.home.homeDirectory}/Sync/Secrets/mitm:/etc/mitm"
           ];
-        }
-      );
+        })
+      ];
     };
 }

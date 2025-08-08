@@ -5,14 +5,10 @@
   ...
 }:
 {
-  imports = [ inputs.secrets.hm.other ];
-  home.activation.postgresql = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    mkdir -p /home/main/.podman/postgres/scripts
-    mkdir -p /home/main/.podman/postgres/data
-  '';
-
-  services.podman.containers.postgresql = (
-    (import ../../../../lib/podman.nix) {
+  imports = [
+    inputs.secrets.hm.other
+    ((import ../../../../lib/podman.nix) {
+      dependsOn = null;
       image = "postgres:17";
       network = "container:proton-inv";
       name = "postgresql";
@@ -23,6 +19,11 @@
       environmentFile = [
         ''${config.home.homeDirectory}/.config/sops-nix/secrets/postgresql''
       ];
-    }
-  );
+    })
+  ];
+  home.activation.postgresql = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    mkdir -p /home/main/.podman/postgres/scripts
+    mkdir -p /home/main/.podman/postgres/data
+  '';
+
 }

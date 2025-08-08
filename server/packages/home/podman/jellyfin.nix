@@ -7,8 +7,9 @@
   home.activation.jellyfin = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     mkdir -p ${config.home.homeDirectory}/.podman/jellyfin
   '';
-  services.podman.containers.jellyfin = (
-    (import ../../../../lib/podman.nix) {
+  imports = [
+    ((import ../../../../lib/podman.nix) {
+      dependsOn = [ "traefik" ];
       image = "lscr.io/linuxserver/jellyfin:latest";
       name = "jellyfin";
       volumes = [
@@ -23,6 +24,6 @@
           port = 8096;
         }
       ];
-    }
-  );
+    })
+  ];
 }

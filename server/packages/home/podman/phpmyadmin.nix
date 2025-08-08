@@ -1,6 +1,10 @@
 {
-  services.podman.containers.phpmyadmin = (
-    (import ../../../../lib/podman.nix) {
+  imports = [
+    ((import ../../../../lib/podman.nix) {
+      dependsOn = [
+        "traefik"
+        "mariadb"
+      ];
       image = "lscr.io/linuxserver/phpmyadmin";
       name = "phpmyadmin";
       volumes = [
@@ -20,6 +24,6 @@
           port = 80;
         }
       ];
-    }
-  );
+    })
+  ];
 }

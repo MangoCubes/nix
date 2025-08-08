@@ -5,7 +5,6 @@
   ...
 }:
 {
-  imports = [ inputs.secrets.hm.other ];
   home.activation.mariadb = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     DIR=${config.home.homeDirectory}/.podman/mariadb
     if [ ! -d "$DIR" ]; then
@@ -13,8 +12,10 @@
     fi
   '';
 
-  services.podman.containers.mariadb = (
-    (import ../../../../lib/podman.nix) {
+  imports = [
+    inputs.secrets.hm.other
+    ((import ../../../../lib/podman.nix) {
+      dependsOn = null;
       image = "mariadb:lts";
       name = "mariadb";
       volumes = [
@@ -29,6 +30,6 @@
         }
       ];
       environmentFile = [ ''${config.home.homeDirectory}/.config/sops-nix/secrets/mariadb'' ];
-    }
-  );
+    })
+  ];
 }

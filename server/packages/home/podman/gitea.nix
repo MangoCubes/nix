@@ -5,12 +5,16 @@
   ...
 }:
 {
-  imports = [ inputs.secrets.server-main.home.gitea ];
   home.activation.gitea = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     mkdir -p ${config.home.homeDirectory}/.podman/gitea
   '';
-  services.podman.containers.gitea = (
-    (import ../../../../lib/podman.nix) {
+  imports = [
+    inputs.secrets.server-main.home.gitea
+    ((import ../../../../lib/podman.nix) {
+      dependsOn = [
+        "traefik"
+        "mariadb"
+      ];
       image = "gitea/gitea:latest";
       name = "gitea";
       volumes = [
@@ -31,6 +35,6 @@
         }
       ];
       environmentFile = [ ''${config.home.homeDirectory}/.config/sops-nix/secrets/gitea'' ];
-    }
-  );
+    })
+  ];
 }

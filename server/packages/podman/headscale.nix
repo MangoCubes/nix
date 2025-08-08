@@ -17,8 +17,9 @@ in
   };
   home-manager.users."${username}" = {
     # List all targets using systemctl list-units --type target
-    services.podman.containers.headscale = (
-      (import ../../../lib/podman.nix) {
+    imports = [
+      ((import ../../../lib/podman.nix) {
+        dependsOn = null;
         image = "headscale/headscale";
         exec = "serve";
         name = "headscale";
@@ -35,7 +36,7 @@ in
             port = 8080;
           }
         ];
-      }
-    );
+      })
+    ];
   };
 }

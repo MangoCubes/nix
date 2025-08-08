@@ -13,8 +13,9 @@ in
   ...
 }:
 {
-  services.podman.containers."${name}" = (
-    (import ../../../../lib/podman.nix) {
+  imports = [
+    ((import ../../../../lib/podman.nix) {
+      dependsOn = [ "traefik" ];
       image = "ghcr.io/techarohq/anubis:latest";
       name = name;
       network = [ "container:proton-redlib" ];
@@ -40,6 +41,6 @@ in
         "OG_PASSTHROUGH" = "true";
         "OG_EXPIRY_TIME" = "24h";
       };
-    }
-  );
+    })
+  ];
 }

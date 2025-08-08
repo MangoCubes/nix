@@ -1,7 +1,8 @@
 { config, lib, ... }:
 {
-  services.podman.containers.element = (
-    (import ../../../../lib/podman.nix) {
+  imports = [
+    ((import ../../../../lib/podman.nix) {
+      dependsOn = [ "traefik" ];
       image = "vectorim/element-web";
       name = "element";
       environment = {
@@ -15,17 +16,9 @@
           port = 8080;
         }
       ];
-    }
-  );
-  home.activation.matrix = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    DIR=${config.home.homeDirectory}/.podman/matrix
-    if [ ! -d "$DIR" ]; then
-      mkdir -p $DIR/uploads
-      mkdir -p $DIR/media
-    fi
-  '';
-  services.podman.containers.matrix = (
-    (import ../../../../lib/podman.nix) {
+    })
+    ((import ../../../../lib/podman.nix) {
+      dependsOn = [ "traefik" ];
       image = "matrixdotorg/synapse";
       name = "matrix";
       volumes = [
@@ -44,6 +37,13 @@
           port = 8008;
         }
       ];
-    }
-  );
+    })
+  ];
+  home.activation.matrix = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    DIR=${config.home.homeDirectory}/.podman/matrix
+    if [ ! -d "$DIR" ]; then
+      mkdir -p $DIR/uploads
+      mkdir -p $DIR/media
+    fi
+  '';
 }

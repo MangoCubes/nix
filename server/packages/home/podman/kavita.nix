@@ -7,8 +7,9 @@
   home.activation.kavita = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     mkdir -p ${config.home.homeDirectory}/.podman/kavita
   '';
-  services.podman.containers.kavita = (
-    (import ../../../../lib/podman.nix) {
+  imports = [
+    ((import ../../../../lib/podman.nix) {
+      dependsOn = [ "traefik" ];
       image = "jvmilazz0/kavita:latest";
       name = "kavita";
       volumes = [
@@ -23,6 +24,6 @@
           port = 5000;
         }
       ];
-    }
-  );
+    })
+  ];
 }

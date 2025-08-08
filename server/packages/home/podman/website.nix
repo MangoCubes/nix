@@ -1,7 +1,8 @@
 { config, ... }:
 {
-  services.podman.containers.website = (
-    (import ../../../../lib/podman.nix) {
+  imports = [
+    ((import ../../../../lib/podman.nix) {
+      dependsOn = [ "traefik" ];
       image = "nginx:stable-alpine";
       name = "website";
       domain = [
@@ -15,6 +16,6 @@
       volumes = [
         "${config.home.homeDirectory}/Sync/Website/public_html:/usr/share/nginx/html:ro"
       ];
-    }
-  );
+    })
+  ];
 }

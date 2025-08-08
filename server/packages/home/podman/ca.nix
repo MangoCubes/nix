@@ -4,9 +4,10 @@
   ...
 }:
 {
-  imports = [ inputs.secrets.hm.ca ];
-  services.podman.containers.ca = (
-    (import ../../../../lib/podman.nix) {
+  imports = [
+    inputs.secrets.hm.ca
+    ((import ../../../../lib/podman.nix) {
+      dependsOn = [ "traefik" ];
       image = "smallstep/step-ca";
       name = "ca";
       needRoot = true;
@@ -39,6 +40,6 @@
         "traefik.http.services.s-ca.loadbalancer.server.scheme" = "https";
         # "traefik.http.services.s-ca.loadbalancer.serversTransport" = "homeTransport";
       };
-    }
-  );
+    })
+  ];
 }

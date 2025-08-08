@@ -5,13 +5,17 @@
   ...
 }:
 {
-  imports = [ inputs.secrets.hm.other ];
   # Change owner to 5050
   home.activation.pgadmin = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     mkdir -p /home/main/.podman/pgadmin
   '';
-  services.podman.containers.pgadmin = (
-    (import ../../../../lib/podman.nix) {
+  imports = [
+    inputs.secrets.hm.other
+    ((import ../../../../lib/podman.nix) {
+      dependsOn = [
+        "traefik"
+        "postgresql"
+      ];
       image = "dpage/pgadmin4";
       name = "pgadmin";
       volumes = [
@@ -26,6 +30,6 @@
         }
       ];
       environmentFile = [ ''${config.home.homeDirectory}/.config/sops-nix/secrets/pgadmin'' ];
-    }
-  );
+    })
+  ];
 }

@@ -13,8 +13,9 @@
   #  sopsFile = ./secrets/ampache.enc.php;
   #};
 
-  services.podman.containers.ampache = (
-    (import ../../../../lib/podman.nix) {
+  imports = [
+    ((import ../../../../lib/podman.nix) {
+      dependsOn = [ "traefik" ];
       image = "ampache/ampache:nosql";
       name = "ampache";
       domain = [
@@ -30,6 +31,6 @@
         "${config.home.homeDirectory}/.podman/ampache:/var/www/config"
         "${config.home.homeDirectory}/Mounts/media/Library/Music:/media"
       ];
-    }
-  );
+    })
+  ];
 }

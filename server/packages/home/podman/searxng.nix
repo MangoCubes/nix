@@ -1,7 +1,8 @@
 { config, ... }:
 {
-  services.podman.containers.search = (
-    (import ../../../../lib/podman.nix) {
+  imports = [
+    ((import ../../../../lib/podman.nix) {
+      dependsOn = [ "traefik" ];
       image = "searxng/searxng:latest";
       name = "search";
       domain = [
@@ -15,6 +16,6 @@
       volumes = [
         "${config.home.homeDirectory}/.podman/searxng:/etc/searxng"
       ];
-    }
-  );
+    })
+  ];
 }
