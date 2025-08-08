@@ -15,10 +15,11 @@
   addCapabilities ? [ ],
   devices ? [ ],
   needRoot ? false,
-  dependsOn ? [ ],
+  dependsOn,
   exec ? null,
   dns ? null,
 }:
+{ lib, ... }:
 # If domain = null, then it should not be accessible from outside
 # URL is expected in the following form
 # {
@@ -50,25 +51,8 @@ let
       );
     }
     // useLocalCa;
-  # joinStr =
-  #   array: connector:
-  #   if (builtins.length array) == 0 then
-  #     ""
-  #   else if (builtins.length array) == 1 then
-  #     (builtins.elemAt array 0)
-  #   else
-  #     (
-  #       let
-  #         head = builtins.head array;
-  #         rest = builtins.tail array;
-  #       in
-  #       (builtins.foldl' (acc: elem: acc + connector + elem) head rest)
-  #     );
-  # requires = "--requires=" + (joinStr dependsOn ",");
-  args =
-    extraPodmanArgs
-    # ++ (if (builtins.length dependsOn == 0) then [ ] else [ requires ])
-    ++ (if dns == null then [ ] else [ "--dns=${dns}" ]);
+  deps = if dependsOn == null then [ ] else (builtins.map (e: "podman-${e}.service") dependsOn);
+  args = extraPodmanArgs ++ (if dns == null then [ ] else [ "--dns=${dns}" ]);
   traefikLabels =
     if (domain == null) then
       { }
@@ -78,23 +62,30 @@ let
       } (builtins.map genRouters domain));
 in
 {
-  inherit
-    environmentFile
-    image
-    network
-    environment
-    volumes
-    ports
-    entrypoint
-    dropCapabilities
-    addCapabilities
-    devices
-    exec
-    ;
-  extraConfig.Quadlet.DefaultDependencies = false;
-  extraPodmanArgs = args;
-  # autoUpdate = "registry";
-  user = if needRoot then 0 else null;
-  autoStart = true;
-  labels = (if (domain == null) then { } else traefikLabels) // labels;
+  services.podman.containers."${name}" = {
+    inherit
+      environmentFile
+      image
+      network
+      environment
+      volumes
+      ports
+      entrypoint
+      dropCapabilities
+      addCapabilities
+      devices
+      exec
+      ;
+    extraConfig = {
+      Quadlet.DefaultDependencies = false;
+      Unit = {
+        After = deps;
+        Requires = deps;
+      };
+    };
+    extraPodmanArgs = args;
+    # autoUpdate = "registry";
+    user = if needRoot then 0 else null;
+    labels = (if (domain == null) then { } else traefikLabels) // labels;
+  };
 }

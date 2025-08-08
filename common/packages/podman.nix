@@ -13,16 +13,12 @@
         dive # look into podman image layers
         podman-tui # status of containers in the terminal
         podman-compose # start group of containers for dev
-        slirp4netns
         rootlesskit
       ];
       services.podman = {
         autoUpdate.enable = true;
         enable = true;
         settings = {
-          containers = {
-            network.default_rootless_network_cmd = "slirp4netns";
-          };
           storage = {
             storage.driver = "overlay";
             storage.options.overlay.mount_program = "${pkgs.fuse-overlayfs}/bin/fuse-overlayfs";

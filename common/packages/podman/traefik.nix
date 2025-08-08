@@ -85,7 +85,7 @@ in
             "80:80"
             "443:443"
           ];
-          # autoStart = true;
+          autoStart = true;
           network = "proxy";
           volumes = [
             "${staticFile { inherit config; }}:/etc/traefik/traefik.yaml"

@@ -32,25 +32,9 @@ in
       else
         inputs.secrets.hm.syncthing-client
     )
-  ];
-  home = {
-    packages = [
-      st-clear
-      st-reset-deltas
-      st-reset-database
-    ];
-    activation.syncthing = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-      FILE=${config.home.homeDirectory}/.podman/syncthing/config.xml
-      if [ ! -f "$FILE" ]; then
-        mkdir -p ${config.home.homeDirectory}/Sync
-        mkdir -p ${config.home.homeDirectory}/.podman/syncthing
-        cp ${config.home.homeDirectory}/.config/sops-nix/secrets/syncthing $FILE
-      fi
-    '';
-  };
-  services.podman.containers.syncthing = (
-    (import ../../../../lib/podman.nix) {
+    ((import ../../../../lib/podman.nix) {
       needRoot = true;
+      dependsOn = [ "traefik" ];
       image = "syncthing/syncthing";
       name = "syncthing";
       volumes = [
@@ -77,8 +61,23 @@ in
         "8384:8384"
         "21027:21027/udp"
       ];
-    }
-  );
+    })
+  ];
+  home = {
+    packages = [
+      st-clear
+      st-reset-deltas
+      st-reset-database
+    ];
+    activation.syncthing = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      FILE=${config.home.homeDirectory}/.podman/syncthing/config.xml
+      if [ ! -f "$FILE" ]; then
+        mkdir -p ${config.home.homeDirectory}/Sync
+        mkdir -p ${config.home.homeDirectory}/.podman/syncthing
+        cp ${config.home.homeDirectory}/.config/sops-nix/secrets/syncthing $FILE
+      fi
+    '';
+  };
 }
 
 # yq --input-format json --output-format xml --xml-attribute-prefix @ ./test.json
