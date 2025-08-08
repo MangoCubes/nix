@@ -50,24 +50,24 @@ let
       );
     }
     // useLocalCa;
-  joinStr =
-    array: connector:
-    if (builtins.length array) == 0 then
-      ""
-    else if (builtins.length array) == 1 then
-      (builtins.elemAt array 0)
-    else
-      (
-        let
-          head = builtins.head array;
-          rest = builtins.tail array;
-        in
-        (builtins.foldl' (acc: elem: acc + connector + elem) head rest)
-      );
-  requires = "--requires=" + (joinStr dependsOn ",");
+  # joinStr =
+  #   array: connector:
+  #   if (builtins.length array) == 0 then
+  #     ""
+  #   else if (builtins.length array) == 1 then
+  #     (builtins.elemAt array 0)
+  #   else
+  #     (
+  #       let
+  #         head = builtins.head array;
+  #         rest = builtins.tail array;
+  #       in
+  #       (builtins.foldl' (acc: elem: acc + connector + elem) head rest)
+  #     );
+  # requires = "--requires=" + (joinStr dependsOn ",");
   args =
     extraPodmanArgs
-    ++ (if (builtins.length dependsOn == 0) then [ ] else [ requires ])
+    # ++ (if (builtins.length dependsOn == 0) then [ ] else [ requires ])
     ++ (if dns == null then [ ] else [ "--dns=${dns}" ]);
   traefikLabels =
     if (domain == null) then
