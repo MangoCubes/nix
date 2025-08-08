@@ -10,13 +10,13 @@
         "PUID" = "1000";
         "PGID" = "1000";
         "PMA_HOST" = "mariadb";
-        "PMA_ABSOLUTE_URI" = "https://db.local";
+        "PMA_ABSOLUTE_URI" = "https://pma.local";
       };
       domain = [
         {
-          routerName = "phpmyadmin";
+          routerName = "pma";
           type = 2;
-          url = "db.local";
+          url = "pma.local";
           port = 80;
         }
       ];

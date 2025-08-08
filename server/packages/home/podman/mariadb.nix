@@ -15,11 +15,18 @@
 
   services.podman.containers.mariadb = (
     (import ../../../../lib/podman.nix) {
-      domain = null;
       image = "mariadb:lts";
       name = "mariadb";
       volumes = [
         "${config.home.homeDirectory}/.podman/mariadb:/var/lib/mysql"
+      ];
+      domain = [
+        {
+          routerName = "db";
+          type = 2;
+          url = "local";
+          port = 3306;
+        }
       ];
       environmentFile = [ ''${config.home.homeDirectory}/.config/sops-nix/secrets/mariadb'' ];
     }

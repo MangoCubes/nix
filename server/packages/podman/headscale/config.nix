@@ -33,6 +33,7 @@ let
       (networkServer "dns")
       (networkServer "ca")
       (mainServer "db")
+      (mainServer "pma")
       (mainServer "git")
       (mainServer "mitmweb")
       (mainServer "pg")
