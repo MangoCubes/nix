@@ -21,13 +21,8 @@
       volumes = [
         "${config.home.homeDirectory}/.podman/mariadb:/var/lib/mysql"
       ];
-      domain = [
-        {
-          routerName = "db";
-          type = 2;
-          url = "local";
-          port = 3306;
-        }
+      ports = [
+        "3306:3306"
       ];
       environmentFile = [ ''${config.home.homeDirectory}/.config/sops-nix/secrets/mariadb'' ];
     })
