@@ -10,20 +10,20 @@
       noDisplay = true;
       name = "";
     };
-    configFile."gtk-4.0/settings.ini" = {
-      text = ''
+    configFile = {
+      "gtk-4.0/settings.ini".text = ''
         [Settings]
         gtk-im-module=fcitx
       '';
-    };
-    configFile."gtk-3.0/settings.ini" = {
-      text = ''
+      "gtk-3.0/settings.ini".text = ''
         [Settings]
         gtk-im-module=fcitx
       '';
+      "fctix5/config".source = ./fcitx5/config;
+      "fctix5/profile".source = ./fcitx5/profile;
+      "fcitx5/conf".source =
+        config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Sync/LinuxConfig/fcitx5/conf";
     };
-    configFile."fcitx5".source =
-      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Sync/LinuxConfig/fcitx5";
   };
   i18n.inputMethod = {
     # type = "fcitx5";
@@ -34,7 +34,6 @@
         fcitx5-mozc
         fcitx5-hangul
         fcitx5-gtk
-        fcitx5-nord
       ];
       waylandFrontend = true;
     };
