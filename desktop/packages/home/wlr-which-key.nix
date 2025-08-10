@@ -5,6 +5,7 @@
   ...
 }:
 let
+  # I am building from source because 1.2.0 is not on NixOS packages yet
   wlrWhichKey = import ./build/wlr-which-key.nix {
     inherit (pkgs)
       lib

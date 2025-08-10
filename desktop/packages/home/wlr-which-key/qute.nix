@@ -21,6 +21,11 @@ let
       desc = "Intranet";
       cmd = ''profilebrowser Intranet'';
     }
+    {
+      key = "c";
+      desc = "Community";
+      cmd = ''profilebrowser Community'';
+    }
   ];
 in
 theme // { inherit menu; }
