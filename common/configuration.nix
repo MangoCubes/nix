@@ -1,4 +1,6 @@
 {
+  # Import is basically "merge these files into this file"
+  # This allows you to split files into multiple parts
   imports = [
     ./time.nix
     ./users.nix

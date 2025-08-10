@@ -2,6 +2,7 @@
   nix = {
     settings = {
       trusted-users = [ "@wheel" ];
+      # This is necessary to enable flakes
       experimental-features = [
         "nix-command"
         "flakes"

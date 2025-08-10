@@ -1,5 +1,10 @@
 { username, ... }:
 {
+  # This specified home-manager options
+  # Anything set in this applies to the user specified only
+  # In this case, `username` is "main" (defined in `specialArgs` in flake.nix)
+  # Anything in this does not affect other users (such as root)
+  # This is basically `configuration.nix`, but just for user "main", and does not have certain options that would usually require root
   home-manager.users."${username}" =
     {
       pkgs,
@@ -27,6 +32,8 @@
           rclone
         ]
       );
+
+      # This value should be set to what you had when you initially installed NixOS
       home.stateVersion = "24.11";
     };
 }

@@ -1,15 +1,20 @@
 {
   nixConfig = {
+    # These servers hold the binaries that are built for us
+    # We simply download them instead of building them ourselves
     substituters = [
       "https://nix-community.cachix.org"
       "https://cache.nixos.org/"
     ];
     trusted-substituters = [ ];
+
+    # Their public keys in case the files are swapped by attackers
     trusted-public-keys = [
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
     ];
   };
+  # Where we will get our source code
   inputs = {
     mikuboot.url = "gitlab:evysgarden/mikuboot";
     nixvim = {
@@ -38,6 +43,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-alien.url = "github:thiagokokada/nix-alien";
+    # Notice that the path starts with path:
+    # This flake is stored in ./secrets
     secrets = {
       url = "path:/home/main/Sync/NixConfig/secrets";
       # flake = false;
@@ -46,7 +53,7 @@
   };
 
   # This @ sign binds inputs to the value that comes after it
-  # let inputs = { self, nixpkgs, home-manager, unstable, ... }; in
+  # It's basically `let inputs = { self, nixpkgs, home-manager, unstable, ... }; in`
   outputs =
     inputs@{
       self,
@@ -58,6 +65,26 @@
     }:
     let
       system = "x86_64-linux";
+      # I build a sort of package repo from `unstablePkg`
+      unstable = import unstablePkg { inherit system; };
+      # Same thing, but I add additional property `config.allowUnfree = true`
+      # This allows me to be explicit about pulling unfree packages without having to spam the config with `allowUnfreePredicate` stuff you get told about when you try to `nix-shell -p ...` an unfree package
+      unfreeUnstable = import unstablePkg {
+        inherit system;
+        config.allowUnfree = true;
+      };
+      # Similar stuff, but it uses `nixpkgs` instead of `unstablePkg`
+      # Any stuff downloaded from this are from NixOS 25.05
+      pkgs = import nixpkgs {
+        inherit system;
+      };
+      unfree = import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+      };
+      # Some personal variables
+      username = "main";
+      homeDir = "/home/${username}";
       colours = {
         miku = "47c8c0";
         mikuTr = "47c8c0ff";
@@ -68,26 +95,10 @@
         secondaryBgTr = "24292bd0";
       };
     in
+    # There is no real reasons to have multiple `let ... in`, but I like to add them for dividing variables into sections
     let
-      # Define unstable packages
-      unstable = import unstablePkg { inherit system; };
-      # I can only download unfree via this argument
-      unfreeUnstable = import unstablePkg {
-        inherit system;
-        config.allowUnfree = true;
-      };
-      unfree = import nixpkgs {
-        inherit system;
-        config.allowUnfree = true;
-      };
-      pkgs = import nixpkgs {
-        inherit system;
-      };
-      username = "main";
-      homeDir = "/home/${username}";
-    in
-    let
-      # This sets the base system arguments
+      # I define a function that takes in hostname, device config and extra modules I want to add, and returns a set that can be used as argument for the function nixpkgs.lib.nixosSystem
+      # Reason for this to have both system builder (genSystem) and NixOS iso builder (genImage)
       sysBase =
         {
           hostname,
@@ -114,13 +125,24 @@
           modules = [
             # This includes my basic desktop environment setup
             ./common/configuration.nix
-            # This includes home manager module
-            # This is not a function
+            # This includes home manager module so that I can use home manager in my config
+            # Note to self: This is not a function
             (home-manager.nixosModules.home-manager)
             {
               home-manager = {
                 backupFileExtension = "backup";
-                # Home manager function has a special argument "unstable", which allows me to access unstable repo
+                # Anything I put in here would become available when setting home-manager options
+                # home-manager.users."${username}" =
+                #   {
+                #     pkgs,
+                #     unstable,
+                #     inputs,
+                #     config,
+                #     lib,
+                #     system,
+                #     ...
+                #   }:
+
                 extraSpecialArgs = {
                   inherit
                     inputs
@@ -136,39 +158,46 @@
                 };
               };
             }
+            # This allows me to use sops options within my config
             sops-nix.nixosModules.sops
           ]
+          # ...then I add all extra modules at the end
           ++ extraModules;
         };
     in
     let
-      # genHome =
-      #   {
-      #     hostname,
-      #   }:
-      #   {
-      #     modules = [
-      #       ./desktop/${hostname}/home.nix
-      #     ];
-      #   };
       genSystem =
         {
           hostname,
           device,
         }:
         let
+          # This creates a module that you can add to the system
+          # Once you add this module, this creates a bunch of new options such as `custom.features.tablet`
+          # What makes this different from just adding new parameters like specialArgs is that these can be both read and written in the config
+          # When added as specialArgs, you cannot change this within the config, and can only set them in flake.nix
           extraOptions = (
             { config, lib, ... }:
             {
+              # Create a new option...
               options = {
+                # Named `custom`...
                 custom = lib.mkOption {
+                  # With a type of `submodule` (a set of options)
                   type = lib.types.submodule {
+                    # Create a new option...
                     options = {
+                      # Named `networking`...
                       networking = lib.mkOption {
+                        # With a type of `submodule` (a set of options)
                         type = lib.types.submodule {
+                          # Create a new option...
                           options = {
+                            # Named `primary`...
                             primary = lib.mkOption {
+                              # With a type of string
                               type = lib.types.str;
+                              # That defaults to an empty string
                               default = "";
                             };
                             secondary = lib.mkOption {
@@ -203,6 +232,8 @@
             }
           );
         in
+        # And this is the value this function will return
+        # I use hostname to set my device hostnames, and also specify which configuration should be loaded
         (sysBase {
           inherit hostname device;
           extraModules = (
@@ -234,6 +265,8 @@
         });
     in
     {
+      # This creates a development shell
+      # With this, I can open development environment for this config folder by entering `nix develop`
       devShell.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.mkShell {
         packages = [ pkgs.bash ];
       };
@@ -246,6 +279,8 @@
       #     hostname = "portable";
       #   })
       # );
+      # This is note to self for the type for each parameter
+      # This is not how you define parameter types
       # {
       #   hostname = string;
       #   device = {
@@ -276,6 +311,9 @@
       #     }[];
       #   };
       # }
+
+      # This is the definition of my device named `laptop2`
+      # To load config for this device, I would type `sudo nixos-rebuild --flake path:///home/main/Sync/NixConfig#laptop2 switch` if I didn't write a script for this
       nixosConfigurations.laptop2 = nixpkgs.lib.nixosSystem (genSystem {
         hostname = "laptop2";
         device = {

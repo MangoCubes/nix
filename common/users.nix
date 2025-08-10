@@ -1,5 +1,4 @@
 { username, ... }:
-
 {
   nix.settings.trusted-users = [ "@wheel" ];
   users.users = {

@@ -1,8 +1,42 @@
-** Rules
-- `secrets` folders contain secrets that are necessary at the build time (i.e. secrets that cannot be secured with AGS) as well as secrets that are encrypted with sops-nix
-** What does this repo not have?
-- All `hardware-configuration.nix`: Why are you using mine?
+:PROPERTIES:
+:ID:       d2bbbefa-9aca-47b7-9d4e-e3f7d77bd57f
+:END:
+#+TITLE: My Nix Settings
+This is my NixOS settings. It contains configurations for all the programs I use, and I use a lot of them.
+I doubt you can use these directly without the secrets, so this should be used for reference purpose rather than using the whole thing as a template.
+This config also contains definitions for my servers, so feel free to check them out, and point out how I may be able to improve my public services (e.g. remove logging)
+* Some software setup you may be interested in
+** Rootless Podman
+Home-manager provides =podman= options, which creates Quadlet configurations, and are controlled by =systemctl --user=.
+From my experience, you need to add the following into the *non-Home-manager* config.
+#+BEGIN_SRC
+  virtualisation.podman.enable = true;
+#+END_SRC
+After adding this, you can define new containers in the option =services.podman.*= in Home-manager.
+[[file:lib/podman.nix][/lib/podman.nix]] contains a generator for new container definitions, which sets some default values I found to be useful.
+See [[file:common/packages/podman.nix][/common/packages/podman.nix]] and [[file:common/packages/podman/traefik.nix][traefik.nix]] for more details.
+** Windows
+In my setup, Windows 10 is available on demand. When triggered, Windows 10 Podman container is started, and Freerdp opens up and automatically connects to it.
+See [[file:desktop/packages/home/windows.nix][windows.nix]] for more details.
+** Niri
+My main window manager software. Config is currently not available, not because it contains sensitive information, but because it is actively being changed. Rebuilding every time the config changes would be very slow.
+** Firefox
+You can define the plugins, policies, profiles, and the setting you would usually set in =about:config= in Home-manager.
+See [[file:desktop/packages/home/firefox.nix][firefox.nix]] for more details.
+** Korean Input & Key Remapping
+I use KMonad to remap Alt Gr to Hangul key, which allows me to switch between English mode and Korean mode in typing without triggering typical Alt actions. There probably is a better way, but this worked for me.
+Fcitx5 is the IME software I use.
+See [[file:desktop/packages/home/korean.nix][korean.nix]] for Fcitx5 settings, and [[file:desktop/packages/kmonad.nix][kmonad.nix]] for key remapping
+* Some rules I follow when writing my config
+- Config is written in Home-manager whenever possible. Just in case.
+- If something can be fully written in Home-manager, it goes into the =package/home= folder. If not, they go into =package= instead.
+- If something is applicable for both server and desktops, the go into =common=. If not, the go into =server= or =desktop=.
+- Anything in =package= are imported with =configuration.nix=. Anything in =package/home= are imported with =home.nix=, which is imported by =configuration.nix=.
+- =/server= or =/desktop= contains folders, each containing per-device config. This excludes =base= and =package=.
+- Per-device config and =base= config are imported by =flake.nix=.
+* What does this repo not have?
+- All `hardware-configuration.nix`: Why are you using mine? I don't modify them much anyway, so there's not much to gain.
 - All secrets: These are imported by a submodule in a different repo. Search by the string `inputs.secrets` if you want to use my config.
-- ags widget code: These are in another repository.
-- /res, where wallpapers and public key are stored
-- Entire server-media config
+- ags widget code and Emacs code: These are in another repository.
+- Entire server-media config: :)
+

@@ -77,7 +77,9 @@ in
       exec
       ;
     extraConfig = {
+      # Not setting this causes the container startup to be delayed by 90 seconds because the container dependencies are not satisfied
       Quadlet.DefaultDependencies = false;
+      # This ensures that the containers start only after certain containers are running
       Unit = {
         After = deps;
         Requires = deps;
