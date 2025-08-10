@@ -5,6 +5,7 @@
       pkgs,
       unstable,
       colours,
+      config,
       ...
     }:
     let
@@ -25,14 +26,21 @@
         enable = true;
         package = unstable.swaylock-effects;
         settings = {
-          screenshots = true;
+          # screenshots = true;
+          image = "${config.home.homeDirectory}/.config/configMedia/wallpaper/miku.png";
           clock = true;
           indicator = true;
           indicator-thickness = 4;
           effect-blur = "7x5";
           effect-vignette = "0.5:0.5";
           indicator-radius = 100;
+
           ring-color = colours.miku;
+          ring-ver-color = colours.miku;
+          ring-wrong-color = colours.teto;
+          ring-clear-color = colours.teto;
+          ring-caps-lock-color = colours.miku;
+
           key-hl-color = colours.teto;
           font = "BankGothic";
           text-color = colours.miku;
@@ -40,8 +48,19 @@
           text-caps-lock-color = colours.miku;
           text-ver-color = colours.miku;
           text-wrong-color = colours.miku;
+
           line-color = "00000000";
+          line-clear-color = "00000000";
+          line-caps-lock-color = "00000000";
+          line-ver-color = "00000000";
+          line-wrong-color = "00000000";
+
+          inside-clear-color = "00000088";
+          inside-ver-color = "00000088";
+          inside-caps-lock-color = "00000088";
           inside-color = "00000088";
+          inside-wrong-color = "00000088";
+
           separator-color = "00000000";
           grace = 2;
           fade-in = 0.5;
