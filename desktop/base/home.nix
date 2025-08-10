@@ -57,6 +57,7 @@
             sshpass
             sops
             devenv
+            cinny-desktop
           ])
           ++ (with pkgs; [
             mullvad-browser
