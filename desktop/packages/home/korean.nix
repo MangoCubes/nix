@@ -19,8 +19,8 @@
         [Settings]
         gtk-im-module=fcitx
       '';
-      "fctix5/config".source = ./fcitx5/config;
-      "fctix5/profile".source = ./fcitx5/profile;
+      "fcitx5/config".text = (builtins.readFile ./fcitx5/config);
+      "fcitx5/profile".text = (builtins.readFile ./fcitx5/profile);
       "fcitx5/conf".source =
         config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Sync/LinuxConfig/fcitx5/conf";
     };
