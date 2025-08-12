@@ -1,45 +1,49 @@
 { lib, device, ... }:
 let
-  extensionsBase =
-    {
-      "*".installation_mode = "blocked"; # blocks all addons except the ones specified below
-      # The ID of each plugin can be found in about:support when you install them
-      # The install_url seems to be https://addons.mozilla.org/firefox/downloads/latest/<NAME>/latest.xpi,
-      # where the <NAME> part is https://addons.mozilla.org/en-US/firefox/addon/<NAME> in the addon URL
+  extensionsBase = {
+    "*".installation_mode = "blocked"; # blocks all addons except the ones specified below
+    # The ID of each plugin can be found in about:support when you install them
+    # The install_url seems to be https://addons.mozilla.org/firefox/downloads/latest/<NAME>/latest.xpi,
+    # where the <NAME> part is https://addons.mozilla.org/en-US/firefox/addon/<NAME> in the addon URL
 
-      # uBlock Origin
-      "uBlock0@raymondhill.net" = {
-        install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
-        installation_mode = "force_installed";
-      };
-      # KeepassXC
-      "keepassxc-browser@keepassxc.org" = {
-        install_url = "https://addons.mozilla.org/firefox/downloads/latest/keepassxc-browser/latest.xpi";
-        installation_mode = "force_installed";
-      };
-      # Vimium
-      "{d7742d87-e61d-4b78-b8a1-b469842139fa}" = {
-        install_url = "https://addons.mozilla.org/firefox/downloads/latest/vimium-ff/latest.xpi";
-        installation_mode = "force_installed";
-      };
-    }
-    // (
-      if device.presentation then
-        {
-          "{8d656ba5-0532-4eec-8c8f-766020caef13}" = {
-            install_url = "https://addons.mozilla.org/firefox/downloads/latest/nyan-cat-animated/latest.xpi";
-            installation_mode = "force_installed";
-          };
-        }
-      else
-        {
-          # MIKU THEME
-          "{746ecd4b-0121-453a-862d-e378c0254733}" = {
-            install_url = "https://addons.mozilla.org/firefox/downloads/latest/sleeping-hatsune-miku-animate2/latest.xpi";
-            installation_mode = "force_installed";
-          };
-        }
-    );
+    # uBlock Origin
+    "uBlock0@raymondhill.net" = {
+      install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
+      installation_mode = "force_installed";
+    };
+    # KeepassXC
+    "keepassxc-browser@keepassxc.org" = {
+      install_url = "https://addons.mozilla.org/firefox/downloads/latest/keepassxc-browser/latest.xpi";
+      installation_mode = "force_installed";
+    };
+    # Vimium
+    "{d7742d87-e61d-4b78-b8a1-b469842139fa}" = {
+      install_url = "https://addons.mozilla.org/firefox/downloads/latest/vimium-ff/latest.xpi";
+      installation_mode = "force_installed";
+    };
+
+    "@testpilot-containers" = {
+      install_url = "https://addons.mozilla.org/firefox/downloads/latest/multi-account-containers/latest.xpi";
+      installation_mode = "force_installed";
+    };
+  }
+  // (
+    if device.presentation then
+      {
+        "{8d656ba5-0532-4eec-8c8f-766020caef13}" = {
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/nyan-cat-animated/latest.xpi";
+          installation_mode = "force_installed";
+        };
+      }
+    else
+      {
+        # MIKU THEME
+        "{746ecd4b-0121-453a-862d-e378c0254733}" = {
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/sleeping-hatsune-miku-animate2/latest.xpi";
+          installation_mode = "force_installed";
+        };
+      }
+  );
 in
 let
   network = extensionsBase // {
