@@ -53,7 +53,7 @@ in
           port = 8384;
         }
       ];
-      exec = "--reset-deltas";
+      # exec = "--reset-deltas";
       extraPodmanArgs = [ "--hostname=${hostname}" ];
       ports = [
         "22000:22000/tcp"
