@@ -215,78 +215,82 @@ in
         };
 
         multicursors.enable = true;
-        cmp = {
+        blink-cmp = {
           enable = true;
-          autoEnableSources = true;
-          settings = {
-            sources = [
-              { name = "path"; }
-              { name = "buffer"; }
-            ]
-            ++ (eih [
-              { name = "cmp-dictionary"; }
-              { name = "cmp-dap"; }
-              { name = "nvim_lsp"; }
-              { name = "orgmode"; }
-            ]);
-            mapping = {
-              "<Up>" = "cmp.mapping.select_prev_item()";
-              "<Down>" = "cmp.mapping.select_next_item()";
-              "<Tab>" = "cmp.mapping.confirm({ select = true })";
-              "<CR>" =
-                "cmp.mapping({
-                  i = function(fallback)
-                    if cmp.visible() and cmp.get_active_entry() then
-                      cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
-                    else
-                      fallback()
-                    end
-                  end,
-                  s = cmp.mapping.confirm({ select = true }),
-                  -- c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
-                })";
-
-              "<Esc>" = ''
-                function (fallback)
-                  if (cmp.visible()) then
-                    cmp.abort()
-                    vim.defer_fn(
-                      function ()
-                        vim.cmd("stopinsert")
-                      end,
-                      0 -- 0 milliseconds
-                    )
-                  else
-                    fallback()
-                  end
-                end'';
-            };
-            preselect = "cmp.PreselectMode.None";
-          };
-          cmdline =
-            let
-              base = sources: {
-                mapping.__raw = "cmp.mapping.preset.cmdline()";
-                inherit sources;
-              };
-            in
-            let
-              buffer = (base [ { name = "buffer"; } ]);
-            in
-            {
-              ":" =
-                (base [
-                  { name = "path"; }
-                  { name = "cmdline"; }
-                ])
-                // {
-                  matching.disallow_symbol_nonprefix_matching = false;
-                };
-              "/" = buffer;
-              "?" = buffer;
-            };
-          #lazyLoad.enable = true;
+          setupLspCapabilities = true;
         };
+        # cmp = {
+        #   enable = true;
+        #   autoEnableSources = true;
+        #   settings = {
+        #     sources = [
+        #       { name = "path"; }
+        #       { name = "buffer"; }
+        #     ]
+        #     ++ (eih [
+        #       { name = "cmp-dictionary"; }
+        #       { name = "cmp-dap"; }
+        #       { name = "nvim_lsp"; }
+        #       { name = "orgmode"; }
+        #     ]);
+        #     mapping = {
+        #       "<Up>" = "cmp.mapping.select_prev_item()";
+        #       "<Down>" = "cmp.mapping.select_next_item()";
+        #       "<Tab>" = "cmp.mapping.confirm({ select = true })";
+        #       "<CR>" =
+        #         "cmp.mapping({
+        #           i = function(fallback)
+        #             if cmp.visible() and cmp.get_active_entry() then
+        #               cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
+        #             else
+        #               fallback()
+        #             end
+        #           end,
+        #           s = cmp.mapping.confirm({ select = true }),
+        #           -- c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
+        #         })";
+        #
+        #       "<Esc>" = ''
+        #         function (fallback)
+        #           if (cmp.visible()) then
+        #             cmp.abort()
+        #             vim.defer_fn(
+        #               function ()
+        #                 vim.cmd("stopinsert")
+        #               end,
+        #               0 -- 0 milliseconds
+        #             )
+        #           else
+        #             fallback()
+        #           end
+        #         end'';
+        #     };
+        #     preselect = "cmp.PreselectMode.None";
+        #   };
+        #   cmdline =
+        #     let
+        #       base = sources: {
+        #         mapping.__raw = "cmp.mapping.preset.cmdline()";
+        #         inherit sources;
+        #       };
+        #     in
+        #     let
+        #       buffer = (base [ { name = "buffer"; } ]);
+        #     in
+        #     {
+        #       ":" =
+        #         (base [
+        #           { name = "path"; }
+        #           { name = "cmdline"; }
+        #         ])
+        #         // {
+        #           matching.disallow_symbol_nonprefix_matching = false;
+        #         };
+        #       "/" = buffer;
+        #       "?" = buffer;
+        #     };
+        #   #lazyLoad.enable = true;
+        # };
         lazygit.enable = true;
         neo-tree = {
           enable = true;
