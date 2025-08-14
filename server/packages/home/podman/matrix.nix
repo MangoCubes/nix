@@ -29,10 +29,7 @@
       image = "matrixdotorg/synapse";
       name = "matrix";
       volumes = [
-        "${config.home.homeDirectory}/.podman/matrix/homeserver.yaml:/data/homeserver.yaml"
-        "${config.home.homeDirectory}/.podman/matrix/skew.ch.signing.key:/data/skew.ch.signing.key"
-        "${config.home.homeDirectory}/.podman/matrix/uploads:/data/uploads"
-        "${config.home.homeDirectory}/.podman/matrix/media:/data/media"
+        "${config.home.homeDirectory}/.podman/matrix:/data"
       ];
       environment = {
         "SYNAPSE_CONFIG_PATH" = "/data/homeserver.yaml";
@@ -57,14 +54,15 @@
       ''
         DIR=${config.home.homeDirectory}/.podman/matrix
         if [ ! -d "$DIR" ]; then
-          mkdir -p $DIR/uploads
-          mkdir -p $DIR/media
+          ${pkgs.rootlesskit}/bin/rootlesskit mkdir -p $DIR/uploads
+          ${pkgs.rootlesskit}/bin/rootlesskit mkdir -p $DIR/media
         fi
-        rm -f ${config.home.homeDirectory}/.podman/matrix/homeserver.yaml
-        cp ${config.home.homeDirectory}/.config/sops-nix/secrets/matrix/homeserver.yaml ${config.home.homeDirectory}/.podman/matrix/homeserver.yaml
-        rm -f ${config.home.homeDirectory}/.podman/matrix/skew.ch.signing.key
-        cp ${config.home.homeDirectory}/.config/sops-nix/secrets/matrix/skew.ch.signing.key ${config.home.homeDirectory}/.podman/matrix/skew.ch.signing.key
-        ${pkgs.rootlesskit}/bin/rootlesskit chown 1000:1000 ${config.home.homeDirectory}/.podman/matrix/homeserver.yaml
-        ${pkgs.rootlesskit}/bin/rootlesskit chown 1000:1000 ${config.home.homeDirectory}/.podman/matrix/skew.ch.signing.key
+        ${pkgs.rootlesskit}/bin/rootlesskit rm -f ${config.home.homeDirectory}/.podman/matrix/homeserver.yaml
+        ${pkgs.rootlesskit}/bin/rootlesskit cp ${config.home.homeDirectory}/.config/sops-nix/secrets/matrix/homeserver.yaml ${config.home.homeDirectory}/.podman/matrix/homeserver.yaml
+        ${pkgs.rootlesskit}/bin/rootlesskit rm -f ${config.home.homeDirectory}/.podman/matrix/skew.ch.signing.key
+        ${pkgs.rootlesskit}/bin/rootlesskit cp ${config.home.homeDirectory}/.config/sops-nix/secrets/matrix/skew.ch.signing.key ${config.home.homeDirectory}/.podman/matrix/skew.ch.signing.key
+        ${pkgs.rootlesskit}/bin/rootlesskit rm -f ${config.home.homeDirectory}/.podman/matrix/skew.ch.log.config
+        ${pkgs.rootlesskit}/bin/rootlesskit cp ${config.home.homeDirectory}/.config/sops-nix/secrets/matrix/skew.ch.log.config ${config.home.homeDirectory}/.podman/matrix/skew.ch.log.config
+        ${pkgs.rootlesskit}/bin/rootlesskit chown 991:991 -R ${config.home.homeDirectory}/.podman/matrix
       '';
 }
