@@ -1,6 +1,6 @@
 { pkgs, config, ... }:
 let
-  browser = pkgs.writeShellScriptBin "browser" ''qutebrowser --temp-basedir -C ${config.home.homeDirectory}/.config/qutebrowser/config-internet.py -s window.title_format "{perc}Temp{title_sep}{current_title}" $@'';
+  browser = pkgs.writeShellScriptBin "browser" ''qutebrowser --temp-basedir -C ${config.home.homeDirectory}/.config/qutebrowser/config-internet.py -s window.title_format "{perc}Temp{title_sep}{current_title}" "$@"'';
   profilebrowser = pkgs.writeShellScriptBin "profilebrowser" ''qutebrowser -B ${config.home.homeDirectory}/Sync/Browsers/$@ -C "${config.home.homeDirectory}/.config/qutebrowser/config-$@.py" -s window.title_format "{perc}$@{title_sep}{current_title}" '';
 in
 {
