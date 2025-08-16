@@ -14,7 +14,10 @@ let
   eih = attrset: (if device == "server" then [ ] else attrset);
 in
 {
-  imports = [ inputs.nixvim.homeManagerModules.nixvim ];
+  imports = [
+    inputs.nixvim.homeManagerModules.nixvim
+    inputs.secrets.hm.nixvim
+  ];
   home.packages = [
     pkgs.nil
     pkgs.lazygit
@@ -216,6 +219,7 @@ in
 
         multicursors.enable = true;
         blink-cmp = {
+          settings.keymap.preset = "super-tab";
           enable = true;
           setupLspCapabilities = true;
         };
