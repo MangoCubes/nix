@@ -43,10 +43,17 @@
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
     package = unfree.linuxPackages.nvidiaPackages.latest; # config.boot.kernelPackages.nvidiaPackages.stable;
   };
-  hardware.graphics.enable = true; # Before 24.11: hardware.opengl.driSupport
-  hardware.graphics.enable32Bit = true; # Before 24.11: hardware.opengl.driSupport32Bit
-  hardware.graphics.extraPackages = with pkgs; [
-    rocmPackages.clr
+  boot.kernelParams = [
+    "nvidia_drm.modeset=1"
+    "nvidia_drm.fbdev=1"
+    "nvidia.NVreg_EnableGpuFirmware=0"
   ];
+  hardware.graphics = {
+    enable = true; # Before 24.11: hardware.opengl.driSupport
+    enable32Bit = true; # Before 24.11: hardware.opengl.driSupport32Bit
+    extraPackages = with pkgs; [
+      rocmPackages.clr
+    ];
+  };
 
 }
