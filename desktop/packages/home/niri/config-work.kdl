@@ -374,8 +374,8 @@ binds {
     Mod+E { spawn "kitty" "-o" "confirm_os_window_close=0" "yazi"; }
     Mod+Shift+E { spawn "dolphin"; }
 	// Mod+Shift+T { spawn "kitty" "-d" "~/Sync/Notes/MD" "nvim" "."; }
-	Mod+Shift+T { spawn "env" "DISPLAY=:0" "emacsclient" "-c" "--eval" "(find-file \"~/Sync/Notes/Org/Main.org\")"; }
-	Mod+Shift+W { spawn "env" "DISPLAY=:0" "emacsclient" "-c" "--eval" "(find-file \"~/Sync/Website/src/index.org\")"; }
+	Mod+Shift+T { spawn "emacs-org"; }
+	Mod+Shift+W { spawn "emacs-web"; }
 
 	// Rofi
 	Mod+S { spawn "rofi-search"; }
