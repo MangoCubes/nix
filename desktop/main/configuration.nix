@@ -8,6 +8,7 @@
     ../base/configuration.nix
     (import ../packages/android.nix { androidStudio = true; })
     ../../common/packages/rclone-mega.nix
+    ../packages/waydroid.nix
     # ../packages/steam.nix
     ../packages/wireshark.nix
     ../packages/tablet.nix
