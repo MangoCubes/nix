@@ -19,7 +19,7 @@ See [[file:common/packages/podman.nix][/common/packages/podman.nix]] and [[file:
 In my setup, Windows 10 is available on demand. When triggered, Windows 10 Podman container is started, and Freerdp opens up and automatically connects to it.
 See [[file:desktop/packages/home/windows.nix][windows.nix]] for more details.
 ** Niri
-My main window manager software. Config is currently not available, not because it contains sensitive information, but because it is actively being changed. Rebuilding every time the config changes would be very slow.
+My main window manager software. Niri uses KDL format, but I found out that it can be written in Nix. See [[file:desktop/packages/home/niri.nix][niri.nix]] for more information.
 ** Firefox
 You can define the plugins, policies, profiles, and the setting you would usually set in =about:config= in Home-manager.
 See [[file:desktop/packages/home/firefox.nix][firefox.nix]] for more details.
