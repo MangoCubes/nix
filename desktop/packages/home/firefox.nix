@@ -1,4 +1,10 @@
-{ lib, device, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  device,
+  ...
+}:
 let
   extensionsBase = {
     "*".installation_mode = "blocked"; # blocks all addons except the ones specified below
@@ -115,8 +121,10 @@ let
         })
       ];
     };
+  profilebrowser = pkgs.writeShellScriptBin "profilebrowser" ''firefox -P "$@"'';
 in
 {
+  home.packages = [ profilebrowser ];
   programs.firefox = {
     enable = true;
     policies = (policy network);

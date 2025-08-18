@@ -33,7 +33,7 @@
         ../packages/home/kde.nix
         ../packages/home/korean.nix
         ../packages/home/polkit.nix
-        ../packages/home/qute.nix
+        ../packages/home/mullvad-browser.nix
         ../packages/home/wlr-which-key.nix
         ../packages/home/nextcloud.nix
       ];
@@ -60,7 +60,6 @@
             cinny-desktop
           ])
           ++ (with pkgs; [
-            mullvad-browser
             tor-browser
           ])
           ++ (with inputs.nix-alien.packages.${system}; [
