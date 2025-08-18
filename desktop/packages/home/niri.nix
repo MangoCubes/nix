@@ -127,72 +127,74 @@ let
     };
   };
   singleNodes = builtins.concatStringsSep "\n" (
-    builtins.map (output: (lib.hm.generators.toKDL { } output)) [
-      {
-        spawn-at-startup._args = [
-          "keepassxc"
-          "~/Sync/Passwords/Passwords.kdbx"
-        ];
-      }
-      {
-        spawn-at-startup._args = [
-          "nextcloud"
-          "--background"
-        ];
-      }
-      {
-        spawn-at-startup._args = [
-          "xwayland-satellite"
-        ];
-      }
-      {
-        spawn-at-startup._args = [
-          "niri"
-          "msg"
-          "action"
-          "focus-workspace"
-          "one"
-        ];
-      }
-      {
-        spawn-at-startup._args = [
-          "loademacs"
-        ];
-      }
-      {
-        spawn-at-startup._args = [
-          "sur"
-          "ags"
-        ];
-      }
-      {
-        spawn-at-startup._args = [
-          "fnott"
-        ];
-      }
-      {
-        environment.DISPLAY._args = [
-          ":0"
-        ];
-      }
-      { prefer-no-csd._props = { }; }
-      { screenshot-path = "~/Sync/Quick Sync/Pictures/Screenshot from %Y-%m-%d %H-%M-%S.png"; }
-    ]
-    ++ (
-      if multiMonitors then
-        [
-          {
-            spawn-at-startup._args = [
-              "niri"
-              "msg"
-              "action"
-              "focus-workspace"
-              "two"
-            ];
-          }
-        ]
-      else
-        [ ]
+    builtins.map (output: (lib.hm.generators.toKDL { } output)) (
+      [
+        {
+          spawn-at-startup._args = [
+            "keepassxc"
+            "~/Sync/Passwords/Passwords.kdbx"
+          ];
+        }
+        {
+          spawn-at-startup._args = [
+            "nextcloud"
+            "--background"
+          ];
+        }
+        {
+          spawn-at-startup._args = [
+            "xwayland-satellite"
+          ];
+        }
+        {
+          spawn-at-startup._args = [
+            "niri"
+            "msg"
+            "action"
+            "focus-workspace"
+            "one"
+          ];
+        }
+        {
+          spawn-at-startup._args = [
+            "loademacs"
+          ];
+        }
+        {
+          spawn-at-startup._args = [
+            "sur"
+            "ags"
+          ];
+        }
+        {
+          spawn-at-startup._args = [
+            "fnott"
+          ];
+        }
+        {
+          environment.DISPLAY._args = [
+            ":0"
+          ];
+        }
+        { prefer-no-csd._props = { }; }
+        { screenshot-path = "~/Sync/Quick Sync/Pictures/Screenshot from %Y-%m-%d %H-%M-%S.png"; }
+      ]
+      ++ (
+        if multiMonitors then
+          [
+            {
+              spawn-at-startup._args = [
+                "niri"
+                "msg"
+                "action"
+                "focus-workspace"
+                "two"
+              ];
+            }
+          ]
+        else
+          [ ]
+      )
     )
 
   );
