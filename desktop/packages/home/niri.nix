@@ -219,6 +219,7 @@ let
       [
         (buildWs "security")
         (buildWs "media")
+        (buildWs "windows")
       ]
       ++ (
         if multiMonitors then

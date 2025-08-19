@@ -27,7 +27,7 @@
       spawn = "emacs-org";
     };
     "Mod+Shift+W" = {
-      spawn = "emacs-web";
+      focus-workspace = "windows";
     };
     "Mod+S" = {
       spawn = "rofi-search";

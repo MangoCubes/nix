@@ -4,12 +4,17 @@ let
     {
       key = "m";
       desc = " View Mail";
-      cmd = ''env DISPLAY=:0 emacsclient -c -e '(notmuch-search "tag:inbox")' '';
+      cmd = ''emacs-mail'';
     }
     {
-      key = "w";
+      key = "W";
       desc = " Run Windows";
       cmd = ''run-windows'';
+    }
+    {
+      key = "b";
+      desc = "󰖟 Open Blog Editor";
+      cmd = ''emacs-web'';
     }
   ];
 in

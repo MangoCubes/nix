@@ -18,6 +18,7 @@ let
   loademacs = pkgs.writeShellScriptBin "loademacs" ''${envs} emacs -q --daemon --load ${init}'';
   emacs-org = pkgs.writeShellScriptBin "emacs-org" ''emacsclient -c --eval '(find-file "${config.home.homeDirectory}/Sync/Notes/Org/Main.org")' '';
   emacs-web = pkgs.writeShellScriptBin "emacs-web" ''emacsclient -c --eval '(find-file "${config.home.homeDirectory}/Sync/Website/src/org/index.org")' '';
+  emacs-mail = pkgs.writeShellScriptBin "emacs-mail" ''emacsclient -c -e '(notmuch-search "tag:inbox")' '';
 in
 {
   # Short for Emacs Server
@@ -27,6 +28,7 @@ in
     loademacs
     emacs-org
     emacs-web
+    emacs-mail
   ]
   ++ (with pkgs; [
     perl538Packages.LaTeXML
