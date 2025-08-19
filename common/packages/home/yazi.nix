@@ -103,6 +103,18 @@ in
             orphan = true;
           }
         ];
+        compress = [
+          {
+            run = ''ouch compress "$@" "$@.zip"'';
+            desc = "Compress to .zip";
+            orphan = true;
+          }
+          {
+            run = ''ouch compress "$@" "$@.tar.gz"'';
+            desc = "Compress to .tar.gz";
+            orphan = true;
+          }
+        ];
       };
       open.rules = [
         {
@@ -137,7 +149,6 @@ in
           name = "*.nix";
           use = [
             "edit"
-            "devenv"
             "nix"
           ];
         }
@@ -154,7 +165,7 @@ in
           use = [
             "terminal"
             "dolphin"
-            "edit"
+            "compress"
           ];
         }
         # Text
@@ -170,7 +181,7 @@ in
         # Media
         {
           mime = "{audiovideo}/*";
-          use = [ "play" ];
+          use = [ "vlc" ];
         }
         # Archive
         {
