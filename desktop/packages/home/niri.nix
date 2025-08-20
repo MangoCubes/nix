@@ -219,7 +219,6 @@ let
       [
         (buildWs "security")
         (buildWs "media")
-        (buildWs "windows")
       ]
       ++ (
         if multiMonitors then
@@ -230,6 +229,7 @@ let
             (buildWsMon2 "two")
             (buildWsMon2 "four")
             (buildWsMon2 "six")
+            (buildWsMon2 "windows")
           ]
         else
           (builtins.map buildWs [
@@ -240,6 +240,9 @@ let
             "five"
             "six"
           ])
+          ++ [
+            (buildWs "windows")
+          ]
       )
     )
   );
