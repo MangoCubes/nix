@@ -19,12 +19,8 @@
         [Settings]
         gtk-im-module=fcitx
       '';
-      "fcitx5/conf".source =
-        config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Sync/LinuxConfig/fcitx5/conf";
-      "fcitx5/config".source =
-        config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Sync/LinuxConfig/fcitx5/config";
-      "fcitx5/profile".source =
-        config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Sync/LinuxConfig/fcitx5/profile";
+      "fcitx5".source =
+        config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Sync/LinuxConfig/fcitx5";
     };
   };
   i18n.inputMethod = {
