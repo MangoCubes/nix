@@ -7,10 +7,12 @@
   home-manager.users."${username}" =
     {
       config,
+      inputs,
       ...
     }:
     {
       imports = [
+        inputs.secrets.server-main.home.mitm
         ((import ../../../lib/podman.nix) {
           dependsOn = [ "traefik" ];
           image = "mitmproxy/mitmproxy";
@@ -26,7 +28,7 @@
           ports = [ "51820:51820/udp" ];
           exec = "mitmweb --web-host 0.0.0.0 --set confdir=/etc/mitm --set 'web_password=\\$argon2i\\$v=19\\$m=4096,t=3,p=1\\$c2FsdEl0V2l0aFNhbHQ\\$jJHYL8FmjFuaY6nOHa5sCJT6qlk2OPWCg/feeJ3rWk0' --set mode=wireguard";
           volumes = [
-            "${config.home.homeDirectory}/Sync/Secrets/mitm:/etc/mitm"
+            "${config.home.homeDirectory}/.config/sops-nix/secrets/mitm:/etc/mitm"
           ];
         })
       ];
