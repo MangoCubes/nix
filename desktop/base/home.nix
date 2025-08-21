@@ -36,6 +36,7 @@
         ../packages/home/mullvad-browser.nix
         ../packages/home/wlr-which-key.nix
         ../packages/home/nextcloud.nix
+        ../packages/home/periodic.nix
       ];
 
       xdg.configFile."configMedia" = {

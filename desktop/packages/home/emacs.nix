@@ -31,6 +31,10 @@ in
     emacs-mail
   ]
   ++ (with pkgs; [
+    # Necessary for exporting an .org document as .odt
+    zip
+    unzip
+
     perl538Packages.LaTeXML
     texliveMedium
     xwayland-satellite
