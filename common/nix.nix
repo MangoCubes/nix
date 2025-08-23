@@ -1,5 +1,9 @@
 {
   nix = {
+    extraOptions = ''
+      keep-outputs = true
+      keep-derivations = true
+    '';
     settings = {
       trusted-users = [ "@wheel" ];
       # This is necessary to enable flakes

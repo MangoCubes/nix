@@ -25,7 +25,7 @@ website = str(output.decode('utf-8')).strip()
 if(len(website) == 0):
     sys.exit(1)
 
-Popen(["browser", website + "\"" + query + "\""], stdout=PIPE, stderr=PIPE)
+Popen(["browser", website + query], stdout=PIPE, stderr=PIPE)
 sys.exit(0)
 
 
