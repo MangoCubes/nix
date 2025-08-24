@@ -235,7 +235,6 @@ in
         #       { name = "cmp-dictionary"; }
         #       { name = "cmp-dap"; }
         #       { name = "nvim_lsp"; }
-        #       { name = "orgmode"; }
         #     ]);
         #     mapping = {
         #       "<Up>" = "cmp.mapping.select_prev_item()";
@@ -520,9 +519,14 @@ in
         }
         {
           key = "<C-n>";
-          action = "<cmd>vnew<CR>";
+          action = "<cmd>cn<CR>";
+          options.desc = "Jump to next grep";
         }
-
+        {
+          key = "<C-S-n>";
+          action = "<cmd>cp<CR>";
+          options.desc = "Jump to previous grep";
+        }
         # {
         #   key = "<leader>";
         #   action = "<cmd>w %:r-tmp.%:e<CR>";
@@ -661,19 +665,6 @@ in
           mode = "i";
           options.silent = true;
         }
-        {
-          key = "<A-CR>";
-          action = ''<cmd>lua require("orgmode").action("org_mappings.meta_return")<CR>'';
-        }
-        {
-          key = "<A-RIGHT>";
-          action = ''<cmd>lua require("orgmode").action("org_mappings.do_promote")<CR>'';
-        }
-        {
-          key = "<A-LEFT>";
-          action = ''<cmd>lua require("orgmode").action("org_mappings.do_demote")<CR>'';
-        }
-
       ]
     );
     extraConfigLua = ''
