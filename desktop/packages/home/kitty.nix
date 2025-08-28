@@ -11,6 +11,9 @@ in
   ];
   programs.kitty = {
     enable = true;
+    keybindings = {
+      "ctrl+shift+n" = "no_op";
+    };
     settings = {
       confirm_os_window_close = -1;
       # shell_integration = "enabled";

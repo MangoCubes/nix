@@ -22,13 +22,13 @@ let
       ) { } remotes;
     in
     {
+      rebuilds = reloadSecrets;
       genimage = "nix build ~/Sync/NixConfig#nixosConfigurations.build-qcow2.config.system.build.qcow2 --impure";
       rebuild = ''sudo nixos-rebuild --flake path://${config.home.homeDirectory}/Sync/NixConfig#${hostname} switch'';
       rebuildp = ''sudo nixos-rebuild --flake path://${config.home.homeDirectory}/Sync/NixConfig#${hostname}Presentation switch'';
       rebuilda = ''rebuilds && rebuild'';
       rebuildap = ''rebuilds && rebuildp'';
       rebuildr = "rebuild && reboot";
-      updatesecrets = reloadSecrets;
       rb = ''kitty sh -c "rebuild; read"'';
       updateunstable = "nix flake update --flake path://${config.home.homeDirectory}/Sync/NixConfig unstablePkg";
       update = "nix flake update --flake path://${config.home.homeDirectory}/Sync/NixConfig";
