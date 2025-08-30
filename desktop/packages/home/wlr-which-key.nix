@@ -33,7 +33,7 @@ in
   xdg.configFile = {
     "wlr-which-key/action.yaml".source = (
       (pkgs.formats.yaml { }).generate "action.yml" (
-        (import ./wlr-which-key/action.nix) { inherit config osConfig; }
+        (import ./wlr-which-key/action.nix) { inherit config osConfig pkgs; }
       )
     );
   }

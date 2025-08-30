@@ -1,4 +1,8 @@
-{ config, osConfig }:
+{
+  config,
+  osConfig,
+  pkgs,
+}:
 let
   theme = (import ./theme.nix);
   menu =
@@ -59,7 +63,7 @@ let
       {
         key = "m";
         desc = "󱋈 Sync Mail";
-        cmd = ''mbsync -aL && notmuch new'';
+        cmd = ''ID=$(${pkgs.notify-desktop}/bin/notify-desktop "Syncing..." "Synchronising all mailboxes...") && mbsync -aL && notmuch new && ${pkgs.notify-desktop}/bin/notify-desktop -r $ID "Synced!" "All the mailboxes have been updated successfully."'';
       }
       {
         key = "p";
