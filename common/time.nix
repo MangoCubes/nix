@@ -1,4 +1,4 @@
 {
-  time.timeZone = "Asia/Seoul";
+  time.timeZone = "Europe/London";
   time.hardwareClockInLocalTime = true;
 }
