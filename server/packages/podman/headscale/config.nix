@@ -39,6 +39,7 @@ let
       (mainServer "pg")
       (mainServer "manga")
       (mainServer "media")
+      (mainServer "money")
     ];
 in
 {

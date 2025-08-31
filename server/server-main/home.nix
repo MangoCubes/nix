@@ -29,6 +29,7 @@
         ../packages/home/podman/jellyfin.nix
         ../packages/home/podman/redis.nix
         ../packages/home/podman/collabora.nix
+        ../packages/home/podman/firefly.nix
       ];
     };
 }
