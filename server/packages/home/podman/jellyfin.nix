@@ -1,12 +1,8 @@
 {
   config,
-  lib,
   ...
 }:
 {
-  home.activation.jellyfin = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    mkdir -p ${config.home.homeDirectory}/.podman/jellyfin
-  '';
   imports = [
     ((import ../../../../lib/podman.nix) {
       dependsOn = [ "traefik" ];

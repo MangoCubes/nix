@@ -1,18 +1,8 @@
 {
   config,
-  lib,
   ...
 }:
 {
-  home.activation.ampache = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    mkdir -p ${config.home.homeDirectory}/.podman/ampache
-  '';
-  # It doesn't work quite well because owner must be 100032
-  #sops.secrets.ampache = {
-  #  format = "binary";
-  #  sopsFile = ./secrets/ampache.enc.php;
-  #};
-
   imports = [
     ((import ../../../../lib/podman.nix) {
       dependsOn = [ "traefik" ];

@@ -1,17 +1,9 @@
 {
-  lib,
   config,
   inputs,
   ...
 }:
 {
-  home.activation.mariadb = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    DIR=${config.home.homeDirectory}/.podman/mariadb
-    if [ ! -d "$DIR" ]; then
-      mkdir -p $DIR
-    fi
-  '';
-
   imports = [
     inputs.secrets.hm.other
     ((import ../../../../lib/podman.nix) {

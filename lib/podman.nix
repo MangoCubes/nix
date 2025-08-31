@@ -1,4 +1,5 @@
 {
+  activation ? "",
   network ? "proxy",
   name,
   volumes ? [ ],
@@ -19,7 +20,7 @@
   exec ? null,
   dns ? null,
 }:
-{ lib, ... }:
+{ lib, config, ... }:
 # If domain = null, then it should not be accessible from outside
 # URL is expected in the following form
 # {
@@ -62,6 +63,18 @@ let
       } (builtins.map genRouters domain));
 in
 {
+  home.activation."podman-${name}" =
+    if (builtins.length volumes == 0) then
+      (lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        DIR=${config.home.homeDirectory}/.podman/mariadb
+        if [ ! -d "$DIR" ]; then
+          mkdir -p $DIR
+        fi
+        ${activation}
+
+      '')
+    else
+      activation;
   services.podman.containers."${name}" = {
     inherit
       environmentFile

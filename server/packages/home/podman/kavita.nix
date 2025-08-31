@@ -1,12 +1,8 @@
 {
   config,
-  lib,
   ...
 }:
 {
-  home.activation.kavita = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    mkdir -p ${config.home.homeDirectory}/.podman/kavita
-  '';
   imports = [
     ((import ../../../../lib/podman.nix) {
       dependsOn = [ "traefik" ];

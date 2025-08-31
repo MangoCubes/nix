@@ -10,9 +10,6 @@
       ...
     }:
     {
-      home.activation.adguard = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-        mkdir -p ${config.home.homeDirectory}/.podman/adguard
-      '';
       imports = [
         ((import ../../../lib/podman.nix) {
           dependsOn = null;

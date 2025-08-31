@@ -5,10 +5,6 @@
   ...
 }:
 {
-  # Change owner to 5050
-  home.activation.pgadmin = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    mkdir -p /home/main/.podman/pgadmin
-  '';
   imports = [
     inputs.secrets.hm.other
     ((import ../../../../lib/podman.nix) {
@@ -18,6 +14,8 @@
       ];
       image = "dpage/pgadmin4";
       name = "pgadmin";
+      # Change owner to 5050
+      activation = "";
       volumes = [
         "${config.home.homeDirectory}/.podman/pgadmin:/var/lib/pgadmin"
       ];

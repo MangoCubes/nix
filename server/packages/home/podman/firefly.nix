@@ -1,13 +1,9 @@
 {
   config,
   inputs,
-  lib,
   ...
 }:
 {
-  home.activation.firefly = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    mkdir -p ${config.home.homeDirectory}/.podman/firefly
-  '';
   imports = [
     inputs.secrets.server-main.home.firefly
     ((import ../../../../lib/podman.nix) {

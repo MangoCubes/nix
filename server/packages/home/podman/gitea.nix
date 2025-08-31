@@ -1,13 +1,9 @@
 {
   inputs,
-  lib,
   config,
   ...
 }:
 {
-  home.activation.gitea = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    mkdir -p ${config.home.homeDirectory}/.podman/gitea
-  '';
   imports = [
     inputs.secrets.server-main.home.gitea
     ((import ../../../../lib/podman.nix) {
