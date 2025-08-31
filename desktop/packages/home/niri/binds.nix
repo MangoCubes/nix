@@ -50,8 +50,7 @@
     };
     "Mod+Shift+N" = {
       spawn._args = [
-        "rofi-env"
-        "NixConfig"
+        "openconfig"
       ];
     };
     "Mod+Ctrl+B" = {

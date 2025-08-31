@@ -7,6 +7,18 @@
 }:
 let
   killclick = pkgs.writeShellScriptBin "killclick" ''kill -9 $(niri msg pick-window | grep PID | tail -n 1 | awk '{print $NF}')'';
+  findwsid = pkgs.writeShellScriptBin "findwsid" ''
+    niri msg -j workspaces | ${pkgs.jq}/bin/jq ".[] | select(.name == \"$1\")".id
+  '';
+  # getwindowsbywsid = pkgs.writeShellScriptBin "getwindowsbywsid" ''
+  #   niri msg -j windows | jq '.[] | select(.workspace_id == $1)'
+  # '';
+  openconfig = pkgs.writeShellScriptBin "openconfig" ''
+    # WSID: ID of the workspace with the name "config"
+    WSID=$(${findwsid}/bin/findwsid config)
+    niri msg action focus-workspace config
+    niri msg -j windows | ${pkgs.jq}/bin/jq -e ".[] | select(.workspace_id == $WSID and .title == \"NixConfig\")" > /dev/null || rofi-env NixConfig;
+  '';
   multiMonitors = (builtins.length device.monitors) != 1;
   gesture = lib.hm.generators.toKDL { } {
     gestures.hot-corners.off._props = { };
@@ -219,6 +231,7 @@ let
       [
         (buildWs "security")
         (buildWs "media")
+        (buildWs "config")
       ]
       ++ (
         if multiMonitors then
@@ -265,6 +278,8 @@ in
 {
   home.packages = [
     killclick
+    findwsid
+    openconfig
   ]
   ++ (with pkgs; [
     playerctl
