@@ -37,21 +37,19 @@
         ../packages/home/wlr-which-key.nix
         ../packages/home/nextcloud.nix
         ../packages/home/periodic.nix
+        ../packages/home/keepassxc.nix
       ];
 
       xdg.configFile."configMedia" = {
         source = "${inputs.secrets.res}/media";
         recursive = true;
       };
-      xdg.configFile."keepassxc".source =
-        config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Sync/LinuxConfig/keepassxc";
       home = {
         packages =
           (with unstable; [
             kdiff3
             libreoffice-qt
             wl-clipboard
-            keepassxc
             adwaita-icon-theme
             jmtpfs
             vlc
