@@ -1,6 +1,9 @@
-{ username, ... }:
+{ username, inputs, ... }:
 {
   nix.settings.trusted-users = [ "@wheel" ];
+  imports = [
+    inputs.secrets.common
+  ];
   users.users = {
     "${username}" = {
       # Stop killing my fucking containers pls
