@@ -2,6 +2,7 @@
   pkgs,
   username,
   inputs,
+  config,
   ...
 }:
 let
@@ -19,6 +20,13 @@ in
         export B2_ACCOUNT_KEY=$(<"/run/secrets/restic/account-key")
         exec /run/wrappers/bin/restic "$@"
       '';
+      paths = [
+        "${config.users.users.${username}.home}/Sync"
+        "${config.users.users.${username}.home}/.podman/cloud/data/user/files"
+        # "${config.users.users.${username}.home}/.podman/mariadb"
+        # "${config.users.users.${username}.home}/.podman/postgres"
+        "${config.users.users.${username}.home}/.podman/gitea"
+      ];
       repositoryFile = "/run/secrets/restic/repo";
       passwordFile = "/run/secrets/restic/key";
       timerConfig = {
