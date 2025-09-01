@@ -11,7 +11,7 @@ let
 
     ping_host() {
         local host="$1"
-        ping -w 5000 -c 1 "$host" > /dev/null 2>&1
+        timeout 2 ping -c 1 "$host" > /dev/null 2>&1
         return $?
     }
 
