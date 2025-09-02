@@ -38,6 +38,7 @@
         ../packages/home/nextcloud.nix
         ../packages/home/periodic.nix
         ../packages/home/keepassxc.nix
+        ../packages/home/gocryptfs.nix
       ];
 
       xdg.configFile."configMedia" = {
