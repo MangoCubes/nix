@@ -61,6 +61,11 @@ let
         cmd = ''swaylock'';
       }
       {
+        key = "k";
+        desc = "󰢬 Unlock Keys";
+        cmd = ''unlockkeys'';
+      }
+      {
         key = "m";
         desc = "󱋈 Sync Mail";
         cmd = ''ID=$(${pkgs.notify-desktop}/bin/notify-desktop "Syncing..." "Synchronising all mailboxes...") && mbsync -aL && notmuch new && ${pkgs.notify-desktop}/bin/notify-desktop -r $ID "Synced!" "All the mailboxes have been updated successfully."'';
