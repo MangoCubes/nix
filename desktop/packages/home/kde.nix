@@ -1,7 +1,6 @@
 {
   unstable,
   config,
-  pkgs,
   ...
 }:
 {

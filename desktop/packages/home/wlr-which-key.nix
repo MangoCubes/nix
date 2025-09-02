@@ -2,6 +2,7 @@
   pkgs,
   osConfig,
   config,
+  colours,
   ...
 }:
 let
@@ -20,7 +21,24 @@ let
   };
   genFile = name: {
     "wlr-which-key/${name}.yaml".source = (
-      (pkgs.formats.yaml { }).generate "${name}.yml" (import ./wlr-which-key/${name}.nix)
+      (pkgs.formats.yaml { }).generate "${name}.yml" {
+        menu = (import ./wlr-which-key/${name}.nix) {
+          inherit
+            colours
+            pkgs
+            config
+            osConfig
+            ;
+        };
+        theme = (import ./wlr-which-key/theme.nix) {
+          inherit
+            colours
+            pkgs
+            config
+            osConfig
+            ;
+        };
+      }
     );
   };
 in
@@ -30,16 +48,11 @@ in
     pkgs.xclip
   ];
 
-  xdg.configFile = {
-    "wlr-which-key/action.yaml".source = (
-      (pkgs.formats.yaml { }).generate "action.yml" (
-        (import ./wlr-which-key/action.nix) { inherit config osConfig pkgs; }
-      )
-    );
-  }
-  // (genFile "media")
-  // (genFile "autosetup")
-  // (genFile "niri")
-  // (genFile "qute")
-  // (genFile "advrun");
+  xdg.configFile =
+    (genFile "action")
+    // (genFile "media")
+    // (genFile "autosetup")
+    // (genFile "niri")
+    // (genFile "qute")
+    // (genFile "advrun");
 }

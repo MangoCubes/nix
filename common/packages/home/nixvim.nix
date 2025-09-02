@@ -27,34 +27,37 @@ in
     enable = true;
     colorschemes.catppuccin = {
       enable = true;
-      settings.color_overrides = {
-        mocha = {
-          rosewater = "#f5e0dc";
-          flamingo = "#f2cdcd";
-          pink = "#f5c2e7";
-          mauve = "#cba6f7";
-          red = "#ff1688";
-          maroon = "#ff629d";
-          peach = "#fab387";
-          yellow = "#ffcc11";
-          green = "#a6e3a1";
-          teal = "#94e2d5";
-          sky = "#89dceb";
-          sapphire = "#74c7ec";
-          blue = "#47c8c0";
-          lavender = "#b4befe";
-          text = "#d6d9da";
-          subtext1 = "#adb3b5";
-          subtext0 = "#9ca4a6";
-          overlay2 = "#8c9597";
-          overlay1 = "#7b8589";
-          overlay0 = "#6b767a";
-          surface2 = "#5a676b";
-          surface1 = "#465053";
-          surface0 = "#3c4547";
-          base = "#282e2f";
-          mantle = "#1e2223";
-          crust = "#090a0b";
+      settings = {
+        transparent_background = true;
+        color_overrides = {
+          mocha = {
+            rosewater = "#f5e0dc";
+            flamingo = "#f2cdcd";
+            pink = "#f5c2e7";
+            mauve = "#cba6f7";
+            red = "#ff1688";
+            maroon = "#ff629d";
+            peach = "#fab387";
+            yellow = "#ffcc11";
+            green = "#a6e3a1";
+            teal = "#94e2d5";
+            sky = "#89dceb";
+            sapphire = "#74c7ec";
+            blue = "#47c8c0";
+            lavender = "#b4befe";
+            text = "#d6d9da";
+            subtext1 = "#adb3b5";
+            subtext0 = "#9ca4a6";
+            overlay2 = "#8c9597";
+            overlay1 = "#7b8589";
+            overlay0 = "#6b767a";
+            surface2 = "#5a676b";
+            surface1 = "#465053";
+            surface0 = "#3c4547";
+            base = "#282e2f";
+            mantle = "#1e2223";
+            crust = "#090a0b";
+          };
         };
       };
     };
@@ -138,6 +141,7 @@ in
         # };
       })
       // {
+        # transparent.enable = true;
         marks = {
           enable = true;
         };

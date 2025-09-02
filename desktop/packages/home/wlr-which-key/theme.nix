@@ -1,6 +1,7 @@
+{ colours, ... }:
 {
   font = "BankGothic 15";
-  background = "#24292bd0";
+  background = colours.secondaryBgTr;
   color = "#ffffff";
   border = "#47c8c0";
   separator = "  ";
