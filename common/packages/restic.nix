@@ -34,8 +34,8 @@ in
       };
 
       pruneOpts = [
-        "--keep-weekly 20"
-        "--keep-yearly 50"
+        "--keep-weekly 10"
+        "--keep-yearly 25"
       ];
     };
   };
