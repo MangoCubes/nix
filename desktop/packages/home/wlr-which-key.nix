@@ -21,24 +21,26 @@ let
   };
   genFile = name: {
     "wlr-which-key/${name}.yaml".source = (
-      (pkgs.formats.yaml { }).generate "${name}.yml" {
-        menu = (import ./wlr-which-key/${name}.nix) {
+      (pkgs.formats.yaml { }).generate "${name}.yml" (
+        {
+          menu = (import ./wlr-which-key/${name}.nix) {
+            inherit
+              colours
+              pkgs
+              config
+              osConfig
+              ;
+          };
+        }
+        // ((import ./wlr-which-key/theme.nix) {
           inherit
             colours
             pkgs
             config
             osConfig
             ;
-        };
-        theme = (import ./wlr-which-key/theme.nix) {
-          inherit
-            colours
-            pkgs
-            config
-            osConfig
-            ;
-        };
-      }
+        })
+      )
     );
   };
 in

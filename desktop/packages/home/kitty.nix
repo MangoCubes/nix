@@ -21,8 +21,8 @@ in
       enable_audio_bell = false;
       mouse_hide_wait = "-1.0";
       window_padding_width = 0;
-      background_opacity = "0.5";
-      background_blur = 5;
+      background_opacity = "0.625";
+      background_blur = 20;
       cursor_trail = 1;
       font_family = ''family='FiraCode Nerd Font' style=Regular'';
       bold_font = ''auto'';
