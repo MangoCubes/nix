@@ -14,13 +14,7 @@ let
   st-reset-database = pkgs.writeShellScriptBin "st-reset-database" ''
     systemctl --user stop podman-syncthing || { echo "Failed to stop Syncthing."; exit 1; }
     podman run --rm -e GUID=0 -e PUID=0 --user 0 --volume ${config.home.homeDirectory}/Sync:/var/syncthing/data \
-      --volume ${config.home.homeDirectory}/.podman/syncthing:/var/syncthing/config syncthing/syncthing --reset-database;
-    systemctl --user restart podman-syncthing
-  '';
-  st-reset-deltas = pkgs.writeShellScriptBin "st-reset-deltas" ''
-    systemctl --user stop podman-syncthing || { echo "Failed to stop Syncthing."; exit 1; }
-    podman run --rm -e GUID=0 -e PUID=0 --user 0 --volume ${config.home.homeDirectory}/Sync:/var/syncthing/data \
-      --volume ${config.home.homeDirectory}/.podman/syncthing:/var/syncthing/config syncthing/syncthing --reset-deltas;
+      --volume ${config.home.homeDirectory}/.podman/syncthing:/var/syncthing/config syncthing/syncthing syncthing debug reset-database;
     systemctl --user restart podman-syncthing
   '';
 in
