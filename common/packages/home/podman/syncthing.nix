@@ -60,7 +60,6 @@ in
   home = {
     packages = [
       st-clear
-      st-reset-deltas
       st-reset-database
     ];
     activation.syncthing = lib.hm.dag.entryAfter [ "writeBoundary" ] ''

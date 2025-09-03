@@ -680,6 +680,7 @@ in
               vim.opt_local.relativenumber = true
           end,
       })
+      vim.diagnostic.open_float(nil, {close_events = {'BufLeave', 'CursorMoved', 'InsertEnter'}})
     '';
   };
   xdg.mimeApps.defaultApplications."text/plain" = "nvim.desktop";
