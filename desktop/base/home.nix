@@ -39,6 +39,7 @@
         ../packages/home/periodic.nix
         ../packages/home/keepassxc.nix
         ../packages/home/gocryptfs.nix
+        ../packages/home/rclone-server-main.nix
       ];
 
       xdg.configFile."configMedia" = {
