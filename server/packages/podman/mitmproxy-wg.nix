@@ -8,8 +8,14 @@
     {
       config,
       inputs,
+      pkgs,
       ...
     }:
+    let
+      start = pkgs.writeScriptBin ''start.sh'' ''
+        #!/bin/bash
+        mitmweb --web-host 0.0.0.0 --set confdir=/etc/mitm --set 'web_password=$argon2i$v=19$m=4096,t=3,p=1$c2FsdEl0V2l0aFNhbHQ$jJHYL8FmjFuaY6nOHa5sCJT6qlk2OPWCg/feeJ3rWk0' --set mode=wireguard'';
+    in
     {
       imports = [
         inputs.secrets.server-main.home.mitm
@@ -26,9 +32,10 @@
             }
           ];
           ports = [ "51820:51820/udp" ];
-          exec = "mitmweb --web-host 0.0.0.0 --set confdir=/etc/mitm --set 'web_password=\\$argon2i\\$v=19\\$m=4096,t=3,p=1\\$c2FsdEl0V2l0aFNhbHQ\\$jJHYL8FmjFuaY6nOHa5sCJT6qlk2OPWCg/feeJ3rWk0' --set mode=wireguard";
+          entrypoint = "/etc/start.sh";
           volumes = [
             "${config.home.homeDirectory}/.config/sops-nix/secrets/mitm:/etc/mitm"
+            "${start}/bin/start.sh:/etc/start.sh"
           ];
         })
       ];
