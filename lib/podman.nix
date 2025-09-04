@@ -20,7 +20,12 @@
   exec ? null,
   dns ? null,
 }:
-{ lib, config, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 # If domain = null, then it should not be accessible from outside
 # URL is expected in the following form
 # {
@@ -31,6 +36,13 @@
 # }
 
 let
+  start =
+    if entrypoint == null then
+      null
+    else
+      pkgs.writeScriptBin ''podman-start.sh'' ''
+        #!/bin/bash
+        ${entrypoint}'';
   genRouters =
     entry:
     let
@@ -66,29 +78,37 @@ in
   home.activation."podman-${name}" =
     if (builtins.length volumes == 0) then
       (lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-        DIR=${config.home.homeDirectory}/.podman/mariadb
+        DIR=${config.home.homeDirectory}/.podman/${name}
         if [ ! -d "$DIR" ]; then
           mkdir -p $DIR
         fi
         ${activation}
-
       '')
     else
       activation;
   services.podman.containers."${name}" = {
+    volumes =
+      if entrypoint == null then
+        volumes
+      else
+        (
+          volumes
+          ++ [
+            "${start}/bin/podman-start.sh:/etc/podman-start.sh"
+          ]
+        );
     inherit
       environmentFile
       image
       network
       environment
-      volumes
       ports
-      entrypoint
       dropCapabilities
       addCapabilities
       devices
       exec
       ;
+    entrypoint = if entrypoint == null then null else "/etc/podman-start.sh";
     extraConfig = {
       # Not setting this causes the container startup to be delayed by 90 seconds because the container dependencies are not satisfied
       Quadlet.DefaultDependencies = false;
