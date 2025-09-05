@@ -2,6 +2,7 @@
 {
   imports = [
     inputs.secrets.hw.main
+    # inputs.secrets.networks.wg-mitm
     ./boot.nix
     ./home.nix
     ../packages/mikuboot.nix
