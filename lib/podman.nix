@@ -19,6 +19,7 @@
   dependsOn,
   exec ? null,
   dns ? null,
+  autoStart ? true,
 }:
 {
   lib,
@@ -127,6 +128,7 @@ in
       addCapabilities
       devices
       exec
+      autoStart
       ;
     # Set entrypoint if specified
     entrypoint = if entrypoint == null then null else "/etc/podman-start.sh";
