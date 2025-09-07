@@ -24,6 +24,7 @@ let
   );
   mainServer = (namedRecordBuilder "server-main");
   networkServer = (namedRecordBuilder "server-network");
+  vmServer = (namedRecordBuilder "server-vm");
 in
 let
   records =
@@ -40,6 +41,7 @@ let
       (mainServer "manga")
       (mainServer "media")
       (mainServer "money")
+      (vmServer "vm")
     ];
 in
 {
