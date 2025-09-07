@@ -348,12 +348,6 @@
         "action"
       ];
     };
-    "Mod+Shift+A" = {
-      spawn._args = [
-        "wlr-which-key"
-        "autosetup"
-      ];
-    };
     "Mod+Shift+R" = {
       spawn._args = [
         "wlr-which-key"

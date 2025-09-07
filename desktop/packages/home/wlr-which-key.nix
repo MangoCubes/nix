@@ -53,7 +53,6 @@ in
   xdg.configFile =
     (genFile "action")
     // (genFile "media")
-    // (genFile "autosetup")
     // (genFile "niri")
     // (genFile "qute")
     // (genFile "advrun");
