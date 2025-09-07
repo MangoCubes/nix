@@ -102,6 +102,7 @@
     "Mod+Right" = {
       focus-column-right._props = { };
     };
+    # One-hand mode
     "Mod+Ctrl+A" = {
       focus-column-left._props = { };
     };
@@ -113,6 +114,18 @@
     };
     "Mod+Ctrl+D" = {
       focus-column-right._props = { };
+    };
+    "Mod+Ctrl+Shift+A" = {
+      move-column-left._props = { };
+    };
+    "Mod+Ctrl+Shift+S" = {
+      move-window-down-or-to-workspace-down._props = { };
+    };
+    "Mod+Ctrl+Shift+W" = {
+      move-window-up-or-to-workspace-up._props = { };
+    };
+    "Mod+Ctrl+Shift+D" = {
+      move-column-right._props = { };
     };
     "Mod+Shift+Left" = {
       move-column-left._props = { };
