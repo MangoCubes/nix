@@ -59,8 +59,8 @@ in
     mkdir -p ${config.home.homeDirectory}/Windows/storage
     mkdir -p ${config.home.homeDirectory}/Windows/data
   '';
-  xdg.dataFile."remmina/rdp.remmina".source =
-    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Sync/LinuxConfig/remmina/rdp.remmina";
+  xdg.dataFile."remmina".source =
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Sync/LinuxConfig/remmina/connections";
   xdg.configFile."remmina".source =
-    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Sync/LinuxConfig/remmina";
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Sync/LinuxConfig/remmina/config";
 }
