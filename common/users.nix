@@ -12,6 +12,7 @@
       extraGroups = [
         "wheel"
         "shared"
+        "ydotool"
       ]; # Enable ‘sudo’ for the user.
       # Other stuffs are in secrets
     };
@@ -21,5 +22,8 @@
     };
   };
 
-  users.groups.shared = { };
+  users.groups = {
+    shared = { };
+    ydotool = { };
+  };
 }
