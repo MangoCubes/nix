@@ -83,6 +83,6 @@ in
   };
   programs.emacs = {
     enable = true;
-    package = unstable.emacs; # unstable.emacs-pgtk;
+    package = unstable.emacs-pgtk; # unstable.emacs-pgtk;
   };
 }
