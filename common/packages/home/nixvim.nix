@@ -490,21 +490,53 @@ in
           options.silent = true;
         }
         {
+          key = "g$";
+          action = "$";
+          options.silent = true;
+        }
+        {
+          key = "g^";
+          action = "^";
+          options.silent = true;
+        }
+        {
+          key = "g0";
+          action = "0";
+          options.silent = true;
+        }
+        {
+          key = "gj";
+          action = "<Down>";
+          options.silent = true;
+        }
+        {
+          key = "gk";
+          action = "<Up>";
+          options.silent = true;
+        }
+        {
+          key = "g$";
+          action = "$";
+          options.silent = true;
+        }
+        {
+          key = "^";
+          action = "g^";
+          options.silent = true;
+        }
+        {
+          key = "0";
+          action = "g0";
+          options.silent = true;
+        }
+        {
           key = "<Down>";
           action = "gj";
-          mode = "n";
           options.silent = true;
         }
         {
           key = "<Up>";
           action = "gk";
-          mode = "n";
-          options.silent = true;
-        }
-        {
-          key = "<Down>";
-          action = "<C-o>gj";
-          mode = "i";
           options.silent = true;
         }
         {
