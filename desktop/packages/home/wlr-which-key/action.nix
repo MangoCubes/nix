@@ -112,14 +112,9 @@
     desc = "󱉨 Clipboard";
     submenu = [
       {
-        key = "i";
-        desc = " Copy image to xclip";
-        cmd = "wl-paste | xclip -selection clipboard -target image/png";
-      }
-      {
         key = "b";
         desc = " Open browser";
-        cmd = "browser $(wl-paste)";
+        cmd = ''browser "$(wl-paste)"'';
       }
       {
         key = "a";
@@ -130,6 +125,11 @@
         key = "s";
         desc = "󰱘 Send clipboard";
         cmd = ''kdeconnect-cli -n "Pixel 6" --send-clipboard'';
+      }
+      {
+        key = "p";
+        desc = "󰟵 Generate Password";
+        cmd = ''keepassxc-cli generate --exclude-similar -L 32 | wl-copy'';
       }
     ];
   }
