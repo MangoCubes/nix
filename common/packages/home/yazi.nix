@@ -2,9 +2,12 @@
   pkgs,
   username,
   unstable,
+  device,
+  lib,
   ...
 }:
 let
+  isServer = device == "server";
   stateFile = "/home/${username}/Sync/LinuxConfig/data/yazi/projects.json";
   linktofile = pkgs.writeShellScriptBin "linktofile" ''cat "$@" > "$@-temp" && rm "$@" && mv "$@-temp" "$@"'';
   pastecp = pkgs.writeShellScriptBin "pastecp" ''
@@ -30,350 +33,382 @@ in
     #    enableNushellIntegration = true;
     settings = {
       mgr.linemode = "mtime";
-      opener = {
-        apk = [
+      opener =
+        (
+          if isServer then
+            { }
+          else
+            {
+              nix = [
+                {
+                  run = ''kitty bash -c "nix-shell \"$@\""'';
+                  for = "unix";
+                  desc = "Nix Shell";
+                  orphan = true;
+                }
+              ];
+              devenv = [
+                {
+                  run = ''kitty bash -c "devenv shell"'';
+                  for = "unix";
+                  desc = "Dev Shell";
+                  orphan = true;
+                }
+              ];
+              terminal = [
+                {
+                  run = ''kitty "$@"'';
+                  desc = "Open in terminal";
+                  orphan = true;
+                }
+              ];
+              vlc = [
+                {
+                  run = ''vlc "$@"'';
+                  desc = "Open in VLC";
+                  orphan = true;
+                }
+              ];
+              dolphin = [
+                {
+                  run = ''dolphin "$@"'';
+                  desc = "Open in Dolphin";
+                  orphan = true;
+                }
+              ];
+              apk = [
+                {
+                  run = ''adb install "$@"'';
+                  desc = "Install Application";
+                  orphan = true;
+                }
+              ];
+              sops = [
+                {
+                  run = ''kitty sops "$@"'';
+                  for = "unix";
+                  desc = "Decrypt";
+                  orphan = true;
+                }
+              ];
+              pdf = [
+                {
+                  run = ''browser "$@"'';
+                  desc = "Browser";
+                  orphan = true;
+                }
+                {
+                  run = ''pdfjam --outfile "$@" --angle 270 --fitpaper true --rotateoversize true "$@"'';
+                  desc = "Rotate";
+                  orphan = true;
+                }
+              ];
+            }
+        )
+        // {
+          extract = [
+            {
+              run = ''for file in "$@"; do f=''${file##*/}; ouch decompress $file -d "./''${f%.*}"; done;'';
+              desc = "Extract";
+              orphan = true;
+            }
+          ];
+          compress = [
+            {
+              run = ''ouch compress "$@" "$@.zip"'';
+              desc = "Compress to .zip";
+              orphan = true;
+            }
+            {
+              run = ''ouch compress "$@" "$@.tar.gz"'';
+              desc = "Compress to .tar.gz";
+              orphan = true;
+            }
+          ];
+        };
+      open.rules =
+        (
+          if isServer then
+            [ ]
+          else
+            [
+              {
+                name = "*.apk";
+                use = [ "apk" ];
+              }
+              {
+                name = "*.enc.*";
+                use = [ "sops" ];
+              }
+              {
+                name = "*.pdf";
+                use = [ "pdf" ];
+              }
+              {
+                name = "*.nix";
+                use = [
+                  "edit"
+                  "nix"
+                ];
+              }
+              {
+                name = "*.m3u";
+                use = [
+                  "vlc"
+                  "open"
+                ];
+              }
+              # Media
+              {
+                mime = "{audiovideo}/*";
+                use = [ "vlc" ];
+              }
+            ]
+        )
+        ++ [
           {
-            run = ''adb install "$@"'';
-            desc = "Install Application";
-            orphan = true;
-          }
-        ];
-        sops = [
-          {
-            run = ''kitty sops "$@"'';
-            for = "unix";
-            desc = "Decrypt";
-            orphan = true;
-          }
-        ];
-        pdf = [
-          {
-            run = ''browser "$@"'';
-            desc = "Browser";
-            orphan = true;
+            name = "*.zip";
+            use = [ "extract" ];
           }
           {
-            run = ''pdfjam --outfile "$@" --angle 270 --fitpaper true --rotateoversize true "$@"'';
-            desc = "Rotate";
-            orphan = true;
+            name = "*.tgz";
+            use = [ "extract" ];
           }
-        ];
-        nix = [
           {
-            run = ''kitty bash -c "nix-shell \"$@\""'';
-            for = "unix";
-            desc = "Nix Shell";
-            orphan = true;
+            name = "*.tar.gz";
+            use = [ "extract" ];
           }
-        ];
-        devenv = [
           {
-            run = ''kitty bash -c "devenv shell"'';
-            for = "unix";
-            desc = "Dev Shell";
-            orphan = true;
+            name = "*.tar";
+            use = [ "extract" ];
           }
-        ];
+          # Folder
+          {
+            name = "*/";
+            use =
+              if isServer then
+                [
+                  "compress"
 
-        terminal = [
+                ]
+              else
+                [
+                  "terminal"
+                  (lib.mkIf (!isServer) "dolphin")
+                  "compress"
+                ];
+          }
+          # Text
           {
-            run = ''kitty "$@"'';
-            desc = "Open in terminal";
-            orphan = true;
+            mime = "text/*";
+            use = [ "edit" ];
+          }
+          # Image
+          {
+            mime = "image/*";
+            use = [ "open" ];
+          }
+          # Archive
+          {
+            mime = "application/{g}zip";
+            use = [ "extract" ];
+          }
+          {
+            mime = "application/x-{tarbzip*7z-compressedxzrar}";
+            use = [ "extract" ];
+          }
+          # JSON
+          {
+            mime = "application/{jsonx-ndjson}";
+            use = [ "edit" ];
+          }
+          # Empty file
+          {
+            mime = "inode/x-empty";
+            use = [ "edit" ];
+          }
+          # Fallback
+          {
+            name = "*";
+            use = [
+              "open"
+              "edit"
+              (lib.mkIf (!isServer) "dolphin")
+            ];
           }
         ];
-        vlc = [
-          {
-            run = ''vlc "$@"'';
-            desc = "Open in VLC";
-            orphan = true;
-          }
-        ];
-        dolphin = [
-          {
-            run = ''dolphin "$@"'';
-            desc = "Open in Dolphin";
-            orphan = true;
-          }
-        ];
-        extract = [
-          {
-            run = ''for file in "$@"; do f=''${file##*/}; ouch decompress $file -d "./''${f%.*}"; done;'';
-            desc = "Extract";
-            orphan = true;
-          }
-        ];
-        compress = [
-          {
-            run = ''ouch compress "$@" "$@.zip"'';
-            desc = "Compress to .zip";
-            orphan = true;
-          }
-          {
-            run = ''ouch compress "$@" "$@.tar.gz"'';
-            desc = "Compress to .tar.gz";
-            orphan = true;
-          }
-        ];
-      };
-      open.rules = [
-        {
-          name = "*.apk";
-          use = [ "apk" ];
-        }
-        {
-          name = "*.enc.*";
-          use = [ "sops" ];
-        }
-        {
-          name = "*.pdf";
-          use = [ "pdf" ];
-        }
-        {
-          name = "*.zip";
-          use = [ "extract" ];
-        }
-        {
-          name = "*.tgz";
-          use = [ "extract" ];
-        }
-        {
-          name = "*.tar.gz";
-          use = [ "extract" ];
-        }
-        {
-          name = "*.tar";
-          use = [ "extract" ];
-        }
-        {
-          name = "*.nix";
-          use = [
-            "edit"
-            "nix"
-          ];
-        }
-        {
-          name = "*.m3u";
-          use = [
-            "vlc"
-            "open"
-          ];
-        }
-        # Folder
-        {
-          name = "*/";
-          use = [
-            "terminal"
-            "dolphin"
-            "compress"
-          ];
-        }
-        # Text
-        {
-          mime = "text/*";
-          use = [ "edit" ];
-        }
-        # Image
-        {
-          mime = "image/*";
-          use = [ "open" ];
-        }
-        # Media
-        {
-          mime = "{audiovideo}/*";
-          use = [ "vlc" ];
-        }
-        # Archive
-        {
-          mime = "application/{g}zip";
-          use = [ "extract" ];
-        }
-        {
-          mime = "application/x-{tarbzip*7z-compressedxzrar}";
-          use = [ "extract" ];
-        }
-        # JSON
-        {
-          mime = "application/{jsonx-ndjson}";
-          use = [ "edit" ];
-        }
-        # Empty file
-        {
-          mime = "inode/x-empty";
-          use = [ "edit" ];
-        }
-        # Fallback
-        {
-          name = "*";
-          use = [
-            "open"
-            "edit"
-            "dolphin"
-          ];
-        }
-      ];
     };
     keymap = {
-      mgr.prepend_keymap = [
-        {
-          on = "`";
-          run = "plugin bunny";
-          desc = "Jump to a bookmark";
-        }
-        {
-          on = "'";
-          run = "plugin bunny fuzzy";
-          desc = "Jump to a bookmark by fzf";
-        }
-        {
-          on = "T";
-          run = [
-            ''shell --orphan -- kitty -d "$(dirname '$@')" ''
-          ];
-        }
-        {
-          on = "U";
-          run = [
-            ''shell 'umount "$@"' ''
-          ];
-        }
-        {
-          on = "y";
-          run = [
-            ''shell 'for path in "$@"; do echo "file://$path"; done | wl-copy -t text/uri-list' --confirm''
-            "yank"
-          ];
-        }
-        {
-          on = "p";
-          run = "paste";
-        }
-        {
-          on = "P";
-          run = ''shell 'pastecp' '';
-        }
-        {
-          on = [
-            "c"
-            "m"
-          ];
-          run = "plugin chmod";
-          desc = "Chmod on selected files";
-        }
-        {
-          on = [
-            "W"
-            "s"
-          ];
-          run = "plugin projects save";
-          desc = "Save current project";
-        }
-        {
-          on = [
-            "W"
-            "l"
-          ];
-          run = "plugin projects load";
-          desc = "Load project";
-        }
-        {
-          on = [
-            "W"
-            "W"
-          ];
-          run = "plugin projects load_last";
-          desc = "Load last project";
-        }
-        {
-          on = [
-            "W"
-            "d"
-          ];
-          run = "plugin projects delete";
-          desc = "Delete project";
-        }
-        {
-          on = [
-            "W"
-            "D"
-          ];
-          run = "plugin projects delete_all";
-          desc = "Delete all projects";
-        }
-        {
-          on = [
-            "W"
-            "m"
-          ];
-          run = "plugin projects 'merge current'";
-          desc = "Merge current tab to other projects";
-        }
-        {
-          on = [
-            "W"
-            "M"
-          ];
-          run = "plugin projects 'merge all'";
-          desc = "Merge current project to other projects";
-        }
-        {
-          on = [
-            "c"
-            "c"
-          ];
-          run = [
-            ''shell 'cat "$@" | wl-copy' ''
-          ];
-          desc = "Copy file into clipboard";
-        }
-        {
-          on = [
-            "c"
-            "L"
-          ];
-          run = [
-            ''shell 'linktofile $@' ''
-          ];
-          desc = "Convert a link into a regular file";
-        }
-        {
-          on = [
-            "c"
-            "p"
-          ];
-          run = [
-            ''copy path''
-          ];
-          desc = "Copy path of the file";
-        }
-        {
-          on = [
-            "c"
-            "z"
-          ];
-          run = [
-            ''shell 'ouch compress $@ compressed.zip' ''
-          ];
-          desc = "Archive selected files to .zip";
-        }
-        {
-          on = [
-            "c"
-            "t"
-          ];
-          run = [
-            ''shell 'ouch compress $@ compressed.tar.gz' ''
-          ];
-          desc = "Archive selected files to .tar.gz";
-        }
-        {
-          on = [
-            "M"
-          ];
-          run = "plugin mount";
-          desc = "Mount plugin";
-        }
-      ];
+      mgr.prepend_keymap =
+        (
+          if isServer then
+            [ ]
+          else
+            [
+              {
+                on = "P";
+                run = ''shell 'pastecp' '';
+              }
+              {
+                on = "T";
+                run = [
+                  ''shell --orphan -- kitty -d "$(dirname '$@')" ''
+                ];
+              }
+              {
+                on = [
+                  "c"
+                  "c"
+                ];
+                run = [
+                  ''shell 'cat "$@" | wl-copy' ''
+                ];
+                desc = "Copy file into clipboard";
+              }
+            ]
+        )
+        ++ [
+          {
+            on = "y";
+            run = [
+              (lib.mkIf (
+                !isServer
+              ) ''shell 'for path in "$@"; do echo "file://$path"; done | wl-copy -t text/uri-list' --confirm'')
+              "yank"
+            ];
+          }
+          {
+            on = "`";
+            run = "plugin bunny";
+            desc = "Jump to a bookmark";
+          }
+          {
+            on = "'";
+            run = "plugin bunny fuzzy";
+            desc = "Jump to a bookmark by fzf";
+          }
+          {
+            on = "U";
+            run = [
+              ''shell 'umount "$@"' ''
+            ];
+          }
+          {
+            on = "p";
+            run = "paste";
+          }
+          {
+            on = [
+              "c"
+              "m"
+            ];
+            run = "plugin chmod";
+            desc = "Chmod on selected files";
+          }
+          {
+            on = [
+              "W"
+              "s"
+            ];
+            run = "plugin projects save";
+            desc = "Save current project";
+          }
+          {
+            on = [
+              "W"
+              "l"
+            ];
+            run = "plugin projects load";
+            desc = "Load project";
+          }
+          {
+            on = [
+              "W"
+              "W"
+            ];
+            run = "plugin projects load_last";
+            desc = "Load last project";
+          }
+          {
+            on = [
+              "W"
+              "d"
+            ];
+            run = "plugin projects delete";
+            desc = "Delete project";
+          }
+          {
+            on = [
+              "W"
+              "D"
+            ];
+            run = "plugin projects delete_all";
+            desc = "Delete all projects";
+          }
+          {
+            on = [
+              "W"
+              "m"
+            ];
+            run = "plugin projects 'merge current'";
+            desc = "Merge current tab to other projects";
+          }
+          {
+            on = [
+              "W"
+              "M"
+            ];
+            run = "plugin projects 'merge all'";
+            desc = "Merge current project to other projects";
+          }
+          {
+            on = [
+              "c"
+              "L"
+            ];
+            run = [
+              ''shell 'linktofile $@' ''
+            ];
+            desc = "Convert a link into a regular file";
+          }
+          {
+            on = [
+              "c"
+              "p"
+            ];
+            run = [
+              ''copy path''
+            ];
+            desc = "Copy path of the file";
+          }
+          {
+            on = [
+              "c"
+              "z"
+            ];
+            run = [
+              ''shell 'ouch compress $@ compressed.zip' ''
+            ];
+            desc = "Archive selected files to .zip";
+          }
+          {
+            on = [
+              "c"
+              "t"
+            ];
+            run = [
+              ''shell 'ouch compress $@ compressed.tar.gz' ''
+            ];
+            desc = "Archive selected files to .tar.gz";
+          }
+          {
+            on = [
+              "M"
+            ];
+            run = "plugin mount";
+            desc = "Mount plugin";
+          }
+        ];
     };
     plugins =
       let
