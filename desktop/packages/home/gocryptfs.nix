@@ -1,18 +1,17 @@
 {
   pkgs,
   config,
-  lib,
   ...
 }:
 let
+  mountDir = ''${config.home.homeDirectory}/Mounts/Secrets'';
+  encDir = ''${config.home.homeDirectory}/Sync/Passwords/Secrets'';
   unlockkeys = pkgs.writeShellScriptBin "unlockkeys" ''
-    ${pkgs.gocryptfs}/bin/gocryptfs -extpass "rofi-input -p Unlock Keys" ${config.home.homeDirectory}/Sync/Passwords/Keys ${config.home.homeDirectory}/Mounts/Keys
+    mkdir -p ${mountDir};
+    ${pkgs.gocryptfs}/bin/gocryptfs -extpass "rofi-input -p Unlock Secrets" ${encDir} ${mountDir};
   '';
 in
 {
-  home.activation.keysmount = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    mkdir -p ${config.home.homeDirectory}/Mounts/Keys
-  '';
   home.packages = [
     unlockkeys
     pkgs.gocryptfs
