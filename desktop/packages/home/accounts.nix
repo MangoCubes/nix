@@ -12,6 +12,7 @@
 
   home.packages = [
     unstable.calcure
+    pkgs.jq
   ];
   xdg.configFile."calcure/config.ini".text = (
     (import ./accounts/calcure.nix) {
@@ -44,7 +45,19 @@
   services.vdirsyncer.enable = true;
   programs.vdirsyncer.enable = true;
   programs.notmuch = {
-    # hooks.postNew = "(kitty &)";
+    new.tags = [
+      "unread"
+      "inbox"
+      "new"
+    ];
+    hooks.postNew = ''
+      ${pkgs.notmuch}/bin/notmuch search --format json tag:new and tag:unread \
+        | ${pkgs.jq}/bin/jq -r '.[] | "New email from \"\(.authors)\"\n\(.subject)"' \
+        | while IFS= read -r title && IFS= read -r body; do
+          ${pkgs.notify-desktop}/bin/notify-desktop "$title" "$body";
+        done
+      ${pkgs.notmuch}/bin/notmuch tag -new tag:new
+    '';
     enable = true;
   };
   accounts = {
