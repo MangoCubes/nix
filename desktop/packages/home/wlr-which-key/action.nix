@@ -66,7 +66,7 @@
   {
     key = "m";
     desc = "󱋈 Sync Mail";
-    cmd = ''ID=$(${pkgs.notify-desktop}/bin/notify-desktop "Syncing..." "Synchronising all mailboxes...") && mbsync -aL && notmuch new && ${pkgs.notify-desktop}/bin/notify-desktop -r $ID "Synced!" "All the mailboxes have been updated successfully."'';
+    cmd = ''ID=$(${pkgs.notify-desktop}/bin/notify-desktop "Syncing..." "Synchronising all mailboxes...") && systemctl --user restart mbsync && ${pkgs.notify-desktop}/bin/notify-desktop -r $ID "Synced!" "All the mailboxes have been updated successfully." || ${pkgs.notify-desktop}/bin/notify-desktop -r $ID "Sync failed!" "mbsync exited with code $?"'';
   }
   {
     key = "p";
