@@ -13,6 +13,17 @@ in
     enable = true;
     keybindings = {
       "ctrl+shift+n" = "no_op";
+      # Move the active window to the indicated screen edge
+      "ctrl+shift+alt+up" = "layout_action move_window top";
+      "ctrl+shift+alt+left" = "layout_action move_window left";
+      "ctrl+shift+alt+right" = "layout_action move_window right";
+      "ctrl+shift+alt+down" = "layout_action move_window bottom";
+
+      # Switch focus to the neighboring window in the indicated direction
+      "ctrl+shift+left" = "neighboring_window left";
+      "ctrl+shift+right" = "neighboring_window right";
+      "ctrl+shift+up" = "neighboring_window up";
+      "ctrl+shift+down" = "neighboring_window down";
     };
     settings = {
       confirm_os_window_close = -1;
