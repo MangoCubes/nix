@@ -21,17 +21,16 @@
         ./packages/home/scripts.nix
       ];
 
-      home.packages = (
-        with pkgs;
-        [
+      home.packages =
+        (with pkgs; [
           nix-search-cli
           nix-tree
           btop
           fzf
           ouch
           rclone
-        ]
-      );
+        ])
+        ++ (with pkgs.unixtools; [ xxd ]);
 
       # This value should be set to what you had when you initially installed NixOS
       home.stateVersion = "24.11";
