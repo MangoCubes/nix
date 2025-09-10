@@ -490,6 +490,16 @@ in
           options.silent = true;
         }
         {
+          key = "$";
+          action = "g$";
+          options.silent = true;
+        }
+        {
+          key = "^";
+          action = "g^";
+          options.silent = true;
+        }
+        {
           key = "g$";
           action = "$";
           options.silent = true;
@@ -517,11 +527,6 @@ in
         {
           key = "g$";
           action = "$";
-          options.silent = true;
-        }
-        {
-          key = "^";
-          action = "g^";
           options.silent = true;
         }
         {
