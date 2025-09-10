@@ -127,13 +127,13 @@ let
       focus-ring = {
         off._props = { };
         width = 4;
-        active-color = "#${colours.miku}";
+        active-color = "#${colours.base.miku}";
       };
       border = {
         width = 4;
-        active-color = "#${colours.miku}";
-        inactive-color = "#${colours.primaryBg}";
-        urgent-color = "#${colours.teto}";
+        active-color = "#${colours.base.miku}";
+        inactive-color = "#${colours.base.lightBg}";
+        urgent-color = "#${colours.base.teto}";
       };
       struts._props = { };
     };

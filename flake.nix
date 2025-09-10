@@ -85,15 +85,7 @@
       # Some personal variables
       username = "main";
       homeDir = "/home/${username}";
-      colours = {
-        miku = "47c8c0";
-        mikuTr = "47c8c0ff";
-        teto = "ff629d";
-        primaryBg = "5a676b";
-        primaryBgTr = "5a676bd0";
-        secondaryBg = "24292b";
-        secondaryBgTr = "24292bd0";
-      };
+      colours = (import ./common/colours.nix);
     in
     # There is no real reasons to have multiple `let ... in`, but I like to add them for dividing variables into sections
     let

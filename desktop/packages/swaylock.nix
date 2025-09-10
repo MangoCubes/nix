@@ -35,19 +35,19 @@
           effect-vignette = "0.5:0.5";
           indicator-radius = 100;
 
-          ring-color = colours.miku;
-          ring-ver-color = colours.miku;
-          ring-wrong-color = colours.teto;
-          ring-clear-color = colours.teto;
-          ring-caps-lock-color = colours.miku;
+          ring-color = colours.base.miku;
+          ring-ver-color = colours.base.miku;
+          ring-wrong-color = colours.base.teto;
+          ring-clear-color = colours.base.teto;
+          ring-caps-lock-color = colours.base.miku;
 
-          key-hl-color = colours.teto;
+          key-hl-color = colours.base.teto;
           font = "BankGothic";
-          text-color = colours.miku;
-          text-clear-color = colours.miku;
-          text-caps-lock-color = colours.miku;
-          text-ver-color = colours.miku;
-          text-wrong-color = colours.miku;
+          text-color = colours.base.miku;
+          text-clear-color = colours.base.miku;
+          text-caps-lock-color = colours.base.miku;
+          text-ver-color = colours.base.miku;
+          text-wrong-color = colours.base.miku;
 
           line-color = "00000000";
           line-clear-color = "00000000";

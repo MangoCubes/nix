@@ -1,10 +1,10 @@
 { config, colours }:
 let
   inherit (config.lib.formats.rasi) mkLiteral;
-  miku = mkLiteral "#${colours.miku}";
-  teto = mkLiteral "#${colours.teto}";
-  light = mkLiteral "#${colours.primaryBg}";
-  dark = mkLiteral "#${colours.secondaryBg}";
+  miku = mkLiteral "#${colours.base.miku}";
+  teto = mkLiteral "#${colours.base.teto}";
+  light = mkLiteral "#${colours.base.lightBg}";
+  dark = mkLiteral "#${colours.base.darkBg}";
 in
 {
   "*" = {

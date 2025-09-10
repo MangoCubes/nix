@@ -29,9 +29,9 @@ in
 
         # Default values, may be overridden in 'urgency' specific sections
         # layer=top
-        background = colours.secondaryBgTr;
+        background = colours.withTransparency.blackBg;
 
-        border-color = colours.mikuTr;
+        border-color = colours.withTransparency.miku;
         # border-radius=0
         border-size = width;
 
