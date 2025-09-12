@@ -134,7 +134,6 @@
                 #     system,
                 #     ...
                 #   }:
-
                 extraSpecialArgs = {
                   inherit
                     inputs
@@ -168,61 +167,7 @@
           # Once you add this module, this creates a bunch of new options such as `custom.features.tablet`
           # What makes this different from just adding new parameters like specialArgs is that these can be both read and written in the config
           # When added as specialArgs, you cannot change this within the config, and can only set them in flake.nix
-          extraOptions = (
-            { config, lib, ... }:
-            {
-              # Create a new option...
-              options = {
-                # Named `custom`...
-                custom = lib.mkOption {
-                  # With a type of `submodule` (a set of options)
-                  type = lib.types.submodule {
-                    # Create a new option...
-                    options = {
-                      # Named `networking`...
-                      networking = lib.mkOption {
-                        # With a type of `submodule` (a set of options)
-                        type = lib.types.submodule {
-                          # Create a new option...
-                          options = {
-                            # Named `primary`...
-                            primary = lib.mkOption {
-                              # With a type of string
-                              type = lib.types.str;
-                              # That defaults to an empty string
-                              default = "";
-                            };
-                            secondary = lib.mkOption {
-                              type = lib.types.str;
-                            };
-                          };
-                        };
-                        default = {
-                          primary = "";
-                        };
-                      };
-                      features = lib.mkOption {
-                        type = lib.types.submodule {
-                          options = {
-                            tablet = lib.mkOption {
-                              type = lib.types.bool;
-                              default = false;
-                            };
-                          };
-                        };
-                        default = {
-                          tablet = false;
-                        };
-                      };
-                    };
-                  };
-                  default = {
-                    features.tablet = false;
-                  };
-                };
-              };
-            }
-          );
+          extraOptions = (import ./common/options.nix);
         in
         # And this is the value this function will return
         # I use hostname to set my device hostnames, and also specify which configuration should be loaded
