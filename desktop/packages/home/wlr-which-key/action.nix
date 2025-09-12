@@ -124,7 +124,7 @@
       {
         key = "s";
         desc = "󰱘 Send clipboard";
-        cmd = ''kdeconnect-cli -n "Pixel 6" --send-clipboard'';
+        cmd = ''kdeconnect-cli -n "PixelKR" --send-clipboard'';
       }
       {
         key = "p";
