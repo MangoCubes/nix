@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, resetOnClose, ... }:
 let
   # lock-false = {
   #   Value = false;
@@ -103,4 +103,8 @@ lib.mkMerge [
     "widget.use-xdg-desktop-portal.location" = (lock-string 1);
     "widget.use-xdg-desktop-portal.open-uri" = (lock-string 1);
   }
+  (lib.mkIf resetOnClose {
+    "privacy.clearOnShutdown_v2.cache" = lock-true;
+    "privacy.clearOnShutdown_v2.cookiesAndStorage" = lock-true;
+  })
 ]

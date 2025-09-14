@@ -49,6 +49,11 @@
   }
   {
     name = "Sandbox";
+    alias = [
+      "Ephemeral"
+      "Temporary"
+    ];
+    resetOnClose = true;
     id = 7;
   }
 ]

@@ -101,6 +101,7 @@ let
       id,
       internal ? false,
       engines ? [ ],
+      resetOnClose ? false,
       ...
     }:
     {
@@ -109,7 +110,7 @@ let
           inherit id;
           isDefault = (id == 0);
           name = "${name}";
-          settings = ((import ./firefox/base.nix) { inherit internal lib; });
+          settings = ((import ./firefox/base.nix) { inherit internal lib resetOnClose; });
         }
         (lib.mkIf ((builtins.length engines) != 0) {
           search = {
