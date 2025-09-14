@@ -7,13 +7,31 @@
   virtualisation.podman.enable = true;
 
   home-manager.users."${username}" =
-    { pkgs, ... }:
+    { pkgs, config, ... }:
+    let
+      podman-watcher = import ./podman/podman-watcher.nix {
+        inherit (pkgs)
+          rustPlatform
+          fetchFromGitHub
+          pkg-config
+          lib
+          glib
+          pango
+          libxkbcommon
+          ;
+      };
+      services = builtins.map (s: "podman-${s}.service") config.custom.podman.containers;
+      podmanStatus = pkgs.writeShellScriptBin "podman-status" ''
+        ${podman-watcher}/bin/podman-watcher ${builtins.concatStringsSep " " services}
+      '';
+    in
     {
       home.packages = with pkgs; [
         dive # look into podman image layers
         podman-tui # status of containers in the terminal
         podman-compose # start group of containers for dev
         rootlesskit
+        podmanStatus
       ];
       services.podman = {
         autoUpdate.enable = true;
