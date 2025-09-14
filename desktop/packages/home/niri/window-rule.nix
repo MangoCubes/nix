@@ -19,13 +19,10 @@
   }
   {
     window-rule = {
-      exclude._props = {
-        title = "^Unlock Database.+";
-      };
       match._props = {
+        title = ''^*.kdbx \\[Locked\\]'';
         app-id = ''^org\\.keepassxc\\.KeePassXC$'';
       };
-      block-out-from = "screen-capture";
       open-on-workspace = "security";
       open-focused = false;
       open-maximized = true;
@@ -34,12 +31,9 @@
   {
     window-rule = {
       match._props = {
-        title = "^Unlock Database.+";
         app-id = ''^org\\.keepassxc\\.KeePassXC$'';
       };
       block-out-from = "screen-capture";
-      open-floating = true;
-      open-focused = true;
     };
   }
   {
