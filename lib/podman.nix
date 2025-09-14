@@ -25,6 +25,7 @@
   lib,
   config,
   pkgs,
+  osConfig,
   ...
 }:
 # If domain = null, then it should not be accessible from outside
@@ -91,8 +92,10 @@ let
       (builtins.foldl' (acc: elem: acc // elem) {
         "traefik.enable" = "true";
       } (builtins.map genRouters domain));
+
 in
 {
+  custom.podman.containers = [ name ];
   # Automatically create directory for the container if it has volumes
   # Then run other commands specified via [`activation`]
   home.activation."podman-${name}" =
