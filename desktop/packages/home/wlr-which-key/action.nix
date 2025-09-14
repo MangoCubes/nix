@@ -112,6 +112,11 @@
     desc = "󱉨 Clipboard";
     submenu = [
       {
+        key = "y";
+        desc = "󰥨 Open Yazi";
+        cmd = ''kitty yazi "$(wl-paste)"'';
+      }
+      {
         key = "b";
         desc = " Open browser";
         cmd = ''browser "$(wl-paste)"'';

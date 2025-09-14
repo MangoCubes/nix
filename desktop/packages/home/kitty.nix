@@ -24,6 +24,9 @@ in
       "ctrl+shift+right" = "neighboring_window right";
       "ctrl+shift+up" = "neighboring_window up";
       "ctrl+shift+down" = "neighboring_window down";
+
+      "ctrl+shift+," = "previous_tab";
+      "ctrl+shift+." = "next_tab";
     };
     settings = {
       confirm_os_window_close = -1;
