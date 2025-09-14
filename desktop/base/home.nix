@@ -58,7 +58,7 @@
             sshpass
             sops
             devenv
-            cinny-desktop
+            # cinny-desktop
           ])
           ++ (with pkgs; [
             tor-browser

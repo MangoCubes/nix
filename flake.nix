@@ -38,10 +38,6 @@
     };
     grub2-themes.url = "github:vinceliuice/grub2-themes";
     sops-nix.url = "github:Mic92/sops-nix";
-    winapps = {
-      url = "github:winapps-org/winapps";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     nix-alien.url = "github:thiagokokada/nix-alien";
     # Notice that the path starts with path:
     # This flake is stored in ./secrets

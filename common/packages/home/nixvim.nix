@@ -15,7 +15,7 @@ let
 in
 {
   imports = [
-    inputs.nixvim.homeManagerModules.nixvim
+    inputs.nixvim.homeModules.nixvim
     inputs.secrets.hm.nixvim
   ];
   home.packages = [
