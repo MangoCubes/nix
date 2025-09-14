@@ -9,7 +9,6 @@
     ((import ../../../../lib/podman.nix) {
       dependsOn = null;
       image = "postgres:17";
-      network = "container:proton-inv";
       name = "postgresql";
       activation = ''
         mkdir -p /home/main/.podman/postgres/scripts
