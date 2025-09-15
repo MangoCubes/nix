@@ -18,6 +18,16 @@ let
 in
 lib.mkMerge [
   {
+    # Disable AI features
+
+    "browser.ml.enable" = lock-false;
+    "browser.ml.chat.enabled" = lock-false;
+    "extensions.ml.enabled" = lock-false;
+    "browser.ml.linkPreview.enabled" = lock-false;
+    "browser.tabs.groups.smart.enabled" = lock-false;
+    "browser.tabs.groups.smart.userEnabled" = lock-false;
+  }
+  {
     # Don't suggest translation, I know how to speak Korean
     "browser.translations.automaticallyPopup" = lock-false;
 
