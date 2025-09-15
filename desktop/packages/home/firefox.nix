@@ -121,12 +121,40 @@ let
       ];
     };
   profilebrowser = pkgs.writeShellScriptBin "profilebrowser" ''firefox -P "$@"'';
+  browser = pkgs.writeShellScriptBin "browser" ''firefox -P Sandbox "$@"'';
 in
 {
-  home.packages = [ profilebrowser ];
+  home.packages = [
+    profilebrowser
+    browser
+  ];
   programs.firefox = {
     enable = true;
     policies = (policy network);
     profiles = (lib.mkMerge (map genProfile profiles));
+  };
+  xdg = {
+    desktopEntries.firefox-temp = {
+      name = "Temporary Firefox";
+      genericName = "Temporary Browser";
+      exec = "${browser}/bin/browser %u";
+      terminal = false;
+      mimeType = [
+        "application/pdf"
+        "text/html"
+        "x-scheme-handler/http"
+        "x-scheme-handler/https"
+      ];
+    };
+    mimeApps.defaultApplications =
+      let
+        ftXdg = "firefox-temp.desktop";
+      in
+      {
+        "application/pdf" = ftXdg;
+        "text/html" = ftXdg;
+        "x-scheme-handler/http" = ftXdg;
+        "x-scheme-handler/https" = ftXdg;
+      };
   };
 }

@@ -33,7 +33,6 @@
         ../packages/home/kde.nix
         ../packages/home/korean.nix
         ../packages/home/polkit.nix
-        ../packages/home/mullvad-browser.nix
         ../packages/home/wlr-which-key.nix
         ../packages/home/nextcloud.nix
         ../packages/home/periodic.nix

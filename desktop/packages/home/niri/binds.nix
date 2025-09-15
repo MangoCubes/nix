@@ -8,7 +8,7 @@
     };
     "Mod+Shift+B" = {
       _props = {
-        hotkey-overlay-title = "Open Temporary Nyxt";
+        hotkey-overlay-title = "Open Temporary Browser";
       };
       spawn = "browser";
     };
