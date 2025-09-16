@@ -54,6 +54,6 @@ in
     (genFile "action")
     // (genFile "media")
     // (genFile "niri")
-    // (genFile "qute")
+    // (genFile "browser")
     // (genFile "advrun");
 }

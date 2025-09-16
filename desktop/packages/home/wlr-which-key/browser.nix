@@ -25,4 +25,14 @@
     desc = "Community";
     cmd = ''profilebrowser Community'';
   }
+  {
+    key = "p";
+    desc = "Personal";
+    cmd = ''profilebrowser Personal'';
+  }
+  {
+    key = "o";
+    desc = "Offline";
+    cmd = ''profilebrowser Offline'';
+  }
 ]
