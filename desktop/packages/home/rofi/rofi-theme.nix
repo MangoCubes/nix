@@ -1,10 +1,10 @@
 { config, colours }:
 let
   inherit (config.lib.formats.rasi) mkLiteral;
-  miku = mkLiteral "#${colours.base.miku}";
-  teto = mkLiteral "#${colours.base.teto}";
-  light = mkLiteral "#${colours.base.lightBg}";
-  dark = mkLiteral "#${colours.base.darkBg}";
+  miku = mkLiteral "#${colours.withTransparency.miku}";
+  teto = mkLiteral "#${colours.withTransparency.teto}";
+  light = mkLiteral "#${colours.withTransparency.darkBg}";
+  dark = mkLiteral "#${colours.withTransparency.blackBg}";
 in
 {
   "*" = {
@@ -15,13 +15,13 @@ in
     red = teto;
     selected-urgent-foreground = mkLiteral "@selected-normal-foreground";
     blue = mkLiteral "rgba ( 38, 139, 210, 100 % )";
-    urgent-foreground = mkLiteral "rgba ( 255, 153, 153, 100 % )";
-    alternate-urgent-background = mkLiteral "rgba ( 255, 255, 255, 7 % )";
+    urgent-foreground = teto;
+    alternate-urgent-background = teto;
     active-foreground = mkLiteral "rgba ( 170, 170, 17, 100 % )";
     lightbg = mkLiteral "rgba ( 238, 232, 213, 100 % )";
     selected-active-foreground = mkLiteral "@selected-normal-foreground";
     alternate-active-background = mkLiteral "rgba ( 255, 255, 255, 7 % )";
-    background = mkLiteral "rgba ( 51, 51, 51, 93 % )";
+    background = dark;
     # bordercolor = mkLiteral "@foreground";
     alternate-normal-foreground = mkLiteral "@foreground";
     normal-background = mkLiteral "rgba ( 0, 0, 0, 0 % )";
@@ -31,15 +31,15 @@ in
     spacing = mkLiteral "2";
     separatorcolor = mkLiteral "@foreground";
     urgent-background = mkLiteral "rgba ( 0, 0, 0, 0 % )";
-    selected-urgent-background = mkLiteral "rgba ( 255, 153, 153, 100 % )";
-    alternate-urgent-foreground = mkLiteral "@urgent-foreground";
+    selected-urgent-background = teto;
+    alternate-urgent-foreground = teto;
     background-color = mkLiteral "rgba ( 0, 0, 0, 0 % )";
     alternate-active-foreground = mkLiteral "@active-foreground";
     active-background = mkLiteral "rgba ( 0, 0, 0, 0 % )";
     selected-active-background = mkLiteral "rgba ( 170, 170, 17, 100 % )";
   };
   window = {
-    background-color = mkLiteral "@background";
+    background-color = dark;
     border = mkLiteral "4";
     padding = mkLiteral "5";
   };

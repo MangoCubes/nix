@@ -11,6 +11,7 @@ in
   inherit base;
   withTransparency = {
     miku = "${base.miku}ff";
+    teto = "${base.teto}ff";
     lightBg = "${base.lightBg}d0";
     darkBg = "${base.darkBg}d0";
     blackBg = "${base.blackBg}d0";

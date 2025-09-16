@@ -65,7 +65,7 @@
     "Mod+B" = {
       spawn._args = [
         "wlr-which-key"
-        "qute"
+        "browser"
       ];
     };
     "Mod+D" = {
