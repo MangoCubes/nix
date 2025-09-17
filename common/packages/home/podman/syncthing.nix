@@ -9,12 +9,37 @@
 }:
 let
   st-clear = pkgs.writeShellScriptBin "st-clear" ''
-    find . -type f -name '*sync-conflict*' -exec rm {} +
+    search_dir="."
+    files=$(find "$search_dir" -type f -name "*sync-conflict*")
+
+    if [[ -z "$files" ]]; then
+        echo "No files found with 'sync-conflict' in their names."
+        exit 0
+    fi
+
+    while IFS= read -r file; do
+        original="''${file%%.sync-conflict-*}"
+        if [[ -f "$original" ]]; then
+            echo "Found: $file"
+            hash1=$(sha256sum "$file" | awk '{ print $1 }')
+            hash2=$(sha256sum "$original" | awk '{ print $1 }')
+            if [[ "$hash1" == "$hash2" ]]; then
+                echo "Conflict file $file is identical, deleting..."
+                rm $file
+            else
+                echo "$original is different from conflicting copy."
+                if [[ "$1" == "-f" ]]; then
+                    rm $file
+                fi
+            fi
+        else
+            echo "Warning: Found conflict file without original file ($file)"
+        fi
+    done <<< "$files"
+    exit 0
   '';
   st-reset-database = pkgs.writeShellScriptBin "st-reset-database" ''
-    systemctl --user stop podman-syncthing || { echo "Failed to stop Syncthing."; exit 1; }
-    podman run --rm -e GUID=0 -e PUID=0 --user 0 --volume ${config.home.homeDirectory}/Sync:/var/syncthing/data \
-      --volume ${config.home.homeDirectory}/.podman/syncthing:/var/syncthing/config syncthing/syncthing debug reset-database;
+    podman exec -it syncthing syncthing debug reset-database;
     systemctl --user restart podman-syncthing
   '';
 in
