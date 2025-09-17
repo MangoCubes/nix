@@ -20,7 +20,7 @@
       addCapabilities = [ "NET_ADMIN" ];
       devices = [ "/dev/net/tun:/dev/net/tun" ];
       entrypoint = ''
-        export Country=$(/gluetun-entrypoint format-servers -protonvpn -format json | grep country | shuf | head -n 1 | sed -nE 's/.+"country": "(.+)".+/\1/p');
+        export Country=$(/gluetun-entrypoint format-servers -protonvpn -format json | grep country | uniq | shuf | head -n 1 | sed -nE 's/.+"country": "(.+)".+/\1/p');
         /gluetun-entrypoint
       '';
       environment = (
