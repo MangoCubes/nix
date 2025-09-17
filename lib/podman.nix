@@ -41,7 +41,7 @@ let
       null
     else
       pkgs.writeScriptBin ''podman-start.sh'' ''
-        #!/bin/bash
+        #!/bin/sh
         ${entrypoint}'';
   # This is a function that automatically create Traefik labels
   genRouters =
@@ -118,7 +118,7 @@ in
         (
           volumes
           ++ [
-            "${start}/bin/podman-start.sh:/etc/podman-start.sh"
+            "${start}/bin/podman-start.sh:/my/podman-start.sh"
           ]
         );
     inherit
@@ -134,7 +134,7 @@ in
       autoStart
       ;
     # Set entrypoint if specified
-    entrypoint = if entrypoint == null then null else "/etc/podman-start.sh";
+    entrypoint = if entrypoint == null then null else "/my/podman-start.sh";
     extraConfig = {
       # Not setting this causes the container startup to be delayed by 90 seconds because the container dependencies are not satisfied
       Quadlet.DefaultDependencies = false;
