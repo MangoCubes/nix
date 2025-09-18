@@ -27,7 +27,7 @@ let
     }
 
     while IFS= read -r file; do
-        original="echo $file | sed 's/sync-conflict-[0-9]*-[0-9]*-[A-Z0-9]*\.//'"
+        original="echo $file | sed 's/\.*sync-conflict-[0-9]*-[0-9]*-[A-Z0-9]*//'"
         if [[ -f "$original" ]]; then
             echo "Found: $file"
             hash1=$(sha256sum "$file" | awk '{ print $1 }')
