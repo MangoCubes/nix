@@ -6,11 +6,21 @@
 }:
 let
   extensionsBase = {
-    "*".installation_mode = "blocked"; # blocks all addons except the ones specified below
+    # "*".installation_mode = "blocked"; # blocks all addons except the ones specified below
     # The ID of each plugin can be found in about:support when you install them
     # The install_url seems to be https://addons.mozilla.org/firefox/downloads/latest/<NAME>/latest.xpi,
     # where the <NAME> part is https://addons.mozilla.org/en-US/firefox/addon/<NAME> in the addon URL
 
+    # Redirect websites
+    "7esoorv3@alefvanoon.anonaddy.me" = {
+      install_url = "https://addons.mozilla.org/firefox/downloads/latest/libredirect/latest.xpi";
+      installation_mode = "force_installed";
+    };
+    # Disable cookie overlay
+    "idcac-pub@guus.ninja" = {
+      install_url = "https://addons.mozilla.org/firefox/downloads/latest/istilldontcareaboutcookies/latest.xpi";
+      installation_mode = "force_installed";
+    };
     # uBlock Origin
     "uBlock0@raymondhill.net" = {
       install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";

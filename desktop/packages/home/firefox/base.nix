@@ -112,6 +112,10 @@ lib.mkMerge [
     "widget.use-xdg-desktop-portal.settings" = (lock-string 1);
     "widget.use-xdg-desktop-portal.location" = (lock-string 1);
     "widget.use-xdg-desktop-portal.open-uri" = (lock-string 1);
+
+    # Allow extensions to work everywhere
+    "extensions.webextensions.restrictedDomains" = (lock-string "");
+    "privacy.resistFingerprinting.block_mozAddonManager" = lock-true;
   }
   (lib.mkIf resetOnClose {
     "privacy.clearOnShutdown_v2.cache" = lock-true;
