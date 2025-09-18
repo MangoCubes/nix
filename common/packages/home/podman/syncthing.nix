@@ -10,7 +10,7 @@
 let
   st-clear = pkgs.writeShellScriptBin "st-clear" ''
     search_dir="."
-    files=$(find "$search_dir" -type f -name "*sync-conflict*")
+    files=$(find "$search_dir" -type f -name "*sync-conflict*" -not -path "*/.stversions/*")
 
     if [[ -z "$files" ]]; then
         echo "No files found with 'sync-conflict' in their names."
@@ -34,6 +34,9 @@ let
             fi
         else
             echo "Warning: Found conflict file without original file ($file)"
+            if [[ "$1" == "-f" ]]; then
+                rm $file
+            fi
         fi
     done <<< "$files"
     exit 0
