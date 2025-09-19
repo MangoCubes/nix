@@ -1,6 +1,6 @@
 {
   config,
-  lib,
+  pkgs,
   inputs,
   ...
 }:
@@ -15,7 +15,9 @@
       image = "dpage/pgadmin4";
       name = "pgadmin";
       # Change owner to 5050
-      activation = "";
+      activation = ''
+        ${pkgs.rootlesskit}/bin/rootlesskit chown 5050:5050 -R ${config.home.homeDirectory}/.podman/pgadmin
+      '';
       volumes = [
         "${config.home.homeDirectory}/.podman/pgadmin:/var/lib/pgadmin"
       ];
