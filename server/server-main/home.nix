@@ -20,7 +20,7 @@
           target = "redlib-vpn";
         })
         ../packages/home/podman/phpmyadmin.nix
-        # ../packages/home/podman/invidious.nix
+        ../packages/home/podman/atuin.nix
         ../packages/home/podman/postgresql.nix
         ../packages/home/podman/gitea.nix
         ../packages/home/podman/website.nix
