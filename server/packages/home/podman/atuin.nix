@@ -25,7 +25,6 @@
       environment = {
         "ATUIN_HOST" = "0.0.0.0";
         "ATUIN_OPEN_REGISTRATION" = "true";
-        "ATUIN_DB_URI" = "postgres://$ATUIN_DB_USERNAME:$ATUIN_DB_PASSWORD@postgresql/$ATUIN_DB_NAME";
         "RUST_LOG" = "info,atuin_server=debug";
       };
       environmentFile = [ ''${config.home.homeDirectory}/.config/sops-nix/secrets/atuin'' ];
