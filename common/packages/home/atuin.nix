@@ -1,4 +1,12 @@
 {
+  inputs,
+  config,
+  ...
+}:
+{
+  imports = [
+    inputs.secrets.hm.atuin
+  ];
   programs.atuin = {
     enable = true;
     settings = {
@@ -9,6 +17,10 @@
       enter_accept = true;
       filter_mode = "host";
       filter_mode_shell_up_key_binding = "session";
+      session_path = "${config.home.homeDirectory}/.config/sops-nix/secrets/atuin/session";
+      key_path = "${config.home.homeDirectory}/.config/sops-nix/secrets/atuin/key";
+      invert = true;
+      keymap_mode = "vim-insert";
     };
   };
 }
