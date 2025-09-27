@@ -12,28 +12,40 @@
     window-rule = {
       match._props = {
         app-id = "firefox$";
-        title = "^Extension";
+        title = "Extension";
       };
       open-floating = true;
     };
   }
-  {
-    window-rule = {
-      match._props = {
-        title = ''^*.kdbx \\[Locked\\]'';
-        app-id = ''^org\\.keepassxc\\.KeePassXC$'';
-      };
-      open-on-workspace = "security";
-      open-focused = false;
-      open-maximized = true;
-    };
-  }
+  # Block out all KeepassXC windows from screen capture
   {
     window-rule = {
       match._props = {
         app-id = ''^org\\.keepassxc\\.KeePassXC$'';
       };
       block-out-from = "screen-capture";
+    };
+  }
+  # Make unlock prompt float
+  {
+    window-rule = {
+      match._props = {
+        app-id = ''^org\\.keepassxc\\.KeePassXC$'';
+        title = ''Unlock Database'';
+      };
+      open-floating = true;
+    };
+  }
+  # Make main KeepassXC dialog to open in a dedicated space, and make it maximised
+  {
+    window-rule = {
+      match._props = {
+        title = ''Locked'';
+        app-id = ''^org\\.keepassxc\\.KeePassXC$'';
+      };
+      open-on-workspace = "security";
+      open-focused = true;
+      open-maximized = true;
     };
   }
   {
@@ -52,15 +64,6 @@
       };
       default-column-width._props = { };
       open-floating = true;
-    };
-  }
-  {
-    window-rule = {
-      match._props = {
-        app-id = ".+freerdp";
-      };
-      open-maximized = true;
-      open-fullscreen = false;
     };
   }
   {

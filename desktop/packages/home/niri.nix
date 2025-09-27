@@ -239,6 +239,7 @@ let
             (buildWsMon1 "one")
             (buildWsMon1 "three")
             (buildWsMon1 "five")
+            (buildWsMon1 "urgent")
             (buildWsMon2 "two")
             (buildWsMon2 "four")
             (buildWsMon2 "six")
@@ -252,10 +253,9 @@ let
             "four"
             "five"
             "six"
+            "windows"
+            "urgent"
           ])
-          ++ [
-            (buildWs "windows")
-          ]
       )
     )
   );
