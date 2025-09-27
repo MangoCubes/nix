@@ -143,6 +143,11 @@ let
       [
         {
           spawn-at-startup._args = [
+            "niri-adv-rules"
+          ];
+        }
+        {
+          spawn-at-startup._args = [
             "keepassxc"
             "~/Sync/Passwords/Passwords.kdbx"
           ];
@@ -274,9 +279,21 @@ let
     binds
     clipboard
   ];
+  niri-adv-rules = import ./niri/niri-adv-rules.nix {
+    inherit (pkgs)
+      rustPlatform
+      fetchFromGitHub
+      pkg-config
+      lib
+      glib
+      pango
+      libxkbcommon
+      ;
+  };
 in
 {
   home.packages = [
+    niri-adv-rules
     killclick
     findwsid
     openconfig
