@@ -1,7 +1,7 @@
 {
   services = {
     # Keyring (Secret manager)
-    gnome.gnome-keyring.enable = true;
+    # gnome.gnome-keyring.enable = true;
     # Power manager, required to get brightness control
     upower.enable = true;
     # For getting USBs
