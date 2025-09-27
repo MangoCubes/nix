@@ -2,7 +2,6 @@
   config,
   inputs,
   pkgs,
-  unstable,
   ...
 }:
 {
@@ -11,28 +10,15 @@
   ];
 
   home.packages = [
-    unstable.calcure
     pkgs.jq
   ];
-  xdg.configFile."calcure/config.ini".text = (
-    (import ./accounts/calcure.nix) {
-      dirName = "${config.home.homeDirectory}/.calendar/personal";
-      calendars = [
-        "coupon"
-        "dorm"
-        "general"
-        "lessons"
-        "post-grad"
-        "projects"
-        "school"
-        "school-schedule"
-        "uk"
-      ];
-    }
-  );
-
-  programs.khal = {
+  programs.thunderbird = {
     enable = true;
+    profiles = {
+      main = {
+        isDefault = true;
+      };
+    };
   };
   services.mbsync = {
     frequency = "*:0/1";
@@ -42,7 +28,10 @@
   programs.mbsync = {
     enable = true;
   };
-  services.vdirsyncer.enable = true;
+  services.vdirsyncer = {
+    enable = true;
+    frequency = "*:0/1";
+  };
   programs.vdirsyncer.enable = true;
   programs.notmuch = {
     new.tags = [
@@ -65,15 +54,18 @@
       maildirBasePath = "${config.home.homeDirectory}/.mail";
       accounts = {
         personal = {
+          thunderbird.enable = true;
           notmuch.enable = true;
           address = "admin@skew.ch";
           imap = {
             host = "mail.skew.ch";
             tls.enable = true;
+            port = 993;
           };
           smtp = {
             host = "mail.skew.ch";
             tls.enable = true;
+            port = 587;
           };
           mbsync = {
             enable = true;
@@ -92,6 +84,7 @@
     calendar = {
       basePath = "${config.home.homeDirectory}/.calendar";
       accounts."personal" = {
+        thunderbird.enable = true;
         primary = true;
         vdirsyncer = {
           enable = true;
@@ -111,12 +104,6 @@
           userName = "user";
         };
         primaryCollection = "post-grad";
-        # Note that setting this variable does not automatically install khal
-        # This merely grants khal access to this calendar
-        khal = {
-          enable = true;
-          type = "discover";
-        };
       };
     };
   };
