@@ -22,6 +22,11 @@ in
     cmd = ''run-windows'';
   }
   {
+    key = "W";
+    desc = " Stop Windows";
+    cmd = ''sup podman-windows'';
+  }
+  {
     key = "b";
     desc = "󰖟 Open Blog Editor";
     cmd = ''emacs-web'';
