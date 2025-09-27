@@ -1,5 +1,4 @@
 {
-  config,
   inputs,
   pkgs,
   ...
@@ -7,6 +6,7 @@
 {
   imports = [
     inputs.secrets.hm.accounts
+    inputs.secrets.hm.accountSecrets
   ];
 
   home.packages = [
@@ -48,63 +48,5 @@
       ${pkgs.notmuch}/bin/notmuch tag -new tag:new
     '';
     enable = true;
-  };
-  accounts = {
-    email = {
-      maildirBasePath = "${config.home.homeDirectory}/.mail";
-      accounts = {
-        personal = {
-          thunderbird.enable = true;
-          notmuch.enable = true;
-          address = "admin@skew.ch";
-          imap = {
-            host = "mail.skew.ch";
-            tls.enable = true;
-            port = 993;
-          };
-          smtp = {
-            host = "mail.skew.ch";
-            tls.enable = true;
-            port = 587;
-          };
-          mbsync = {
-            enable = true;
-            create = "both";
-          };
-          passwordCommand = [
-            "cat"
-            "${config.home.homeDirectory}/.config/sops-nix/secrets/mail"
-          ];
-          primary = true;
-          realName = "Admin";
-          userName = "admin@skew.ch";
-        };
-      };
-    };
-    calendar = {
-      basePath = "${config.home.homeDirectory}/.calendar";
-      accounts."personal" = {
-        thunderbird.enable = true;
-        primary = true;
-        vdirsyncer = {
-          enable = true;
-          auth = "basic";
-          collections = [
-            "from a"
-            "from b"
-          ];
-        };
-        remote = {
-          passwordCommand = [
-            "cat"
-            "${config.home.homeDirectory}/.config/sops-nix/secrets/nextcloud"
-          ];
-          type = "caldav";
-          url = "https://cloud.skew.ch/remote.php/dav";
-          userName = "user";
-        };
-        primaryCollection = "post-grad";
-      };
-    };
   };
 }
