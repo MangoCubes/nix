@@ -19,6 +19,10 @@ let
       done
     fi
   '';
+  launch-flake = pkgs.writeShellScriptBin "launch-flake" ''
+    dir=$(dirname "$@");
+    cd "$dir" && nix develop;
+  '';
 in
 {
   home.packages = [
@@ -39,19 +43,19 @@ in
             { }
           else
             {
+              flake = [
+                {
+                  run = ''kitty bash -c "${launch-flake}/bin/launch-flake \"$@\""'';
+                  for = "unix";
+                  desc = "Nix Flake";
+                  orphan = true;
+                }
+              ];
               nix = [
                 {
                   run = ''kitty bash -c "nix-shell \"$@\""'';
                   for = "unix";
                   desc = "Nix Shell";
-                  orphan = true;
-                }
-              ];
-              devenv = [
-                {
-                  run = ''kitty bash -c "devenv shell"'';
-                  for = "unix";
-                  desc = "Dev Shell";
                   orphan = true;
                 }
               ];
@@ -145,10 +149,17 @@ in
                 use = [ "pdf" ];
               }
               {
-                name = "*.nix";
+                name = "*shell.nix";
                 use = [
                   "edit"
                   "nix"
+                ];
+              }
+              {
+                name = "*flake.nix";
+                use = [
+                  "edit"
+                  "flake"
                 ];
               }
               {

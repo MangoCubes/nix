@@ -21,6 +21,7 @@
       key_path = "${config.home.homeDirectory}/.config/sops-nix/secrets/atuin/key";
       invert = true;
       keymap_mode = "vim-insert";
+      inline_height = 10;
     };
   };
 }
