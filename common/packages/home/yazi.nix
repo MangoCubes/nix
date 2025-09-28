@@ -108,7 +108,7 @@ in
         // {
           extract = [
             {
-              run = ''for file in "$@"; do f=''${file##*/}; ouch decompress $file -d "./''${f%.*}"; done;'';
+              run = ''for file in "$@"; do f=''${file##*/}; ouch decompress "$file" -d "./''${f%.*}"; done;'';
               desc = "Extract";
               orphan = true;
             }
