@@ -103,7 +103,12 @@ in
                 }
                 {
                   run = ''pdfjam --outfile "$@" --angle 270 --fitpaper true --rotateoversize true "$@"'';
-                  desc = "Rotate";
+                  desc = "Rotate Clockwise";
+                  orphan = true;
+                }
+                {
+                  run = ''pdfjam --outfile "$@" --angle 90 --fitpaper true --rotateoversize true "$@"'';
+                  desc = "Rotate Anticlockwise";
                   orphan = true;
                 }
               ];

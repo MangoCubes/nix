@@ -22,7 +22,11 @@ require("bunny"):setup({
 		{ key = { "l", "b" }, path = "~/.local/bin",                       desc = "Local bin" },
 		{ key = { "l", "t" }, path = "~/.local/state",                     desc = "Local state" },
 
-		{ key = { "m", "w" }, path = "~/Mounts/Work" },
+		{ key = { "m", "w" }, path = "~/Mounts/Work/" },
+		{ key = { "m", "k" }, path = "~/Mounts/Secrets/" },
+		{ key = { "m", "c" }, path = "~/Mounts/Cloud/" },
+		{ key = { "m", "s" }, path = "~/Mounts/server-main/" },
+		{ key = { "m", "m" }, path = "~/Mounts/" },
 
 		{ key = { "c", "c" }, path = "~/Mounts/Cloud" },
 		{ key = { "c", "g" }, path = "~/Mounts/Cloud/Gallery" },
