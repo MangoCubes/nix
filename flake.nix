@@ -24,6 +24,7 @@
     };
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
     unstablePkg.url = "github:nixos/nixpkgs/nixos-unstable";
+    niri-adv-rules.url = "github:MangoCubes/niri-adv-rules";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "unstablePkg";

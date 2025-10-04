@@ -1,4 +1,5 @@
 {
+  inputs,
   pkgs,
   lib,
   device,
@@ -279,21 +280,10 @@ let
     binds
     clipboard
   ];
-  niri-adv-rules = import ./niri/niri-adv-rules.nix {
-    inherit (pkgs)
-      rustPlatform
-      fetchFromGitHub
-      pkg-config
-      lib
-      glib
-      pango
-      libxkbcommon
-      ;
-  };
 in
 {
   home.packages = [
-    niri-adv-rules
+    inputs.niri-adv-rules.packages.x86_64-linux.default
     killclick
     findwsid
     openconfig
@@ -303,6 +293,28 @@ in
     niri
   ]);
   xdg.configFile."niri/config.kdl".text = niriConfig;
-  # xdg.configFile."niri/config.kdl".source =
-  #   config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Sync/LinuxConfig/niri/${configFile}";
+  xdg.configFile."niri-adv-rules/config.json".text = ''
+    [
+    	{
+    		"Window": [
+    			[
+    				{
+    					"IsFloating": true
+    				},
+    				{
+    					"AppID": [
+    						"org.keepassxc.KeePassXC",
+    						false
+    					]
+    				}
+    			],
+    			[
+    				{
+    					"MoveToWorkspace": null
+    				}
+    			]
+    		]
+    	}
+    ]
+  '';
 }
