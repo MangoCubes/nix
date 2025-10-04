@@ -15,11 +15,10 @@
       sync_address = "https://sh.skew.ch";
       search_mode = "fuzzy";
       enter_accept = true;
-      filter_mode = "host";
+      filter_mode = "global";
       filter_mode_shell_up_key_binding = "session";
       session_path = "${config.home.homeDirectory}/.config/sops-nix/secrets/atuin/session";
       key_path = "${config.home.homeDirectory}/.config/sops-nix/secrets/atuin/key";
-      invert = true;
       keymap_mode = "vim-insert";
       inline_height = 10;
     };
