@@ -294,27 +294,6 @@ in
   ]);
   xdg.configFile."niri/config.kdl".text = niriConfig;
   xdg.configFile."niri-adv-rules/config.json".text = ''
-    [
-    	{
-    		"Window": [
-    			[
-    				{
-    					"IsFloating": true
-    				},
-    				{
-    					"AppID": [
-    						"org.keepassxc.KeePassXC",
-    						false
-    					]
-    				}
-    			],
-    			[
-    				{
-    					"MoveToWorkspace": null
-    				}
-    			]
-    		]
-    	}
-    ]
+    [{"Window":{"conditions":[{"IsFloating":true},{"AppID":{"id":"org.keepassxc.KeePassXC","invert":false}}],"actions":[{"MoveToWorkspace":null}]}}]
   '';
 }
