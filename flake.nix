@@ -19,8 +19,6 @@
     mikuboot.url = "gitlab:evysgarden/mikuboot";
     nixvim = {
       url = "github:nix-community/nixvim";
-      # If using a stable channel you can use `url = "github:nix-community/nixvim/nixos-<version>"`
-      inputs.nixpkgs.follows = "unstablePkg";
     };
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
     unstablePkg.url = "github:nixos/nixpkgs/nixos-unstable";
