@@ -30,7 +30,7 @@ in
     pastecp
   ];
   xdg.mimeApps.defaultApplications."inode/directory" = "yazi.desktop";
-  programs.bash.shellAliases.y = "kitty yazi . & disown";
+  programs.bash.shellAliases.y = "dt yazi";
   programs.yazi = {
     package = unstable.yazi;
     enable = true;
@@ -45,7 +45,7 @@ in
             {
               flake = [
                 {
-                  run = ''kitty bash -c "${launch-flake}/bin/launch-flake \"$@\""'';
+                  run = ''dt ${launch-flake}/bin/launch-flake "$@"'';
                   for = "unix";
                   desc = "Nix Flake";
                   orphan = true;
@@ -53,7 +53,7 @@ in
               ];
               nix = [
                 {
-                  run = ''kitty bash -c "nix-shell \"$@\""'';
+                  run = ''dt nix-shell "$@"'';
                   for = "unix";
                   desc = "Nix Shell";
                   orphan = true;
@@ -61,7 +61,7 @@ in
               ];
               terminal = [
                 {
-                  run = ''kitty "$@"'';
+                  run = ''term "$@"'';
                   desc = "Open in terminal";
                   orphan = true;
                 }
@@ -89,7 +89,7 @@ in
               ];
               sops = [
                 {
-                  run = ''kitty sops "$@"'';
+                  run = ''term sops "$@"'';
                   for = "unix";
                   desc = "Decrypt";
                   orphan = true;
@@ -268,7 +268,7 @@ in
               {
                 on = "T";
                 run = [
-                  ''shell --orphan -- kitty -d "$(dirname '$@')" ''
+                  ''shell --orphan -- term -d "$(dirname '$@')" ''
                 ];
               }
               {

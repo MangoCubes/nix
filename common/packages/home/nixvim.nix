@@ -379,12 +379,12 @@ in
         }
         {
           key = "<leader>py";
-          action = ''<cmd>silent exec "!kitty yazi &"<CR>'';
+          action = ''<cmd>silent exec "!term bash -c yazi &"<CR>'';
           options.desc = "Launch Yazi";
         }
         {
           key = "<leader>pt";
-          action = ''<cmd>silent exec "!kitty bash &"<CR>'';
+          action = ''<cmd>silent exec "!t"<CR>'';
           options.desc = "Launch Kitty terminal";
         }
       ])

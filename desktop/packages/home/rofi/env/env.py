@@ -31,9 +31,9 @@ elif len(sys.argv) == 2:
     offline = data[sys.argv[1]].get('offline', None)
     cmd = data[sys.argv[1]]['command']
     if offline is None:
-        subprocess.Popen(["kitty", "-T", sys.argv[1], "--hold", "bash", "-c", "checkinternet '" + cmd + "'"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        subprocess.Popen(["term", "-T", sys.argv[1], "--hold", "bash", "-c", "checkinternet '" + cmd + "'"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     else:
-        subprocess.Popen(["kitty", "-T", sys.argv[1], "--hold", "bash", "-c", "checkinternet '" + cmd + "' '" + offline + "'"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        subprocess.Popen(["term", "-T", sys.argv[1], "--hold", "bash", "-c", "checkinternet '" + cmd + "' '" + offline + "'"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     sys.exit(0)
 else:
     print(f"Invalid number of arguments.")

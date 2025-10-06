@@ -67,7 +67,7 @@ in
       emacs-nw = {
         name = "Emacs Client (No Window)";
         genericName = "Text Editor";
-        exec = ''kitty emacsclient -nw'';
+        exec = ''term emacsclient -nw'';
         # terminal = true;
         # categories = [ "Application" "Network" "WebBrowser" ];
         mimeType = [

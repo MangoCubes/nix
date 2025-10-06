@@ -1,6 +1,8 @@
 { pkgs, ... }:
 let
+  term = pkgs.writeShellScriptBin "term" ''kitty "$@"'';
   detached = pkgs.writeShellScriptBin "t" ''d kitty bash'';
+  dt = pkgs.writeShellScriptBin "dt" ''d kitty bash -c "$*"'';
 in
 {
   programs.bash.shellAliases = {
@@ -8,6 +10,8 @@ in
   };
   home.packages = [
     detached
+    term
+    dt
   ];
   programs.kitty = {
     enable = true;

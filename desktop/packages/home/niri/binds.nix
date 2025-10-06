@@ -2,9 +2,9 @@
   binds = {
     "Mod+T" = {
       _props = {
-        hotkey-overlay-title = "Open a Terminal: Kitty";
+        hotkey-overlay-title = "Open a Terminal";
       };
-      spawn = "kitty";
+      spawn = "term";
     };
     "Mod+Shift+B" = {
       _props = {
@@ -14,7 +14,7 @@
     };
     "Mod+E" = {
       spawn._args = [
-        "kitty"
+        "term"
         "-o"
         "confirm_os_window_close=0"
         "yazi"

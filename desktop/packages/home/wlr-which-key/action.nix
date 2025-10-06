@@ -112,9 +112,14 @@
     desc = "󱉨 Clipboard";
     submenu = [
       {
+        key = "e";
+        desc = "󱓥 Edit Clipboard";
+        cmd = ''term yazi "$(wl-paste)"'';
+      }
+      {
         key = "y";
         desc = "󰥨 Open Yazi";
-        cmd = ''kitty yazi "$(wl-paste)"'';
+        cmd = ''term yazi "$(wl-paste)"'';
       }
       {
         key = "b";

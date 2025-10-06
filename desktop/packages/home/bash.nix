@@ -29,7 +29,7 @@ let
       rebuilda = ''rebuilds && rebuild'';
       rebuildap = ''rebuilds && rebuildp'';
       rebuildr = "rebuild && reboot";
-      rb = ''kitty sh -c "rebuild; read"'';
+      rb = ''term sh -c "rebuild; read"'';
       updateunstable = "nix flake update --flake path://${config.home.homeDirectory}/Sync/NixConfig unstablePkg";
       update = "nix flake update --flake path://${config.home.homeDirectory}/Sync/NixConfig";
       # Bunch of commands I seem to use a lot

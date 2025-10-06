@@ -5,7 +5,7 @@ function(state)
 
 	local lastSlashIndex = path:match("^(.*)/")
 
-	local command = 'kitty -d "' .. lastSlashIndex .. '"'
+	local command = 'term -d "' .. lastSlashIndex .. '" bash'
 
 	vim.notify("Opening terminal in " .. lastSlashIndex .. "!")
 	os.execute("(" .. command .. " > /dev/null 2>&1 &)")
