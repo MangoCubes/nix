@@ -99,7 +99,7 @@ in
   # Automatically create directory for the container if it has volumes
   # Then run other commands specified via [`activation`]
   home.activation."podman-${name}" =
-    if (builtins.length volumes == 0) then
+    if (builtins.length volumes != 0) then
       (lib.hm.dag.entryAfter [ "writeBoundary" ] ''
         DIR=${config.home.homeDirectory}/.podman/${name}
         if [ ! -d "$DIR" ]; then

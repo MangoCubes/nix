@@ -57,6 +57,7 @@
             sshpass
             sops
             devenv
+            element-desktop
             # cinny-desktop
           ])
           ++ (with pkgs; [

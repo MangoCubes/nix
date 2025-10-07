@@ -34,6 +34,8 @@ in
       };
 
       pruneOpts = [
+        # For the last 7 days, keep only one most recent copy within a day
+        "--keep-daily 7"
         "--keep-weekly 10"
         "--keep-yearly 25"
       ];
