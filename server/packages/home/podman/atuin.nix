@@ -27,7 +27,7 @@
         "ATUIN_OPEN_REGISTRATION" = "true";
         "RUST_LOG" = "info,atuin_server=debug";
       };
-      environmentFile = [ ''${config.home.homeDirectory}/.config/sops-nix/secrets/atuin'' ];
+      environmentFile = [ ''${config.home.homeDirectory}/.config/sops-nix/secrets/atuin-db'' ];
     })
   ];
 }
