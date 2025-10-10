@@ -20,6 +20,7 @@
   exec ? null,
   dns ? null,
   autoStart ? true,
+  daily ? null,
 }:
 {
   lib,
@@ -28,10 +29,35 @@
   osConfig,
   ...
 }:
-# If domain = null, then it should not be accessible from outside
-# URL is expected in the following form
-
 let
+  backupService =
+    {
+      command,
+      desc,
+    }:
+    let
+      cmd = pkgs.writeShellScriptBin "${name}-cmd" command;
+    in
+    {
+      systemd.user.timers."podman-${name}-daily" = {
+        Install.WantedBy = [ "timers.target" ];
+        Timer = {
+          OnBootSec = "6h";
+          OnUnitActiveSec = "6h";
+          Unit = "podman-${name}-daily.service";
+        };
+        Unit.Description = "Timer for podman-${name}-daily.service";
+      };
+      systemd.user.services."podman-${name}-daily" = {
+        Unit.Description = desc;
+        Service = {
+          Type = "oneshot";
+          ExecStart = "${cmd}/bin/${name}-cmd";
+        };
+      };
+    };
+  # If domain = null, then it should not be accessible from outside
+  # URL is expected in the following form
   # This creates an executable bash script if the entrypoint is given
   # Entrypoint must be a single executable
   # To circumvent this limit, we create a bash script, and mount it onto the podman volume, and then set that script as an entrypoint
@@ -95,12 +121,22 @@ let
 
 in
 {
+  imports = [
+    (lib.mkIf (daily != null) (backupService {
+      command = daily;
+      desc = "Backup preparation command for ${name}";
+    }))
+  ];
   custom.podman.containers = [ name ];
   # Automatically create directory for the container if it has volumes
   # Then run other commands specified via [`activation`]
   home.activation."podman-${name}" =
     if (builtins.length volumes != 0) then
       (lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        SHARED=${config.home.homeDirectory}/.podman/shared/backups
+        if [ ! -d "$SHARED" ]; then
+          mkdir -p $SHARED
+        fi
         DIR=${config.home.homeDirectory}/.podman/${name}
         if [ ! -d "$DIR" ]; then
           mkdir -p $DIR
