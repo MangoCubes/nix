@@ -64,6 +64,7 @@ lib.mkMerge [
     "privacy.trackingprotection.fingerprinting.enabled" = lock-true;
     "privacy.trackingprotection.enabled" = lock-true;
     "privacy.trackingprotection.cryptomining.enabled" = lock-true;
+    "privacy.globalprivacycontrol.enabled" = lock-true;
 
     # Computer may speak only when I tell it to
     "media.autoplay.enabled" = lock-false;
