@@ -41,6 +41,7 @@ let
       (mainServer "manga")
       (mainServer "media")
       (mainServer "money")
+      (mainServer "plex")
       (vmServer "vm")
     ];
 in
