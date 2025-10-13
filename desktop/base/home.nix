@@ -25,6 +25,7 @@
         ../packages/home/kitty.nix
         ../packages/home/rofi.nix
         ../packages/home/bash.nix
+        ../packages/home/git.nix
         ../packages/home/accounts.nix
         ../packages/home/swww.nix
         ../packages/home/niri.nix
