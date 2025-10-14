@@ -114,7 +114,7 @@
       {
         key = "e";
         desc = "󱓥 Edit Clipboard";
-        cmd = ''term yazi "$(wl-paste)"'';
+        cmd = ''wl-paste | ${pkgs.moreutils}/bin/vipe | wl-copy'';
       }
       {
         key = "y";
