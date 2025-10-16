@@ -8,7 +8,7 @@
         text = ''
           [General]
           name=${hostname}
-          customDevices=phone-kr,phone-owner
+          customDevices=phone-kr.local,phone.local
         '';
       };
     };
