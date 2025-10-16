@@ -1,8 +1,7 @@
 { unfreeUnstable, inputs, ... }:
 let
   cred = inputs.secrets.hm.factorio;
-  f = unfreeUnstable.factorio.override {
-    versionsJson = ./factorio/factorio.json;
+  f = unfreeUnstable.factorio-space-age.override {
     username = cred.username;
     token = cred.token;
   };
