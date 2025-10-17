@@ -5,6 +5,7 @@
     # inputs.secrets.networks.wg-mitm
     ./boot.nix
     ./home.nix
+    ./security.nix
     ../packages/mikuboot.nix
     ../base/configuration.nix
     (import ../packages/android.nix { androidStudio = true; })
