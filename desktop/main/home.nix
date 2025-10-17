@@ -12,6 +12,7 @@
         ../packages/home/factorio.nix
         ../packages/home/windows.nix
         ../packages/home/lutris.nix
+        ../packages/home/mitm-proxy.nix
       ];
       home.packages = [
         unfreeUnstable.osu-lazer-bin
