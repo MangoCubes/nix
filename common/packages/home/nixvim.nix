@@ -239,16 +239,18 @@ in
           window = {
             insertAs = "sibling";
             sameLevel = true;
-            mappings = {
-              "gx" = {
-                command.__raw = (builtins.readFile ./nixvim/xdg-open.lua);
-                desc = "Open file in external application";
-              };
-              "gX" = {
-                command.__raw = (builtins.readFile ./nixvim/open-terminal.lua);
-                desc = "Open file location in terminal";
-              };
-            };
+            mappings = (
+              dih {
+                "gx" = {
+                  command.__raw = (builtins.readFile ./nixvim/xdg-open.lua);
+                  desc = "Open file in external application";
+                };
+                "gX" = {
+                  command.__raw = (builtins.readFile ./nixvim/open-terminal.lua);
+                  desc = "Open file location in terminal";
+                };
+              }
+            );
           };
         };
         web-devicons.enable = true;
@@ -389,6 +391,96 @@ in
           key = "<leader>pt";
           action = ''<cmd>silent exec "!t"<CR>'';
           options.desc = "Launch Kitty terminal";
+        }
+        {
+          key = "gD";
+          action = "<cmd>lua vim.lsp.buf.declaration()<CR>";
+          options.desc = "Go to declaration";
+        }
+
+        {
+          key = "gd";
+          action = "<cmd>lua vim.lsp.buf.definition()<CR>";
+          options.desc = "Go to definition";
+        }
+
+        {
+          key = "K";
+          action = "<cmd>lua vim.lsp.buf.hover()<CR>";
+          options.desc = "Show information at the cursor";
+        }
+
+        {
+          key = "gr";
+          action = "<cmd>lua vim.lsp.buf.references()<CR>";
+        }
+
+        {
+          key = "gs";
+          action = "<cmd>lua vim.lsp.buf.signature_help()<CR>";
+        }
+
+        {
+          key = "gi";
+          action = "<cmd>lua vim.lsp.buf.implementation()<CR>";
+          options.desc = "Go to implementation";
+        }
+
+        {
+          key = "gy";
+          action = "<cmd>lua vim.lsp.buf.type_definition()<CR>";
+        }
+
+        {
+          key = "<A-w>";
+          action = "<cmd>lua vim.lsp.buf.document_symbol()<CR>";
+        }
+
+        {
+          key = "<A-W>";
+          action = "<cmd>lua vim.lsp.buf.workspace_symbol()<CR>";
+        }
+
+        {
+          key = "<A-f>";
+          action = "<cmd>lua vim.lsp.buf.code_action()<CR>";
+        }
+
+        {
+          key = "S";
+          action = "<cmd>lua vim.diagnostic.open_float()<CR>";
+          options.desc = "Show warnings and errors at the cursor";
+        }
+
+        {
+          key = "<A-r>";
+          action = "<cmd>lua vim.lsp.buf.rename()<CR>";
+          options.desc = "Rename a variable";
+        }
+
+        {
+          key = "<leader>=";
+          action = "<cmd>lua vim.lsp.buf.format()<CR>";
+        }
+
+        {
+          key = "<A-i>";
+          action = "<cmd>lua vim.lsp.buf.incoming_calls()<CR>";
+        }
+
+        {
+          key = "<A-o>";
+          action = "<cmd>lua vim.lsp.buf.outgoing_calls()<CR>";
+        }
+        {
+          key = "<M-s>";
+          action = ''term sh -c start'';
+          options.desc = ''Build (debug) and run program in a new terminal'';
+        }
+        {
+          key = "<M-C-s>";
+          action = ''term sh -c start-release'';
+          options.desc = ''Build (release) and run program in a new terminal'';
         }
       ])
       ++ [
@@ -548,86 +640,6 @@ in
           options.silent = true;
         }
         {
-          key = "gD";
-          action = "<cmd>lua vim.lsp.buf.declaration()<CR>";
-          options.desc = "Go to declaration";
-        }
-
-        {
-          key = "gd";
-          action = "<cmd>lua vim.lsp.buf.definition()<CR>";
-          options.desc = "Go to definition";
-        }
-
-        {
-          key = "K";
-          action = "<cmd>lua vim.lsp.buf.hover()<CR>";
-          options.desc = "Show information at the cursor";
-        }
-
-        {
-          key = "gr";
-          action = "<cmd>lua vim.lsp.buf.references()<CR>";
-        }
-
-        {
-          key = "gs";
-          action = "<cmd>lua vim.lsp.buf.signature_help()<CR>";
-        }
-
-        {
-          key = "gi";
-          action = "<cmd>lua vim.lsp.buf.implementation()<CR>";
-          options.desc = "Go to implementation";
-        }
-
-        {
-          key = "gy";
-          action = "<cmd>lua vim.lsp.buf.type_definition()<CR>";
-        }
-
-        {
-          key = "<A-w>";
-          action = "<cmd>lua vim.lsp.buf.document_symbol()<CR>";
-        }
-
-        {
-          key = "<A-W>";
-          action = "<cmd>lua vim.lsp.buf.workspace_symbol()<CR>";
-        }
-
-        {
-          key = "<A-f>";
-          action = "<cmd>lua vim.lsp.buf.code_action()<CR>";
-        }
-
-        {
-          key = "S";
-          action = "<cmd>lua vim.diagnostic.open_float()<CR>";
-          options.desc = "Show warnings and errors at the cursor";
-        }
-
-        {
-          key = "<A-r>";
-          action = "<cmd>lua vim.lsp.buf.rename()<CR>";
-          options.desc = "Rename a variable";
-        }
-
-        {
-          key = "<leader>=";
-          action = "<cmd>lua vim.lsp.buf.format()<CR>";
-        }
-
-        {
-          key = "<A-i>";
-          action = "<cmd>lua vim.lsp.buf.incoming_calls()<CR>";
-        }
-
-        {
-          key = "<A-o>";
-          action = "<cmd>lua vim.lsp.buf.outgoing_calls()<CR>";
-        }
-        {
           key = "<leader>n";
           action = ''<cmd>lua require("notify").dismiss({pending = true, silent = true})<CR>'';
           options.desc = "Clear all notifications";
@@ -637,16 +649,6 @@ in
           action = "<C-o>gk";
           mode = "i";
           options.silent = true;
-        }
-        {
-          key = "<M-s>";
-          action = ''term sh -c start'';
-          options.desc = ''Build (debug) and run program in a new terminal'';
-        }
-        {
-          key = "<M-C-s>";
-          action = ''term sh -c start-release'';
-          options.desc = ''Build (release) and run program in a new terminal'';
         }
       ]
     );
