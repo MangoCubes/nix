@@ -259,24 +259,28 @@ in
         lazygit.enable = true;
         neo-tree = {
           enable = true;
-          enableGitStatus = true;
-          enableModifiedMarkers = true;
-          enableRefreshOnWrite = true;
-          window = {
-            insertAs = "sibling";
-            sameLevel = true;
-            mappings = (
-              dih {
-                "gx" = {
-                  command.__raw = (builtins.readFile ./nixvim/xdg-open.lua);
-                  desc = "Open file in external application";
-                };
-                "gX" = {
-                  command.__raw = (builtins.readFile ./nixvim/open-terminal.lua);
-                  desc = "Open file location in terminal";
-                };
-              }
-            );
+          settings = {
+            enable_git_status = true;
+            enable_diagnostics = true;
+            name = {
+              use_git_status_colors = true;
+            };
+            window = {
+              insert_as = "sibling";
+              same_level = true;
+              mappings = (
+                dih {
+                  "gx" = {
+                    command.__raw = (builtins.readFile ./nixvim/xdg-open.lua);
+                    desc = "Open file in external application";
+                  };
+                  "gX" = {
+                    command.__raw = (builtins.readFile ./nixvim/open-terminal.lua);
+                    desc = "Open file location in terminal";
+                  };
+                }
+              );
+            };
           };
         };
         web-devicons.enable = true;

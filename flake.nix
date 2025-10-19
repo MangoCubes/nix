@@ -201,6 +201,15 @@
       # With this, I can open development environment for this config folder by entering `nix develop`
       devShell.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.mkShell {
         packages = [ pkgs.bash ];
+        shellHook =
+          let
+            initFile = pkgs.writeText ".bashrc" ''
+              nvim .
+            '';
+          in
+          ''
+            bash --init-file ${initFile}; exit
+          '';
       };
       # Generate config for each machine I have
       # homeConfigurations.portable = inputs.home-manager.lib.homeManagerConfiguration (
