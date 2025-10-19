@@ -82,7 +82,9 @@ let
     let
       useLocalCa =
         if (entry.type == 1) then
-          { }
+          {
+            "traefik.http.routers.${entry.routerName}.tls.certResolver" = "letsencrypt";
+          }
         else
           {
             # If type is not 1, then we are relying on local CA for generating certificates
