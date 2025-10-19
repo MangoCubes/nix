@@ -551,7 +551,7 @@ in
         }
         {
           key = "<leader>tt";
-          action = "<cmd>tabnew | term<CR>";
+          action = "<cmd>tabnew | terminal /usr/bin/env bash<CR>";
           options.desc = "Open a new tab and open a terminal";
         }
         {
@@ -573,7 +573,7 @@ in
         }
         {
           key = "<C-`>";
-          action = ":belowright split | resize 15 | terminal<CR>";
+          action = ":belowright split | resize 15 | terminal /usr/bin/env bash<CR>";
         }
         {
           key = "<C-n>";
