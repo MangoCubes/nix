@@ -69,7 +69,10 @@ in
       (dih {
         nix.enable = true;
         treesitter.enable = true;
-        dap.enable = true;
+        dap = {
+          enable = true;
+          signs.dapBreakpoint.text = "🔴";
+        };
         dap-lldb.enable = true;
         dap-ui.enable = true;
         dap-virtual-text.enable = true;
@@ -635,19 +638,36 @@ in
           mode = "i";
           options.silent = true;
         }
+        {
+          key = "<M-s>";
+          action = ''term sh -c start'';
+          options.desc = ''Build (debug) and run program in a new terminal'';
+        }
+        {
+          key = "<M-C-s>";
+          action = ''term sh -c start-release'';
+          options.desc = ''Build (release) and run program in a new terminal'';
+        }
       ]
     );
-    extraConfigLua = ''
-      vim.o.exrc = true
-      vim.api.nvim_create_autocmd("TermOpen", {
-          pattern = "*",
-          callback = function()
-              vim.opt_local.number = true
-              vim.opt_local.relativenumber = true
-          end,
-      })
-      vim.diagnostic.open_float(nil, {close_events = {'BufLeave', 'CursorMoved', 'InsertEnter'}})
-    '';
+    extraConfigLua = builtins.concatStringsSep "\n" (
+      [
+        # Allow loading from .nvim.lua
+        ''
+          vim.o.exrc = true
+        ''
+      ]
+      ++ (eih [
+        # Fix for diagnostic window not closing automatically
+        ''
+          vim.diagnostic.open_float(nil, {close_events = {'BufLeave', 'CursorMoved', 'InsertEnter'}})
+        ''
+        # Ensure UI opens whenever DAP is enabled
+        (builtins.readFile ./nixvim/dapui.lua)
+        # Set up DAP for LLDB
+        (builtins.readFile ./nixvim/dap.lua)
+      ])
+    );
   };
   xdg.mimeApps.defaultApplications."text/plain" = "nvim.desktop";
   home.sessionVariables.EDITOR = "nvim";
