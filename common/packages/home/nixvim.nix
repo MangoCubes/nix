@@ -5,6 +5,7 @@
   inputs,
   unstable,
   device,
+  colours,
   ...
 }:
 let
@@ -25,6 +26,20 @@ in
   programs.nixvim = {
     nixpkgs.pkgs = unstable;
     enable = true;
+    highlight = {
+      DapBreakpointText = {
+        fg = "#${colours.base.teto}";
+      };
+      DapBreakpointLine = {
+        bg = "#${colours.base.darkBg}";
+      };
+      DapStoppedText = {
+        fg = "#${colours.base.rin}";
+      };
+      DapStoppedLine = {
+        bg = "#${colours.base.lightBg}";
+      };
+    };
     colorschemes.catppuccin = {
       enable = true;
       settings = {
@@ -36,14 +51,14 @@ in
             pink = "#f5c2e7";
             mauve = "#cba6f7";
             red = "#ff1688";
-            maroon = "#ff629d";
+            maroon = "#${colours.base.teto}";
             peach = "#fab387";
-            yellow = "#ffcc11";
+            yellow = "#${colours.base.rin}";
             green = "#a6e3a1";
             teal = "#94e2d5";
             sky = "#89dceb";
             sapphire = "#74c7ec";
-            blue = "#47c8c0";
+            blue = "#${colours.base.miku}";
             lavender = "#b4befe";
             text = "#d6d9da";
             subtext1 = "#adb3b5";
@@ -51,7 +66,7 @@ in
             overlay2 = "#8c9597";
             overlay1 = "#7b8589";
             overlay0 = "#6b767a";
-            surface2 = "#5a676b";
+            surface2 = "#${colours.base.lightBg}";
             surface1 = "#465053";
             surface0 = "#3c4547";
             base = "#282e2f";
@@ -71,7 +86,18 @@ in
         treesitter.enable = true;
         dap = {
           enable = true;
-          signs.dapBreakpoint.text = "🔴";
+          signs = {
+            dapBreakpoint = {
+              text = "⬤";
+              texthl = "DapBreakpointText";
+              linehl = "DapBreakpointLine";
+            };
+            dapStopped = {
+              text = "➤";
+              texthl = "DapStoppedText";
+              linehl = "DapStoppedLine";
+            };
+          };
         };
         dap-lldb.enable = true;
         dap-ui.enable = true;

@@ -5,6 +5,7 @@ let
     blackBg = "000000";
     lightBg = "5a676b";
     darkBg = "24292b";
+    rin = "ffcc11";
   };
 in
 {
@@ -12,6 +13,7 @@ in
   withTransparency = {
     miku = "${base.miku}ff";
     teto = "${base.teto}ff";
+    rin = "${base.rin}ff";
     lightBg = "${base.lightBg}d0";
     darkBg = "${base.darkBg}d0";
     blackBg = "${base.blackBg}d0";
