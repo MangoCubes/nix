@@ -23,6 +23,7 @@ in
       paths = [
         "${config.users.users.${username}.home}/Sync"
         "${config.users.users.${username}.home}/.podman/cloud/data/user/files"
+        "${config.users.users.${username}.home}/.podman/immich/data"
         "${config.users.users.${username}.home}/.podman/shared/backups/"
         # "${config.users.users.${username}.home}/.podman/mariadb"
         # "${config.users.users.${username}.home}/.podman/postgres"
