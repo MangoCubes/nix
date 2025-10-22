@@ -1,11 +1,12 @@
 {
   config,
-  lib,
-  pkgs,
   inputs,
   ...
 }:
 {
+  custom.backups.backblaze = [
+    "${config.home.homeDirectory}/.podman/cloud/data/user/files"
+  ];
   # mkdir -p ${config.home.homeDirectory}/.podman/cloud/config
   # cp ${config.home.homeDirectory}/.config/sops-nix/secrets/cloud ${config.home.homeDirectory}/.podman/cloud/config/config.php
   # mkdir -p ${config.home.homeDirectory}/.podman/cloud/php

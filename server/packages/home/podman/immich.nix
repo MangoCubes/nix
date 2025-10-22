@@ -4,6 +4,10 @@
   ...
 }:
 {
+  custom.backups.backblaze = [
+    "${config.home.homeDirectory}/.podman/immich/data"
+    "${config.home.homeDirectory}/.podman/immich/backups"
+  ];
   imports = [
     inputs.secrets.server-main.home.immich
     ((import ../../../../lib/podman.nix) {

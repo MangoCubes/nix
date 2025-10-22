@@ -9,6 +9,12 @@ let
   user = "restic";
 in
 {
+  home-manager.users."${username}" =
+    { pkgs, lib, ... }:
+    {
+      home.packages = [ pkgs.restic ];
+      imports = [ ./restic/options.nix ];
+    };
   imports = [
     inputs.secrets.server-main.restic
     ./restic/options.nix
@@ -26,13 +32,9 @@ in
       paths =
         config.custom.backups.backblaze
         ++ [
-          "${config.users.users.${username}.home}/.podman/cloud/data/user/files"
-          "${config.users.users.${username}.home}/.podman/immich/data"
-          "${config.users.users.${username}.home}/.podman/immich/backups"
           "${config.users.users.${username}.home}/.podman/shared/backups/"
           # "${config.users.users.${username}.home}/.podman/mariadb"
           # "${config.users.users.${username}.home}/.podman/postgres"
-          "${config.users.users.${username}.home}/.podman/gitea"
         ]
         ++ config.home-manager.users."${username}".custom.backups.backblaze;
       repositoryFile = "/run/secrets/restic/repo";
@@ -56,11 +58,5 @@ in
     permissions = "u=rwx,g=,o=";
     capabilities = "cap_dac_read_search=+ep";
   };
-  home-manager.users."${username}" =
-    { pkgs, lib, ... }:
-    {
-      home.packages = [ pkgs.restic ];
-      imports = [ ./restic/options.nix ];
-    };
 
 }
