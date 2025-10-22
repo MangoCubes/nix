@@ -109,5 +109,15 @@ in
     '';
   };
 }
+// (
+  if (device == "server") then
+    {
+      custom.backups.backblaze = [
+        "${config.home.homeDirectory}/Sync"
+      ];
+    }
+  else
+    { }
+)
 
 # yq --input-format json --output-format xml --xml-attribute-prefix @ ./test.json

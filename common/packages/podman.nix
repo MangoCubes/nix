@@ -31,17 +31,7 @@
       '';
     in
     {
-      options.custom = lib.mkOption {
-        type = lib.types.submodule {
-          options.podman = lib.mkOption {
-            type = lib.types.submodule {
-              options.containers = lib.mkOption {
-                type = (lib.types.listOf lib.types.str);
-              };
-            };
-          };
-        };
-      };
+      imports = [ ./podman/options.nix ];
       home.packages = with pkgs; [
         dive # look into podman image layers
         podman-tui # status of containers in the terminal
