@@ -12,5 +12,6 @@
     ./packages/tailscale.nix
     ./nix.nix
     ./packages/ssh-access.nix
+    ./packages/podman/syncthing.nix
   ];
 }

@@ -1,14 +1,36 @@
+# [
+#           "${config.users.users.${username}.home}/Sync"
+#                   "${config.users.users.${username}.home}/.podman/cloud/data/user/files"
+#                           "${config.users.users.${username}.home}/.podman/immich/data"
+#                                   "${config.users.users.${username}.home}/.podman/shared/backups/"
+#                                           # "${config.users.users.${username}.home}/.podman/mariadb"
+#                                                   # "${config.users.users.${username}.home}/.podman/postgres"
+#                                                           "${config.users.users.${username}.home}/.podman/gitea"
+#                                                                 ];
 {
   pkgs,
   username,
   inputs,
   config,
+  lib,
   ...
 }:
 let
   user = "restic";
 in
 {
+  options.custom = lib.mkOption {
+    type = lib.types.submodule {
+      options.backups = lib.mkOption {
+        type = lib.types.submodule {
+          options.backblaze = lib.mkOption {
+            type = (lib.types.listOf lib.types.str);
+            default = [ ];
+          };
+        };
+      };
+    };
+  };
   imports = [ inputs.secrets.server-main.restic ];
   users.users."${user}".isNormalUser = true;
   services.restic.backups = {
@@ -20,15 +42,7 @@ in
         export B2_ACCOUNT_KEY=$(<"/run/secrets/restic/account-key")
         exec /run/wrappers/bin/restic "$@"
       '';
-      paths = [
-        "${config.users.users.${username}.home}/Sync"
-        "${config.users.users.${username}.home}/.podman/cloud/data/user/files"
-        "${config.users.users.${username}.home}/.podman/immich/data"
-        "${config.users.users.${username}.home}/.podman/shared/backups/"
-        # "${config.users.users.${username}.home}/.podman/mariadb"
-        # "${config.users.users.${username}.home}/.podman/postgres"
-        "${config.users.users.${username}.home}/.podman/gitea"
-      ];
+      paths = config.custom.backup.backblaze;
       repositoryFile = "/run/secrets/restic/repo";
       passwordFile = "/run/secrets/restic/key";
       timerConfig = {
