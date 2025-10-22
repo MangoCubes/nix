@@ -15,7 +15,6 @@
     }:
     {
       imports = [
-        ./home-options.nix
         ./packages/home/atuin.nix
         ./packages/home/bash.nix
         ./packages/home/yazi.nix

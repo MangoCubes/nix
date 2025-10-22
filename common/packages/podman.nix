@@ -7,7 +7,12 @@
   virtualisation.podman.enable = true;
 
   home-manager.users."${username}" =
-    { pkgs, config, ... }:
+    {
+      pkgs,
+      config,
+      lib,
+      ...
+    }:
     let
       podman-watcher = import ./podman/podman-watcher.nix {
         inherit (pkgs)
@@ -26,6 +31,17 @@
       '';
     in
     {
+      options.custom = lib.mkOption {
+        type = lib.types.submodule {
+          options.podman = lib.mkOption {
+            type = lib.types.submodule {
+              options.containers = lib.mkOption {
+                type = (lib.types.listOf lib.types.str);
+              };
+            };
+          };
+        };
+      };
       home.packages = with pkgs; [
         dive # look into podman image layers
         podman-tui # status of containers in the terminal
