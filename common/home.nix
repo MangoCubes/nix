@@ -15,6 +15,7 @@
     }:
     {
       imports = [
+        ./packages/home/nixvim.nix
         ./packages/home/atuin.nix
         ./packages/home/podman/syncthing.nix
         ./packages/home/bash.nix
