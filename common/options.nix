@@ -1,53 +1,42 @@
 { lib, ... }:
 {
-  # Create a new option...
-  options = {
-    # Named `custom`...
-    custom = lib.mkOption {
-      # With a type of `submodule` (a set of options)
-      type = lib.types.submodule {
-        # Create a new option...
-        options = {
-          # Named `networking`...
-          networking = lib.mkOption {
-            # With a type of `submodule` (a set of options)
-            type = lib.types.submodule {
-              # Create a new option...
-              options = {
-                # Named `primary`...
-                primary = lib.mkOption {
-                  # With a type of string
-                  type = lib.types.str;
-                  # That defaults to an empty string
-                  default = "";
-                };
-                secondary = lib.mkOption {
-                  type = lib.types.str;
-                };
-              };
-            };
-            default = {
-              primary = "";
-            };
+  # Create a new option named `custom`...
+  options.custom = lib.mkOption {
+    # With a type of `submodule` (a set of options)
+    type = lib.types.submodule {
+      # Create a new option named `networking`...
+      options.networking = lib.mkOption {
+        # With a type of `submodule` (a set of options)
+        type = lib.types.submodule {
+          # Create a new option named `primary`...
+          options.primary = lib.mkOption {
+            # With a type of string
+            type = lib.types.str;
+            # That defaults to an empty string
+            default = "";
           };
-          features = lib.mkOption {
-            type = lib.types.submodule {
-              options = {
-                tablet = lib.mkOption {
-                  type = lib.types.bool;
-                  default = false;
-                };
-              };
-            };
-            default = {
-              tablet = false;
-            };
+          options.secondary = lib.mkOption {
+            type = lib.types.str;
           };
         };
+        default = {
+          primary = "";
+        };
       };
-      default = {
-        features.tablet = false;
+      options.features = lib.mkOption {
+        type = lib.types.submodule {
+          options.tablet = lib.mkOption {
+            type = lib.types.bool;
+            default = false;
+          };
+        };
+        default = {
+          tablet = false;
+        };
       };
+    };
+    default = {
+      features.tablet = false;
     };
   };
 }
