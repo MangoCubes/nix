@@ -13,10 +13,10 @@
   home.packages = (
     with unstable.kdePackages;
     [
+      filelight
       dolphin
       qtsvg
       breeze-icons
-      kio-fuse
       okular
     ]
   );

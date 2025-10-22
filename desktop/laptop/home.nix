@@ -1,7 +1,12 @@
 { username, ... }:
 {
   home-manager.users."${username}" =
-    { pkgs, unfreeUnstable, ... }:
+    {
+      pkgs,
+      unstable,
+      unfreeUnstable,
+      ...
+    }:
     {
       imports = [
         ../packages/home/factorio.nix
@@ -9,6 +14,7 @@
       ];
       home.packages = [
         unfreeUnstable.osu-lazer-bin
+        unstable.webcord
       ];
     };
 }
