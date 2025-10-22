@@ -58,7 +58,7 @@ in
 {
   imports = [
     (
-      if device == "server" then
+      if device.type == "server" then
         inputs.secrets.hm.syncthing-server
       else
         inputs.secrets.hm.syncthing-client
@@ -110,7 +110,7 @@ in
   };
 }
 // (
-  if (device == "server") then
+  if (device.type == "server") then
     {
       custom.backups.backblaze = [
         "${config.home.homeDirectory}/Sync"

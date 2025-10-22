@@ -10,9 +10,9 @@
 }:
 let
   # Disable if headless
-  dih = attrset: (if device == "server" then { } else attrset);
+  dih = attrset: (if device.type == "server" then { } else attrset);
   # Empty if headless
-  eih = attrset: (if device == "server" then [ ] else attrset);
+  eih = attrset: (if device.type == "server" then [ ] else attrset);
 in
 {
   imports = [

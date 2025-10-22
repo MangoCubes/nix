@@ -7,7 +7,7 @@
   ...
 }:
 let
-  isServer = device == "server";
+  isServer = device.type == "server";
   stateFile = "/home/${username}/Sync/LinuxConfig/data/yazi/projects.json";
   linktofile = pkgs.writeShellScriptBin "linktofile" ''cat "$@" > "$@-temp" && rm "$@" && mv "$@-temp" "$@"'';
   pastecp = pkgs.writeShellScriptBin "pastecp" ''
