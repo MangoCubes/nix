@@ -11,6 +11,20 @@
 {
   home-manager.users."${username}" =
     { pkgs, unfreeUnstable, ... }:
+    let
+      mount-android = pkgs.writeShellScriptBin "mount-android" ''
+        jmtpfs -l;
+        echo -n "Enter <busLocation>,<devNum> (two numbers separated by a single comma and no space) to mount:"
+        read devid;
+        mount=~/Mounts/Android/$devid;
+        if [ -z "$(ls -A $mount 2> /dev/null)" ]; then
+            mkdir -p $mount;
+            jmtpfs -device=$devid $mount
+        else
+            echo "Directory $mount is not empty."
+        fi
+      '';
+    in
     {
       xdg.desktopEntries.android-studio = {
         comment = "The official Android IDE";
@@ -28,6 +42,7 @@
         (lib.mkIf (androidStudio) [ unfreeUnstable.android-studio ])
         [
           pkgs.scrcpy
+          mount-android
         ]
         (lib.mkIf (heimdall) [ pkgs.heimdall-gui ])
       ];
