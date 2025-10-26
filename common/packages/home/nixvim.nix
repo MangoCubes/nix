@@ -670,6 +670,16 @@ in
           options.silent = true;
         }
         {
+          key = "<M-Left>";
+          action = "gT";
+          options.silent = true;
+        }
+        {
+          key = "<M-Right>";
+          action = "gt";
+          options.silent = true;
+        }
+        {
           key = "<leader>n";
           action = ''<cmd>lua require("notify").dismiss({pending = true, silent = true})<CR>'';
           options.desc = "Clear all notifications";
