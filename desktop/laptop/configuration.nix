@@ -4,6 +4,7 @@
     inputs.secrets.hw.laptop
     ./boot.nix
     ./home.nix
+    ./networking.nix
     ../packages/wireshark.nix
     ../../common/packages/rclone-mega.nix
     ../packages/sunshine.nix
