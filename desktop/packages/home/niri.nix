@@ -282,8 +282,10 @@ let
   ];
 in
 {
+  imports = [
+    inputs.niri-adv-rules.homeManager
+  ];
   home.packages = [
-    inputs.niri-adv-rules.packages.x86_64-linux.default
     killclick
     findwsid
     openconfig
