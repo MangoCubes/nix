@@ -268,18 +268,21 @@ in
             window = {
               insert_as = "sibling";
               same_level = true;
-              mappings = (
-                dih {
-                  "gx" = {
-                    command.__raw = (builtins.readFile ./nixvim/xdg-open.lua);
-                    desc = "Open file in external application";
-                  };
-                  "gX" = {
-                    command.__raw = (builtins.readFile ./nixvim/open-terminal.lua);
-                    desc = "Open file location in terminal";
-                  };
-                }
-              );
+              mappings = {
+                "F" = {
+                  command = "clear_filter";
+                };
+              }
+              // (dih {
+                "gx" = {
+                  command.__raw = (builtins.readFile ./nixvim/xdg-open.lua);
+                  desc = "Open file in external application";
+                };
+                "gX" = {
+                  command.__raw = (builtins.readFile ./nixvim/open-terminal.lua);
+                  desc = "Open file location in terminal";
+                };
+              });
             };
           };
         };
