@@ -39,6 +39,7 @@
         ../packages/home/keepassxc.nix
         ../packages/home/gocryptfs.nix
         ../packages/home/rclone-server-main.nix
+        ../packages/home/ampterm.nix
       ];
 
       xdg.configFile."configMedia" = {
