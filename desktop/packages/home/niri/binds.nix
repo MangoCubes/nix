@@ -94,10 +94,10 @@
       focus-column-left._props = { };
     };
     "Mod+Down" = {
-      focus-window-or-workspace-down._props = { };
+      focus-window-down._props = { };
     };
     "Mod+Up" = {
-      focus-window-or-workspace-up._props = { };
+      focus-window-up._props = { };
     };
     "Mod+Right" = {
       focus-column-right._props = { };
@@ -131,10 +131,10 @@
       move-column-left._props = { };
     };
     "Mod+Shift+Down" = {
-      move-window-down-or-to-workspace-down._props = { };
+      move-window-down._props = { };
     };
     "Mod+Shift+Up" = {
-      move-window-up-or-to-workspace-up._props = { };
+      move-window-up._props = { };
     };
     "Mod+Shift+Right" = {
       move-column-right._props = { };
