@@ -1,18 +1,26 @@
+{ games }:
 {
   unfreeUnstable,
+  pkgs,
   ...
 }:
 {
-  home.packages = (
-    with unfreeUnstable;
-    [
-      (lutris.override {
-        extraPkgs = pkgs: [
-          wine
-          dxvk
-          vulkan-tools
-        ];
-      })
-    ]
-  );
+  home.packages = [
+    pkgs.wine
+  ]
+  ++ (with unfreeUnstable; [
+    (lutris.override {
+      extraPkgs =
+        pkgs:
+        (
+          if games then
+            [
+              dxvk
+              vulkan-tools
+            ]
+          else
+            [ ]
+        );
+    })
+  ]);
 }
