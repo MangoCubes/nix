@@ -39,7 +39,7 @@ let
         accel-profile = "flat";
       };
       mouse = {
-        accel-speed = 0.5;
+        accel-speed = 0.25;
         accel-profile = "flat";
       };
       trackpoint = {
