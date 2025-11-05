@@ -17,6 +17,7 @@
         mkdir -p ${config.home.homeDirectory}/Downloads
       '';
       imports = [
+        ../packages/home/dictionary.nix
         ../packages/home/cursor.nix
         ../packages/home/emacs.nix
         ../packages/home/firefox.nix
@@ -59,6 +60,7 @@
             sops
             devenv
             element-desktop
+            python3
             # cinny-desktop
           ])
           ++ (with pkgs; [

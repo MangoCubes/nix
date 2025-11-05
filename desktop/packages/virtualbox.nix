@@ -1,4 +1,4 @@
-{ username }:
+{ username, ... }:
 {
   virtualisation.virtualbox = {
     host.enable = true;

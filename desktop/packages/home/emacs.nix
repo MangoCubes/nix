@@ -29,6 +29,8 @@ in
     emacs-org
     emacs-web
     emacs-mail
+    pkgs.texlive.combined.scheme-medium
+    pkgs.texlivePackages.wrapfig
   ]
   ++ (with pkgs; [
     # Necessary for exporting an .org document as .odt
@@ -36,7 +38,6 @@ in
     unzip
 
     perl538Packages.LaTeXML
-    texliveMedium
     xwayland-satellite
   ]);
   xdg = {
