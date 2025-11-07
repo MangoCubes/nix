@@ -23,6 +23,7 @@ in
   home.packages = [
     run-windows
   ];
+  custom.features.windows = true;
   imports = [
     ((import ../../../lib/podman.nix) {
       dependsOn = [ ];

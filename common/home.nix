@@ -21,6 +21,7 @@
         ./packages/home/bash.nix
         ./packages/home/yazi.nix
         ./packages/home/scripts.nix
+        ./home-options.nix
       ];
 
       home.packages =
