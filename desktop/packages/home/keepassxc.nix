@@ -15,6 +15,7 @@ in
     config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Sync/LinuxConfig/keepassxc";
   home.packages = [
     pkgs.keepassxc
+    pkgs.libsecret
     mergepasswords
   ];
 }
