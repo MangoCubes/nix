@@ -1,6 +1,6 @@
 { colours, device, ... }:
 let
-  width = builtins.floor (4 * device.scale);
+  width = 4; # builtins.floor (4 * device.scale);
 in
 {
   services.fnott = {
@@ -25,7 +25,7 @@ in
         # max-icon-size=32
         # selection-helper=dmenu
         # selection-helper-uses-null-separator=no
-        # play-sound=aplay ${filename}
+        play-sound = "pw-play ${./fnott/Transmission.wav}";
 
         # Default values, may be overridden in 'urgency' specific sections
         # layer=top
@@ -38,7 +38,7 @@ in
         padding-vertical = 12;
         padding-horizontal = 12;
 
-        # dpi-aware=no
+        dpi-aware = "yes";
 
         # title-font=sans serif
         # title-color=ffffffff
@@ -56,7 +56,7 @@ in
         # progress-color=ffffffff
         # progress-style=bar
 
-        # sound-file=
+        sound-file = "${./fnott/Transmission.wav}";
         # icon=
 
         # Timeout values are in seconds. 0 to disable

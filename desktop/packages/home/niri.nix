@@ -185,11 +185,6 @@ let
           ];
         }
         {
-          spawn-at-startup._args = [
-            "fnott"
-          ];
-        }
-        {
           environment.DISPLAY._args = [
             ":0"
           ];
