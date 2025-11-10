@@ -27,11 +27,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1762724642,
-        "narHash": "sha256-bODwDL6BOHfB+E6RZs0mrLMpbRw1p7EqKNHH/pZXTiQ=",
+        "lastModified": 1762797042,
+        "narHash": "sha256-8u5Bs9qrC7dOOJImEsv7HjKIYRUqcMwHklkLpzVpfhU=",
         "owner": "MangoCubes",
         "repo": "ampterm",
-        "rev": "e91313e3b65028d7d73f26cac0c57cf89329fe10",
+        "rev": "9fcb87797e22137a846667946b9d8e36b18eac14",
         "type": "github"
       },
       "original": {
