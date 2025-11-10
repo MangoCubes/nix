@@ -10,7 +10,7 @@
     {
       imports = [
         ../packages/home/factorio.nix
-        ((import ../packages/home/lutris.nix) { games = false; })
+        ../packages/home/bottles.nix
       ];
       home.packages = [
         unfreeUnstable.osu-lazer-bin

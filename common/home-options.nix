@@ -9,6 +9,9 @@
             default = false;
           };
         };
+        default = {
+          windows = false;
+        };
       };
     };
     default = {

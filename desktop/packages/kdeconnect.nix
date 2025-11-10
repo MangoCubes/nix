@@ -12,8 +12,6 @@
         '';
       };
     };
-  # Seems necessary for KDEConnect
-  # services.dbus.implementation = "broker";
   networking.firewall = {
     enable = true;
     # KDE Connect
