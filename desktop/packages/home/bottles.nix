@@ -2,6 +2,6 @@
 {
   home.packages = [
     pkgs.dconf
-    pkgs.bottles
+    (pkgs.bottles.override { removeWarningPopup = true; })
   ];
 }

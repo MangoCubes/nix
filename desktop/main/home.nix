@@ -11,7 +11,7 @@
       imports = [
         ../packages/home/factorio.nix
         ../packages/home/windows.nix
-        ../packages/home/bottles.nix
+        ((import ../packages/home/lutris.nix) { games = true; })
         ../packages/home/mitm-proxy.nix
       ];
       home.packages = [
