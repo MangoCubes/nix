@@ -3,9 +3,12 @@
   programs.git = {
     enable = true;
     package = pkgs.gitFull;
-    extraConfig = ''
-      [credential]
-      helper = libsecret
-    '';
+    settings = {
+      credential.helper = "libsecret";
+      user = {
+        email = "10383115+MangoCubes@users.noreply.github.com";
+        name = "MangoCubes";
+      };
+    };
   };
 }

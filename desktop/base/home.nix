@@ -18,7 +18,7 @@
       '';
       imports = [
         ../packages/home/dictionary.nix
-        ../packages/home/dconf.nix
+        # ../packages/home/dconf.nix
         ../packages/home/cursor.nix
         ../packages/home/emacs.nix
         ../packages/home/firefox.nix
@@ -65,6 +65,7 @@
             # cinny-desktop
           ])
           ++ (with pkgs; [
+            dconf
             tor-browser
           ])
           ++ (with inputs.nix-alien.packages.${system}; [

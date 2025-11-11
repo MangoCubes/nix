@@ -26,6 +26,7 @@
 
       home.packages =
         (with pkgs; [
+          nh
           nix-search-cli
           nix-tree
           btop
