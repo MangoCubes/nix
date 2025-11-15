@@ -22,8 +22,19 @@ in
   home.packages = [
     pkgs.nil
     pkgs.lazygit
+    pkgs.libxml2
   ];
   programs.nixvim = {
+    autoCmd = [
+      {
+        desc = "Use xmllint if current file is XML";
+        event = [
+          "FileType"
+        ];
+        pattern = "xml";
+        command = "set equalprg=xmllint\\ --format\\ -";
+      }
+    ];
     nixpkgs.pkgs = unstable;
     enable = true;
     highlight = {
@@ -420,6 +431,13 @@ in
           action = ''<cmd>silent exec "!term bash -c yazi &"<CR>'';
           options.desc = "Launch Yazi";
         }
+
+        {
+          key = "<leader>lj";
+          action = ''<cmd>setf json<CR>'';
+          options.desc = "JSON";
+        }
+
         {
           key = "<leader>pt";
           action = ''<cmd>silent exec "!t"<CR>'';
