@@ -9,13 +9,15 @@
           "<Ctrl-w><q>" = "Quit";
         };
       };
-      use_legacy_auth = true;
-      auto_focus = true;
+    };
+    extraOptions = {
       auth = {
         url = "echo https://music.skew.ch";
         username = "echo admin";
         password = "secret-tool lookup Path '/Ampache'";
       };
+      use_legacy_auth = true;
+      auto_focus = true;
     };
   };
 }
