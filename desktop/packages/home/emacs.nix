@@ -19,6 +19,21 @@ let
   emacs-org = pkgs.writeShellScriptBin "emacs-org" ''emacsclient -c --eval '(find-file "${config.home.homeDirectory}/Sync/Notes/Org/Main.org")' '';
   emacs-web = pkgs.writeShellScriptBin "emacs-web" ''emacsclient -c --eval '(find-file "${config.home.homeDirectory}/Sync/Website/src/org/index.org")' '';
   emacs-mail = pkgs.writeShellScriptBin "emacs-mail" ''emacsclient -c -e '(notmuch-search "tag:inbox")' '';
+  tex = (
+    pkgs.texlive.combine {
+      inherit (pkgs.texlive)
+        scheme-medium
+        dvisvgm
+        dvipng # for preview and export as html
+        wrapfig
+        amsmath
+        ulem
+        hyperref
+        capt-of
+        collection-langkorean
+        ;
+    }
+  );
 in
 {
   # Short for Emacs Server
@@ -29,16 +44,14 @@ in
     emacs-org
     emacs-web
     emacs-mail
-    pkgs.texlive.combined.scheme-medium
-    pkgs.texlivePackages.wrapfig
   ]
   ++ (with pkgs; [
     # Necessary for exporting an .org document as .odt
     zip
     unzip
 
-    perl538Packages.LaTeXML
     xwayland-satellite
+    tex
   ]);
   xdg = {
     # Use xdg-mime query filetype <FILE> to determine a file's mime type
