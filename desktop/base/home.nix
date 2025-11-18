@@ -66,6 +66,7 @@
             # cinny-desktop
           ])
           ++ (with pkgs; [
+            pulseaudio
             dconf
             tor-browser
           ])
