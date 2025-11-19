@@ -1,15 +1,10 @@
 { lib, ... }:
 {
-  options.custom = lib.mkOption {
+  options.custom.podman = lib.mkOption {
     type = lib.types.submodule {
-      options.podman = lib.mkOption {
-        type = lib.types.submodule {
-          options.containers = lib.mkOption {
-            type = (lib.types.listOf lib.types.str);
-          };
-        };
+      options.containers = lib.mkOption {
+        type = (lib.types.listOf lib.types.str);
       };
     };
   };
-
 }
