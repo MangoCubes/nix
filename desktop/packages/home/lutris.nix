@@ -1,6 +1,6 @@
 { games }:
 {
-  unfreeUnstable,
+  unfree,
   pkgs,
   ...
 }:
@@ -8,7 +8,7 @@
   home.packages = [
     pkgs.wine
   ]
-  ++ (with unfreeUnstable; [
+  ++ (with unfree; [
     (lutris.override {
       extraPkgs =
         pkgs:

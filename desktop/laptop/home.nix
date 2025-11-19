@@ -9,12 +9,12 @@
     }:
     {
       imports = [
-        ../packages/home/factorio.nix
+        # ../packages/home/factorio.nix
         ../packages/home/bottles.nix
       ];
       home.packages = [
         unfreeUnstable.osu-lazer-bin
-        unstable.webcord
+        unfreeUnstable.beeper
       ];
     };
 }

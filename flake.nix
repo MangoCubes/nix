@@ -134,6 +134,7 @@
                   inherit
                     inputs
                     unfreeUnstable
+                    unfree
                     unstable
                     colours
                     hostname
