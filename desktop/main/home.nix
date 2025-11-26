@@ -19,6 +19,7 @@
         # unstable.webcord
         unstable.prismlauncher
         pkgs.xournalpp
+        unfreeUnstable.beeper
       ];
     };
 }
