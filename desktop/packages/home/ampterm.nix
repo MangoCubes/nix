@@ -4,11 +4,7 @@
   programs.ampterm = {
     enable = true;
     settings = {
-      keybindings = {
-        Common = {
-          "<Ctrl-w><q>" = "Quit";
-        };
-      };
+      keybindings = { };
     };
     extraOptions = {
       auth = {
@@ -17,7 +13,11 @@
         password = "secret-tool lookup Path '/Ampache'";
       };
       use_legacy_auth = true;
-      auto_focus = true;
+      behaviour.auto_focus = true;
+      features = {
+        lyrics.enable = true;
+        bpmtoy.enable = true;
+      };
     };
   };
 }
