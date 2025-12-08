@@ -60,13 +60,12 @@
             vlc
             sshpass
             sops
-            devenv
             element-desktop
             python3
             # cinny-desktop
           ])
           ++ (with pkgs; [
-            pulseaudio
+            webcord
             dconf
             tor-browser
           ])
