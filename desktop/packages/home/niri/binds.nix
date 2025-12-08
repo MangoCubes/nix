@@ -374,7 +374,9 @@
       ];
     };
     "Mod+Shift+M" = {
-      focus-workspace = "media";
+      spawn._args = [
+        "openmedia"
+      ];
     };
     "Mod+TouchpadScrollDown" = {
       spawn._args = [

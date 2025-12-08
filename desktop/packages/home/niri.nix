@@ -20,6 +20,11 @@ let
     niri msg action focus-workspace config
     niri msg -j windows | ${pkgs.jq}/bin/jq -e ".[] | select(.workspace_id == $WSID and .title == \"NixConfig\")" > /dev/null || rofi-env NixConfig;
   '';
+  openmedia = pkgs.writeShellScriptBin "openmedia" ''
+    WSID=$(${findwsid}/bin/findwsid media)
+    niri msg action focus-workspace media
+    niri msg -j windows | ${pkgs.jq}/bin/jq -e ".[] | select(.workspace_id == $WSID and .title == \"ampterm\")" > /dev/null || d term -T ampterm ampterm;
+  '';
   multiMonitors = (builtins.length device.monitors) != 1;
   gesture = lib.hm.generators.toKDL { } {
     gestures.hot-corners.off._props = { };
@@ -284,6 +289,7 @@ in
     killclick
     findwsid
     openconfig
+    openmedia
   ]
   ++ (with pkgs; [
     playerctl
