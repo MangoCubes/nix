@@ -61,6 +61,7 @@
             sshpass
             sops
             element-desktop
+            pulseaudio
             python3
             # cinny-desktop
           ])

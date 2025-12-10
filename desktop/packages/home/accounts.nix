@@ -23,6 +23,8 @@
   services.mbsync = {
     frequency = "*:0/1";
     enable = true;
+    # Delete ~/.mail/personal (keep ~/.mail/personal directory itself) if this error happens:
+    # Error: channel personal: far side box ___ cannot be opened anymore.
     postExec = "${pkgs.notmuch}/bin/notmuch new";
   };
   programs.mbsync = {
