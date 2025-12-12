@@ -12,6 +12,11 @@
         useOSProber = true;
       };
     };
-    kernelParams = [ "quiet" "splash" ];
+    kernelParams = [
+      "quiet"
+      "splash"
+      # Keyboard fix
+      "usbcore.autosuspend=-1"
+    ];
   };
 }
