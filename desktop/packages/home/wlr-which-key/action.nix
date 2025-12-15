@@ -114,7 +114,7 @@
       {
         key = "e";
         desc = "󱓥 Edit Clipboard";
-        cmd = ''term bash -c "wl-paste | ${pkgs.moreutils}/bin/vipe | wl-copy"'';
+        cmd = ''term bash -c "wl-paste | ${pkgs.moreutils}/bin/vipe | wl-copy -n 2>/dev/null"'';
       }
       {
         key = "y";
