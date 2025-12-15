@@ -20,6 +20,9 @@ let
     niri msg action focus-workspace config
     niri msg -j windows | ${pkgs.jq}/bin/jq -e ".[] | select(.workspace_id == $WSID and .title == \"NixConfig\")" > /dev/null || rofi-env NixConfig;
   '';
+  qrscan = pkgs.writeShellScriptBin "qrscan" ''
+    selected_area=$(${pkgs.slurp}/bin/slurp) && ${pkgs.grim}/bin/grim -g "$selected_area" - | ${pkgs.zbar}/bin/zbarimg - | tee >(${pkgs.notify-desktop}/bin/notify-desktop "QR Code Captured" "$(cat)") | wl-copy;
+  '';
   openmedia = pkgs.writeShellScriptBin "openmedia" ''
     WSID=$(${findwsid}/bin/findwsid media)
     niri msg action focus-workspace media
@@ -290,6 +293,7 @@ in
     findwsid
     openconfig
     openmedia
+    qrscan
   ]
   ++ (with pkgs; [
     playerctl
