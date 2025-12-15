@@ -3,9 +3,6 @@
   imports = [ inputs.ampterm.homeManager.default ];
   programs.ampterm = {
     enable = true;
-    settings = {
-      keybindings = { };
-    };
     extraOptions = {
       auth = {
         url = "echo https://music.skew.ch";
