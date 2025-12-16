@@ -12,5 +12,9 @@
     ../packages/podman/adguard.nix
     ../packages/podman/headscale.nix
     ../base/configuration.nix
+
+    inputs.secrets.server-network.restic
+    ../packages/restic.nix
+
   ];
 }

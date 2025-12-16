@@ -1,7 +1,6 @@
 {
   pkgs,
   username,
-  inputs,
   config,
   ...
 }:
@@ -16,7 +15,6 @@ in
       imports = [ ./restic/options.nix ];
     };
   imports = [
-    inputs.secrets.server-main.restic
     ./restic/options.nix
   ];
   users.users."${user}".isNormalUser = true;
@@ -33,8 +31,6 @@ in
         config.custom.backups.backblaze
         ++ [
           "${config.users.users.${username}.home}/.podman/shared/backups/"
-          # "${config.users.users.${username}.home}/.podman/mariadb"
-          # "${config.users.users.${username}.home}/.podman/postgres"
         ]
         ++ config.home-manager.users."${username}".custom.backups.backblaze;
       repositoryFile = "/run/secrets/restic/repo";
@@ -58,5 +54,4 @@ in
     permissions = "u=rwx,g=,o=";
     capabilities = "cap_dac_read_search=+ep";
   };
-
 }
