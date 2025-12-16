@@ -33,17 +33,20 @@ let
     ++ [
       (networkServer "dns")
       (networkServer "ca")
-      (mainServer "db")
-      (mainServer "pma")
-      (mainServer "git")
-      (mainServer "mitmweb")
-      (mainServer "pg")
-      (mainServer "manga")
-      (mainServer "media")
-      (mainServer "money")
-      (mainServer "plex")
       (vmServer "vm")
-    ];
+    ]
+    ++ (builtins.map mainServer [
+      "db"
+      "pma"
+      "git"
+      "mitmweb"
+      "pg"
+      "manga"
+      "media"
+      "books"
+      "money"
+      "plex"
+    ]);
 in
 {
   # headscale will look for a configuration file named `config.yaml` (or `config.json`) in the following order:

@@ -28,7 +28,7 @@
         ../packages/home/podman/kavita.nix
         ../packages/home/podman/immich.nix
         # ../packages/home/podman/jellyfin.nix
-        # ../packages/home/podman/plex.nix
+        ../packages/home/podman/calibre.nix
         ../packages/home/podman/redis.nix
         ../packages/home/podman/collabora.nix
         ../packages/home/podman/firefly.nix
