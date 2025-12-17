@@ -27,7 +27,13 @@ let
   openmedia = pkgs.writeShellScriptBin "openmedia" ''
     WSID=$(${findwsid}/bin/findwsid media)
     niri msg action focus-workspace media
-    niri msg -j windows | ${pkgs.jq}/bin/jq -e ".[] | select(.workspace_id == $WSID and .title == \"ampterm\")" > /dev/null || d term -T ampterm ampterm;
+    niri msg -j windows | ${pkgs.jq}/bin/jq -e ".[] | select(.workspace_id == $WSID and .title == \"ampterm\")" > /dev/null || ${
+      config.custom.terminal.genCmd {
+        command = "ampterm";
+        title = "ampterm";
+        detached = true;
+      }
+    }
   '';
   multiMonitors = (builtins.length device.monitors) != 1;
   gesture = lib.hm.generators.toKDL { } {
