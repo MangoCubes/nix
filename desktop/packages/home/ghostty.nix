@@ -5,19 +5,13 @@ let
       command ? null,
       detached ? false,
       title ? null,
+      workingDirectory ? null,
       ...
     }:
     (if detached then [ "d" ] else [ ])
     ++ [ "ghostty" ]
-    ++ (
-      if title == null then
-        [ ]
-      else
-        [
-          "--title"
-          "${title}"
-        ]
-    )
+    ++ (if workingDirectory == null then [ ] else [ "--working-directory=${workingDirectory}" ])
+    ++ (if title == null then [ ] else [ "--title=${title}" ])
     ++ (
       if command == null then
         [ ]
@@ -34,10 +28,15 @@ let
       command ? null,
       detached ? false,
       title ? null,
-      ...
+      workingDirectory ? null,
     }:
     builtins.concatStringsSep " " (genCmdList {
-      inherit command detached title;
+      inherit
+        command
+        detached
+        title
+        workingDirectory
+        ;
     });
   term = pkgs.writeShellScriptBin "term" (genCmd {
     command = "\"$@\"";
