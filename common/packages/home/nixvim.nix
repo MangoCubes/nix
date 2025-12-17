@@ -182,6 +182,7 @@ in
       })
       // {
         # transparent.enable = true;
+        nvim-surround.enable = true;
         marks = {
           enable = true;
         };
@@ -217,10 +218,6 @@ in
         gitignore.enable = true;
         yazi.enable = true;
         telescope.enable = true;
-        image = {
-          enable = true;
-          settings.backend = "kitty";
-        };
         startify = {
           enable = true;
           settings = {
