@@ -39,7 +39,7 @@ let
         ;
     });
   term = pkgs.writeShellScriptBin "term" (genCmd {
-    command = "\"$@\"";
+    command = "$@";
   });
   detached = pkgs.writeShellScriptBin "t" (genCmd {
     command = "bash";
