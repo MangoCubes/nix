@@ -1,5 +1,34 @@
 { unstable, pkgs, ... }:
 let
+  genCmdList =
+    {
+      command ? null,
+      detached ? false,
+      title ? null,
+      ...
+    }:
+    (if detached then [ "d" ] else [ ])
+    ++ [ "ghostty" ]
+    ++ (
+      if title == null then
+        [ ]
+      else
+        [
+          "--title"
+          "${title}"
+        ]
+    )
+    ++ (
+      if command == null then
+        [ ]
+      else
+        [
+          "-e"
+          "sh"
+          "-c"
+          ''"${command}"''
+        ]
+    );
   genCmd =
     {
       command ? null,
@@ -7,14 +36,9 @@ let
       title ? null,
       ...
     }:
-    let
-      flags = [
-        (if title == null then "" else "--title ${title}")
-        (if command == null then "" else "-e ${command}")
-      ];
-      cmd = "ghostty ${(builtins.concatStringsSep " " flags)}";
-    in
-    (if detached then "d ${cmd}" else cmd);
+    builtins.concatStringsSep " " (genCmdList {
+      inherit command detached title;
+    });
   term = pkgs.writeShellScriptBin "term" (genCmd {
     command = "\"$@\"";
   });
@@ -35,6 +59,7 @@ in
   custom.terminal = {
     program = "ghostty";
     inherit genCmd;
+    inherit genCmdList;
   };
   programs.ghostty = {
     enable = true;
