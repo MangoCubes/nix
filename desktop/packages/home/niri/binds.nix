@@ -15,8 +15,7 @@
     "Mod+E" = {
       spawn._args = [
         "term"
-        "-o"
-        "confirm_os_window_close=0"
+        "-e"
         "yazi"
       ];
     };

@@ -61,7 +61,7 @@ in
               ];
               terminal = [
                 {
-                  run = ''term "$@"'';
+                  run = ''term --working-directory="$(dirname '$@')"'';
                   desc = "Open in terminal";
                   orphan = true;
                 }
@@ -89,7 +89,7 @@ in
               ];
               sops = [
                 {
-                  run = ''term sops "$@"'';
+                  run = ''term -e sops "$@"'';
                   for = "unix";
                   desc = "Decrypt";
                   orphan = true;
@@ -268,7 +268,7 @@ in
               {
                 on = "T";
                 run = [
-                  ''shell --orphan -- term -d "$(dirname '$@')" ''
+                  ''shell --orphan -- term --working-directory="$(dirname '$@')" ''
                 ];
               }
               {
