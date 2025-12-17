@@ -1,8 +1,23 @@
 { unstable, pkgs, ... }:
 let
-  term = pkgs.writeShellScriptBin "term" ''ghostty "$@"'';
-  detached = pkgs.writeShellScriptBin "t" ''d ghostty bash'';
-  dt = pkgs.writeShellScriptBin "dt" ''d ghostty bash -c "$*"'';
+  genCmd =
+    {
+      command,
+      detached ? false,
+      title ? "Terminal",
+      ...
+    }:
+    let
+      cmd = "ghostty --title ${title} -e ${command}";
+    in
+    (if detached then "d ${cmd}" else cmd);
+  term = pkgs.writeShellScriptBin "term" (genCmd {
+    command = "\"$@\"";
+  });
+  detached = pkgs.writeShellScriptBin "t" (genCmd {
+    command = "bash";
+    detached = true;
+  });
 in
 {
   programs.bash.shellAliases = {
@@ -11,9 +26,9 @@ in
   home.packages = [
     detached
     term
-    dt
   ];
-
+  imports = [ ./ghostty/options.nix ];
+  custom.terminal = genCmd;
   programs.ghostty = {
     enable = true;
     package = unstable.ghostty;
