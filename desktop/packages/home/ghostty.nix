@@ -2,13 +2,17 @@
 let
   genCmd =
     {
-      command,
+      command ? null,
       detached ? false,
-      title ? "Terminal",
+      title ? null,
       ...
     }:
     let
-      cmd = "ghostty --title ${title} -e ${command}";
+      flags = [
+        (if title == null then "" else "--title ${title}")
+        (if command == null then "" else "-e ${command}")
+      ];
+      cmd = "ghostty ${(builtins.concatStringsSep " " flags)}";
     in
     (if detached then "d ${cmd}" else cmd);
   term = pkgs.writeShellScriptBin "term" (genCmd {
@@ -28,7 +32,10 @@ in
     term
   ];
   imports = [ ./ghostty/options.nix ];
-  custom.terminal = genCmd;
+  custom.terminal = {
+    program = "ghostty";
+    inherit genCmd;
+  };
   programs.ghostty = {
     enable = true;
     package = unstable.ghostty;

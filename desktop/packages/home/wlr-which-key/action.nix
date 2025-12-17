@@ -114,12 +114,22 @@
       {
         key = "e";
         desc = "󱓥 Edit Clipboard";
-        cmd = ''term bash -c "wl-paste | ${pkgs.moreutils}/bin/vipe | wl-copy -n 2>/dev/null"'';
+        cmd = (
+          config.custom.terminal.genCmd {
+            command = "wl-paste | ${pkgs.moreutils}/bin/vipe | wl-copy -n 2>/dev/null";
+            detached = true;
+          }
+        );
       }
       {
         key = "y";
         desc = "󰥨 Open Yazi";
-        cmd = ''term yazi "$(wl-paste)"'';
+        cmd = (
+          config.custom.terminal.genCmd {
+            command = ''yazi "$(wl-paste)"'';
+            detached = true;
+          }
+        );
       }
       {
         key = "b";
