@@ -24,7 +24,6 @@
         ../packages/home/emacs.nix
         ../packages/home/firefox.nix
         ../packages/home/xdg.nix
-        ../packages/home/kitty.nix
         ../packages/home/rofi.nix
         ../packages/home/bash.nix
         ../packages/home/git.nix
