@@ -3,6 +3,7 @@
   username,
   unstable,
   device,
+  config,
   lib,
   ...
 }:
@@ -61,7 +62,7 @@ in
               ];
               terminal = [
                 {
-                  run = ''term "$@"'';
+                  run = (config.custom.terminal.genCmd { workingDirectory = ''$(dirname "$@")''; });
                   desc = "Open in terminal";
                   orphan = true;
                 }
@@ -89,7 +90,7 @@ in
               ];
               sops = [
                 {
-                  run = ''term sops "$@"'';
+                  run = (config.custom.terminal.genCmd { command = ''sops "$@"''; });
                   for = "unix";
                   desc = "Decrypt";
                   orphan = true;
@@ -268,7 +269,7 @@ in
               {
                 on = "T";
                 run = [
-                  ''shell --orphan -- term -d "$(dirname '$@')" ''
+                  ''shell --orphan -- ${config.custom.terminal.genCmd { workingDirectory = ''$(dirname "$@")''; }}''
                 ];
               }
               {

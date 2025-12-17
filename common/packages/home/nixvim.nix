@@ -6,6 +6,7 @@
   unstable,
   device,
   colours,
+  config,
   ...
 }:
 let
@@ -425,7 +426,12 @@ in
         }
         {
           key = "<leader>py";
-          action = ''<cmd>silent exec "!term bash -c yazi &"<CR>'';
+          action = ''<cmd>silent exec "!${
+            config.custom.terminal.genCmd {
+              command = "yazi";
+              detached = true;
+            }
+          }"<CR>'';
           options.desc = "Launch Yazi";
         }
 
@@ -438,7 +444,7 @@ in
         {
           key = "<leader>pt";
           action = ''<cmd>silent exec "!t"<CR>'';
-          options.desc = "Launch Kitty terminal";
+          options.desc = "Launch terminal";
         }
         {
           key = "gD";
@@ -495,7 +501,7 @@ in
         }
 
         {
-          key = "S";
+          key = "<A-e>";
           action = "<cmd>lua vim.diagnostic.open_float()<CR>";
           options.desc = "Show warnings and errors at the cursor";
         }
@@ -522,12 +528,22 @@ in
         }
         {
           key = "<M-s>";
-          action = ''term sh -c start'';
+          action = (
+            config.custom.terminal.genCmd {
+              command = "start";
+              detached = true;
+            }
+          );
           options.desc = ''Build (debug) and run program in a new terminal'';
         }
         {
           key = "<M-C-s>";
-          action = ''term sh -c start-release'';
+          action = (
+            config.custom.terminal.genCmd {
+              command = "start-release";
+              detached = true;
+            }
+          );
           options.desc = ''Build (release) and run program in a new terminal'';
         }
       ])

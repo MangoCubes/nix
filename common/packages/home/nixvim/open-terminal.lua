@@ -5,7 +5,7 @@ function(state)
 
 	local lastSlashIndex = path:match("^(.*)/")
 
-	local command = 'term -d "' .. lastSlashIndex .. '" bash'
+	local command = 'ghostty --working-directory="' .. lastSlashIndex
 
 	vim.notify("Opening terminal in " .. lastSlashIndex .. "!")
 	os.execute("(" .. command .. " > /dev/null 2>&1 &)")

@@ -81,7 +81,11 @@ in
       emacs-nw = {
         name = "Emacs Client (No Window)";
         genericName = "Text Editor";
-        exec = ''term emacsclient -nw'';
+        exec = (
+          config.custom.terminal.genCmd {
+            command = ''emacsclient -nw'';
+          }
+        );
         # terminal = true;
         # categories = [ "Application" "Network" "WebBrowser" ];
         mimeType = [

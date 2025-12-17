@@ -25,7 +25,7 @@
       show-icons = true;
     };
     package = pkgs.rofi-wayland;
-    terminal = "term";
+    terminal = config.custom.terminal.program;
     plugins = [
       pkgs.rofi-calc
       pkgs.rofi-emoji

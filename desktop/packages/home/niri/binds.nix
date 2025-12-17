@@ -1,10 +1,11 @@
+{ config, ... }:
 {
   binds = {
     "Mod+T" = {
       _props = {
         hotkey-overlay-title = "Open a Terminal";
       };
-      spawn = "term";
+      spawn = config.custom.terminal.program;
     };
     "Mod+Shift+B" = {
       _props = {
@@ -13,12 +14,11 @@
       spawn = "browser";
     };
     "Mod+E" = {
-      spawn._args = [
-        "term"
-        "-o"
-        "confirm_os_window_close=0"
-        "yazi"
-      ];
+      spawn._args = (
+        config.custom.terminal.genCmdList {
+          command = ''yazi'';
+        }
+      );
     };
     "Mod+Shift+E" = {
       spawn = "dolphin";
