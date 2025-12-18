@@ -67,10 +67,10 @@ in
       font-family = "FiraCode Nerd Font";
       custom-shader-animation = true;
       custom-shader = [
-        "${./ghostty/blaze.glsl}"
         "${./ghostty/trail.glsl}"
         "${./ghostty/pulse.glsl}"
       ];
+      theme = "Dark Pastel";
       background-opacity = 0.625;
       background-blur = true;
       background = "#000000";
