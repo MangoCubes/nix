@@ -18,7 +18,7 @@ vec2 getRectangleCenter(vec4 rectangle) {
 
 const vec4 PULSE_COLOR = vec4(0.278, 0.784, 0.753, 0.4);
 const float PULSE_DURATION = 0.4;
-const float MAX_PULSE_RADIUS = 0.5;
+const float MAX_PULSE_RADIUS = 0.3;
 const float INV_PULSE_THICKNESS = 1.0 / (0.015 * 0.3);
 const float JUMP_THRESHOLD = 0.3;
 const float JUMP_THRESHOLD_SQ = JUMP_THRESHOLD * JUMP_THRESHOLD; // For distance check
