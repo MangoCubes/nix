@@ -69,6 +69,7 @@ in
       custom-shader = [
         "${./ghostty/blaze.glsl}"
         "${./ghostty/trail.glsl}"
+        "${./ghostty/pulse.glsl}"
       ];
       background-opacity = 0.625;
       background-blur = true;
