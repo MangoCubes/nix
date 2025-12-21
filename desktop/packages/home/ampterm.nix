@@ -14,6 +14,7 @@
       features = {
         lyrics.enable = true;
         bpmtoy.enable = true;
+        cover_art.enable = true;
       };
     };
   };
