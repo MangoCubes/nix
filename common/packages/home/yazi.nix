@@ -16,7 +16,7 @@ let
     if [ "$(echo "$OUTPUT" | grep -c -v '^file:///' )" -eq 0 ]; then
       echo "$OUTPUT" | while read -r line; do
         FILE_PATH="''${line#file://}"
-        cp "$FILE_PATH" .
+        cp -r "$FILE_PATH" .
       done
     fi
   '';
