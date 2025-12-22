@@ -20,7 +20,7 @@
     nixvim = {
       url = "github:nix-community/nixvim";
     };
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
     unstablePkg.url = "github:nixos/nixpkgs/nixos-unstable";
     niri-adv-rules.url = "github:MangoCubes/niri-adv-rules";
     ampterm.url = "github:MangoCubes/ampterm";

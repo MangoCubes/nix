@@ -24,7 +24,7 @@
       display-calc = "󰪚 Calc ";
       show-icons = true;
     };
-    package = pkgs.rofi-wayland;
+    package = pkgs.rofi;
     terminal = config.custom.terminal.program;
     plugins = [
       pkgs.rofi-calc
