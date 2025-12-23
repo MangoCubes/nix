@@ -21,6 +21,7 @@
         ./packages/home/bash.nix
         ./packages/home/yazi.nix
         ./packages/home/scripts.nix
+        ./packages/home/rclone-koofr.nix
         ./home-options.nix
       ];
 
