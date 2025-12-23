@@ -17,7 +17,7 @@ let
         acc
         // {
           "rebuild-${hostname}" =
-            "${reloadSecrets} && nixos-rebuild --flake ${config.home.homeDirectory}/Sync/NixConfig#${hostname} --target-host main@${hostname} --use-remote-sudo switch";
+            "${reloadSecrets} && nixos-rebuild --flake ${config.home.homeDirectory}/Sync/NixConfig#${hostname} --target-host main@${hostname} --sudo --ask-sudo-password switch";
         }
       ) { } remotes;
     in
