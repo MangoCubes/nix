@@ -1,4 +1,4 @@
-{ username, ... }:
+{ username, device, ... }:
 {
   # This specified home-manager options
   # Anything set in this applies to the user specified only
@@ -15,15 +15,22 @@
     }:
     {
       imports = [
-        ./packages/home/nixvim.nix
         ./packages/home/atuin.nix
-        ./packages/home/podman/syncthing.nix
         ./packages/home/bash.nix
-        ./packages/home/yazi.nix
         ./packages/home/scripts.nix
         ./packages/home/rclone-koofr.nix
         ./home-options.nix
-      ];
+      ]
+      ++ (
+        if device.type != "vm" then
+          [
+            ./packages/home/podman/syncthing.nix
+            ./packages/home/yazi.nix
+            ./packages/home/nixvim.nix
+          ]
+        else
+          [ ]
+      );
 
       home.packages =
         (with pkgs; [

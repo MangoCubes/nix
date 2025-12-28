@@ -177,7 +177,7 @@
                 ./desktop/${hostname}/configuration.nix
                 extraOptions
               ]
-            else if device.type == "server" then
+            else if device.type == "server" || device.type == "vm" then
               [
                 # This includes per-machine config based on the flake name
                 ./server/${hostname}/configuration.nix
@@ -380,7 +380,7 @@
       });
       nixosConfigurations.server-media = nixpkgs.lib.nixosSystem (genSystem {
         hostname = "server-media";
-        device.type = "server";
+        device.type = "vm";
       });
       nixosConfigurations.build-qcow2 = nixpkgs.lib.nixosSystem (genImage {
         hostname = "PLACEHOLDER";

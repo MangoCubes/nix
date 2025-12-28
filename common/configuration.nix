@@ -1,3 +1,4 @@
+{ device, ... }:
 {
   # Import is basically "merge these files into this file"
   # This allows you to split files into multiple parts
@@ -8,9 +9,16 @@
     ./networking.nix
     ./security.nix
     ./home.nix
-    ./packages/podman.nix
     ./packages/tailscale.nix
     ./nix.nix
-    ./packages/ssh-access.nix
-  ];
+  ]
+  ++ (
+    if device.type != "vm" then
+      [
+        ./packages/podman.nix
+        ./packages/ssh-access.nix
+      ]
+    else
+      [ ]
+  );
 }
