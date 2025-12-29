@@ -51,4 +51,9 @@ in
     desc = "Owned";
     cmd = playSound ./effects/victory.mp3;
   }
+  {
+    key = "a";
+    desc = "Alert";
+    cmd = playSound ./effects/alert.mp3;
+  }
 ]
