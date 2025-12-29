@@ -62,6 +62,12 @@
         "\"browser:rofi-browser\""
       ];
     };
+    "Mod+Shift+S" = {
+      spawn._args = [
+        "wlr-which-key"
+        "soundboard"
+      ];
+    };
     "Mod+B" = {
       spawn._args = [
         "wlr-which-key"

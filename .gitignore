@@ -8,3 +8,4 @@ common/packages/home/podman/syncthing/config-client.xml
 common/packages/home/podman/syncthing/config.xml
 /**/unused/
 .stversions
+desktop/packages/home/wlr-which-key/effects

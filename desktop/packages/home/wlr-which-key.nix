@@ -55,5 +55,6 @@ in
     // (genFile "media")
     // (genFile "niri")
     // (genFile "browser")
+    // (genFile "soundboard")
     // (genFile "advrun");
 }
