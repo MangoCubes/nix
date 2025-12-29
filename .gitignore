@@ -9,3 +9,4 @@ common/packages/home/podman/syncthing/config.xml
 /**/unused/
 .stversions
 desktop/packages/home/wlr-which-key/effects
+desktop/packages/home/niri/effects

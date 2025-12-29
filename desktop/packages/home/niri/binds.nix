@@ -1,6 +1,23 @@
-{ config, ... }:
+{ config, pkgs, ... }:
+let
+  microphone = "alsa_input.usb-Samsung_Samsung_USB_C_Earphones_20160406.1-00.analog-stereo";
+  playSpeaker = file: "${pkgs.sox}/bin/play ${file}";
+  togglemic = pkgs.writeShellScriptBin "togglemic" ''
+    vol=$(pactl get-source-volume ${microphone} | grep -o '[0-9]\+%' | head -n1 | tr -d '%')
+    if [ "$vol" -eq 0 ]; then
+        ${playSpeaker ./effects/on.mp3}
+        pactl set-source-volume ${microphone} 100%
+    else
+        ${playSpeaker ./effects/off.mp3}
+        pactl set-source-volume ${microphone} 0%
+    fi
+  '';
+in
 {
   binds = {
+    "Mod+F1" = {
+      spawn = "${togglemic}/bin/togglemic";
+    };
     "Mod+T" = {
       _props = {
         hotkey-overlay-title = "Open a Terminal";

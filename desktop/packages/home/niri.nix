@@ -275,7 +275,7 @@ let
       )
     )
   );
-  binds = lib.hm.generators.toKDL { } ((import ./niri/binds.nix) { inherit config; });
+  binds = lib.hm.generators.toKDL { } ((import ./niri/binds.nix) { inherit config pkgs; });
   clipboard = lib.hm.generators.toKDL { } {
     clipboard.disable-primary._props = { };
   };
