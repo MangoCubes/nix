@@ -597,10 +597,6 @@ in
           action = "<cmd>Yazi cwd<CR>";
         }
         {
-          key = "<leader>r";
-          action = "<cmd>Yazi toggle<CR>";
-        }
-        {
           key = "<C-Esc>";
           action = "<C-\\><C-n>";
           mode = "t";

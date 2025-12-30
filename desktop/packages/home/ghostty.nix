@@ -45,6 +45,9 @@ let
     command = "bash";
     detached = true;
   });
+  attached = pkgs.writeShellScriptBin "ta" (genCmd {
+    command = "bash";
+  });
 in
 {
   programs.bash.shellAliases = {
@@ -52,6 +55,7 @@ in
   };
   home.packages = [
     detached
+    attached
     term
   ];
   imports = [ ./ghostty/options.nix ];
