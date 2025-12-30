@@ -16,9 +16,12 @@ let
   init = "~/Sync/EmacsConfig/init.el";
 
   loademacs = pkgs.writeShellScriptBin "loademacs" ''${envs} emacs -q --daemon --load ${init}'';
-  emacs-org = pkgs.writeShellScriptBin "emacs-org" ''emacsclient -c --eval '(find-file "${config.home.homeDirectory}/Sync/Notes/Org/Main.org")' '';
-  emacs-web = pkgs.writeShellScriptBin "emacs-web" ''emacsclient -c --eval '(find-file "${config.home.homeDirectory}/Sync/Website/src/org/index.org")' '';
+  emacs-org = pkgs.writeShellScriptBin "emacs-org" ''cd ${config.home.homeDirectory}/Sync/Notes/Org/ && emacsclient -c --eval '(find-file "${config.home.homeDirectory}/Sync/Notes/Org/Main.org")' '';
+  emacs-web = pkgs.writeShellScriptBin "emacs-web" ''cd ${config.home.homeDirectory}/Sync/Website/src/org/ && emacsclient -c --eval '(find-file "${config.home.homeDirectory}/Sync/Website/src/org/index.org")' '';
   emacs-mail = pkgs.writeShellScriptBin "emacs-mail" ''emacsclient -c -e '(notmuch-search "tag:inbox")' '';
+  emacs-daily = pkgs.writeShellScriptBin "emacs-daily" ''emacsclient -c -e '(org-roam-dailies-capture-today)' '';
+  reload-emacs = pkgs.writeShellScriptBin "er" ''emacsclient -e '(kill-emacs)'; loademacs'';
+  reload-emacs-fg = pkgs.writeShellScriptBin "ef" "${envs} emacs -q --fg-daemon --load ${init}";
   tex = (
     pkgs.texlive.combine {
       inherit (pkgs.texlive)
@@ -37,13 +40,14 @@ let
 in
 {
   # Short for Emacs Server
-  programs.bash.shellAliases.er = "emacsclient -e '(kill-emacs)'; loademacs";
-  programs.bash.shellAliases.ef = "${envs} emacs -q --fg-daemon --load ${init}";
   home.packages = [
     loademacs
     emacs-org
     emacs-web
     emacs-mail
+    emacs-daily
+    reload-emacs
+    reload-emacs-fg
   ]
   ++ (with pkgs; [
     # Necessary for exporting an .org document as .odt
