@@ -275,11 +275,15 @@ let
       )
     )
   );
+  recent-windows = lib.hm.generators.toKDL { } (
+    (import ./niri/recent-windows.nix) { inherit colours; }
+  );
   binds = lib.hm.generators.toKDL { } ((import ./niri/binds.nix) { inherit config pkgs; });
   clipboard = lib.hm.generators.toKDL { } {
     clipboard.disable-primary._props = { };
   };
   niriConfig = builtins.concatStringsSep "\n" [
+    recent-windows
     gesture
     input
     outputs
