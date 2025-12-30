@@ -443,7 +443,7 @@ in
 
         {
           key = "<leader>pt";
-          action = ''<cmd>silent exec "!t"<CR>'';
+          action = ''<cmd>silent exec "!td"<CR>'';
           options.desc = "Launch terminal";
         }
         {

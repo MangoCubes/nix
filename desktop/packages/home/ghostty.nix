@@ -38,10 +38,11 @@ let
         workingDirectory
         ;
     });
-  term = pkgs.writeShellScriptBin "term" (genCmd {
+  t = pkgs.writeShellScriptBin "t" (genCmd { });
+  tc = pkgs.writeShellScriptBin "tc" (genCmd {
     command = "$@";
   });
-  detached = pkgs.writeShellScriptBin "t" (genCmd {
+  detached = pkgs.writeShellScriptBin "td" (genCmd {
     command = "bash";
     detached = true;
   });
@@ -56,7 +57,8 @@ in
   home.packages = [
     detached
     attached
-    term
+    tc
+    t
   ];
   imports = [ ./ghostty/options.nix ];
   custom.terminal = {
