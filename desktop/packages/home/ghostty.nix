@@ -67,9 +67,14 @@ in
     inherit genCmdList;
   };
   programs.ghostty = {
+    clearDefaultKeybinds = true;
     enable = true;
     package = unstable.ghostty;
     settings = {
+      keybind = [
+        "ctrl+shift+c=copy_to_clipboard"
+        "ctrl+shift+v=paste_from_clipboard"
+      ];
       font-family = "FiraCode Nerd Font";
       custom-shader-animation = true;
       custom-shader = [
