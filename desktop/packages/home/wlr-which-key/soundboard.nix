@@ -56,4 +56,9 @@ in
     desc = "Alert";
     cmd = playSound ./effects/alert.mp3;
   }
+  {
+    key = "e";
+    desc = "Extraction announcement";
+    cmd = playSound ./effects/extract.wav;
+  }
 ]
