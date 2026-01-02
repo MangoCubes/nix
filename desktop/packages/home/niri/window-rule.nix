@@ -2,7 +2,7 @@
   {
     window-rule = {
       match._props = {
-        app-id = "firefox$";
+        app-id = "floorp$";
         title = "^Picture-in-Picture$";
       };
       open-floating = true;
@@ -11,7 +11,7 @@
   {
     window-rule = {
       match._props = {
-        app-id = "firefox$";
+        app-id = "floorp$";
         title = "Extension";
       };
       open-floating = true;

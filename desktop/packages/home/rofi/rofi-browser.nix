@@ -12,7 +12,7 @@ let
       ''echo "${name} (${builtins.concatStringsSep ", " alias})"'';
   openBrowser =
     { name, ... }:
-    ''if [ $first == "${name}" ]; then coproc (firefox -P "${name}" > /dev/null 2>&1); exit 0; fi'';
+    ''if [ $first == "${name}" ]; then coproc (profilebrowser "${name}" > /dev/null 2>&1); exit 0; fi'';
   envs = (import ../firefox/profiles.nix);
   rofi-browser = pkgs.writeShellScriptBin "rofi-browser" ''
     if [ $# -eq 0 ]

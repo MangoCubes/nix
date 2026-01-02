@@ -130,15 +130,15 @@ let
         })
       ];
     };
-  profilebrowser = pkgs.writeShellScriptBin "profilebrowser" ''firefox -P "$@"'';
-  browser = pkgs.writeShellScriptBin "browser" ''firefox -P Sandbox "$@"'';
+  profilebrowser = pkgs.writeShellScriptBin "profilebrowser" ''floorp -P "$@"'';
+  browser = pkgs.writeShellScriptBin "browser" ''floorp -P Sandbox "$@"'';
 in
 {
   home.packages = [
     profilebrowser
     browser
   ];
-  programs.firefox = {
+  programs.floorp = {
     enable = true;
     policies = (policy network);
     profiles = (lib.mkMerge (map genProfile profiles));
