@@ -61,4 +61,9 @@ in
     desc = "Extraction announcement";
     cmd = playSound ./effects/extract.wav;
   }
+  {
+    key = "B";
+    desc = "BTP";
+    cmd = playSound ./effects/sss.wav;
+  }
 ]
