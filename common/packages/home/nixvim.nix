@@ -183,7 +183,22 @@ in
       })
       // {
         # transparent.enable = true;
-        nvim-surround.enable = true;
+        nvim-surround = {
+          enable = true;
+          settings.keymaps = {
+            insert = "<C-g>S";
+            insert_line = "<C-g>Sl";
+            normal = "S";
+            normal_cur = "SS";
+            normal_line = "Sl";
+            normal_cur_line = "SSl";
+            visual = "S";
+            visual_line = "Sl";
+            delete = "dS";
+            change = "cS";
+            change_line = "cSl";
+          };
+        };
         marks = {
           enable = true;
         };
