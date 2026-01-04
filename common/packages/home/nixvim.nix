@@ -440,11 +440,15 @@ in
           action = ''<cmd>setf json<CR>'';
           options.desc = "JSON";
         }
-
         {
           key = "<leader>pt";
           action = ''<cmd>silent exec "!td"<CR>'';
           options.desc = "Launch terminal";
+        }
+        {
+          key = "<leader>pT";
+          action = ''<cmd>silent exec "!niri msg action spawn -- t"<CR>'';
+          options.desc = "Launch terminal outside this environment";
         }
         {
           key = "gD";
