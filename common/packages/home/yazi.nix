@@ -12,7 +12,7 @@ let
   stateFile = "/home/${username}/Sync/LinuxConfig/data/yazi/projects.json";
   linktofile = pkgs.writeShellScriptBin "linktofile" ''cat "$@" > "$@-temp" && rm "$@" && mv "$@-temp" "$@"'';
   pastecp = pkgs.writeShellScriptBin "pastecp" ''
-    OUTPUT=$(wl-paste)
+    OUTPUT=$(wl-paste -t text/uri-list || exit 0)
     if [ "$(echo "$OUTPUT" | grep -c -v '^file:///' )" -eq 0 ]; then
       echo "$OUTPUT" | while read -r line; do
         FILE_PATH="''${line#file://}"

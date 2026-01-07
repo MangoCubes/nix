@@ -69,12 +69,12 @@ in
       </mime-info>
     '';
     # Use xdg-mime query default <FILETYPE> to query what would be opened when this file is opened
-    mimeApps.defaultApplications."text/org" = "emacs-nw.desktop";
+    mimeApps.defaultApplications."text/org" = "emacs.desktop";
     desktopEntries = {
       emacs = {
         name = "Emacs Client";
         genericName = "Text Editor";
-        exec = ''emacsclient -c'';
+        exec = ''emacsclient -c %f'';
         terminal = false;
         # categories = [ "Application" "Network" "WebBrowser" ];
         mimeType = [
@@ -87,7 +87,7 @@ in
         genericName = "Text Editor";
         exec = (
           config.custom.terminal.genCmd {
-            command = ''emacsclient -nw'';
+            command = ''emacsclient -nw %f'';
           }
         );
         # terminal = true;
