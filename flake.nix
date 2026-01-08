@@ -46,6 +46,10 @@
       # flake = false;
       # inputs
     };
+    quickshell = {
+      url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
+      inputs.nixpkgs.follows = "unstablePkg";
+    };
   };
 
   # This @ sign binds inputs to the value that comes after it
