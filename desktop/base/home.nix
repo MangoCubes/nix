@@ -71,10 +71,7 @@
           ])
           ++ (with inputs.nix-alien.packages.${system}; [
             nix-alien
-          ])
-          ++ [
-            inputs.quickshell.packages."${pkgs.stdenv.hostPlatform.system}".default
-          ];
+          ]);
       };
     };
 }
