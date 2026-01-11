@@ -135,6 +135,12 @@ in
               orphan = true;
             }
           ];
+          edit = [
+            {
+              run = ''$EDITOR "$@"'';
+              block = true;
+            }
+          ];
         };
       open.rules =
         (
