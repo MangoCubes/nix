@@ -46,6 +46,7 @@ let
       "books"
       "money"
       "plex"
+      "music"
     ]);
 in
 {
