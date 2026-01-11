@@ -36,11 +36,11 @@ in
     desc = "Discord join";
     cmd = playSound ./effects/discord-join.mp3;
   }
-  {
-    key = "b";
-    desc = "Battle start";
-    cmd = playSound ./effects/battle.mp3;
-  }
+  # {
+  #   key = "b";
+  #   desc = "Battle start";
+  #   cmd = playSound ./effects/battle.mp3;
+  # }
   {
     key = "c";
     desc = "Caught";
@@ -62,7 +62,7 @@ in
     cmd = playSound ./effects/extract.wav;
   }
   {
-    key = "B";
+    key = "b";
     desc = "BTP";
     cmd = playSound ./effects/sss.wav;
   }
