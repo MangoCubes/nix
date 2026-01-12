@@ -12,7 +12,7 @@
         {
           routerName = "ampache-test";
           url = "music.local";
-          type = 1;
+          type = 2;
           port = 80;
         }
       ];
