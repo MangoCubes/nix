@@ -43,7 +43,7 @@ let
       "pg"
       "manga"
       "media"
-      "books"
+      # "books"
       "money"
       "plex"
       "music"
