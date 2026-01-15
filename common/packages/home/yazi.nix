@@ -149,33 +149,33 @@ in
           else
             [
               {
-                name = "*.apk";
+                url = "*.apk";
                 use = [ "apk" ];
               }
               {
-                name = "*.enc.*";
+                url = "*.enc.*";
                 use = [ "sops" ];
               }
               {
-                name = "*.pdf";
+                url = "*.pdf";
                 use = [ "pdf" ];
               }
               {
-                name = "*shell.nix";
+                url = "*shell.nix";
                 use = [
                   "edit"
                   "nix"
                 ];
               }
               {
-                name = "*flake.nix";
+                url = "*flake.nix";
                 use = [
                   "edit"
                   "flake"
                 ];
               }
               {
-                name = "*.m3u";
+                url = "*.m3u";
                 use = [
                   "vlc"
                   "open"
@@ -190,24 +190,24 @@ in
         )
         ++ [
           {
-            name = "*.zip";
+            url = "*.zip";
             use = [ "extract" ];
           }
           {
-            name = "*.tgz";
+            url = "*.tgz";
             use = [ "extract" ];
           }
           {
-            name = "*.tar.gz";
+            url = "*.tar.gz";
             use = [ "extract" ];
           }
           {
-            name = "*.tar";
+            url = "*.tar";
             use = [ "extract" ];
           }
           # Folder
           {
-            name = "*/";
+            url = "*/";
             use =
               if isServer then
                 [
@@ -252,7 +252,7 @@ in
           }
           # Fallback
           {
-            name = "*";
+            url = "*";
             use = [
               "open"
               "edit"
@@ -270,12 +270,12 @@ in
             [
               {
                 on = "P";
-                run = ''shell 'pastecp' '';
+                run = "shell 'pastecp' ";
               }
               {
                 on = "T";
                 run = [
-                  ''shell --orphan -- ${config.custom.terminal.genCmd { workingDirectory = ''$(dirname "$@")''; }}''
+                  "shell --orphan -- ${config.custom.terminal.genCmd { workingDirectory = ''$(dirname "$@")''; }}"
                 ];
               }
               {
@@ -390,7 +390,7 @@ in
               "L"
             ];
             run = [
-              ''shell 'linktofile $@' ''
+              "shell 'linktofile $@' "
             ];
             desc = "Convert a link into a regular file";
           }
@@ -400,7 +400,7 @@ in
               "p"
             ];
             run = [
-              ''copy path''
+              "copy path"
             ];
             desc = "Copy path of the file";
           }
@@ -410,7 +410,7 @@ in
               "z"
             ];
             run = [
-              ''shell 'ouch compress $@ compressed.zip' ''
+              "shell 'ouch compress $@ compressed.zip' "
             ];
             desc = "Archive selected files to .zip";
           }
@@ -420,7 +420,7 @@ in
               "t"
             ];
             run = [
-              ''shell 'ouch compress $@ compressed.tar.gz' ''
+              "shell 'ouch compress $@ compressed.tar.gz' "
             ];
             desc = "Archive selected files to .tar.gz";
           }
