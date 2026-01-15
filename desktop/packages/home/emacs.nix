@@ -19,7 +19,7 @@ let
   emacs-org = pkgs.writeShellScriptBin "emacs-org" ''cd ${config.home.homeDirectory}/Sync/Notes/Org/ && emacsclient -c --eval '(find-file "${config.home.homeDirectory}/Sync/Notes/Org/Main.org")' '';
   emacs-web = pkgs.writeShellScriptBin "emacs-web" ''cd ${config.home.homeDirectory}/Sync/Website/src/org/ && emacsclient -c --eval '(find-file "${config.home.homeDirectory}/Sync/Website/src/org/index.org")' '';
   emacs-mail = pkgs.writeShellScriptBin "emacs-mail" ''emacsclient -c -e '(notmuch-search "tag:inbox")' '';
-  emacs-daily = pkgs.writeShellScriptBin "emacs-daily" ''emacsclient -c -e '(org-roam-dailies-capture-today)' '';
+  emacs-daily = pkgs.writeShellScriptBin "emacs-daily" ''emacsclient -c -e '(org-roam-dailies-goto-today)' '';
   reload-emacs = pkgs.writeShellScriptBin "er" ''emacsclient -e '(kill-emacs)'; loademacs'';
   reload-emacs-fg = pkgs.writeShellScriptBin "ef" "${envs} emacs -q --fg-daemon --load ${init}";
   tex = (
