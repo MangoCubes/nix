@@ -19,6 +19,7 @@
       volumes = [
         "${config.home.homeDirectory}/.podman/ampache-test/config:/var/www/config"
         "${config.home.homeDirectory}/.podman/ampache-test/media:/media"
+        "${config.home.homeDirectory}/.podman/ampache-test/database:/var/lib/mysql"
       ];
     })
   ];
