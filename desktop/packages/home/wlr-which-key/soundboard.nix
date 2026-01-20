@@ -66,4 +66,9 @@ in
     desc = "BTP";
     cmd = playSound ./effects/sss.wav;
   }
+  {
+    key = "n";
+    desc = "Nuclear launch detected";
+    cmd = playSound ./effects/nuclear-launch-detected.mp3;
+  }
 ]
