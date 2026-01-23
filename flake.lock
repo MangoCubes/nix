@@ -27,11 +27,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1768764941,
-        "narHash": "sha256-3UH9lPVi4osRamVk+jGPdxpnKIijvV/NjYQVQTY9uXU=",
+        "lastModified": 1769195597,
+        "narHash": "sha256-oEZi07tTJi1V26TXVXq65Zt2TEnIXDDTaId3N8IUuS0=",
         "owner": "MangoCubes",
         "repo": "ampterm",
-        "rev": "4631f0535a265ee6e5b01cb2e9b57d3731b98cde",
+        "rev": "f35cd91aeca9be459251e2ad29f60eb941a1928e",
         "type": "github"
       },
       "original": {
@@ -285,11 +285,11 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1761581922,
-        "narHash": "sha256-RXe+N45vrMgLHwG9IMzjydwjrKb4N+SkdziEHrFjN08=",
+        "lastModified": 1768994808,
+        "narHash": "sha256-/wQ3Ud2OKsgwKGCKdeUhSTK6nMkJ5IFFEZe+YdAQ8To=",
         "owner": "MangoCubes",
         "repo": "niri-adv-rules",
-        "rev": "6840167e42812b1025a3dd8ce6508e28a6ef3c7f",
+        "rev": "121422d52a815c9690e18bde51a29e43703eb0c6",
         "type": "github"
       },
       "original": {
@@ -405,16 +405,16 @@
     },
     "nixpkgs_4": {
       "locked": {
-        "lastModified": 1758690382,
-        "narHash": "sha256-NY3kSorgqE5LMm1LqNwGne3ZLMF2/ILgLpFr1fS4X3o=",
+        "lastModified": 1766736597,
+        "narHash": "sha256-BASnpCLodmgiVn0M1MU2Pqyoz0aHwar/0qLkp7CjvSQ=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "e643668fd71b949c53f8626614b21ff71a07379d",
+        "rev": "f560ccec6b1116b22e6ed15f4c510997d99d5852",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
-        "ref": "nixos-unstable",
+        "ref": "nixos-25.11",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -568,7 +568,7 @@
         "unstablePkg": "unstablePkg"
       },
       "locked": {
-        "lastModified": 1768759619,
+        "lastModified": 1769195701,
         "narHash": "sha256-+ZaQaLPqLOyRui43uFs1n9pFYyMphRu5E+OfUA8WE/M=",
         "path": "/home/main/Sync/NixConfig/secrets",
         "type": "path"
