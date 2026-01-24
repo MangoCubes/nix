@@ -317,6 +317,21 @@
           ];
         };
       });
+      nixosConfigurations.mainPresentation = nixpkgs.lib.nixosSystem (genSystem {
+        hostname = "main";
+        device = {
+          type = "desktop";
+          emacsScale = 1;
+          scale = 1;
+          presentation = true;
+          monitors = [
+            {
+              x = 1920;
+              y = 1080;
+            }
+          ];
+        };
+      });
       nixosConfigurations.main = nixpkgs.lib.nixosSystem (genSystem {
         hostname = "main";
         device = {
