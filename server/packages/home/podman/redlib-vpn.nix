@@ -30,7 +30,7 @@ in
 
   services.podman.containers.redlib-vpn = {
     extraConfig.Quadlet.DefaultDependencies = false;
-    image = "ghcr.io/cycneuramus/containers:redlib";
+    image = "quay.io/redlib/redlib:latest";
     autoStart = true;
     network = [ "container:proton-redlib" ];
     autoUpdate = "registry";
