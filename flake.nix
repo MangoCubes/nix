@@ -13,6 +13,8 @@
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
     ];
+    extra-substituters = [ "https://yazi.cachix.org" ];
+    extra-trusted-public-keys = [ "yazi.cachix.org-1:Dcdz63NZKfvUCbDGngQDAZq6kOroIrFoyO064uvLh8k=" ];
   };
   # Where we will get our source code
   inputs = {
@@ -46,6 +48,7 @@
       # flake = false;
       # inputs
     };
+    yazi.url = "github:sxyazi/yazi";
   };
 
   # This @ sign binds inputs to the value that comes after it
@@ -56,6 +59,7 @@
       nixpkgs,
       home-manager,
       unstablePkg,
+      yazi,
       sops-nix,
       ...
     }:
@@ -132,6 +136,7 @@
                 #   }:
                 extraSpecialArgs = {
                   inherit
+                    yazi
                     inputs
                     unfreeUnstable
                     unfree

@@ -1,10 +1,11 @@
 {
   pkgs,
   username,
-  unstable,
   device,
+  unfree,
   config,
   lib,
+  yazi,
   ...
 }:
 let
@@ -33,9 +34,10 @@ in
   xdg.mimeApps.defaultApplications."inode/directory" = "yazi.desktop";
   programs.bash.shellAliases.y = "dt yazi";
   programs.yazi = {
-    package = unstable.yazi;
     enable = true;
-    #    enableNushellIntegration = true;
+    package = yazi.packages.${pkgs.system}.default.override {
+      _7zz = unfree._7zz-rar;
+    };
     settings = {
       mgr.linemode = "mtime";
       opener =
@@ -137,7 +139,8 @@ in
           ];
           edit = [
             {
-              run = ''$EDITOR "$@"'';
+              run = "\${EDITOR:-vi} %s";
+              desc = "$EDITOR";
               block = true;
             }
           ];
@@ -190,20 +193,10 @@ in
         )
         ++ [
           {
-            url = "*.zip";
-            use = [ "extract" ];
-          }
-          {
-            url = "*.tgz";
-            use = [ "extract" ];
-          }
-          {
-            url = "*.tar.gz";
-            use = [ "extract" ];
-          }
-          {
-            url = "*.tar";
-            use = [ "extract" ];
+            mime = "application/{zip,rar,7z*,tar,gzip,xz,zstd,bzip*,lzma,compress,archive,cpio,arj,xar,ms-cab*}";
+            use = [
+              "extract"
+            ];
           }
           # Folder
           {
@@ -212,7 +205,6 @@ in
               if isServer then
                 [
                   "compress"
-
                 ]
               else
                 [
@@ -230,15 +222,6 @@ in
           {
             mime = "image/*";
             use = [ "open" ];
-          }
-          # Archive
-          {
-            mime = "application/{g}zip";
-            use = [ "extract" ];
-          }
-          {
-            mime = "application/x-{tarbzip*7z-compressedxzrar}";
-            use = [ "extract" ];
           }
           # JSON
           {
