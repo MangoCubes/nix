@@ -18,9 +18,9 @@ let
       else
         [
           "-e"
-          "sh"
-          "-c"
-          ''"${command}"''
+          # "sh"
+          # "-c"
+          "${command}"
         ]
     );
   genCmd =
