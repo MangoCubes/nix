@@ -4,6 +4,7 @@
     {
       pkgs,
       unstable,
+      unfree,
       unfreeUnstable,
       ...
     }:
@@ -14,7 +15,7 @@
       ];
       home.packages = [
         unfreeUnstable.osu-lazer-bin
-        unfreeUnstable.beeper
+        unfree.beeper
       ];
     };
 }
