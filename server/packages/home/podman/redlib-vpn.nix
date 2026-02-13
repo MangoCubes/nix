@@ -1,6 +1,6 @@
 { pkgs, ... }:
 let
-  rateLimitCheckRedlib = pkgs.writeShellScriptBin "rateLimitCheckRedlib" ''
+  rlcheck = pkgs.writeShellScriptBin "rlcheck" ''
     # For debugging purpose
     #set -eu
     # Get status code of "r.genit.al"
@@ -25,12 +25,12 @@ let
 in
 {
   home.packages = [
-    rateLimitCheckRedlib
+    rlcheck
   ];
 
   services.podman.containers.redlib-vpn = {
     extraConfig.Quadlet.DefaultDependencies = false;
-    image = "quay.io/redlib/redlib:latest";
+    image = "git.nadeko.net/fijxu/redlib:2026-01-28";
     autoStart = true;
     network = [ "container:proton-redlib" ];
     autoUpdate = "registry";
@@ -61,32 +61,22 @@ in
       "REDLIB_DEFAULT_HIDE_SCORE" = "off";
       "REDLIB_DEFAULT_FIXED_NAVBAR" = "on";
     };
-    # Intended to be used with Anubis
-    # labels = {
-    #   "traefik.enable" = "true";
-    #   "traefik.http.routers.redlib-vpn.rule" = "Host(\\`r.genit.al\\`)";
-    #   "traefik.http.routers.redlib-vpn.entrypoints" = "websecure";
-    #   "traefik.http.routers.redlib-vpn.service" = "s-redlib-vpn";
-    #   "traefik.http.routers.redlib-vpn.tls" = "true";
-    #   "traefik.http.services.s-redlib-vpn.loadbalancer.server.port" = "8080";
-    # };
   };
-  # This runs check-ratelimit.service every 5 minutes
-  systemd.user.timers."check-ratelimit-redlib" = {
+  systemd.user.timers."redlib-check" = {
     Install.WantedBy = [ "timers.target" ];
     Timer = {
       OnBootSec = "5m";
       OnUnitActiveSec = "1m";
-      Unit = "check-ratelimit-redlib.service";
+      Unit = "redlib-check.service";
     };
     Unit.Description = "Do ratelimit check every 5 minutes.";
   };
   # Restart Redlib and VPN if ratelimit is detected
-  systemd.user.services."check-ratelimit-redlib" = {
+  systemd.user.services."redlib-check" = {
     Unit.Description = "Check if Redlib is ratelimited.";
     Service = {
       Type = "oneshot";
-      ExecStart = "${rateLimitCheckRedlib}/bin/rateLimitCheckRedlib";
+      ExecStart = "${rlcheck}/bin/rlcheck";
     };
   };
 }

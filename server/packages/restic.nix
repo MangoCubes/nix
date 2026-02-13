@@ -17,7 +17,22 @@ in
   imports = [
     ./restic/options.nix
   ];
-  users.users."${user}".isNormalUser = true;
+  users.users."${user}" = {
+    subUidRanges = [
+      {
+        count = 100000;
+        startUid = 400000;
+      }
+    ];
+    subGidRanges = [
+      {
+        count = 100000;
+        startGid = 400000;
+      }
+    ];
+
+    isNormalUser = true;
+  };
   services.restic.backups = {
     backblaze = {
       inherit user;
