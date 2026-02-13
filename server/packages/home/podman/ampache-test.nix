@@ -4,6 +4,7 @@
 }:
 {
   imports = [
+    # UID: 33
     ((import ../../../../lib/podman.nix) {
       dependsOn = [ "traefik" ];
       image = "ampache/ampache:latest";

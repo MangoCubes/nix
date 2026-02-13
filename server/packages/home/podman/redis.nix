@@ -1,6 +1,7 @@
 { config, ... }:
 {
   imports = [
+    # UID: 999
     ((import ../../../../lib/podman.nix) {
       dependsOn = null;
       image = "docker.io/library/redis:alpine";

@@ -21,13 +21,13 @@
           port = 8888;
         }
       ];
-      exec = "server start";
+      exec = "start";
       environment = {
         "ATUIN_HOST" = "0.0.0.0";
         "ATUIN_OPEN_REGISTRATION" = "true";
         "RUST_LOG" = "info,atuin_server=debug";
       };
-      environmentFile = [ ''${config.home.homeDirectory}/.config/sops-nix/secrets/atuin-db'' ];
+      environmentFile = [ "${config.home.homeDirectory}/.config/sops-nix/secrets/atuin-db" ];
     })
   ];
 }

@@ -8,6 +8,7 @@
     "${config.home.homeDirectory}/.podman/gitea"
   ];
   imports = [
+    # UID: 1000
     inputs.secrets.server-main.home.gitea
     ((import ../../../../lib/podman.nix) {
       dependsOn = [
@@ -33,7 +34,7 @@
           port = 3000;
         }
       ];
-      environmentFile = [ ''${config.home.homeDirectory}/.config/sops-nix/secrets/gitea'' ];
+      environmentFile = [ "${config.home.homeDirectory}/.config/sops-nix/secrets/gitea" ];
     })
   ];
 }

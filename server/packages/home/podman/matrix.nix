@@ -8,6 +8,7 @@
 {
   imports = [
     inputs.secrets.server-main.home.matrix
+    # UID: 991
     ((import ../../../../lib/podman.nix) {
       dependsOn = [ "traefik" ];
       image = "vectorim/element-web";
