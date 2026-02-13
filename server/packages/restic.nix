@@ -21,13 +21,13 @@ in
     subUidRanges = [
       {
         count = 100000;
-        startUid = 400000;
+        startUid = 400001;
       }
     ];
     subGidRanges = [
       {
         count = 100000;
-        startGid = 400000;
+        startGid = 400001;
       }
     ];
 

@@ -21,13 +21,13 @@ in
       subUidRanges = [
         {
           count = 100000;
-          startUid = 300000;
+          startUid = 300001;
         }
       ];
       subGidRanges = [
         {
           count = 100000;
-          startGid = 300000;
+          startGid = 300001;
         }
       ];
       isNormalUser = true;

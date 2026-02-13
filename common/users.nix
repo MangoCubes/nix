@@ -9,13 +9,13 @@
       subUidRanges = [
         {
           count = 100000;
-          startUid = 100000;
+          startUid = 100001;
         }
       ];
       subGidRanges = [
         {
           count = 100000;
-          startGid = 100000;
+          startGid = 100001;
         }
       ];
       # Stop killing my fucking containers pls
@@ -32,13 +32,13 @@
       subUidRanges = [
         {
           count = 100000;
-          startUid = 200000;
+          startUid = 200001;
         }
       ];
       subGidRanges = [
         {
           count = 100000;
-          startGid = 200000;
+          startGid = 200001;
         }
       ];
       isNormalUser = true;
