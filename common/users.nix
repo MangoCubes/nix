@@ -8,14 +8,14 @@
     "${username}" = {
       subUidRanges = [
         {
-          count = 10000;
-          startUid = 65536;
+          count = 100000;
+          startUid = 100000;
         }
       ];
       subGidRanges = [
         {
-          count = 10000;
-          startGid = 65536;
+          count = 100000;
+          startGid = 100000;
         }
       ];
       # Stop killing my fucking containers pls
@@ -29,6 +29,18 @@
       # Other stuffs are in secrets
     };
     test = {
+      subUidRanges = [
+        {
+          count = 100000;
+          startUid = 200000;
+        }
+      ];
+      subGidRanges = [
+        {
+          count = 100000;
+          startGid = 200000;
+        }
+      ];
       isNormalUser = true;
       extraGroups = [ "shared" ];
     };

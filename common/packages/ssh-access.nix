@@ -18,6 +18,18 @@ in
   };
   users.users = {
     "${sideUser}" = {
+      subUidRanges = [
+        {
+          count = 100000;
+          startUid = 300000;
+        }
+      ];
+      subGidRanges = [
+        {
+          count = 100000;
+          startGid = 300000;
+        }
+      ];
       isNormalUser = true;
       extraGroups = [
         "wheel"
