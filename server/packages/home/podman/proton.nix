@@ -31,7 +31,7 @@
         else
           { }
       );
-      environmentFile = [ ''${config.home.homeDirectory}/.config/sops-nix/secrets/proton-${name}'' ];
+      environmentFile = [ "${config.home.homeDirectory}/.config/sops-nix/secrets/proton-${name}" ];
     }))
   ];
 }

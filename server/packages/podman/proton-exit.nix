@@ -21,7 +21,7 @@
           domain = null;
           network = [ "proxy" ];
           image = "lscr.io/linuxserver/wireguard:latest";
-          name = "wireguard";
+          name = "proton-exit";
           addCapabilities = [ "NET_ADMIN" ];
           devices = [ "/dev/net/tun:/dev/net/tun" ];
           environment = {
