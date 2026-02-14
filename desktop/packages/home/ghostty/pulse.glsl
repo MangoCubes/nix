@@ -16,10 +16,10 @@ vec2 getRectangleCenter(vec4 rectangle) {
     return rectangle.xy + vec2(rectangle.z, -rectangle.w) * 0.5;
 }
 
-const vec4 PULSE_COLOR = vec4(0.278, 0.784, 0.753, 0.4);
+const vec4 PULSE_COLOR = vec4(0.278, 0.784, 0.753, 1.0);
 const float PULSE_DURATION = 0.4;
 const float MAX_PULSE_RADIUS = 0.3;
-const float INV_PULSE_THICKNESS = 1.0 / (0.015 * 0.3);
+const float PULSE_THICKNESS = 0.0045;
 const float JUMP_THRESHOLD = 0.3;
 const float JUMP_THRESHOLD_SQ = JUMP_THRESHOLD * JUMP_THRESHOLD; // For distance check
 
@@ -36,7 +36,7 @@ vec4 calculatePulse(vec2 vu, vec2 center, float timeSinceStart) {
     float pulseRadius = easedProgress * MAX_PULSE_RADIUS;
     
     float ringDist = abs(distFromCenter - pulseRadius);
-    float ringMask = 1.0 - smoothstep(0.0, 0.0045, ringDist); // Precomputed 0.015 * 0.3
+    float ringMask = 1.0 - smoothstep(0.0, PULSE_THICKNESS, ringDist);
     
     // Fade factor
     float fadeFactor = oneMinusProgress * 0.7;
