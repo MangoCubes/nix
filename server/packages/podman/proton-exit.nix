@@ -15,7 +15,7 @@
     }:
     {
       imports = [
-        inputs.secrets.server-main.home.wireguard-exit
+        inputs.secrets.server-main.home.proton-exit
         ((import ../../../lib/podman.nix) ({
           dependsOn = [ "traefik" ];
           domain = null;

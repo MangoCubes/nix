@@ -9,9 +9,10 @@
       environment = {
         TS_HOSTNAME = "exit";
         TS_EXTRA_ARGS = "--login-server=https://newvpn.skew.ch --advertise-exit-node";
+        TS_STATE_DIR = "/var/lib/tailscale";
       };
       volumes = [
-        "${config.home.homeDirectory}/.podman/redis:/data"
+        "${config.home.homeDirectory}/.podman/tailscale:/var/lib/tailscale"
       ];
 
     })
