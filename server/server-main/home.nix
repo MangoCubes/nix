@@ -14,7 +14,7 @@
         ../packages/home/podman/tailscale.nix
         ((import ../packages/home/podman/proton.nix) {
           name = "redlib";
-          useInternalDns = true;
+          # useInternalDns = true;
         })
         ((import ../packages/home/podman/anubis.nix) {
           url = "r.genit.al";

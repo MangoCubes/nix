@@ -1,6 +1,5 @@
 {
   name,
-  useInternalDns ? false,
 }:
 {
   config,
@@ -10,28 +9,24 @@
 {
 
   imports = [
-    (inputs.secrets.hm.proton { inherit name; })
+    (inputs.secrets.server-main.home.gluetun { inherit name; })
     ((import ../../../../lib/podman.nix) ({
       dependsOn = [ "traefik" ];
       domain = null;
       network = [ "proxy" ];
-      image = "qmcgaw/gluetun";
+      image = "qmcgaw/gluetun:latest";
       name = "proton-${name}";
-      addCapabilities = [ "NET_ADMIN" ];
+      addCapabilities = [
+        "NET_ADMIN"
+        "NET_RAW"
+      ];
       devices = [ "/dev/net/tun:/dev/net/tun" ];
-      entrypoint = ''
-        export Country=$(/gluetun-entrypoint format-servers -protonvpn -format json | grep country | uniq | shuf | head -n 1 | sed -nE 's/.+"country": "(.+)".+/\1/p');
-        /gluetun-entrypoint
-      '';
-      environment = (
-        if useInternalDns then
-          {
-            "DNS_KEEP_NAMESERVER" = "on";
-          }
-        else
-          { }
-      );
-      environmentFile = [ "${config.home.homeDirectory}/.config/sops-nix/secrets/proton-${name}" ];
+      # entrypoint = ''
+      #   # export Country=$(/gluetun-entrypoint format-servers -protonvpn -format json | grep country | uniq | shuf | head -n 1 | sed -nE 's/.+"country": "(.+)".+/\1/p');
+      #   export Country="Netherlands";
+      #   /gluetun-entrypoint
+      # '';
+      environmentFile = [ "${config.home.homeDirectory}/.config/sops-nix/secrets/gluetun/${name}" ];
     }))
   ];
 }
