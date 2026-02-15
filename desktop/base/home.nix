@@ -41,6 +41,7 @@
         ../packages/home/keepassxc.nix
         ../packages/home/gocryptfs.nix
         ../packages/home/rclone-server-main.nix
+        ../packages/home/rclone-server-media.nix
         ../packages/home/ampterm.nix
       ];
 
