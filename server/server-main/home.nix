@@ -11,7 +11,7 @@
         ../packages/home/podman/matrix.nix
         ../packages/home/podman/redlib-vpn.nix
         ../packages/home/podman/searxng.nix
-        ../packages/home/podman/tailscale.nix
+        ../packages/home/podman/netbird.nix
         ((import ../packages/home/podman/proton.nix) {
           name = "redlib";
         })
