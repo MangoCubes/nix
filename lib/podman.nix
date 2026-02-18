@@ -66,7 +66,7 @@ let
     if entrypoint == null then
       null
     else
-      pkgs.writeScriptBin ''podman-start.sh'' ''
+      pkgs.writeScriptBin "podman-start.sh" ''
         #!/bin/sh
         ${entrypoint}'';
   # This is a function that automatically create Traefik labels
