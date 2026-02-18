@@ -5,6 +5,7 @@
   username,
   lib,
   inputs,
+  hostname,
   ...
 }:
 let
@@ -99,10 +100,12 @@ in
           ];
           labels = {
             "traefik.enable" = "true";
-            # "traefik.http.routers.dashboard.rule" = "Host(\\`proxy.local\\`)";
-            # "traefik.http.routers.dashboard.entrypoints" = "websecure";
-            # "traefik.http.routers.dashboard.service" = "api@internal";
-            # "traefik.http.routers.dashboard.tls" = "true";
+            "traefik.http.routers.traefik-dashboard.rule" = "Host(`proxy.${hostname}.local`)";
+            "traefik.http.routers.traefik-dashboard.entrypoints" = "websecure";
+            "traefik.http.routers.traefik-dashboard.service" = "api@internal";
+            "traefik.http.routers.traefik-dashboard.tls" = "true";
+            "traefik.http.routers.traefik-dashboard.tls.certResolver" = "localca";
+
             # "traefik.http.routers.dashboard.middlewares" = "m-ip@file";
           };
         };
