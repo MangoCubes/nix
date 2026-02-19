@@ -9,7 +9,7 @@
     ./networking.nix
     ./security.nix
     ./home.nix
-    ./packages/tailscale.nix
+    ./packages/netbird.nix
     ./nix.nix
   ]
   ++ (
