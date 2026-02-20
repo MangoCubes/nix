@@ -9,15 +9,15 @@
       ...
     }:
     let
-      onlock = pkgs.writeShellScriptBin "onlock" ''keepassxc --lock; ${unstable.swaylock-effects}/bin/swaylock'';
-      onunlock = pkgs.writeShellScriptBin "onunlock" '''';
+      onlock = pkgs.writeShellScriptBin "onlock" "keepassxc --lock; ${unstable.swaylock-effects}/bin/swaylock";
+      onunlock = pkgs.writeShellScriptBin "onunlock" "";
     in
     {
       services.swayidle = {
         enable = true;
         timeouts = [
           {
-            command = ''${onlock}/bin/onlock'';
+            command = "${onlock}/bin/onlock";
             timeout = 300;
           }
         ];
@@ -31,7 +31,7 @@
           clock = true;
           indicator = true;
           indicator-thickness = 4;
-          effect-blur = "7x5";
+          effect-blur = "5x3";
           effect-vignette = "0.5:0.5";
           indicator-radius = 100;
 
