@@ -6,6 +6,7 @@
   networking.firewall = {
     checkReversePath = "loose";
   };
+  # Run sr netbird-personal-login to initialise
   services.resolved.enable = true;
   services.netbird = {
     clients = {
