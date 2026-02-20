@@ -56,12 +56,12 @@
   {
     key = "l";
     desc = " Lock";
-    cmd = ''swaylock'';
+    cmd = "swaylock";
   }
   {
     key = "k";
     desc = "󰢬 Unlock Keys";
-    cmd = ''unlockkeys'';
+    cmd = "unlockkeys";
   }
   {
     key = "m";
@@ -116,7 +116,7 @@
         desc = "󱓥 Edit Clipboard";
         cmd = (
           config.custom.terminal.genCmd {
-            command = "wl-paste | ${pkgs.moreutils}/bin/vipe | wl-copy -n 2>/dev/null";
+            command = ''sh -c "wl-paste | ${pkgs.moreutils}/bin/vipe | wl-copy -n 2>/dev/null"'';
             detached = true;
           }
         );
@@ -149,7 +149,7 @@
       {
         key = "p";
         desc = "󰟵 Generate Password";
-        cmd = ''keepassxc-cli generate --exclude-similar -L 32 | wl-copy'';
+        cmd = "keepassxc-cli generate --exclude-similar -L 32 | wl-copy";
       }
     ];
   }
