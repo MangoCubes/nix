@@ -1,8 +1,4 @@
-{ inputs, hostname, ... }:
 {
-  imports = [
-    (inputs.secrets.networks.netbird { inherit hostname; })
-  ];
   networking.firewall = {
     checkReversePath = "loose";
   };
@@ -11,10 +7,6 @@
   services.netbird = {
     clients = {
       personal = {
-        login = {
-          enable = true;
-          setupKeyFile = "/run/secrets/netbird";
-        };
         ui.enable = true;
         port = 51830;
         environment = {
