@@ -10,7 +10,6 @@
     }:
     {
       imports = [
-        # ../packages/home/factorio.nix
         ../packages/home/bottles.nix
       ];
       home.packages = [

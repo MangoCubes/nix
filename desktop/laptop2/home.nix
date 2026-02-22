@@ -4,7 +4,6 @@
     { pkgs, unfreeUnstable, ... }:
     {
       imports = [
-        ../packages/home/factorio.nix
         ../packages/home/windows.nix
       ];
       home.packages = [

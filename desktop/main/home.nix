@@ -10,7 +10,6 @@
     }:
     {
       imports = [
-        # ../packages/home/factorio.nix
         ../packages/home/windows.nix
         ((import ../packages/home/lutris.nix) { games = true; })
         ../packages/home/mitm-proxy.nix
