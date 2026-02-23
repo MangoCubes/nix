@@ -8,7 +8,7 @@
   ...
 }:
 let
-  killclick = pkgs.writeShellScriptBin "killclick" ''kill -9 $(niri msg pick-window | grep PID | tail -n 1 | awk '{print $NF}')'';
+  killclick = pkgs.writeShellScriptBin "killclick" "kill -9 $(niri msg pick-window | grep PID | tail -n 1 | awk '{print $NF}')";
   findwsid = pkgs.writeShellScriptBin "findwsid" ''
     niri msg -j workspaces | ${pkgs.jq}/bin/jq ".[] | select(.name == \"$1\")".id
   '';
@@ -35,6 +35,8 @@ let
       }
     }
   '';
+  mon1 = "DP-1";
+  mon2 = "HDMI-A-2";
   multiMonitors = (builtins.length device.monitors) != 1;
   gesture = lib.hm.generators.toKDL { } {
     gestures.hot-corners.off._props = { };
@@ -75,7 +77,7 @@ let
       if multiMonitors then
         ([
           {
-            output._args = [ "DP-1" ];
+            output._args = [ mon1 ];
             output = {
               mode = "3840x2160@59.997";
               scale = device.scale;
@@ -87,7 +89,7 @@ let
             };
           }
           {
-            output._args = [ "DP-2" ];
+            output._args = [ mon2 ];
             output = {
               mode = "3840x2160@59.997";
               scale = device.scale;
@@ -241,8 +243,8 @@ let
               open-on-output = mon;
             };
           });
-        buildWsMon1 = buildWsMon "DP-1";
-        buildWsMon2 = buildWsMon "DP-2";
+        buildWsMon1 = buildWsMon mon1;
+        buildWsMon2 = buildWsMon mon2;
       in
       [
         (buildWs "security")
