@@ -15,7 +15,6 @@
       ];
       home.packages = [
         unfreeUnstable.osu-lazer-bin
-        unstable.gdb
       ];
     };
 }

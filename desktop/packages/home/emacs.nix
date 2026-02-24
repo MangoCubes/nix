@@ -12,15 +12,15 @@ let
   #   (defvar default-scale ${(toString device.emacsScale)})
   #   (defvar my-use-straight nil "If non-nil, the package will be installed using straight.")
   # '';
-  envs = ''DEFAULT_SCALE=${(toString device.emacsScale)}'';
+  envs = "DEFAULT_SCALE=${(toString device.emacsScale)}";
   init = "~/Sync/EmacsConfig/init.el";
 
-  loademacs = pkgs.writeShellScriptBin "loademacs" ''${envs} emacs -q --daemon --load ${init}'';
-  emacs-org = pkgs.writeShellScriptBin "emacs-org" ''cd ${config.home.homeDirectory}/Sync/Notes/Org/ && emacsclient -c --eval '(find-file "${config.home.homeDirectory}/Sync/Notes/Org/Main.org")' '';
-  emacs-web = pkgs.writeShellScriptBin "emacs-web" ''cd ${config.home.homeDirectory}/Sync/Website/src/org/ && emacsclient -c --eval '(find-file "${config.home.homeDirectory}/Sync/Website/src/org/index.org")' '';
+  loademacs = pkgs.writeShellScriptBin "loademacs" "${envs} emacs -q --daemon --load ${init}";
+  emacs-org = pkgs.writeShellScriptBin "emacs-org" ''tc emacsclient -c --eval '(find-file "${config.home.homeDirectory}/Sync/Notes/Org/Main.org")' '';
+  emacs-web = pkgs.writeShellScriptBin "emacs-web" ''tc emacsclient -c --eval '(find-file "${config.home.homeDirectory}/Sync/Website/src/org/index.org")' '';
   emacs-mail = pkgs.writeShellScriptBin "emacs-mail" ''emacsclient -c -e '(notmuch-search "tag:inbox")' '';
-  emacs-daily = pkgs.writeShellScriptBin "emacs-daily" ''emacsclient -c -e '(org-roam-dailies-goto-today)' '';
-  reload-emacs = pkgs.writeShellScriptBin "er" ''emacsclient -e '(kill-emacs)'; loademacs'';
+  emacs-daily = pkgs.writeShellScriptBin "emacs-daily" "emacsclient -c -e '(org-roam-dailies-goto-today)' ";
+  reload-emacs = pkgs.writeShellScriptBin "er" "emacsclient -e '(kill-emacs)'; loademacs";
   reload-emacs-fg = pkgs.writeShellScriptBin "ef" "${envs} emacs -q --fg-daemon --load ${init}";
   tex = (
     pkgs.texlive.combine {
@@ -74,7 +74,7 @@ in
       emacs = {
         name = "Emacs Client";
         genericName = "Text Editor";
-        exec = ''emacsclient -c %f'';
+        exec = "emacsclient -c %f";
         terminal = false;
         # categories = [ "Application" "Network" "WebBrowser" ];
         mimeType = [
@@ -87,7 +87,7 @@ in
         genericName = "Text Editor";
         exec = (
           config.custom.terminal.genCmd {
-            command = ''emacsclient -nw %f'';
+            command = "emacsclient -nw %f";
           }
         );
         # terminal = true;
