@@ -337,6 +337,16 @@
           ];
         };
       });
+      # sudo mount /dev/nvme0n1p1 /mnt/boot
+      # sudo mount /dev/nvme0n1p5 /mnt/
+      # sudo mount /dev/nvme0n1p6 /mnt/home
+#       # sudo nixos-rebuild --flake /home/main/Sync/NixConfig#minimal --install-bootloader boot
+      nixosConfigurations.minimal = nixpkgs.lib.nixosSystem {
+        inherit system;
+        modules = [
+          ./desktop/minimal/configuration.nix
+        ];
+      };
       nixosConfigurations.main = nixpkgs.lib.nixosSystem (genSystem {
         hostname = "main";
         device = {
