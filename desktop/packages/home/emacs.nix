@@ -16,8 +16,8 @@ let
   init = "~/Sync/EmacsConfig/init.el";
 
   loademacs = pkgs.writeShellScriptBin "loademacs" "${envs} emacs -q --daemon --load ${init}";
-  emacs-org = pkgs.writeShellScriptBin "emacs-org" ''tc emacsclient -c --eval '(find-file "${config.home.homeDirectory}/Sync/Notes/Org/Main.org")' '';
-  emacs-web = pkgs.writeShellScriptBin "emacs-web" ''tc emacsclient -c --eval '(find-file "${config.home.homeDirectory}/Sync/Website/src/org/index.org")' '';
+  emacs-org = pkgs.writeShellScriptBin "emacs-org" ''tc emacsclient -nw --eval '(find-file "${config.home.homeDirectory}/Sync/Notes/Org/Main.org")' '';
+  emacs-web = pkgs.writeShellScriptBin "emacs-web" ''tc emacsclient -nw --eval '(find-file "${config.home.homeDirectory}/Sync/Website/src/org/index.org")' '';
   emacs-mail = pkgs.writeShellScriptBin "emacs-mail" ''emacsclient -c -e '(notmuch-search "tag:inbox")' '';
   emacs-daily = pkgs.writeShellScriptBin "emacs-daily" "emacsclient -c -e '(org-roam-dailies-goto-today)' ";
   reload-emacs = pkgs.writeShellScriptBin "er" "emacsclient -e '(kill-emacs)'; loademacs";
