@@ -1,3 +1,4 @@
+{ config, ... }:
 {
   imports = [
     ((import ../../../../lib/podman.nix) {
@@ -8,7 +9,7 @@
       image = "lscr.io/linuxserver/phpmyadmin";
       name = "phpmyadmin";
       volumes = [
-        "pma:/config"
+        "${config.home.homeDirectory}/.podman/volumes/phpmyadmin:/config"
       ];
       environment = {
         "PUID" = "1000";

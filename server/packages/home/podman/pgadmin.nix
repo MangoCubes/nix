@@ -29,7 +29,7 @@
           port = 5050;
         }
       ];
-      environmentFile = [ ''${config.home.homeDirectory}/.config/sops-nix/secrets/pgadmin'' ];
+      environmentFile = [ "${config.home.homeDirectory}/.config/sops-nix/secrets/pgadmin" ];
     })
   ];
 }
