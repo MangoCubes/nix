@@ -19,7 +19,7 @@
       ];
       volumes = [
         #  "${config.home.homeDirectory}/.config/sops-nix/secrets/ampache:/var/www/config/ampache.cfg.php"
-        "${config.home.homeDirectory}/.podman/ampache:/var/lib/ampache"
+        "${config.home.homeDirectory}/.podman/ampache:/var/www/config"
         # "${config.home.homeDirectory}/.podman/logs/ampache:/var/log/ampache"
         "${config.home.homeDirectory}/Mounts/Koofr/Media/Music:/media"
       ];
