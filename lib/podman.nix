@@ -135,6 +135,14 @@ in
   home.activation."podman-${name}" =
     if (builtins.length volumes != 0) then
       (lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        VOLUMES=${config.home.homeDirectory}/.podman/volumes/${name}
+        if [ ! -d "$VOLUMES" ]; then
+          mkdir -p $VOLUMES
+        fi
+        LOGS=${config.home.homeDirectory}/.podman/logs/${name}
+        if [ ! -d "$LOGS" ]; then
+          mkdir -p $LOGS
+        fi
         SHARED=${config.home.homeDirectory}/.podman/shared/backups
         if [ ! -d "$SHARED" ]; then
           mkdir -p $SHARED
