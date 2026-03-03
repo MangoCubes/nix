@@ -75,8 +75,6 @@ else
 	sudo nixos-rebuild --flake path://$HOME/Sync/NixConfig#$device_name switch
 fi
 
-
-
-if [ "$reboot" = true ]; then
-	reboot
+if [ $? -eq 0 ] && [ "$reboot" = true ]; then
+    reboot
 fi
