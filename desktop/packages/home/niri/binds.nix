@@ -22,7 +22,18 @@ in
       _props = {
         hotkey-overlay-title = "Open a Terminal";
       };
-      spawn = config.custom.terminal.program;
+      spawn._args =
+        (config.custom.terminal.genCmdList {
+          command = "nvim";
+        })
+        ++ [
+          "-c"
+          "term"
+          "-c"
+          "startinsert"
+          "-c"
+          "autocmd TermClose * quit"
+        ];
     };
     "Mod+Shift+B" = {
       _props = {
@@ -33,7 +44,7 @@ in
     "Mod+E" = {
       spawn._args = (
         config.custom.terminal.genCmdList {
-          command = ''yazi'';
+          command = "yazi";
         }
       );
     };
