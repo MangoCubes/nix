@@ -3,11 +3,14 @@
     checkReversePath = "loose";
   };
   # Run sr netbird-personal-login to initialise
-  services.resolved.enable = true;
+  services.resolved = {
+    enable = true;
+    domains = [ "local" ];
+    llmnr = "false";
+  };
   services.netbird = {
     clients = {
       personal = {
-        ui.enable = true;
         port = 51830;
         environment = {
           NB_CONFIG = "/var/lib/netbird-personal/config.json";
