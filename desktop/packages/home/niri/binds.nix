@@ -33,6 +33,8 @@ in
           "startinsert"
           "-c"
           "autocmd TermClose * quit"
+          "-c"
+          "set relativenumber"
         ];
     };
     "Mod+Shift+B" = {
