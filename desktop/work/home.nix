@@ -5,6 +5,7 @@
       pkgs,
       unstable,
       unfreeUnstable,
+      unfree,
       inputs,
       ...
     }:
@@ -15,6 +16,7 @@
       ];
       home.packages = [
         unfreeUnstable.osu-lazer-bin
+        unfree.beeper
       ];
     };
 }
