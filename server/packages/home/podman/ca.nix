@@ -11,6 +11,7 @@
       image = "smallstep/step-ca";
       name = "ca";
       needRoot = true;
+      dns = "100.64.0.2";
       volumes = [
 
         "${config.home.homeDirectory}/.config/sops-nix/secrets/caPassword:/home/step/secrets/password"
@@ -19,6 +20,8 @@
 
         "${config.home.homeDirectory}/.config/sops-nix/secrets/rootCaCert:/home/step/certs/root_ca.crt"
         "${config.home.homeDirectory}/.config/sops-nix/secrets/intermediateCaCrt:/home/step/certs/intermediate_ca.crt"
+
+        "/etc/ssl/certs/ca-certificates.crt:/etc/ssl/certs/ca-certificates.crt"
 
         "${./ca/ca.json}:/home/step/config/ca.json"
 
