@@ -92,6 +92,19 @@ in
       providers.wl-copy.enable = true;
       register = "unnamedplus";
     };
+    extraPlugins = (
+      eih [
+        (pkgs.vimUtils.buildVimPlugin {
+          name = "vim-im-select";
+          src = pkgs.fetchFromGitHub {
+            owner = "brglng";
+            repo = "vim-im-select";
+            rev = "master";
+            hash = "sha256-j9/5UXnfLP2uV8agqla41FgQD7g1hgI1+3maXycYpyQ=";
+          };
+        })
+      ]
+    );
     plugins =
       (dih {
         nix.enable = true;
@@ -452,7 +465,7 @@ in
 
         {
           key = "<leader>lj";
-          action = ''<cmd>setf json<CR>'';
+          action = "<cmd>setf json<CR>";
           options.desc = "JSON";
         }
         {
@@ -553,7 +566,7 @@ in
               detached = true;
             }
           );
-          options.desc = ''Build (debug) and run program in a new terminal'';
+          options.desc = "Build (debug) and run program in a new terminal";
         }
         {
           key = "<M-C-s>";
@@ -563,7 +576,7 @@ in
               detached = true;
             }
           );
-          options.desc = ''Build (release) and run program in a new terminal'';
+          options.desc = "Build (release) and run program in a new terminal";
         }
       ])
       ++ [
@@ -599,7 +612,7 @@ in
         }
         {
           key = "<leader>fn";
-          action = ''<cmd>Telescope notify<CR>'';
+          action = "<cmd>Telescope notify<CR>";
           options.desc = "View all notifications";
         }
         {
