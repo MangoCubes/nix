@@ -4,12 +4,13 @@
 {
   config,
   inputs,
+  hostname,
   ...
 }:
 {
 
   imports = [
-    (inputs.secrets.server-main.home.gluetun { inherit name; })
+    (inputs.secrets."${hostname}".home.gluetun { inherit name; })
     ((import ../../../../lib/podman.nix) ({
       dependsOn = [ "traefik" ];
       domain = null;

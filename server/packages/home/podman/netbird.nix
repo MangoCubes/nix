@@ -14,9 +14,9 @@
       environment = {
         NB_MANAGEMENT_URL = "https://vpn.skew.ch";
       };
-      # volumes = [
-      #   "netbird-client:/var/lib/netbird"
-      # ];
+      volumes = [
+        "netbird-client:/var/lib/netbird"
+      ];
     })
   ];
 }
