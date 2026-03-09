@@ -54,6 +54,13 @@ in
       spawn = "dolphin";
     };
     "Mod+Shift+T" = {
+      spawn._args = (
+        config.custom.terminal.genCmdList {
+          command = "nvim";
+        }
+      );
+    };
+    "Mod+Shift+O" = {
       spawn = "emacs-org";
     };
     "Mod+Shift+D" = {
