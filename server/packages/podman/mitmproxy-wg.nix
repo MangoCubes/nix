@@ -19,6 +19,7 @@
           dependsOn = [ "traefik" ];
           image = "mitmproxy/mitmproxy";
           name = "mitm";
+          dns = "100.64.0.2";
           domain = [
             {
               routerName = "mitm-web";
