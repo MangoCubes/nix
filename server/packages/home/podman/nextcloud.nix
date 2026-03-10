@@ -21,6 +21,7 @@
         "mariadb"
       ];
       image = "linuxserver/nextcloud:latest";
+      dns = "100.64.0.2";
       name = "cloud";
       domain = [
         {
