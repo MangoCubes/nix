@@ -759,6 +759,7 @@ in
         # Allow loading from .nvim.lua
         ''
           vim.o.exrc = true
+          vim.g.im_select_enable_cmd_line = 0
         ''
       ]
       ++ (eih [
