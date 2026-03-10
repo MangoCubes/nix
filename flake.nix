@@ -26,6 +26,7 @@
     unstablePkg.url = "github:nixos/nixpkgs/nixos-unstable";
     niri-adv-rules.url = "github:MangoCubes/niri-adv-rules";
     ampterm.url = "github:MangoCubes/ampterm";
+    cwcwm.url = "github:MangoCubes/cwcwm";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "unstablePkg";
@@ -340,7 +341,7 @@
       # sudo mount /dev/nvme0n1p1 /mnt/boot
       # sudo mount /dev/nvme0n1p5 /mnt/
       # sudo mount /dev/nvme0n1p6 /mnt/home
-#       # sudo nixos-rebuild --flake /home/main/Sync/NixConfig#minimal --install-bootloader boot
+      #       # sudo nixos-rebuild --flake /home/main/Sync/NixConfig#minimal --install-bootloader boot
       nixosConfigurations.minimal = nixpkgs.lib.nixosSystem {
         inherit system;
         modules = [

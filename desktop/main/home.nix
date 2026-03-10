@@ -6,6 +6,7 @@
       unfreeUnstable,
       unstable,
       unfree,
+      inputs,
       ...
     }:
     {
@@ -20,6 +21,7 @@
         unstable.prismlauncher
         pkgs.xournalpp
         unfree.beeper
+        inputs.cwcwm.packages."${pkgs.stdenv.hostPlatform.system}".default
       ];
     };
 }
