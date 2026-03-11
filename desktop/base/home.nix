@@ -43,6 +43,7 @@
         ../packages/home/rclone-server-main.nix
         ../packages/home/rclone-server-media.nix
         ../packages/home/ampterm.nix
+        ../packages/home/iamb.nix
       ];
 
       xdg.configFile."configMedia" = {
@@ -60,10 +61,9 @@
             vlc
             sshpass
             sops
-            element-desktop
             pulseaudio
             python3
-            # cinny-desktop
+            signal-desktop
           ])
           ++ (with pkgs; [
             webcord
