@@ -22,20 +22,7 @@ in
       _props = {
         hotkey-overlay-title = "Open a Terminal";
       };
-      spawn._args =
-        (config.custom.terminal.genCmdList {
-          command = "nvim";
-        })
-        ++ [
-          "-c"
-          "term"
-          "-c"
-          "startinsert"
-          "-c"
-          "autocmd TermClose * quit"
-          "-c"
-          "set relativenumber"
-        ];
+      spawn = config.custom.terminal.program;
     };
     "Mod+Shift+B" = {
       _props = {
