@@ -11,6 +11,7 @@
     }:
     {
       imports = [
+        inputs.secrets.hm.programs
         ../packages/home/windows.nix
         ../packages/home/ghidra.nix
       ];
