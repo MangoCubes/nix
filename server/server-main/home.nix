@@ -11,6 +11,7 @@
         ../packages/home/podman/matrix.nix
         ../packages/home/podman/redlib-vpn.nix
         ../packages/home/podman/searxng.nix
+        ../packages/home/podman/baikal.nix
         ((import ../packages/home/podman/proton.nix) {
           name = "redlib";
         })
