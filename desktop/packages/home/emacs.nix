@@ -18,7 +18,7 @@ let
   loademacs = pkgs.writeShellScriptBin "loademacs" "${envs} emacs -q --daemon --load ${init}";
   emacs-org = pkgs.writeShellScriptBin "emacs-org" ''tc emacsclient -nw --eval '(find-file "${config.home.homeDirectory}/Sync/Notes/Org/Main.org")' '';
   emacs-web = pkgs.writeShellScriptBin "emacs-web" ''emacsclient -c --eval '(find-file "${config.home.homeDirectory}/Sync/Website/src/org/index.org")' '';
-  emacs-mail = pkgs.writeShellScriptBin "emacs-mail" ''tc emacsclient -nw -e '(notmuch-search "tag:inbox")' '';
+  emacs-mail = pkgs.writeShellScriptBin "emacs-mail" ''emacsclient -c -e '(notmuch-search "tag:inbox")' '';
   emacs-daily = pkgs.writeShellScriptBin "emacs-daily" "tc emacsclient -nw -e '(org-roam-dailies-goto-today)' ";
   reload-emacs = pkgs.writeShellScriptBin "er" "emacsclient -e '(kill-emacs)'; loademacs";
   reload-emacs-fg = pkgs.writeShellScriptBin "ef" "${envs} emacs -q --fg-daemon --load ${init}";
