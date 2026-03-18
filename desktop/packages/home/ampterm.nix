@@ -7,7 +7,7 @@
       auth = {
         url = "echo https://music.skew.ch";
         username = "echo admin";
-        password = "secret-tool lookup Path '/Ampache'";
+        password = "secret-tool lookup Path '/Scripts/Ampache'";
       };
       use_legacy_auth = true;
       behaviour.auto_focus = true;
