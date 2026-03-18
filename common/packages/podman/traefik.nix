@@ -29,7 +29,7 @@ let
     (pkgs.formats.yaml { }).generate "traefik.yaml" (
       lib.attrsets.recursiveUpdate {
         # TODO: Fix this
-        serversTransport.insecureSkipVerify = true;
+        # serversTransport.insecureSkipVerify = true;
         entryPoints = {
           web = {
             address = ":80";
