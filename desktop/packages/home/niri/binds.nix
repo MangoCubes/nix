@@ -50,9 +50,6 @@ in
     "Mod+Shift+O" = {
       spawn = "emacs-org";
     };
-    "Mod+Shift+D" = {
-      spawn = "emacs-daily";
-    };
     "Mod+Shift+W" = {
       focus-workspace = "windows";
     };

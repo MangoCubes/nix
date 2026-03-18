@@ -14,12 +14,33 @@ in
   {
     key = "m";
     desc = " View Mail";
-    cmd = ''emacs-mail'';
+    cmd = "emacs-mail";
+  }
+  {
+    key = "d";
+    desc = "󰃶 Create/Open Emacs Daily";
+    cmd = "emacs-daily";
   }
   {
     key = "b";
     desc = "󰖟 Open Blog Editor";
-    cmd = ''emacs-web'';
+    cmd = "emacs-web";
+  }
+  {
+    key = "a";
+    desc = "󱅙 Edit Android Home Note";
+    cmd = config.custom.terminal.genCmd { command = "nvim ~/Sync/Notes/MD/Android.md"; };
+  }
+  {
+    key = "e";
+    desc = " Emacs";
+    submenu = [
+      {
+        key = "r";
+        desc = " Restart Emacs";
+        cmd = config.custom.terminal.genCmd { command = "er"; };
+      }
+    ];
   }
 ]
 ++ (
@@ -28,12 +49,12 @@ in
       {
         key = "w";
         desc = " Run Windows";
-        cmd = ''run-windows'';
+        cmd = "run-windows";
       }
       {
         key = "W";
         desc = " Stop Windows";
-        cmd = ''sup podman-windows'';
+        cmd = "sup podman-windows";
       }
     ]
   else
