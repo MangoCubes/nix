@@ -7,6 +7,7 @@
     enable = true;
     domains = [ "local" ];
     llmnr = "false";
+    extraConfig = "DNSStubListener=no";
   };
   services.netbird = {
     clients = {
