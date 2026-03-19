@@ -5,6 +5,8 @@
     allowedUDPPorts = [ 3478 ];
   };
 
+  services.resolved.extraConfig = "DNSStubListener=no";
+
   home-manager.users."${username}" =
 
     {

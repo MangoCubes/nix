@@ -2,12 +2,10 @@
   networking.firewall = {
     checkReversePath = "loose";
   };
-  # Run sr netbird-personal-login to initialise
   services.resolved = {
     enable = true;
     domains = [ "local" ];
     llmnr = "false";
-    extraConfig = "DNSStubListener=no";
   };
   services.netbird = {
     clients = {
