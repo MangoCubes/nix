@@ -20,8 +20,6 @@
             "${config.home.homeDirectory}/.podman/adguard:/opt/adguardhome/conf"
             "dns:/opt/adguardhome/work"
           ];
-          # This needs to be specified, otherwise podman's internal DNS stops working.
-          ports = [ "100.64.0.3:53:53/udp" ];
           domain = [
             {
               routerName = "adguard";

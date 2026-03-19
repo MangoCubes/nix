@@ -5,7 +5,7 @@
       dependsOn = [ "traefik" ];
       image = "searxng/searxng:latest";
       name = "search";
-      dns = "100.64.0.2";
+      dns = "1.1.1.1";
       domain = [
         {
           routerName = "searxng";
