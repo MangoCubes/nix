@@ -31,13 +31,13 @@
         {
           routerName = "ca";
           type = 2;
-          url = "ca.local";
+          url = "ca.int";
           port = 9000;
         }
       ];
       environment = {
         "DOCKER_STEPCA_INIT_NAME" = "Intranet";
-        "DOCKER_STEPCA_INIT_DNS_NAMES" = "localhost,ca.local,ca";
+        "DOCKER_STEPCA_INIT_DNS_NAMES" = "localhost,ca.int,ca";
       };
       labels = {
         "traefik.http.services.s-ca.loadbalancer.server.scheme" = "https";

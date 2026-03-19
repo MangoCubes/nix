@@ -28,8 +28,8 @@ let
     { config }:
     (pkgs.formats.yaml { }).generate "traefik.yaml" (
       lib.attrsets.recursiveUpdate {
-        # TODO: Fix this
-        # serversTransport.insecureSkipVerify = true;
+        # TODO: Fix "cannot validate certificate for 10.10.0.14 because it doesn't contain any IP SAN"
+        serversTransport.insecureSkipVerify = true;
         entryPoints = {
           web = {
             address = ":80";
@@ -43,8 +43,8 @@ let
         };
 
         certificatesResolvers.localca.acme = {
-          caServer = "https://ca.local/acme/intranet/directory";
-          email = "traefik@mail.local";
+          caServer = "https://ca.int/acme/intranet/directory";
+          email = "traefik@mail.int";
           tlsChallenge = true;
           storage = "/etc/traefik/ssl/local.json";
         };

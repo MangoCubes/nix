@@ -5,7 +5,7 @@
 	"address": ":9000",
 	"dnsNames": [
 		"localhost",
-		"ca.local",
+		"ca.int",
 		"ca"
 	],
 	"logger": {
@@ -37,9 +37,11 @@
 			"x509": {
 				"allow": {
 					"dns": [
+						"*.int",
 						"*.local",
 						"*.work.local",
 						"*.laptop.local",
+						"*.laptop2.local",
 						"*.main.local",
 						"*.server-main.local",
 						"*.server-network.local"
@@ -57,7 +59,8 @@
 				"host": {
 					"allow": {
 						"dns": [
-							"*.local"
+							"*.local",
+							"*.int"
 						]
 					}
 				}
