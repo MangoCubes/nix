@@ -158,15 +158,15 @@ in
   services.podman.containers."${name}" = {
     # Mount entrypoint script as volume so that it exists within the container if specified
     volumes =
-      if entrypoint == null then
-        volumes
-      else
-        (
-          volumes
-          ++ [
+      ([ "/etc/ssl/certs/ca-certificates.crt:/etc/ssl/certs/ca-certificates.crt" ] ++ volumes)
+      ++ (
+        if entrypoint == null then
+          [ ]
+        else
+          ([
             "${start}/bin/podman-start.sh:/my/podman-start.sh"
-          ]
-        );
+          ])
+      );
     inherit
       environmentFile
       image
