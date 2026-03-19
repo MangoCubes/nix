@@ -20,6 +20,7 @@
             "${config.home.homeDirectory}/.podman/adguard:/opt/adguardhome/conf"
             "dns:/opt/adguardhome/work"
           ];
+          ip4 = config.custom.podman.dnsProvider;
           domain = [
             {
               routerName = "adguard";

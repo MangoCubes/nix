@@ -82,7 +82,7 @@ in
       services.podman = {
         containers.traefik = {
           # TODO: Fix DNS issue: For now, the DNS inside the container does not use the host machine's DNS, and must be hardcoded.
-          extraPodmanArgs = [ "--dns=100.64.0.2" ];
+          extraPodmanArgs = [ "--dns=${config.custom.podman.dns}" ];
           image = "traefik";
           ports = [
             "80:80"
@@ -111,7 +111,7 @@ in
         };
         networks.proxy = {
           autoStart = true;
-          subnet = "10.10.0.0/24";
+          subnet = config.custom.podman.subnet;
         };
       };
     };

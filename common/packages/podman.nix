@@ -32,6 +32,11 @@
     in
     {
       imports = [ ./podman/options.nix ];
+      custom.podman = {
+        dns = "100.64.0.2";
+        dnsProvider = "10.10.0.53";
+        subnet = "10.10.0.0/24";
+      };
       home.packages = with pkgs; [
         dive # look into podman image layers
         podman-tui # status of containers in the terminal

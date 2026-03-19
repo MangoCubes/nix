@@ -21,6 +21,7 @@
   dns ? null,
   autoStart ? true,
   daily ? null,
+  ip4 ? null,
 }:
 {
   lib,
@@ -115,7 +116,7 @@ let
   args =
     let
       # If DNS is not explicitly set and the container is purely internal, then use Netbird's DNS
-      realDns = if dns == null && isInternal then "100.64.0.2" else dns;
+      realDns = if dns == null && isInternal then config.custom.podman.dns else dns;
     in
     extraPodmanArgs ++ (if realDns == null then [ ] else [ "--dns=${realDns}" ]);
   # We generate Traefik labels for each domain entry
@@ -183,6 +184,7 @@ in
       devices
       exec
       autoStart
+      ip4
       ;
     # Set entrypoint if specified
     entrypoint = if entrypoint == null then null else "/my/podman-start.sh";
