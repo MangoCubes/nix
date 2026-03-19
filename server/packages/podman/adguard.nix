@@ -3,6 +3,10 @@
   boot.kernel.sysctl = {
     "net.ipv4.ip_unprivileged_port_start" = lib.mkForce 53;
   };
+  networking.firewall = {
+    enable = true;
+    allowedUDPPorts = [ 53 ];
+  };
   home-manager.users."${username}" =
     {
       config,

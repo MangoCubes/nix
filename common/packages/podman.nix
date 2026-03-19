@@ -33,7 +33,7 @@
     {
       imports = [ ./podman/options.nix ];
       custom.podman = {
-        dns = "100.64.0.2";
+        dns = "107.175.189.176";
         dnsProvider = "10.10.0.53";
         subnet = "10.10.0.0/24";
       };

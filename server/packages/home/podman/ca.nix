@@ -10,6 +10,7 @@
       dependsOn = [ "traefik" ];
       image = "smallstep/step-ca";
       name = "ca";
+      dns = config.custom.podman.dns;
       needRoot = true;
       volumes = [
 
