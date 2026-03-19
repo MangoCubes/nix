@@ -37,7 +37,7 @@
       ];
       environment = {
         "DOCKER_STEPCA_INIT_NAME" = "Intranet";
-        "DOCKER_STEPCA_INIT_DNS_NAMES" = "localhost";
+        "DOCKER_STEPCA_INIT_DNS_NAMES" = "localhost,ca.local,ca";
       };
       labels = {
         "traefik.http.services.s-ca.loadbalancer.server.scheme" = "https";
