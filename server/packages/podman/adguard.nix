@@ -1,11 +1,8 @@
-{ username, lib, ... }:
+{ username, ... }:
 {
-  boot.kernel.sysctl = {
-    "net.ipv4.ip_unprivileged_port_start" = lib.mkForce 53;
-  };
   networking.firewall = {
     enable = true;
-    allowedUDPPorts = [ 53 ];
+    allowedUDPPorts = [ 3553 ];
   };
   home-manager.users."${username}" =
     {
@@ -26,7 +23,7 @@
           ];
           ip4 = config.custom.podman.dnsProvider;
           # This needs to be specified, otherwise podman's internal DNS stops working.
-          ports = [ "53:53/udp" ];
+          ports = [ "3553:3553/udp" ];
 
           domain = [
             {
