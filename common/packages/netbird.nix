@@ -2,7 +2,19 @@
   networking.firewall = {
     checkReversePath = "loose";
   };
-  # Run resolvectl default-route nb-personal true if necessary
+  # Run the following two commands:
+  #
+  # sudo resolvectl dns nb-personal 127.0.0.153
+  # sudo resolvectl domain nb-personal local ~76.100.in-addr.arpa ~.
+  #
+  # If `resolvectl` does not look like this:
+  # Link 3 (nb-personal)
+  #     Current Scopes: DNS
+  #          Protocols: +DefaultRoute -LLMNR +mDNS -DNSOverTLS DNSSEC=no/unsupported
+  # Current DNS Server: 127.0.0.153
+  #        DNS Servers: 127.0.0.153
+  #         DNS Domain: local ~76.100.in-addr.arpa ~.
+  #      Default Route: yes
   services.resolved = {
     enable = true;
     domains = [
