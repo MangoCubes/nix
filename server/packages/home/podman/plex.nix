@@ -23,7 +23,7 @@
         {
           routerName = "plex";
           type = 2;
-          url = "media.local";
+          url = "media.int";
           port = 32400;
         }
       ];

@@ -25,7 +25,7 @@
         {
           routerName = "pgadmin";
           type = 2;
-          url = "pg.local";
+          url = "pg.int";
           port = 5050;
         }
       ];

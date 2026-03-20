@@ -15,13 +15,13 @@
         "PUID" = "1000";
         "PGID" = "1000";
         "PMA_HOST" = "mariadb";
-        "PMA_ABSOLUTE_URI" = "https://pma.local";
+        "PMA_ABSOLUTE_URI" = "https://db.int";
       };
       domain = [
         {
           routerName = "pma";
           type = 2;
-          url = "pma.local";
+          url = "db.int";
           port = 80;
         }
       ];

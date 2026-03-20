@@ -281,7 +281,7 @@
         # Please make sure this URL matches the external URL of your Firefly III installation.
         # It is used to validate specific requests and to generate URLs in emails.
         #
-        "APP_URL" = "https://money.local";
+        "APP_URL" = "https://money.int";
       };
       domain = [
         {
@@ -291,7 +291,7 @@
           port = 8080;
         }
       ];
-      environmentFile = [ ''${config.home.homeDirectory}/.config/sops-nix/secrets/firefly'' ];
+      environmentFile = [ "${config.home.homeDirectory}/.config/sops-nix/secrets/firefly" ];
     })
   ];
 }

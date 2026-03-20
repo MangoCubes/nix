@@ -16,7 +16,7 @@
         {
           routerName = "manga";
           type = 2;
-          url = "manga.local";
+          url = "manga.int";
           port = 5000;
         }
       ];

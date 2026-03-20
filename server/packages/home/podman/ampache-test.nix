@@ -12,7 +12,7 @@
       domain = [
         {
           routerName = "ampache-test";
-          url = "music.local";
+          url = "music.int";
           type = 2;
           port = 80;
         }

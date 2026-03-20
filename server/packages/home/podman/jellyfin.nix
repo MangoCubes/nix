@@ -16,7 +16,7 @@
         {
           routerName = "jellyfin";
           type = 2;
-          url = "media.local";
+          url = "media.int";
           port = 8096;
         }
       ];

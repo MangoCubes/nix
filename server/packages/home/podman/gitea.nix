@@ -30,7 +30,7 @@
         {
           routerName = "gitea";
           type = 2;
-          url = "git.local";
+          url = "git.int";
           port = 3000;
         }
       ];
