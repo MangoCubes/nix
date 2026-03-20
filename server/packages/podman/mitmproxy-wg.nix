@@ -22,7 +22,7 @@
           domain = [
             {
               routerName = "mitm-web";
-              url = "mitmweb.local";
+              url = "mitm.int";
               type = 2;
               port = 8081;
             }

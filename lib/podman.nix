@@ -111,14 +111,7 @@ let
   # Note that dependencies are other containers
   deps = if dependsOn == null then [ ] else (builtins.map (e: "podman-${e}.service") dependsOn);
   # Specify extra arguments if there are any
-  # DNS for the container is set using extra podman arguments
-  isInternal = domain != null && (builtins.all (entry: entry.type != 1) domain);
-  args =
-    let
-      # If DNS is not explicitly set and the container is purely internal, then use Netbird's DNS
-      realDns = if dns == null && isInternal then config.custom.podman.dns else dns;
-    in
-    extraPodmanArgs ++ (if realDns == null then [ ] else [ "--dns=${realDns}" ]);
+  args = extraPodmanArgs;
   # We generate Traefik labels for each domain entry
   traefikLabels =
     if (domain == null) then
