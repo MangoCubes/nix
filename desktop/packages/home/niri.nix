@@ -117,6 +117,11 @@ let
         ]
     )
   );
+  hotkeyOverlay = lib.hm.generators.toKDL { } {
+    hotkey-overlay = {
+      skip-at-startup._props = { };
+    };
+  };
   layout = lib.hm.generators.toKDL { } {
     layout = {
       always-center-single-column._props = { };
@@ -295,6 +300,7 @@ let
     workspace
     binds
     clipboard
+    hotkeyOverlay
   ];
 in
 {
