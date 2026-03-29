@@ -119,6 +119,9 @@ in
     };
     "Mod+L" = {
       spawn = "swaylock";
+      _props = {
+        allow-when-locked = true;
+      };
     };
     "Mod+Left" = {
       focus-column-left._props = { };

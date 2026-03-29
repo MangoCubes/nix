@@ -31,7 +31,7 @@
     window-rule = {
       match._props = {
         app-id = ''^org\\.keepassxc\\.KeePassXC$'';
-        title = ''Unlock Database'';
+        title = "Unlock Database";
       };
       open-floating = true;
     };
@@ -40,7 +40,7 @@
   {
     window-rule = {
       match._props = {
-        title = ''Locked'';
+        title = "Locked";
         app-id = ''^org\\.keepassxc\\.KeePassXC$'';
       };
       open-on-workspace = "security";
@@ -86,6 +86,11 @@
         }
       ];
       opacity = 0.8;
+    };
+  }
+  {
+    window-rule = {
+      clip-to-geometry = true;
     };
   }
 ]
