@@ -1,6 +1,6 @@
 { colours, device, ... }:
 let
-  width = 4; # builtins.floor (4 * device.scale);
+  width = builtins.floor (4 * device.scale);
 in
 {
   services.fnott = {
@@ -37,8 +37,6 @@ in
 
         padding-vertical = 12;
         padding-horizontal = 12;
-
-        dpi-aware = "yes";
 
         # title-font=sans serif
         # title-color=ffffffff
