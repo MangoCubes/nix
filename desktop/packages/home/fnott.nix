@@ -1,6 +1,8 @@
 { colours, device, ... }:
 let
   width = builtins.floor (4 * device.scale);
+  title = "Courier New:size=${builtins.toString (width * 3)}";
+  body = "Courier New:size=${builtins.toString (width * 2)}";
 in
 {
   services.fnott = {
@@ -35,24 +37,24 @@ in
         # border-radius=0
         border-size = width;
 
-        padding-vertical = 12;
-        padding-horizontal = 12;
+        padding-vertical = width * 4;
+        padding-horizontal = width * 4;
 
-        # title-font=sans serif
+        title-font = title;
         # title-color=ffffffff
         title-format = "%a%A";
 
-        # summary-font=sans serif
+        summary-font = body;
         # summary-color=ffffffff
         # summary-format=<b>%s</b>\n
 
-        # body-font=sans serif
+        body-font = body;
         # body-color=ffffffff
         # body-format=%b
 
-        # progress-bar-height=20
-        # progress-color=ffffffff
-        # progress-style=bar
+        progress-bar-height = width * 5;
+        progress-color = colours.withTransparency.miku;
+        progress-style = "bar";
 
         sound-file = "${./fnott/Transmission.wav}";
         # icon=
