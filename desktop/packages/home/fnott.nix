@@ -37,8 +37,8 @@ in
         # border-radius=0
         border-size = width;
 
-        padding-vertical = width * 4;
-        padding-horizontal = width * 4;
+        padding-vertical = width * 3;
+        padding-horizontal = width * 3;
 
         title-font = title;
         # title-color=ffffffff
