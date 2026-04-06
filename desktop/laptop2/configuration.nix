@@ -11,12 +11,9 @@
     ../packages/wireshark.nix
     ../packages/saleae.nix
   ];
-  services.logind = {
-    lidSwitch = "suspend";
-    # extraConfig = ''
-    #   # don’t shutdown when power button is short-pressed
-    #   HandlePowerKey=ignore
-    # '';
+  services.logind.settings.Login = {
+    HandleLidSwitch = "suspend";
+    HandlePowerKey = "ignore";
   };
   services.logrotate.checkConfig = false;
   system.stateVersion = "24.11";
