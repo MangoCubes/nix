@@ -21,6 +21,7 @@
         unstable.prismlauncher
         pkgs.xournalpp
         unfree.beeper
+        pkgs.audacity
         inputs.cwcwm.packages."${pkgs.stdenv.hostPlatform.system}".default
       ];
     };
