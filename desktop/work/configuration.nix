@@ -6,7 +6,7 @@
     # ../packages/mitmproxy-wifi.nix
     ./boot.nix
     ./home.nix
-    ../packages/rclone-school.nix
+    # ../packages/rclone-school.nix
     ../packages/wireshark.nix
     ../base/configuration.nix
     # ../packages/waydroid.nix
