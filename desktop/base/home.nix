@@ -28,7 +28,7 @@
         ../packages/home/bash.nix
         ../packages/home/git.nix
         ../packages/home/accounts.nix
-        ../packages/home/swww.nix
+        ../packages/home/awww.nix
         ../packages/home/niri.nix
         ../packages/home/fnott.nix
         ../packages/home/ags.nix
@@ -44,7 +44,7 @@
         ../packages/home/rclone-server-main.nix
         ../packages/home/rclone-server-media.nix
         ../packages/home/ampterm.nix
-        ../packages/home/iamb.nix
+        # ../packages/home/iamb.nix
       ];
 
       xdg.configFile."configMedia" = {

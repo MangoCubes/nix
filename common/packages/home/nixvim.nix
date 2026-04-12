@@ -163,7 +163,7 @@ in
             jdtls.enable = true;
             pyright.enable = true;
             nil_ls = {
-              settings.formatting.command = [ "${pkgs.nixfmt-rfc-style}/bin/nixfmt" ];
+              settings.formatting.command = [ "${pkgs.nixfmt}/bin/nixfmt" ];
               enable = true;
             };
             lua_ls = {

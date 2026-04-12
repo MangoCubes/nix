@@ -30,12 +30,12 @@
         (lib.mkIf (androidStudio) [ unfreeUnstable.android-studio ])
         (lib.mkIf (heimdall) [ pkgs.heimdall-gui ])
         [
+          pkgs.android-tools
           pkgs.scrcpy
           mount-android
         ]
       ];
     };
-  programs.adb.enable = true;
 }
 // (
   if (heimdall) then

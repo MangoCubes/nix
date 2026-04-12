@@ -22,7 +22,7 @@
     nixvim = {
       url = "github:nix-community/nixvim";
     };
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    # nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
     unstablePkg.url = "github:nixos/nixpkgs/nixos-unstable";
     niri-adv-rules.url = "github:MangoCubes/niri-adv-rules";
     ampterm.url = "github:MangoCubes/ampterm";
@@ -31,14 +31,8 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "unstablePkg";
     };
-    ags = {
-      url = "github:aylur/ags";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    kmonad = {
-      url = "github:kmonad/kmonad?dir=nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    ags.url = "github:aylur/ags";
+    kmonad.url = "github:kmonad/kmonad?dir=nix";
     grub2-themes.url = "github:vinceliuice/grub2-themes";
     sops-nix.url = "github:Mic92/sops-nix";
     nix-alien.url = "github:thiagokokada/nix-alien";
@@ -57,7 +51,7 @@
   outputs =
     inputs@{
       self,
-      nixpkgs,
+      # nixpkgs,
       home-manager,
       unstablePkg,
       yazi,
@@ -65,6 +59,8 @@
       ...
     }:
     let
+      # Temp fix
+      nixpkgs = unstablePkg;
       system = "x86_64-linux";
       # I build a sort of package repo from `unstablePkg`
       unstable = import unstablePkg { inherit system; };
@@ -78,10 +74,20 @@
       # Any stuff downloaded from this are from NixOS 25.05
       pkgs = import nixpkgs {
         inherit system;
+        overlays = [
+          (self: super: {
+            xrdb = super.xorg.xrdb;
+          })
+        ];
       };
       unfree = import nixpkgs {
         inherit system;
         config.allowUnfree = true;
+        overlays = [
+          (self: super: {
+            xrdb = super.xorg.xrdb;
+          })
+        ];
       };
       # Some personal variables
       username = "main";

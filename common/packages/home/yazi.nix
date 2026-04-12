@@ -34,6 +34,7 @@ in
   xdg.mimeApps.defaultApplications."inode/directory" = "yazi.desktop";
   programs.bash.shellAliases.y = "dt yazi";
   programs.yazi = {
+    shellWrapperName = "y";
     enable = true;
     package = yazi.packages.${pkgs.system}.default.override {
       _7zz = unfree._7zz-rar;
