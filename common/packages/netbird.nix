@@ -17,15 +17,17 @@
   #      Default Route: yes
   services.resolved = {
     enable = true;
-    domains = [
-      "local"
-      "int"
-    ];
-    fallbackDns = [
-      "107.175.189.176"
-      "1.1.1.1"
-    ];
-    llmnr = "false";
+    settings.Resolve = {
+      LLMNR = "false";
+      Domains = [
+        "local"
+        "int"
+      ];
+      FallbackDns = [
+        "107.175.189.176"
+        "1.1.1.1"
+      ];
+    };
   };
   services.netbird = {
     clients = {
