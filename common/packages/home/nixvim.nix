@@ -20,6 +20,7 @@ in
     inputs.nixvim.homeModules.nixvim
     inputs.secrets.hm.nixvim
   ];
+  xdg.dataFile."nvim/undo/.keep".text = "";
   home.packages = [
     pkgs.nil
     pkgs.lazygit
@@ -745,6 +746,10 @@ in
         ''
           vim.o.exrc = true
           vim.g.im_select_enable_cmd_line = 0
+          vim.opt.undofile = true
+          vim.opt.undodir = vim.fn.expand("$HOME/.local/share/nvim/undo")
+          vim.opt.undolevels = 1000
+          vim.opt.undoreload = 10000
         ''
       ]
       ++ (eih [
