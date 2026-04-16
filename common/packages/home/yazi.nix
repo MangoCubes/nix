@@ -32,7 +32,6 @@ in
     pastecp
   ];
   xdg.mimeApps.defaultApplications."inode/directory" = "yazi.desktop";
-  programs.bash.shellAliases.y = "dt yazi";
   programs.yazi = {
     shellWrapperName = "y";
     enable = true;
