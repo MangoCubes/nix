@@ -5,7 +5,7 @@
   # Run the following two commands:
   #
   # sudo resolvectl dns nb-personal 127.0.0.153
-  # sudo resolvectl domain nb-personal local ~76.100.in-addr.arpa ~.
+  # sudo resolvectl domain nb-personal local ~76.100.in-addr.arpa ~. int
   #
   # If `resolvectl` does not look like this:
   # Link 3 (nb-personal)

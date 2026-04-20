@@ -17,6 +17,7 @@
       ];
       home.packages = [
         unfreeUnstable.osu-lazer-bin
+        unstable.anki
         # unstable.webcord
         unstable.prismlauncher
         pkgs.xournalpp
