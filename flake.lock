@@ -25,11 +25,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1774455371,
-        "narHash": "sha256-VF6kFSna+1ULTppQlUTnoXwaecqbSgjjRNTQzyD16K4=",
+        "lastModified": 1776666442,
+        "narHash": "sha256-jzY+yRbJEpIAg+SPuGpxNzPkbxt/3PaXddcLWI0VGUo=",
         "owner": "MangoCubes",
         "repo": "ampterm",
-        "rev": "c7ea4c8909a5cfb21952641e75ca1ec0f147a15e",
+        "rev": "a7b444c53b7c83d4b413edfa7734767dabb56f9d",
         "type": "github"
       },
       "original": {
@@ -634,8 +634,8 @@
         "unstablePkg": "unstablePkg"
       },
       "locked": {
-        "lastModified": 1776643844,
-        "narHash": "sha256-Ef01PS+D96fKYfFGRp00eohI3LaXAaunTht/vif7fq4=",
+        "lastModified": 1776731374,
+        "narHash": "sha256-jKsqWIe10GXpMsOPMRna1yVkRnIdXlxl/fii96+vqz8=",
         "path": "/home/main/Sync/NixConfig/secrets",
         "type": "path"
       },

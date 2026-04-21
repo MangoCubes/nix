@@ -275,7 +275,16 @@ in
 
         # multicursors.enable = true;
         blink-cmp = {
-          settings.keymap.preset = "super-tab";
+          settings = {
+            keymap.preset = "super-tab";
+            completion = {
+              ghost_text.enabled = true;
+              list.selection = {
+                preselect = true;
+                auto_insert = false;
+              };
+            };
+          };
           enable = true;
           setupLspCapabilities = true;
         };
