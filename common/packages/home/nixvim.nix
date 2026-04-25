@@ -128,7 +128,6 @@ in
         dap-lldb.enable = true;
         dap-ui.enable = true;
         dap-virtual-text.enable = true;
-        notify.enable = true;
         gitsigns.enable = true;
         neoscroll = {
           enable = true;
