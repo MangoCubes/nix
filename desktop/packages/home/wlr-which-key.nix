@@ -1,24 +1,12 @@
 {
   pkgs,
   osConfig,
+  unstable,
   config,
   colours,
   ...
 }:
 let
-  # I am building from source because 1.2.0 is not on NixOS packages yet
-  wlrWhichKey = import ./build/wlr-which-key.nix {
-    inherit (pkgs)
-      lib
-      rustPlatform
-      fetchFromGitHub
-      pkg-config
-      cairo
-      glib
-      libxkbcommon
-      pango
-      ;
-  };
   genFile = name: {
     "wlr-which-key/${name}.yaml".source = (
       (pkgs.formats.yaml { }).generate "${name}.yml" (
@@ -46,7 +34,7 @@ let
 in
 {
   home.packages = [
-    wlrWhichKey
+    unstable.wlr-which-key
     pkgs.xclip
   ];
 
