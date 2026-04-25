@@ -32,6 +32,7 @@
         ../packages/home/niri.nix
         ../packages/home/fnott.nix
         ../packages/home/ags.nix
+        ../packages/home/dragevac.nix
         ../packages/home/kde.nix
         ../packages/home/korean.nix
         ../packages/home/polkit.nix

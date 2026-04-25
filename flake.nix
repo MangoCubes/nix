@@ -26,6 +26,7 @@
     unstablePkg.url = "github:nixos/nixpkgs/nixos-unstable";
     niri-adv-rules.url = "github:MangoCubes/niri-adv-rules";
     ampterm.url = "github:MangoCubes/ampterm";
+    dragevac.url = "github:MangoCubes/dragevac";
     cwcwm.url = "github:MangoCubes/cwcwm";
     home-manager = {
       url = "github:nix-community/home-manager";
