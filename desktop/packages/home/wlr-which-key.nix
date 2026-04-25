@@ -56,5 +56,6 @@ in
     // (genFile "niri")
     // (genFile "browser")
     // (genFile "soundboard")
+    // (genFile "dragevac")
     // (genFile "advrun");
 }

@@ -86,6 +86,12 @@ in
         "\"browser:rofi-browser\""
       ];
     };
+    "Mod+Shift+C" = {
+      spawn._args = [
+        "wlr-which-key"
+        "dragevac"
+      ];
+    };
     "Mod+Shift+S" = {
       spawn._args = [
         "wlr-which-key"
@@ -360,9 +366,6 @@ in
     };
     "Mod+C" = {
       center-column._props = { };
-    };
-    "Mod+Shift+C" = {
-      center-visible-columns._props = { };
     };
     "Mod+Minus" = {
       set-column-width = "-10%";
