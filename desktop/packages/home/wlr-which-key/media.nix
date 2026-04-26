@@ -38,6 +38,12 @@ in
     keep_open = true;
   }
   {
+    key = "m";
+    desc = "󰝟 Mute";
+    cmd = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0";
+    keep_open = true;
+  }
+  {
     key = " ";
     desc = "󰐎 Play/Pause";
     cmd = "playerctl ${player} play-pause";
