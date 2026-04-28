@@ -2,6 +2,7 @@
   pkgs,
   lib,
   device,
+  hostname,
   ...
 }:
 let
@@ -79,7 +80,7 @@ let
   };
 in
 let
-  profiles = (import ./firefox/profiles.nix);
+  profiles = ((import ./firefox/profiles.nix) { inherit hostname; });
   policy = plugins: {
     DisableTelemetry = true;
     DisableFirefoxStudies = true;

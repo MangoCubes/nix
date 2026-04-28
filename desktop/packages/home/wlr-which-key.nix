@@ -4,6 +4,7 @@
   unstable,
   config,
   colours,
+  hostname,
   ...
 }:
 let
@@ -17,6 +18,7 @@ let
               pkgs
               config
               osConfig
+              hostname
               ;
           };
         }

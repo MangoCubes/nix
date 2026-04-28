@@ -19,9 +19,6 @@
   # Where we will get our source code
   inputs = {
     mikuboot.url = "gitlab:evysgarden/mikuboot";
-    nixvim = {
-      url = "github:nix-community/nixvim";
-    };
     # nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
     unstablePkg.url = "github:nixos/nixpkgs/nixos-unstable";
     niri-adv-rules.url = "github:MangoCubes/niri-adv-rules";
@@ -45,6 +42,10 @@
       # inputs
     };
     yazi.url = "github:sxyazi/yazi";
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "unstablePkg";
+    };
   };
 
   # This @ sign binds inputs to the value that comes after it

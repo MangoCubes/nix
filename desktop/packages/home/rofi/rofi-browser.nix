@@ -1,4 +1,9 @@
-{ pkgs, lib, ... }:
+{
+  pkgs,
+  lib,
+  hostname,
+  ...
+}:
 let
   printProfile =
     {
@@ -13,7 +18,7 @@ let
   openBrowser =
     { name, ... }:
     ''if [ $first == "${name}" ]; then coproc (profilebrowser "${name}" > /dev/null 2>&1); exit 0; fi'';
-  envs = (import ../firefox/profiles.nix);
+  envs = ((import ../firefox/profiles.nix) { inherit hostname; });
   rofi-browser = pkgs.writeShellScriptBin "rofi-browser" ''
     if [ $# -eq 0 ]
       then

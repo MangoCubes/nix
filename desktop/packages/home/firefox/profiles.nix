@@ -1,3 +1,4 @@
+{ hostname }:
 [
   {
     name = "School";
@@ -19,7 +20,6 @@
     alias = [
       "Cloud"
       "Music"
-      "Anime"
     ];
     id = 2;
   }
@@ -57,3 +57,14 @@
     id = 7;
   }
 ]
+++ (
+  if hostname == "main" then
+    [
+      {
+        name = "Anime";
+        id = 8;
+      }
+    ]
+  else
+    [ ]
+)
