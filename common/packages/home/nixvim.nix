@@ -362,7 +362,7 @@ in
           };
         }
         {
-          key = "<M-e>";
+          key = "<M-v>";
           action = "<cmd>DapEval<CR>";
           mode = "n";
           options = {
@@ -513,28 +513,28 @@ in
         }
 
         {
-          key = "<A-w>";
+          key = "<M-w>";
           action = "<cmd>lua vim.lsp.buf.document_symbol()<CR>";
         }
 
         {
-          key = "<A-W>";
+          key = "<M-W>";
           action = "<cmd>lua vim.lsp.buf.workspace_symbol()<CR>";
         }
 
         {
-          key = "<A-f>";
+          key = "<M-f>";
           action = "<cmd>lua vim.lsp.buf.code_action()<CR>";
         }
 
         {
-          key = "<A-e>";
+          key = "<M-e>";
           action = "<cmd>lua vim.diagnostic.open_float()<CR>";
           options.desc = "Show warnings and errors at the cursor";
         }
 
         {
-          key = "<A-r>";
+          key = "<M-r>";
           action = "<cmd>lua vim.lsp.buf.rename()<CR>";
           options.desc = "Rename a variable";
         }
@@ -545,12 +545,12 @@ in
         }
 
         {
-          key = "<A-i>";
+          key = "<M-i>";
           action = "<cmd>lua vim.lsp.buf.incoming_calls()<CR>";
         }
 
         {
-          key = "<A-o>";
+          key = "<M-o>";
           action = "<cmd>lua vim.lsp.buf.outgoing_calls()<CR>";
         }
         {
