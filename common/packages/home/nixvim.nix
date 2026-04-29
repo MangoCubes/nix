@@ -189,7 +189,16 @@ in
             # typos_lsp.enable = true;
           };
         };
-        lsp-format.enable = true;
+        conform-nvim = {
+          enable = true;
+          settings = {
+            format_on_save = {
+              lsp_fallback = true;
+              timeout_ms = 200;
+            };
+            notify_on_error = true;
+          };
+        };
         neoclip.enable = true;
         # smear-cursor = {
         #   enable = true;
