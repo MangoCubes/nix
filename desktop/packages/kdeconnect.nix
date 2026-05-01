@@ -1,15 +1,29 @@
-{ username, hostname, ... }:
+{
+  username,
+  hostname,
+  ...
+}:
 {
   home-manager.users."${username}" =
-    { pkgs, inputs, ... }:
+    {
+      pkgs,
+      inputs,
+      config,
+      ...
+    }:
     {
       services.kdeconnect.enable = true;
-      xdg.configFile."kdeconnect/config" = {
-        text = ''
-          [General]
-          name=${hostname}
-          customDevices=phone.local
-        '';
+      xdg.configFile = {
+        "kdeconnect/config" = {
+          text = ''
+            [General]
+            name=${hostname}
+            keyAlgorithm=EC
+            customDevices=tokay.local
+          '';
+        };
+        "kdeconnect/trusted_devices".source =
+          config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Sync/LinuxConfig/kde/trusted_devices";
       };
     };
   networking.firewall = {
