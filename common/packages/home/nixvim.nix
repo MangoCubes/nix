@@ -89,8 +89,8 @@ in
         };
       };
     };
-    clipboard = dih {
-      providers.wl-copy.enable = true;
+    clipboard = {
+      providers.wl-copy.enable = (device.type != "server");
       register = "unnamedplus";
     };
     extraPlugins = (
