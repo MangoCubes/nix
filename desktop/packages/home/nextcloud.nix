@@ -20,7 +20,7 @@ let
   ];
   syncCmd =
     dir:
-    "mkdir -p ${config.home.homeDirectory}/Nextcloud/${dir} && ${pkgs.nextcloud-client}/bin/nextcloudcmd -u $NC_USER -p $NC_PASSWORD -h --exclude ${./nextcloud/exclude.lst} --path /${dir} ${config.home.homeDirectory}/Nextcloud/${dir} https://cloud.skew.ch";
+    "mkdir -p ${config.home.homeDirectory}/Nextcloud/${dir} && ${pkgs.nextcloud-client}/bin/nextcloudcmd -u $NC_USER -p $NC_PASSWORD -h --exclude ${config.home.homeDirectory}/Sync/GeneralConfig/Nextcloud/exclude.lst --path /${dir} ${config.home.homeDirectory}/Nextcloud/${dir} https://cloud.skew.ch";
   syncScript =
     let
       allCmds = (builtins.concatStringsSep "\n" (builtins.map syncCmd syncDirs));
