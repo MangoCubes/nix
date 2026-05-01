@@ -74,6 +74,11 @@ in
       keybind = [
         "ctrl+shift+c=copy_to_clipboard"
         "ctrl+shift+v=paste_from_clipboard"
+        "ctrl+shift+equal=increase_font_size:1"
+        "ctrl+shift+minus=decrease_font_size:1"
+        "ctrl+shift+arrow_up=increase_font_size:1"
+        "ctrl+shift+arrow_down=decrease_font_size:1"
+        "ctrl+shift+0=reset_font_size"
       ];
       font-family = "FiraCode Nerd Font";
       custom-shader-animation = true;
