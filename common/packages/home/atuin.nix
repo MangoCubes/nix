@@ -7,7 +7,6 @@
   imports = [
     inputs.secrets.hm.atuin
   ];
-  programs.zsh.initContent = ''eval "$(atuin init zsh)"'';
   programs.atuin = {
     enableZshIntegration = true;
     enable = true;

@@ -27,9 +27,12 @@ let
   };
 in
 {
-  programs.zsh.initContent = ''
-    PROMPT='%F{cyan}╭─%f[%F{blue}%D{%Y-%m-%d} %*%f]─[%F{green}%n%f%F{cyan}@%f%F{magenta}%m%f]─[%F{yellow}%B%~%b%f]%(1j.─[%F{cyan}⚙ %j%f].)%(!.─[%B%F{red}⚠ ROOT%f%b].)
-    %F{cyan}╰─%f%(?.%F{green}✔.%F{red}✘ [%?])%f %F{magenta}❯%F{cyan}❯%F{yellow}❯%f ' '';
+  programs.zsh = {
+    enable = true;
+    initContent = ''
+      PROMPT='%F{cyan}╭─%f[%F{blue}%D{%Y-%m-%d} %*%f]─[%F{green}%n%f%F{cyan}@%f%F{magenta}%m%f]─[%F{yellow}%B%~%b%f]%(1j.─[%F{cyan}⚙ %j%f].)%(!.─[%B%F{red}⚠ ROOT%f%b].)
+      %F{cyan}╰─%f%(?.%F{green}✔.%F{red}✘ [%?])%f %F{magenta}❯%F{cyan}❯%F{yellow}❯%f ' '';
+  };
   home = {
     packages = (writeAlias aliases);
     shell = {
