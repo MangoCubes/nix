@@ -33,6 +33,7 @@ in
   ];
   xdg.mimeApps.defaultApplications."inode/directory" = "yazi.desktop";
   programs.yazi = {
+    enableZshIntegration = true;
     shellWrapperName = "y";
     enable = true;
     package = yazi.packages.${pkgs.system}.default.override {

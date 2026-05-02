@@ -11,6 +11,7 @@
     ./home.nix
     ./packages/netbird.nix
     ./nix.nix
+    ./packages/zsh.nix
   ]
   ++ (
     if device.type != "vm" then
