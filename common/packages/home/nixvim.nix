@@ -23,7 +23,6 @@ in
   xdg.dataFile."nvim/undo/.keep".text = "";
   home.packages = [
     pkgs.nil
-    pkgs.lazygit
     pkgs.libxml2
   ];
   programs.nixvim = {

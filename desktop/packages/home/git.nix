@@ -1,5 +1,7 @@
 { pkgs, ... }:
 {
+  programs.lazygit.enableZshIntegration = true;
+  home.packages = [ pkgs.lazygit ];
   programs.git = {
     signing.format = "openpgp";
     enable = true;
