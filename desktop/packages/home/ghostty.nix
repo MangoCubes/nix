@@ -68,6 +68,7 @@ in
   };
   programs.ghostty = {
     clearDefaultKeybinds = true;
+    enableZshIntegration = true;
     enable = true;
     package = unstable.ghostty;
     settings = {

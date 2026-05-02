@@ -21,17 +21,22 @@ let
     gch = "nix-collect-garbage -d";
     dol = "sudo nix profile wipe-history --profile /nix/var/nix/profiles/system --older-than 1d";
     km = ''echo "Copy the following into hardware-configuration.nix to get the OS to reboot."; nixos-generate-config --show-hardware-config'';
-    currentboot = ''journalctl -o short-precise -k'';
-    lastboot = ''journalctl -o short-precise -k -b -1'';
-    printscript = ''cat $(whereis $1 | awk '{print $2}')'';
+    currentboot = "journalctl -o short-precise -k";
+    lastboot = "journalctl -o short-precise -k -b -1";
+    printscript = "cat $(whereis $1 | awk '{print $2}')";
   };
 in
 {
-  home.packages = (writeAlias aliases);
-  programs.bash = {
-    enable = true;
-    initExtra = ''
-      . "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
-    '';
+  home = {
+    packages = (writeAlias aliases);
+    shell = {
+      enableZshIntegration = true;
+    };
   };
+  # programs.bash = {
+  #   enable = true;
+  #   initExtra = ''
+  #     . "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
+  #   '';
+  # };
 }

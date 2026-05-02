@@ -1,11 +1,32 @@
-{ username, inputs, ... }:
+{
+  username,
+  inputs,
+  pkgs,
+  ...
+}:
 {
   nix.settings.trusted-users = [ "@wheel" ];
   imports = [
     inputs.secrets.common
   ];
+  programs.zsh = {
+    enable = true;
+    enableCompletion = true;
+    enableAutosuggestions = true;
+    syntaxHighlighting.enable = true;
+
+    oh-my-zsh = {
+      enable = true;
+      plugins = [
+        "git"
+      ];
+      theme = "robbyrussell";
+    };
+  };
+
   users.users = {
     "${username}" = {
+      shell = pkgs.zsh;
       subUidRanges = [
         {
           count = 100000;
