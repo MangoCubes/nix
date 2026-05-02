@@ -13,7 +13,6 @@
       };
     };
     kernelParams = [
-      "quiet"
       "splash"
       # This is necessary because this laptop has Gen 12 CPU
       # Display may not be detected by the system, and this may lead to wrong resolution issue

@@ -13,7 +13,6 @@
       };
     };
     kernelParams = [
-      "quiet"
       "splash"
       # Keyboard fix
       "usbcore.autosuspend=-1"

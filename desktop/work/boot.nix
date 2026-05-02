@@ -13,7 +13,6 @@
       };
     };
     kernelParams = [
-      "quiet"
       "splash"
     ];
     extraModprobeConfig = ''

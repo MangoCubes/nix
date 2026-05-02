@@ -9,16 +9,16 @@
     inputs.grub2-themes.nixosModules.default
   ];
 
-  boot.plymouth = {
-    enable = true;
-    theme = "target";
-    themePackages = with pkgs; [
-      # By default we would install all themes
-      (adi1090x-plymouth-themes.override {
-        selected_themes = [ "target" ];
-      })
-    ];
-  };
+  # boot.plymouth = {
+  #   enable = true;
+  #   theme = "target";
+  #   themePackages = with pkgs; [
+  #     # By default we would install all themes
+  #     (adi1090x-plymouth-themes.override {
+  #       selected_themes = [ "target" ];
+  #     })
+  #   ];
+  # };
 
   boot.loader.grub2-theme = {
     enable = true;

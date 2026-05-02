@@ -12,6 +12,6 @@
         useOSProber = true;
       };
     };
-    kernelParams = [ "quiet" "splash" ];
+    kernelParams = [ "splash" ];
   };
 }

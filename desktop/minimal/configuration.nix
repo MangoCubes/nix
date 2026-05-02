@@ -1,31 +1,48 @@
-{ config, pkgs, lib, modulesPath, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  modulesPath,
+  ...
+}:
 
 {
-# HARDWARE CONFIG
-    imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
-    ];
+  # HARDWARE CONFIG
+  imports = [
+    (modulesPath + "/installer/scan/not-detected.nix")
+  ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
+  boot.initrd.availableKernelModules = [
+    "xhci_pci"
+    "ahci"
+    "nvme"
+    "usbhid"
+    "usb_storage"
+    "sd_mod"
+  ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/" =
-    { device = "/dev/disk/by-uuid/195b2dd4-2994-410f-b2a7-851987bed126";
-      fsType = "ext4";
-    };
+  fileSystems."/" = {
+    device = "/dev/disk/by-uuid/195b2dd4-2994-410f-b2a7-851987bed126";
+    fsType = "ext4";
+  };
 
-  fileSystems."/home" =
-    { device = "/dev/disk/by-uuid/5a77be4b-559b-4ebb-b3db-1cbbccc8de6b";
-      fsType = "ext4";
-    };
+  fileSystems."/home" = {
+    device = "/dev/disk/by-uuid/5a77be4b-559b-4ebb-b3db-1cbbccc8de6b";
+    fsType = "ext4";
+  };
 
   fileSystems."/boot" =
-  # Fix this if necessary
-    { device = "/dev/disk/by-uuid/4D51-12A0";
+    # Fix this if necessary
+    {
+      device = "/dev/disk/by-uuid/4D51-12A0";
       fsType = "vfat";
-      options = [ "fmask=0022" "dmask=0022" ];
+      options = [
+        "fmask=0022"
+        "dmask=0022"
+      ];
     };
 
   swapDevices = [ ];
@@ -43,7 +60,7 @@
 
   # END OF HW CONFIG
 
-    boot = {
+  boot = {
     loader = {
       efi = {
         canTouchEfiVariables = true;
@@ -56,7 +73,7 @@
         useOSProber = true;
       };
     };
-    kernelParams = [ "quiet" "splash" ];
+    kernelParams = [ "splash" ];
   };
 
   networking.hostName = "minimal"; # Define your hostname.
@@ -106,11 +123,11 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-   environment.systemPackages = with pkgs; [
-     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-     wget
-     firefox
-   ];
+  environment.systemPackages = with pkgs; [
+    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    wget
+    firefox
+  ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
