@@ -109,7 +109,9 @@ let
     // useLocalCa;
   # Automatically create dependencies if dependsOn is specified
   # Note that dependencies are other containers
-  deps = if dependsOn == null then [ ] else (builtins.map (e: "podman-${e}.service") dependsOn);
+  deps = (if dependsOn == null then [ ] else (builtins.map (e: "podman-${e}.service") dependsOn)) ++ [
+    "podman.socket"
+  ];
   # Specify extra arguments if there are any
   args = extraPodmanArgs;
   # We generate Traefik labels for each domain entry
