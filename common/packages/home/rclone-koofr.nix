@@ -14,7 +14,7 @@
       Service = {
         Type = "notify";
         ExecStartPre = "/run/current-system/sw/bin/mkdir -p %h/Mounts/Koofr";
-        ExecStart = "${pkgs.rclone}/bin/rclone --config=%h/.config/sops-nix/secrets/koofr --vfs-cache-mode full mount \"enckoofr:\" %h/Mounts/Koofr --allow-other";
+        ExecStart = "${pkgs.rclone}/bin/rclone --config=%h/.config/sops-nix/secrets/koofr --vfs-cache-mode full mount \"enckoofr:\" %h/Mounts/Koofr";
         Environment = [ "PATH=/run/wrappers/bin/:$PATH" ];
         ExecStop = "/bin/fusermount -u %h/Mounts/Koofr";
       };
