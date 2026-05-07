@@ -14,6 +14,7 @@ let
     "Documents/School/Research/Templates"
     "Documents/School/TA"
     "Documents/School/Work/2026"
+    "Documents/SelfStudy/Japanese"
     "Projects/ampterm"
     "Projects/dragevac"
     "Projects/School"
