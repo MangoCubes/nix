@@ -8,8 +8,8 @@ let
     a: builtins.attrValues (builtins.mapAttrs (key: value: (pkgs.writeShellScriptBin key value)) a);
   aliases = {
     # Baseline commands only
-    jl = "sudo journalctl -xeu $@";
-    jul = "journalctl --user -xeu $@";
+    jl = "sudo journalctl --follow -xeu $@";
+    jul = "journalctl --user --follow -xeu $@";
     ss = "sudo systemctl status $@";
     sr = "sudo systemctl restart $@";
     sp = "sudo systemctl stop $@";

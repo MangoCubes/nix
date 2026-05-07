@@ -32,6 +32,12 @@ let
 
     declare -A SYNC_DIRS=(${syncDirs})
 
+    exclude_patterns=()
+    while IFS= read -r line || [[ -n "$line" ]]; do
+        [[ -z "$line" || "$line" == \#* ]] && continue
+        exclude_patterns+=("$line")
+    done < $EXCLUDE_FILE
+
     sync_directory() {
         local local_path="$1"
         local remote_path="''${SYNC_DIRS[$local_path]}"
@@ -51,6 +57,21 @@ let
 
     ${pkgs.inotify-tools}/bin/inotifywait -m -r -e close_write,moved_to,moved_from,delete "''${LOCAL_PATHS[@]}" --format '%w%f' | \
     while read -r changed_file; do
+
+        excluded=0
+        filename=$(basename "$changed_file")
+
+        for pattern in "''${exclude_patterns[@]}"; do
+            if [[ "$filename" == $pattern || "$changed_file" == $pattern ]]; then
+                excluded=1
+                break
+            fi
+        done
+        
+        if [[ $excluded -eq 1 ]]; then
+            continue
+        fi
+
         for base_dir in "''${!SYNC_DIRS[@]}"; do
             if [[ "$changed_file" == "$base_dir"* ]]; then
                 echo "[$(date +'%Y-%m-%d %H:%M:%S')] Change detected: $changed_file"
