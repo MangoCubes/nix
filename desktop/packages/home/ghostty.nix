@@ -43,15 +43,15 @@ let
     command = ''"$@"'';
   });
   detached = pkgs.writeShellScriptBin "td" (genCmd {
-    command = "bash";
+    command = "shell";
     detached = true;
   });
   attached = pkgs.writeShellScriptBin "ta" (genCmd {
-    command = "bash";
+    command = "shell";
   });
 in
 {
-  programs.bash.shellAliases = {
+  programs.zsh.shellAliases = {
     fastfetch = "fastfetch --logo ~/.config/configMedia/logo/nix.png --logo-type kitty-direct --logo-width 30 --logo-height 14";
   };
   home.packages = [

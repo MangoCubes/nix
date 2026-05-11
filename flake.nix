@@ -216,7 +216,6 @@
       # This creates a development shell
       # With this, I can open development environment for this config folder by entering `nix develop`
       devShell.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.mkShell {
-        packages = [ pkgs.bash ];
         shellHook =
           let
             initFile = pkgs.writeText ".bashrc" ''

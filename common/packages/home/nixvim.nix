@@ -620,7 +620,7 @@ in
         }
         {
           key = "<leader>tt";
-          action = "<cmd>tabnew | terminal /usr/bin/env bash<CR>";
+          action = "<cmd>tabnew | terminal /usr/bin/env shell<CR>";
           options.desc = "Open a new tab and open a terminal";
         }
         {
@@ -638,7 +638,7 @@ in
         }
         {
           key = "<C-`>";
-          action = ":belowright split | resize 15 | terminal /usr/bin/env bash<CR>";
+          action = ":belowright split | resize 15 | terminal /usr/bin/env shell<CR>";
         }
         {
           key = "<C-n>";

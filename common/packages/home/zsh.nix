@@ -24,9 +24,12 @@ let
     currentboot = "journalctl -o short-precise -k";
     lastboot = "journalctl -o short-precise -k -b -1";
     printscript = "cat $(whereis $1 | awk '{print $2}')";
+    shell = "${pkgs.zsh}/bin/zsh";
   };
 in
 {
+  imports = [ ./zsh/options.nix ];
+  custom.shell.program = "zsh";
   programs.zsh = {
     enable = true;
     initContent = ''
@@ -39,10 +42,4 @@ in
       enableZshIntegration = true;
     };
   };
-  # programs.bash = {
-  #   enable = true;
-  #   initExtra = ''
-  #     . "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
-  #   '';
-  # };
 }

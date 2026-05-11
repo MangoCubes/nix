@@ -16,7 +16,7 @@
     {
       imports = [
         ./packages/home/atuin.nix
-        ./packages/home/bash.nix
+        ./packages/home/zsh.nix
         ./packages/home/scripts.nix
         ./packages/home/rclone-koofr.nix
         ./home-options.nix
