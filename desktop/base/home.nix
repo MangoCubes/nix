@@ -71,9 +71,6 @@
             webcord
             dconf
             tor-browser
-          ])
-          ++ (with inputs.nix-alien.packages.${system}; [
-            nix-alien
           ]);
       };
     };

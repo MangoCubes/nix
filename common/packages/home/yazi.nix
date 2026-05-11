@@ -36,7 +36,7 @@ in
     enableZshIntegration = true;
     shellWrapperName = "y";
     enable = true;
-    package = yazi.packages.${pkgs.system}.default.override {
+    package = yazi.packages.${pkgs.stdenv.hostPlatform.system}.default.override {
       _7zz = unfree._7zz-rar;
     };
     settings = {

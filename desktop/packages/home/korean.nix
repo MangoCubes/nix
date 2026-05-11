@@ -24,9 +24,8 @@
     };
   };
   i18n.inputMethod = {
-    # type = "fcitx5";
-    # enable = true;
-    enabled = "fcitx5";
+    type = "fcitx5";
+    enable = true;
     fcitx5 = {
       addons = with pkgs; [
         fcitx5-mozc
@@ -45,4 +44,3 @@
     XMODIFIERS = "@im=fcitx";
   };
 }
-# users.users."${config.username}".extraGroups = [ "input" "uinput" ];

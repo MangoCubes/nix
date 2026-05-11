@@ -14,7 +14,7 @@
 
     # additional packages to add to gjs's runtime
     extraPackages = (
-      with inputs.ags.packages.${unstable.system};
+      with inputs.ags.packages.${unstable.stdenv.hostPlatform.system};
       [
         battery
         mpris
