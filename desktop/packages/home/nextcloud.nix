@@ -2,7 +2,6 @@
   pkgs,
   config,
   inputs,
-  lib,
   ...
 }:
 let
@@ -100,13 +99,11 @@ in
           Environment = [ "PATH=/run/wrappers/bin/:$PATH" ];
           ExecStop = "/bin/fusermount -u %h/Mounts/Cloud";
         };
-        Install.WantedBy = lib.mkForce [ "default.target" ];
       };
       nextcloud-autosync = {
         Unit = {
           Description = "Auto sync Nextcloud";
-          After = "network-online.target";
-          Wants = "network-online.target";
+          After = [ "graphical-session.target" ];
         };
         Service = {
           Type = "simple";
@@ -114,7 +111,9 @@ in
           Restart = "always";
           RestartSec = "10";
         };
-        Install.WantedBy = [ "multi-user.target" ];
+        Install = {
+          WantedBy = [ "graphical-session.target" ];
+        };
       };
     };
     startServices = true;
