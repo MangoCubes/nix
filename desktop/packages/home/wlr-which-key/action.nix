@@ -4,6 +4,11 @@
   pkgs,
   ...
 }:
+let
+  inhibited =
+    cmd:
+    ''err=$(systemctl ${cmd} --check-inhibitors=yes 2>&1) || ${pkgs.notify-desktop}/bin/notify-desktop "Shutdown Blocked" "$err";'';
+in
 (
   if osConfig.custom.features.tablet then
     [
@@ -75,17 +80,17 @@
       {
         key = "s";
         desc = "⏾ Sleep";
-        cmd = "systemctl suspend";
+        cmd = (inhibited "suspend");
       }
       {
         key = "r";
         desc = " Reboot";
-        cmd = "reboot";
+        cmd = (inhibited "reboot");
       }
       {
         key = "p";
         desc = " Power Off";
-        cmd = "poweroff";
+        cmd = (inhibited "poweroff");
       }
     ];
   }
