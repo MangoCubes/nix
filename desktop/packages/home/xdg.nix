@@ -17,13 +17,13 @@
         xdg-desktop-portal-gtk
       ];
       extraPortals = with pkgs; [
-        xdg-desktop-portal-gnome
+        kdePackages.xdg-desktop-portal-kde
         xdg-desktop-portal-gtk
       ];
       config = {
         common.default = [
+          "kde"
           "gtk"
-          "gnome"
         ];
       };
     };
