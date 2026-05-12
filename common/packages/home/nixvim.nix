@@ -127,7 +127,10 @@ in
         dap-lldb.enable = true;
         dap-ui.enable = true;
         dap-virtual-text.enable = true;
-        notify.enable = true;
+        notify = {
+          enable = true;
+          settings.background_colour = "#000000";
+        };
         gitsigns.enable = true;
         neoscroll = {
           enable = true;
@@ -147,7 +150,7 @@ in
             ];
           };
         };
-        # noice.enable = true;
+        noice.enable = true;
 
         # nvim-jdtls.enable = true;
         navic = {
