@@ -7,7 +7,6 @@
       inputs,
       config,
       lib,
-      system,
       ...
     }:
     {
@@ -17,6 +16,7 @@
         mkdir -p ${config.home.homeDirectory}/Downloads
       '';
       imports = [
+        inputs.secrets.desktop.home
         ../packages/home/dictionary.nix
         # ../packages/home/dconf.nix
         ../packages/home/ghostty.nix
