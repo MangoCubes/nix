@@ -6,7 +6,6 @@
     ./home.nix
     ./networking.nix
     ../packages/wireshark.nix
-    ../../common/packages/rclone-mega.nix
     ../packages/sunshine.nix
     ../base/configuration.nix
     (import ../packages/android.nix {
