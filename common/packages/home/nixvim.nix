@@ -132,22 +132,26 @@ in
           settings.background_colour = "#000000";
         };
         gitsigns.enable = true;
-        neoscroll = {
+        snacks = {
           enable = true;
           settings = {
-            cursor_scrolls_alone = true;
-            easing_function = "quadratic";
-            mappings = [
-              "<C-u>"
-              "<C-d>"
-              "<C-b>"
-              "<C-f>"
-              "<C-y>"
-              "<C-e>"
-              "zt"
-              "zz"
-              "zb"
-            ];
+            bigfile = {
+              enabled = true;
+            };
+            notifier = {
+              enabled = true;
+              timeout = 3000;
+            };
+            quickfile = {
+              enabled = true;
+            };
+            statuscolumn = {
+              enabled = true;
+            };
+            words = {
+              debounce = 100;
+              enabled = true;
+            };
           };
         };
         noice.enable = true;
