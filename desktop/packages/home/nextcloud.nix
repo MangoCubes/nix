@@ -5,31 +5,26 @@
   ...
 }:
 let
-  syncDirs =
-    let
-      f = dir: ''["/home/main/Nextcloud/${dir}"]="/${dir}"'';
-      syncDirs = [
-        "Temp"
-        "Documents/Important"
-        "Documents/School/6-1"
-        "Documents/School/Research/Current"
-        "Documents/School/Research/Templates"
-        "Documents/School/TA"
-        "Documents/School/Work/2026"
-        "Documents/SelfStudy/Japanese"
-        "Projects/ampterm"
-        "Projects/dragevac"
-        "Projects/School"
-      ];
-    in
-    (builtins.concatStringsSep "\n" (builtins.map f syncDirs));
   syncScript = pkgs.writeShellScriptBin "sync-script" ''
     NC_USER=$(${pkgs.libsecret}/bin/secret-tool lookup Use Nextcloud_Username)
     NC_PASSWORD=$(${pkgs.libsecret}/bin/secret-tool lookup Use Nextcloud_Password)
     NC_URL="https://cloud.skew.ch"
     EXCLUDE_FILE="${config.home.homeDirectory}/Sync/GeneralConfig/Nextcloud/exclude.lst"
+    DIRS_FILE="${config.home.homeDirectory}/Sync/GeneralConfig/Nextcloud/dirs.lst"
 
-    declare -A SYNC_DIRS=(${syncDirs})
+    declare -A SYNC_DIRS
+
+    if [[ ! -f "$DIRS_FILE" ]]; then
+        echo "Error: Directory list file not found at $DIRS_FILE"
+        exit 1
+    fi
+
+    while IFS= read -r dir || [[ -n "$dir" ]]; do
+        # Skip empty lines and lines starting with #
+        [[ -z "$dir" || "$dir" == \#* ]] && continue
+      
+        SYNC_DIRS["${config.home.homeDirectory}/Nextcloud/$dir"]="/$dir"
+    done < "$DIRS_FILE"
 
     exclude_patterns=()
     while IFS= read -r line || [[ -n "$line" ]]; do
