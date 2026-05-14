@@ -1,4 +1,9 @@
-{ username, device, ... }:
+{
+  username,
+  device,
+  lib,
+  ...
+}:
 {
   # This specified home-manager options
   # Anything set in this applies to the user specified only
@@ -43,6 +48,21 @@
           rclone
         ])
         ++ (with pkgs.unixtools; [ xxd ]);
+      home.sessionVariables =
+        let
+          envVars =
+            { sets, prefix }:
+            lib.mapAttrs' (name: value: lib.nameValuePair (lib.toUpper "${prefix}_${name}") value) sets;
+          colours = (import ./colours.nix);
+        in
+        (envVars {
+          sets = colours.base;
+          prefix = "COLOUR";
+        })
+        // (envVars {
+          sets = colours.withTransparency;
+          prefix = "TRANSPARENT";
+        });
 
       # This value should be set to what you had when you initially installed NixOS
       home.stateVersion = "24.11";

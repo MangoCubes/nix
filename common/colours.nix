@@ -7,9 +7,6 @@ let
     darkBg = "24292b";
     rin = "ffcc11";
   };
-in
-{
-  inherit base;
   withTransparency = {
     miku = "${base.miku}ff";
     teto = "${base.teto}ff";
@@ -18,4 +15,7 @@ in
     darkBg = "${base.darkBg}d0";
     blackBg = "${base.blackBg}d0";
   };
+in
+{
+  inherit base withTransparency;
 }
