@@ -26,7 +26,7 @@
           [
             ./packages/home/podman/syncthing.nix
             ./packages/home/yazi.nix
-            ./packages/home/nixvim.nix
+            ./packages/home/neovim.nix
           ]
         else
           [ ]
