@@ -12,7 +12,6 @@
     clang-tools
     libxml2
     fd
-    rust-analyzer
   ];
   programs.neovim = {
     enable = true;
