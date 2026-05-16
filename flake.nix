@@ -18,6 +18,7 @@
   };
   # Where we will get our source code
   inputs = {
+    proxmox-nixos.url = "github:SaumonNet/proxmox-nixos";
     mikuboot.url = "gitlab:evysgarden/mikuboot";
     # nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
     unstablePkg.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -58,6 +59,7 @@
       unstablePkg,
       yazi,
       sops-nix,
+      proxmox-nixos,
       ...
     }:
     let
@@ -172,35 +174,38 @@
         {
           hostname,
           device,
+          extraModules ? [ ],
         }:
-        let
-          # This creates a module that you can add to the system
-          # Once you add this module, this creates a bunch of new options such as `custom.features.tablet`
-          # What makes this different from just adding new parameters like specialArgs is that these can be both read and written in the config
-          # When added as specialArgs, you cannot change this within the config, and can only set them in flake.nix
-          extraOptions = (import ./desktop/options.nix);
-        in
         # And this is the value this function will return
         # I use hostname to set my device hostnames, and also specify which configuration should be loaded
+        let
+          options = (import ./desktop/base/options.nix);
+        in
         (sysBase {
           inherit hostname device;
-          extraModules = (
-            if device.type == "desktop" || device.type == "laptop" then
-              [
-                # This includes per-machine config based on the flake name
-                ./desktop/${hostname}/configuration.nix
-                ./server/base/configuration.nix
-                extraOptions
-              ]
-            else if device.type == "server" || device.type == "vm" then
-              [
-                # This includes per-machine config based on the flake name
-                ./server/${hostname}/configuration.nix
-                ./server/base/configuration.nix
-              ]
-            else
-              builtins.throw "Invalid device type: ${device.type}"
-          );
+          extraModules =
+            (
+              if device.type == "desktop" || device.type == "laptop" then
+                [
+                  # This includes per-machine config based on the flake name
+                  ./desktop/${hostname}/configuration.nix
+                  ./server/base/configuration.nix
+                  # This creates a module that you can add to the system
+                  # Once you add this module, this creates a bunch of new options such as `custom.features.tablet`
+                  # What makes this different from just adding new parameters like specialArgs is that these can be both read and written in the config
+                  # When added as specialArgs, you cannot change this within the config, and can only set them in flake.nix
+                  options
+                ]
+              else if device.type == "server" || device.type == "vm" then
+                [
+                  # This includes per-machine config based on the flake name
+                  ./server/${hostname}/configuration.nix
+                  ./server/base/configuration.nix
+                ]
+              else
+                builtins.throw "Invalid device type: ${device.type}"
+            )
+            ++ extraModules;
         });
       genImage =
         { hostname, device }:
@@ -425,6 +430,25 @@
       nixosConfigurations.server-home = nixpkgs.lib.nixosSystem (genSystem {
         hostname = "server-home";
         device.type = "server";
+        extraModules = [
+          proxmox-nixos.nixosModules.proxmox-ve
+
+          (
+            { pkgs, lib, ... }:
+            {
+              services.proxmox-ve = {
+                enable = true;
+                ipAddress = "192.168.0.1";
+              };
+
+              nixpkgs.overlays = [
+                proxmox-nixos.overlays.${system}
+              ];
+
+              # The rest of your configuration...
+            }
+          )
+        ];
       });
       nixosConfigurations.build-qcow2 = nixpkgs.lib.nixosSystem (genImage {
         hostname = "PLACEHOLDER";
