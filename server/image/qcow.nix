@@ -1,10 +1,14 @@
-{ config, lib, pkgs, modulesPath, ... }:
-
+{
+  config,
+  lib,
+  pkgs,
+  modulesPath,
+  ...
+}:
 
 {
   imports = [
     <nixpkgs/nixos/modules/installer/cd-dvd/channel.nix>
-    ./hardware-configuration.nix
     "${toString modulesPath}/profiles/qemu-guest.nix"
   ];
 

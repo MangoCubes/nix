@@ -178,7 +178,7 @@
           # Once you add this module, this creates a bunch of new options such as `custom.features.tablet`
           # What makes this different from just adding new parameters like specialArgs is that these can be both read and written in the config
           # When added as specialArgs, you cannot change this within the config, and can only set them in flake.nix
-          extraOptions = (import ./common/options.nix);
+          extraOptions = (import ./desktop/options.nix);
         in
         # And this is the value this function will return
         # I use hostname to set my device hostnames, and also specify which configuration should be loaded
@@ -419,6 +419,10 @@
       nixosConfigurations.server-media = nixpkgs.lib.nixosSystem (genSystem {
         hostname = "server-media";
         device.type = "vm";
+      });
+      nixosConfigurations.server-home = nixpkgs.lib.nixosSystem (genSystem {
+        hostname = "server-home";
+        device.type = "server";
       });
       nixosConfigurations.build-qcow2 = nixpkgs.lib.nixosSystem (genImage {
         hostname = "PLACEHOLDER";
