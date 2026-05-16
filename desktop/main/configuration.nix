@@ -9,7 +9,6 @@
     # ../packages/mikuboot.nix
     ../base/configuration.nix
     (import ../packages/android.nix { androidStudio = true; })
-    ../packages/waydroid.nix
     ../packages/virtualbox.nix
     ../packages/wireshark.nix
     ../packages/tablet.nix
