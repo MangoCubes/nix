@@ -189,12 +189,14 @@
               [
                 # This includes per-machine config based on the flake name
                 ./desktop/${hostname}/configuration.nix
+                ./server/base/configuration.nix
                 extraOptions
               ]
             else if device.type == "server" || device.type == "vm" then
               [
                 # This includes per-machine config based on the flake name
                 ./server/${hostname}/configuration.nix
+                ./server/base/configuration.nix
               ]
             else
               builtins.throw "Invalid device type: ${device.type}"

@@ -11,7 +11,6 @@
 
     ../packages/podman/adguard.nix
     ../packages/podman/netbird.nix
-    ../base/configuration.nix
 
     inputs.secrets.server-network.restic
     ../packages/restic.nix
