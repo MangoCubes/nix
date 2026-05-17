@@ -5,6 +5,8 @@
     substituters = [
       "https://nix-community.cachix.org"
       "https://cache.nixos.org/"
+      "https://yazi.cachix.org"
+      "https://cache.saumon.network/proxmox-nixos"
     ];
     trusted-substituters = [ ];
 
@@ -12,13 +14,13 @@
     trusted-public-keys = [
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+      "yazi.cachix.org-1:Dcdz63NZKfvUCbDGngQDAZq6kOroIrFoyO064uvLh8k="
+      "proxmox-nixos:D9RYSWpQQC/msZUWphOY2I5RLH5Dd6yQcaHIuug7dWM="
     ];
-    extra-substituters = [ "https://yazi.cachix.org" ];
-    extra-trusted-public-keys = [ "yazi.cachix.org-1:Dcdz63NZKfvUCbDGngQDAZq6kOroIrFoyO064uvLh8k=" ];
   };
   # Where we will get our source code
   inputs = {
-    proxmox-nixos.url = "github:SaumonNet/proxmox-nixos";
+#     proxmox-nixos.url = "github:SaumonNet/proxmox-nixos";
     mikuboot.url = "gitlab:evysgarden/mikuboot";
     # nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
     unstablePkg.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -59,7 +61,7 @@
       unstablePkg,
       yazi,
       sops-nix,
-      proxmox-nixos,
+#       proxmox-nixos,
       ...
     }:
     let
@@ -430,25 +432,25 @@
       nixosConfigurations.server-home = nixpkgs.lib.nixosSystem (genSystem {
         hostname = "server-home";
         device.type = "server";
-        extraModules = [
-          proxmox-nixos.nixosModules.proxmox-ve
-
-          (
-            { pkgs, lib, ... }:
-            {
-              services.proxmox-ve = {
-                enable = true;
-                ipAddress = "192.168.0.1";
-              };
-
-              nixpkgs.overlays = [
-                proxmox-nixos.overlays.${system}
-              ];
-
-              # The rest of your configuration...
-            }
-          )
-        ];
+#         extraModules = [
+#           proxmox-nixos.nixosModules.proxmox-ve
+#
+#           (
+#             { pkgs, lib, ... }:
+#             {
+#               services.proxmox-ve = {
+#                 enable = true;
+#                 ipAddress = "192.168.0.1";
+#               };
+#
+#               nixpkgs.overlays = [
+#                 proxmox-nixos.overlays.${system}
+#               ];
+#
+#               # The rest of your configuration...
+#             }
+#           )
+#         ];
       });
       nixosConfigurations.build-qcow2 = nixpkgs.lib.nixosSystem (genImage {
         hostname = "PLACEHOLDER";
