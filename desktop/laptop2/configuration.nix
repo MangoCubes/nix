@@ -7,6 +7,7 @@
     ./boot.nix
     ./home.nix
     ./networking.nix
+    ../packages/steam.nix
     (import ../packages/android.nix { androidStudio = false; })
     ../packages/wireshark.nix
     ../packages/saleae.nix
