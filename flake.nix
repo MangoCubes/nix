@@ -429,6 +429,11 @@
         hostname = "server-home";
         device.type = "server";
         extraModules = [
+          {
+            nixpkgs.overlays = [
+              proxmox-nixos.overlays.${system}
+            ];
+          }
         ];
       });
       nixosConfigurations.build-qcow2 = nixpkgs.lib.nixosSystem (genImage {

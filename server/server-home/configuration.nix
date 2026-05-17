@@ -5,6 +5,7 @@
     inputs.secrets.hw.server-home
     ./home.nix
     ./traefik.nix
+    ./proxmox.nix
   ];
   system.stateVersion = "25.11";
 }
