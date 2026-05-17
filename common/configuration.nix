@@ -17,7 +17,7 @@
     if device.type != "vm" then
       [
         ./packages/podman.nix
-        ./packages/ssh-access.nix
+        ./packages/ssh.nix
       ]
     else
       [ ]
