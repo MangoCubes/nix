@@ -442,7 +442,7 @@ in
           owner = "stelcodes";
           repo = "bunny.yazi";
           rev = "main";
-          sha256 = "sha256-hTD/gW+xdz5rN3e/hyI9U/E17MlKgDd9sTnfES7SxCo=";
+          sha256 = "sha256-uQO0C00yOFPWq8KEO/kEZM6tFZRc9SiXfgN7kzlwDeA=";
         };
         # yamb = pkgs.fetchFromGitHub {
         #   owner = "h-hg";
