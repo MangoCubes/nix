@@ -44,7 +44,8 @@
 						"*.laptop2.local",
 						"*.main.local",
 						"*.server-main.local",
-						"*.server-network.local"
+						"*.server-network.local",
+						"*.server-home.local"
 					]
 				}
 			},
