@@ -20,7 +20,7 @@
   };
   # Where we will get our source code
   inputs = {
-#     proxmox-nixos.url = "github:SaumonNet/proxmox-nixos";
+    proxmox-nixos.url = "github:SaumonNet/proxmox-nixos";
     mikuboot.url = "gitlab:evysgarden/mikuboot";
     # nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
     unstablePkg.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -39,11 +39,7 @@
     nix-alien.url = "github:thiagokokada/nix-alien";
     # Notice that the path starts with path:
     # This flake is stored in ./secrets
-    secrets = {
-      url = "path:/home/main/Sync/NixConfig/secrets";
-      # flake = false;
-      # inputs
-    };
+    secrets.url = "path:/home/main/Sync/NixConfig/secrets";
     yazi.url = "github:sxyazi/yazi";
     nixvim = {
       url = "github:nix-community/nixvim";
@@ -61,7 +57,7 @@
       unstablePkg,
       yazi,
       sops-nix,
-#       proxmox-nixos,
+      proxmox-nixos,
       ...
     }:
     let
@@ -432,25 +428,8 @@
       nixosConfigurations.server-home = nixpkgs.lib.nixosSystem (genSystem {
         hostname = "server-home";
         device.type = "server";
-#         extraModules = [
-#           proxmox-nixos.nixosModules.proxmox-ve
-#
-#           (
-#             { pkgs, lib, ... }:
-#             {
-#               services.proxmox-ve = {
-#                 enable = true;
-#                 ipAddress = "192.168.0.1";
-#               };
-#
-#               nixpkgs.overlays = [
-#                 proxmox-nixos.overlays.${system}
-#               ];
-#
-#               # The rest of your configuration...
-#             }
-#           )
-#         ];
+        extraModules = [
+        ];
       });
       nixosConfigurations.build-qcow2 = nixpkgs.lib.nixosSystem (genImage {
         hostname = "PLACEHOLDER";
