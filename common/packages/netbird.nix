@@ -5,7 +5,7 @@
   # Run the following two commands:
   #
   # sudo resolvectl dns nb-personal 127.0.0.153
-  # sudo resolvectl domain nb-personal local ~76.100.in-addr.arpa ~. int
+  # sudo resolvectl domain nb-personal local int
   #
   # If `resolvectl` does not look like this:
   # Link 3 (nb-personal)
@@ -28,6 +28,14 @@
         "1.1.1.1"
       ];
     };
+  };
+  systemd.network.networks.nb-personal = {
+    enable = true;
+    dns = "127.0.0.153";
+    domains = [
+      "local"
+      "int"
+    ];
   };
   services.netbird = {
     clients = {
