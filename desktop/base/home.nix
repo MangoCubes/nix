@@ -45,6 +45,7 @@
         ../packages/home/rclone-server-main.nix
         ../packages/home/rclone-server-media.nix
         ../packages/home/ampterm.nix
+        ../packages/home/ssh.nix
         # ../packages/home/iamb.nix
       ];
 
