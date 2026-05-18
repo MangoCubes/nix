@@ -82,6 +82,14 @@ in
   ];
   imports = [ inputs.secrets.hm.nextcloud ];
   systemd.user = {
+    timers.nextcloud-autosync = {
+      Unit = {
+        Description = "Timer to delay Nextcloud auto-sync";
+        After = [ "graphical-session.target" ];
+      };
+      Timer.OnActiveSec = "3min";
+      Install.WantedBy = [ "graphical-session.target" ];
+    };
     services = {
       rclone-cloud = {
         Unit = {
@@ -105,9 +113,6 @@ in
           ExecStart = "${syncScript}/bin/sync-script";
           Restart = "always";
           RestartSec = "10";
-        };
-        Install = {
-          WantedBy = [ "graphical-session.target" ];
         };
       };
     };
