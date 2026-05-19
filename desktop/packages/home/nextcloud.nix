@@ -9,7 +9,8 @@ let
     NC_USER=$(${pkgs.libsecret}/bin/secret-tool lookup Use Nextcloud_Username)
     NC_PASSWORD=$(${pkgs.libsecret}/bin/secret-tool lookup Use Nextcloud_Password)
     NC_URL="https://cloud.skew.ch"
-    EXCLUDE_FILE="${config.home.homeDirectory}/Sync/GeneralConfig/Nextcloud/exclude.lst"
+    # The exclude file must be named sync-exclude.lst or it will be silently ignored for some reason
+    EXCLUDE_FILE="${config.home.homeDirectory}/Sync/GeneralConfig/Nextcloud/sync-exclude.lst"
     DIRS_FILE="${config.home.homeDirectory}/Sync/GeneralConfig/Nextcloud/dirs.lst"
 
     declare -A SYNC_DIRS
@@ -26,11 +27,11 @@ let
         SYNC_DIRS["${config.home.homeDirectory}/Nextcloud/$dir"]="/$dir"
     done < "$DIRS_FILE"
 
-    exclude_patterns=()
+    exclude_patterns=(".sync_*.db" ".sync_*.db-wal" ".sync_*.db-shm")
     while IFS= read -r line || [[ -n "$line" ]]; do
         [[ -z "$line" || "$line" == \#* ]] && continue
         exclude_patterns+=("$line")
-    done < $EXCLUDE_FILE
+    done < ${pkgs.nextcloud-client}/etc/Nextcloud/sync-exclude.lst
 
     sync_directory() {
         local local_path="$1"
