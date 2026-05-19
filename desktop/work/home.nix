@@ -1,7 +1,7 @@
 { username, ... }:
 {
   home-manager.users."${username}" =
-    { unfreeUnstable, ... }:
+    { unfreeUnstable, unstable, ... }:
     {
       imports = [
         ../packages/home/windows.nix
@@ -9,6 +9,7 @@
       ];
       home.packages = [
         unfreeUnstable.osu-lazer-bin
+        unstable.ungoogled-chromium
       ];
     };
 }
