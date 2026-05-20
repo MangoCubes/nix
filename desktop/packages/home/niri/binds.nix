@@ -313,6 +313,9 @@ in
     "Mod+K" = {
       focus-workspace = "security";
     };
+    "Mod+Return" = {
+      focus-workspace = "scratch";
+    };
     "Mod+Shift+1" = {
       move-column-to-workspace = "one";
     };

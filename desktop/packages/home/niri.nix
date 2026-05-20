@@ -255,6 +255,7 @@ let
         (buildWs "security")
         (buildWs "media")
         (buildWs "config")
+        (buildWs "scratch")
       ]
       ++ (
         if multiMonitors then
