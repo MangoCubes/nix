@@ -6,6 +6,7 @@
   #
   # sudo resolvectl dns nb-personal 127.0.0.153
   # sudo resolvectl domain nb-personal local int
+  # sudo resolvectl dns <Default device> local int
   #
   # If `resolvectl` does not look like this:
   # Link 3 (nb-personal)
@@ -13,22 +14,9 @@
   #          Protocols: +DefaultRoute -LLMNR +mDNS -DNSOverTLS DNSSEC=no/unsupported
   # Current DNS Server: 127.0.0.153
   #        DNS Servers: 127.0.0.153
-  #         DNS Domain: local ~76.100.in-addr.arpa ~.
+  #         DNS Domain: local int
   #      Default Route: yes
-  services.resolved = {
-    enable = true;
-    settings.Resolve = {
-      LLMNR = "false";
-      Domains = [
-        "local"
-        "int"
-      ];
-      FallbackDns = [
-        "107.175.189.176"
-        "1.1.1.1"
-      ];
-    };
-  };
+  services.resolved.enable = true;
   systemd.network.networks.nb-personal = {
     enable = true;
     dns = "127.0.0.153";
