@@ -46,7 +46,7 @@
         ../packages/home/rclone-server-media.nix
         ../packages/home/ampterm.nix
         ../packages/home/ssh.nix
-        # ../packages/home/iamb.nix
+        ../packages/home/matrix.nix
       ];
 
       xdg.configFile."configMedia" = {
