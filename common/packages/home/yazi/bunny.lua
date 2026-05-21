@@ -1,12 +1,13 @@
 require("bunny"):setup({
 	hops = {
 		{ key = "/",          path = "/", },
-		{ key = "T",          path = "~/.local/share/Trash/files",         desc = "Trash" },
+		{ key = "T",          path = "~/.local/share/Trash/files",      desc = "Trash" },
 		{ key = "t",          path = "~/Temp", },
-		{ key = "d",          path = "~/Downloads",                        desc = "Downloads" },
-		{ key = "p",          path = "~/Nextcloud/Projects",               desc = "Projects" },
-		{ key = "I",          path = "~/Mounts/Cloud/Documents/Important", desc = "Important Documents" },
-		-- Quick sync gets its own unique hotkey because it should be fast
+		{ key = "d",          path = "~/Downloads",                     desc = "Downloads" },
+		{ key = "p",          path = "~/Nextcloud/Projects",            desc = "Projects" },
+		{ key = "I",          path = "~/Nextcloud/Documents/Important", desc = "Important documents" },
+		{ key = "S",          path = "~/Nextcloud/Documents/School/",   desc = "School files" },
+
 		{ key = "q",          path = "~/Sync/Quick Sync" },
 		{ key = "n",          path = "~/Sync/Notes" },
 
@@ -19,9 +20,9 @@ require("bunny"):setup({
 		{ key = { "s", "q" }, path = "~/Sync/Quick Sync" },
 		{ key = { "s", "p" }, path = "~/Sync/Passwords" },
 
-		{ key = { "l", "s" }, path = "~/.local/share",                     desc = "Local share" },
-		{ key = { "l", "b" }, path = "~/.local/bin",                       desc = "Local bin" },
-		{ key = { "l", "t" }, path = "~/.local/state",                     desc = "Local state" },
+		{ key = { "l", "s" }, path = "~/.local/share",                  desc = "Local share" },
+		{ key = { "l", "b" }, path = "~/.local/bin",                    desc = "Local bin" },
+		{ key = { "l", "t" }, path = "~/.local/state",                  desc = "Local state" },
 
 		{ key = { "m", "a" }, path = "~/Mounts/Android/" },
 		{ key = { "m", "c" }, path = "~/Mounts/Cloud/" },

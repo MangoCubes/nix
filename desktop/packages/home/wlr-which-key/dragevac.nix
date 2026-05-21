@@ -14,6 +14,11 @@
         desc = "Downloads";
         cmd = "dragevac --load-dir ~/Downloads/";
       }
+      {
+        key = "k";
+        desc = "Keys";
+        cmd = "dragevac --load-dir ~/Mounts/Secrets";
+      }
     ];
   }
   {
