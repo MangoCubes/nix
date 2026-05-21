@@ -11,6 +11,7 @@
     pyright
     clang-tools
     libxml2
+    typescript-language-server
     fd
   ];
   programs.neovim = {
