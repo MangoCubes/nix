@@ -253,6 +253,13 @@ in
           else
             [
               {
+                on = [
+                  "M"
+                ];
+                run = ''shell --orphan 'dir_path=$(dirname "$@") && dragevac --load-dir "$dir_path"' '';
+                desc = "Mouse drag and drop current directory";
+              }
+              {
                 on = "P";
                 run = "shell 'pastecp' ";
               }
@@ -408,13 +415,6 @@ in
             ];
             desc = "Archive selected files to .tar.gz";
           }
-          {
-            on = [
-              "M"
-            ];
-            run = "plugin mount";
-            desc = "Mount plugin";
-          }
         ];
     };
     plugins =
@@ -428,7 +428,6 @@ in
       in
       {
         chmod = "${plugins-repo}/chmod.yazi";
-        mount = "${plugins-repo}/mount.yazi";
         # compress = "${plugins-repo}/compress.yazi";
         # full-border = "${yazi-plugins}/full-border.yazi";
         # max-preview = "${yazi-plugins}/max-preview.yazi";
