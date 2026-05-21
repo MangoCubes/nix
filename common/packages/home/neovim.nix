@@ -1,19 +1,29 @@
 {
   config,
   unstable,
+  device,
   ...
 }:
 {
-  home.packages = with unstable; [
-    lazygit
-    nil
-    lua-language-server
-    pyright
-    clang-tools
-    libxml2
-    typescript-language-server
-    fd
-  ];
+  home.packages =
+    with unstable;
+    [
+      lazygit
+      nil
+      fd
+    ]
+    ++ (
+      if device.type == "desktop" || device.type == "laptop" then
+        [
+          lua-language-server
+          pyright
+          clang-tools
+          libxml2
+          typescript-language-server
+        ]
+      else
+        [ ]
+    );
   programs.neovim = {
     enable = true;
     viAlias = true;
