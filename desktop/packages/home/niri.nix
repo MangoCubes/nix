@@ -165,6 +165,14 @@ let
     builtins.map (output: (lib.hm.generators.toKDL { } output)) (
       [
         {
+          blur = {
+            passes = 3;
+            offset = 3;
+            noise = 0.02;
+            saturation = 1.5;
+          };
+        }
+        {
           spawn-at-startup._args = [
             "niri-adv-rules"
           ];

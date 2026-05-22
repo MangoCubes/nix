@@ -25,6 +25,7 @@
         [ ]
     );
   programs.neovim = {
+    sideloadInitLua = true;
     enable = true;
     viAlias = true;
     vimAlias = true;
