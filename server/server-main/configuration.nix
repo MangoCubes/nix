@@ -11,6 +11,7 @@
     inputs.secrets.server-main.restic
     ./traefik.nix
     ../packages/podman/mitmproxy-wg.nix
+    ../packages/podman/plex.nix
     ./home.nix
     ./networking.nix
   ];

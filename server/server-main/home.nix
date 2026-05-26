@@ -12,7 +12,6 @@
         ../packages/home/podman/matrix.nix
         ../packages/home/podman/redlib-vpn.nix
         ../packages/home/podman/searxng.nix
-        ../packages/home/podman/baikal.nix
         ((import ../packages/home/podman/proton.nix) {
           name = "redlib";
         })
@@ -29,8 +28,6 @@
         ../packages/home/podman/pgadmin.nix
         ../packages/home/podman/kavita.nix
         ../packages/home/podman/immich.nix
-        ../packages/home/podman/dustcal.nix
-        # ../packages/home/podman/jellyfin.nix
         ../packages/home/podman/calibre.nix
         ../packages/home/podman/redis.nix
         ../packages/home/podman/collabora.nix
