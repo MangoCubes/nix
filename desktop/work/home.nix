@@ -10,6 +10,7 @@
       home.packages = [
         unfreeUnstable.osu-lazer-bin
         unstable.ungoogled-chromium
+        unstable.rustdesk-flutter
       ];
     };
 }
