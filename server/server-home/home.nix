@@ -1,9 +1,13 @@
-{ username, ... }:
+{ ... }:
 {
-  home-manager.users."${username}" =
-    { pkgs, unstable, ... }:
+  home-manager.users.test =
+    {
+      inputs,
+      ...
+    }:
     {
       imports = [
+        inputs.secrets.server-home.home
       ];
     };
 }

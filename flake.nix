@@ -82,6 +82,10 @@
           })
         ];
       };
+      insecure = import unstablePkg {
+        inherit system;
+        config.allowInsecurePredicate = x: true;
+      };
       unfree = import nixpkgs {
         inherit system;
         config.allowUnfree = true;
@@ -116,6 +120,7 @@
               inputs
               unstable
               unfree
+              insecure
               unfreeUnstable
               hostname
               device
@@ -148,6 +153,7 @@
                     yazi
                     inputs
                     unfreeUnstable
+                    insecure
                     unfree
                     unstable
                     colours
