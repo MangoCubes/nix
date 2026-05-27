@@ -6,7 +6,7 @@
   #
   # sudo resolvectl dns nb-personal 127.0.0.153
   # sudo resolvectl domain nb-personal local int
-  # sudo resolvectl dns <Default device> local int
+  # (Probably not required) sudo resolvectl dns <Default device> local int
   #
   # If `resolvectl` does not look like this:
   # Link 3 (nb-personal)
