@@ -6,7 +6,6 @@
       "https://nix-community.cachix.org"
       "https://cache.nixos.org/"
       "https://yazi.cachix.org"
-      "https://cache.saumon.network/proxmox-nixos"
     ];
     trusted-substituters = [ ];
 
@@ -15,12 +14,10 @@
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       "yazi.cachix.org-1:Dcdz63NZKfvUCbDGngQDAZq6kOroIrFoyO064uvLh8k="
-      "proxmox-nixos:D9RYSWpQQC/msZUWphOY2I5RLH5Dd6yQcaHIuug7dWM="
     ];
   };
   # Where we will get our source code
   inputs = {
-    proxmox-nixos.url = "github:SaumonNet/proxmox-nixos";
     mikuboot.url = "gitlab:evysgarden/mikuboot";
     # nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
     unstablePkg.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -57,7 +54,6 @@
       unstablePkg,
       yazi,
       sops-nix,
-      proxmox-nixos,
       ...
     }:
     let
@@ -434,13 +430,6 @@
       nixosConfigurations.server-home = nixpkgs.lib.nixosSystem (genSystem {
         hostname = "server-home";
         device.type = "server";
-        extraModules = [
-          {
-            nixpkgs.overlays = [
-              proxmox-nixos.overlays.${system}
-            ];
-          }
-        ];
       });
       nixosConfigurations.build-qcow2 = nixpkgs.lib.nixosSystem (genImage {
         hostname = "PLACEHOLDER";
