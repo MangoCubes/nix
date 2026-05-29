@@ -1,4 +1,4 @@
-{ username, unstable, ... }:
+{ username, ... }:
 {
   home-manager.users."${username}" =
     { pkgs, unfreeUnstable, ... }:
@@ -9,6 +9,7 @@
       ];
       home.packages = [
         unfreeUnstable.osu-lazer-bin
+        unfreeUnstable.objection
       ];
     };
 }

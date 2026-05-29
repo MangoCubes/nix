@@ -66,7 +66,11 @@
       # This allows me to be explicit about pulling unfree packages without having to spam the config with `allowUnfreePredicate` stuff you get told about when you try to `nix-shell -p ...` an unfree package
       unfreeUnstable = import unstablePkg {
         inherit system;
-        config.allowUnfree = true;
+        config = {
+          allowUnfree = true;
+          # What the fuck is this
+          android_sdk.accept_license = true;
+        };
       };
       # Similar stuff, but it uses `nixpkgs` instead of `unstablePkg`
       # Any stuff downloaded from this are from NixOS 25.05
