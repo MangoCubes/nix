@@ -7,7 +7,6 @@
     ./home.nix
     ./security.nix
     # ../packages/mikuboot.nix
-    ../packages/steam.nix
     ../base/configuration.nix
     (import ../packages/android.nix { androidStudio = true; })
     ../packages/virtualbox.nix
