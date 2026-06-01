@@ -6,6 +6,7 @@
       imports = [
         ../packages/home/windows.nix
         ../packages/home/ghidra.nix
+        ../packages/home/lutris.nix
       ];
       home.packages = [
         unfreeUnstable.osu-lazer-bin
