@@ -29,14 +29,12 @@ let
     while IFS= read -r file; do
         original=$(echo $file | sed 's/\.*sync-conflict-[0-9]*-[0-9]*-[A-Z0-9]*//')
         if [[ -f "$original" ]]; then
-            echo "Found: $file"
             hash1=$(sha256sum "$file" | awk '{ print $1 }')
             hash2=$(sha256sum "$original" | awk '{ print $1 }')
             if [[ "$hash1" == "$hash2" ]]; then
-                echo "Conflict file $file is identical, deleting..."
                 remove_file "$file"
             else
-                echo "$original is different from conflicting copy."
+                echo "$file is different from conflicting copy."
                 if [[ "$1" == "-f" ]]; then
                     remove_file "$file"
                 fi
