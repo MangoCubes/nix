@@ -214,24 +214,6 @@ in
     "Mod+Shift+Ctrl+Right" = {
       move-column-to-monitor-right._props = { };
     };
-    "Mod+Shift+U" = {
-      move-column-to-workspace-down._props = { };
-    };
-    "Mod+Shift+I" = {
-      move-column-to-workspace-up._props = { };
-    };
-    "Mod+Ctrl+U" = {
-      move-workspace-down._props = { };
-    };
-    "Mod+Ctrl+I" = {
-      move-workspace-up._props = { };
-    };
-    "Mod+O" = {
-      _props = {
-        repeat = false;
-      };
-      toggle-overview._props = { };
-    };
     "Mod+Q" = {
       _props = {
         repeat = false;
@@ -255,18 +237,6 @@ in
         cooldown-ms = 150;
       };
       focus-workspace-up._props = { };
-    };
-    "Mod+Ctrl+WheelScrollDown" = {
-      _props = {
-        cooldown-ms = 150;
-      };
-      move-column-to-workspace-down._props = { };
-    };
-    "Mod+Ctrl+WheelScrollUp" = {
-      _props = {
-        cooldown-ms = 150;
-      };
-      move-column-to-workspace-up._props = { };
     };
     "Mod+WheelScrollRight" = {
       focus-column-right._props = { };
