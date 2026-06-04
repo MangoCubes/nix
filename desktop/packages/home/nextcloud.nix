@@ -37,6 +37,7 @@ let
         local local_path="$1"
         local remote_path="''${SYNC_DIRS[$local_path]}"
         echo "[$(date +'%Y-%m-%d %H:%M:%S')] Synchronising: $local_path -> $remote_path"
+    	mkdir -p $local_path
         ${pkgs.nextcloud-client}/bin/nextcloudcmd -u "$NC_USER" -p "$NC_PASSWORD" -h --exclude "$EXCLUDE_FILE" --path "$remote_path" "$local_path" "$NC_URL"
     }
 
