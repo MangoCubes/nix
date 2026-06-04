@@ -21,10 +21,6 @@ let
       done
     fi
   '';
-  launch-flake = pkgs.writeShellScriptBin "launch-flake" ''
-    dir=$(dirname "$@");
-    cd "$dir" && nix develop;
-  '';
 in
 {
   home.packages = [
@@ -49,7 +45,12 @@ in
             {
               flake = [
                 {
-                  run = ''dt ${launch-flake}/bin/launch-flake "$@"'';
+                  run = (
+                    config.custom.terminal.genCmd {
+                      workingDirectory = ''$(dirname "$@")'';
+                      command = "nix develop";
+                    }
+                  );
                   for = "unix";
                   desc = "Nix Flake";
                   orphan = true;
@@ -57,7 +58,11 @@ in
               ];
               nix = [
                 {
-                  run = ''dt nix-shell "$@"'';
+                  run = (
+                    config.custom.terminal.genCmd {
+                      command = ''"nix-shell "$@"'';
+                    }
+                  );
                   for = "unix";
                   desc = "Nix Shell";
                   orphan = true;
@@ -65,7 +70,7 @@ in
               ];
               terminal = [
                 {
-                  run = (config.custom.terminal.genCmd { workingDirectory = ''$(dirname "$@")''; });
+                  run = (config.custom.terminal.genCmd { workingDirectory = "$@"; });
                   desc = "Open in terminal";
                   orphan = true;
                 }
@@ -210,7 +215,7 @@ in
               else
                 [
                   "terminal"
-                  (lib.mkIf (!isServer) "dolphin")
+                  "dolphin"
                   "compress"
                 ];
           }
