@@ -4,6 +4,7 @@ require("bunny"):setup({
 		{ key = "T",          path = "~/.local/share/Trash/files",      desc = "Trash" },
 		{ key = "t",          path = "~/Temp", },
 		{ key = "d",          path = "~/Downloads",                     desc = "Downloads" },
+		{ key = "N",          path = "~/Nextcloud",                     desc = "Nextcloud Synchronised" },
 		{ key = "p",          path = "~/Nextcloud/Projects",            desc = "Projects" },
 		{ key = "I",          path = "~/Nextcloud/Documents/Important", desc = "Important documents" },
 		{ key = "S",          path = "~/Nextcloud/Documents/School/",   desc = "School files" },
