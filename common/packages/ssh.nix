@@ -6,25 +6,40 @@
 # test user: Nothing
 let
   sideUser = "access";
+  allowPassword =
+    { username, allow }:
+    let
+      val = if allow then "yes" else "no";
+    in
+    ''
+      Match User ${username}
+        PasswordAuthentication ${val}
+        KbdInteractiveAuthentication ${val}
+        PubkeyAuthentication yes
+    '';
 in
 {
   services.openssh = {
     enable = true;
     settings = {
-      PasswordAuthentication = false;
-      KbdInteractiveAuthentication = false;
       AllowUsers = [
         username
         sideUser
       ];
+      DenyUsers = [ "test" ];
       PermitRootLogin = "no";
       AcceptEnv = lib.mkForce null;
     };
-    extraConfig = ''
-      Match User ${sideUser}
-        PasswordAuthentication yes
-        KbdInteractiveAuthentication yes
-    '';
+    extraConfig = builtins.concatStringsSep "\n" [
+      (allowPassword {
+        allow = true;
+        username = sideUser;
+      })
+      (allowPassword {
+        allow = false;
+        inherit username;
+      })
+    ];
   };
   networking.firewall = {
     enable = true;
