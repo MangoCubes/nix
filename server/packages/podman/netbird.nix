@@ -30,7 +30,7 @@
 
             "traefik.http.routers.netbird-grpc.priority" = "1000";
             "traefik.http.routers.netbird-grpc.rule" =
-              "\"Host(`vpn.skew.ch`) && (PathPrefix(`/signalexchange.SignalExchange/`) || PathPrefix(`/management.ManagementService/`))\"";
+              "Host(`vpn.skew.ch`) && (PathPrefix(`/signalexchange.SignalExchange/`) || PathPrefix(`/management.ManagementService/`))";
             "traefik.http.routers.netbird-grpc.entrypoints" = "websecure";
             "traefik.http.routers.netbird-grpc.tls" = "true";
             "traefik.http.routers.netbird-grpc.tls.certResolver" = "letsencrypt";
@@ -41,7 +41,7 @@
 
             "traefik.http.routers.netbird-backend.priority" = "1000";
             "traefik.http.routers.netbird-backend.rule" =
-              "\"Host(`vpn.skew.ch`) && (PathPrefix(`/relay`) || PathPrefix(`/ws-proxy/`) || PathPrefix(`/api`) || PathPrefix(`/oauth2`))\"";
+              "Host(`vpn.skew.ch`) && (PathPrefix(`/relay`) || PathPrefix(`/ws-proxy/`) || PathPrefix(`/api`) || PathPrefix(`/oauth2`))";
             "traefik.http.routers.netbird-backend.entrypoints" = "websecure";
             "traefik.http.routers.netbird-backend.tls" = "true";
             "traefik.http.routers.netbird-backend.tls.certResolver" = "letsencrypt";
