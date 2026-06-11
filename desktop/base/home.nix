@@ -35,7 +35,6 @@
         ../packages/home/dragevac.nix
         ../packages/home/kde.nix
         ../packages/home/korean.nix
-        ../packages/home/polkit.nix
         ../packages/home/mitm-proxy.nix
         ../packages/home/wlr-which-key.nix
         ../packages/home/nextcloud.nix
