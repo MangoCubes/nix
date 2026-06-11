@@ -24,6 +24,7 @@
         ./packages/home/zsh.nix
         ./packages/home/scripts.nix
         ./packages/home/rclone-koofr.nix
+        ./packages/home/rclone-2tb.nix
         ./home-options.nix
       ]
       ++ (
