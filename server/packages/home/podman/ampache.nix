@@ -22,6 +22,7 @@
         "${config.home.homeDirectory}/.podman/ampache:/var/www/config"
         "${config.home.homeDirectory}/.podman/logs/ampache:/var/log/ampache"
         "${config.home.homeDirectory}/Mounts/Koofr/Media/Music:/media"
+        "${config.home.homeDirectory}/Mounts/2TB:/2TB"
       ];
     })
   ];
