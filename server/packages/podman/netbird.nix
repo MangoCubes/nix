@@ -21,7 +21,7 @@
           name = "netbird-server";
           ports = [ "3478:3478/udp" ];
           volumes = [
-            "netbird_data:/var/lib/netbird"
+            "${config.home.homeDirectory}/.podman/netbird:/var/lib/netbird"
             "${config.home.homeDirectory}/.config/sops-nix/secrets/netbird/config.yaml:/etc/netbird/config.yaml"
           ];
           entrypoint = "/go/bin/netbird-server --config /etc/netbird/config.yaml";
