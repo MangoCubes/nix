@@ -9,7 +9,8 @@ require("bunny"):setup({
 		{ key = "I",          path = "~/Nextcloud/Documents/Important", desc = "Important documents" },
 		{ key = "S",          path = "~/Nextcloud/Documents/School/",   desc = "School files" },
 
-		{ key = "q",          path = "~/Sync/Quick Sync" },
+		{ key = "q",          path = "~/Sync/Quick" },
+		{ key = "Q",          path = "~/Sync/QuickSecure" },
 		{ key = "n",          path = "~/Sync/Notes" },
 
 		{ key = { "s", "s" }, path = "~/Sync" },
@@ -18,7 +19,8 @@ require("bunny"):setup({
 		{ key = { "s", "l" }, path = "~/Sync/LinuxConfig" },
 		{ key = { "s", "n" }, path = "~/Sync/NixConfig" },
 		{ key = { "s", "N" }, path = "~/Sync/NixEnv" },
-		{ key = { "s", "q" }, path = "~/Sync/Quick Sync" },
+		{ key = { "s", "q" }, path = "~/Sync/Quick" },
+		{ key = { "s", "Q" }, path = "~/Sync/QuickSecure" },
 		{ key = { "s", "p" }, path = "~/Sync/Passwords" },
 
 		{ key = { "l", "s" }, path = "~/.local/share",                  desc = "Local share" },

@@ -220,7 +220,7 @@ let
           ];
         }
         { prefer-no-csd._props = { }; }
-        { screenshot-path = "~/Sync/Quick Sync/Pictures/Screenshot from %Y-%m-%d %H-%M-%S.png"; }
+        { screenshot-path = "~/Sync/QuickSecure/Pictures/Screenshot from %Y-%m-%d %H-%M-%S.png"; }
       ]
       ++ (
         if multiMonitors then
