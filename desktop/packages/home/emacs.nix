@@ -34,6 +34,7 @@ let
         hyperref
         capt-of
         collection-langkorean
+        environ
         ;
     }
   );
