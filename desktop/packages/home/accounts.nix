@@ -6,7 +6,6 @@
 {
   imports = [
     inputs.secrets.hm.accounts
-    inputs.secrets.hm.accountSecrets
   ];
 
   home.packages = [
