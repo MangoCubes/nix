@@ -119,7 +119,7 @@ let
       "${name}" = lib.mkMerge [
         {
           inherit id;
-          isDefault = (id == 0);
+          isDefault = name == "Sandbox";
           name = "${name}";
           settings = ((import ./firefox/base.nix) { inherit internal lib resetOnClose; });
         }
