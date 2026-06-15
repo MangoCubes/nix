@@ -117,6 +117,8 @@ lib.mkMerge [
     # Allow extensions to work everywhere
     "extensions.webextensions.restrictedDomains" = (lock-string "");
     "privacy.resistFingerprinting.block_mozAddonManager" = lock-true;
+
+    "browser.bookmarks.addedImportButton" = lock-false;
   }
   (lib.mkIf resetOnClose {
     "privacy.clearOnShutdown_v2.cache" = lock-true;
