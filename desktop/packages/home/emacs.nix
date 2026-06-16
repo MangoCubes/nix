@@ -22,6 +22,8 @@ let
   emacs-daily = pkgs.writeShellScriptBin "emacs-daily" "emacsclient -c -e '(org-roam-dailies-goto-today)' ";
   reload-emacs = pkgs.writeShellScriptBin "er" "emacsclient -e '(kill-emacs)'; loademacs";
   reload-emacs-fg = pkgs.writeShellScriptBin "ef" "${envs} emacs -q --fg-daemon --load ${init}";
+  # Note to self:
+  # If I am searching for a package because of an error "File `stuff.sty' not found", go to https://ctan.org/search and search for the package that contains that sty
   tex = (
     pkgs.texlive.combine {
       inherit (pkgs.texlive)
@@ -35,6 +37,7 @@ let
         capt-of
         collection-langkorean
         environ
+        sttools
         ;
     }
   );
