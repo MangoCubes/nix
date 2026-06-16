@@ -27,7 +27,48 @@ in
     linktofile
     pastecp
   ];
-  xdg.mimeApps.defaultApplications."inode/directory" = "yazi.desktop";
+  xdg = {
+    desktopEntries = {
+      yazi-term = {
+        name = "Yazi With Terminal";
+        genericName = "Terminal File Manager";
+        exec = config.custom.terminal.genCmd {
+          command = "yazi %f";
+        };
+      };
+    };
+    mimeApps.defaultApplications =
+      let
+        zips =
+          builtins.map
+            (n: {
+              "application/${n}" = "yazi-term.desktop";
+            })
+            [
+              "zip"
+              "rar"
+              "7z*"
+              "tar"
+              "gzip"
+              "xz"
+              "zstd"
+              "bzip*"
+              "lzma"
+              "compress"
+              "archive"
+              "cpio"
+              "arj"
+              "xar"
+              "ms-cab*"
+            ];
+        merged = builtins.foldl' (x: y: x // y) { } zips;
+      in
+      {
+        "inode/directory" = "yazi-term.desktop";
+      }
+      // merged;
+  };
+
   programs.yazi = {
     enableZshIntegration = true;
     shellWrapperName = "y";
