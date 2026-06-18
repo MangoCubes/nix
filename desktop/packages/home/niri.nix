@@ -185,12 +185,6 @@ let
         }
         {
           spawn-at-startup._args = [
-            "nextcloud"
-            "--background"
-          ];
-        }
-        {
-          spawn-at-startup._args = [
             "xwayland-satellite"
           ];
         }

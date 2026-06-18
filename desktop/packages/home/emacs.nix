@@ -38,6 +38,9 @@ let
         collection-langkorean
         environ
         sttools
+        breakurl
+        tabularray
+        ninecolors
         ;
     }
   );

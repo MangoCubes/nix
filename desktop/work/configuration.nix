@@ -12,4 +12,8 @@
       heimdall = false;
     })
   ];
+  networking.firewall = {
+    enable = true;
+    allowedTCPPorts = [ 8080 ];
+  };
 }
