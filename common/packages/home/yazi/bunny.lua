@@ -9,8 +9,8 @@ require("bunny"):setup({
 		{ key = "I",          path = "~/Nextcloud/Documents/Important", desc = "Important documents" },
 		{ key = "S",          path = "~/Nextcloud/Documents/School/",   desc = "School files" },
 
-		{ key = "q",          path = "~/Sync/Quick" },
-		{ key = "Q",          path = "~/Sync/QuickSecure" },
+		{ key = "Q",          path = "~/Sync/Quick" },
+		{ key = "q",          path = "~/Sync/QuickSecure" },
 		{ key = "n",          path = "~/Sync/Notes" },
 
 		{ key = { "s", "s" }, path = "~/Sync" },
