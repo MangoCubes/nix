@@ -48,10 +48,16 @@
         ../packages/home/ssh.nix
         ../packages/home/matrix.nix
       ];
-
-      xdg.configFile."configMedia" = {
-        source = "${inputs.secrets.res}/media";
-        recursive = true;
+      xdg = {
+        # Some programs create entries in ~/.config/autostart/, and it doesn't get deleted when the program is removed
+        autostart = {
+          enable = false;
+          readOnly = true;
+        };
+        configFile."configMedia" = {
+          source = "${inputs.secrets.res}/media";
+          recursive = true;
+        };
       };
       home = {
         packages =
