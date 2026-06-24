@@ -54,9 +54,9 @@
           };
         };
       };
-      programs.bash.shellAliases = {
+      custom.shell.aliases = {
         ubuntu = "podman run --rm -it ubuntu bash";
-        docker = "podman";
+        docker = "podman $@";
         pcu = "podman compose up -d";
         pcul = "podman compose up -d && podman compose logs -f";
         pcl = "podman compose logs -f";

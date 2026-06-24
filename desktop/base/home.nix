@@ -25,7 +25,7 @@
         ../packages/home/firefox.nix
         ../packages/home/xdg.nix
         ../packages/home/rofi.nix
-        ../packages/home/bash.nix
+        ../packages/home/aliases.nix
         ../packages/home/polkit.nix
         ../packages/home/git.nix
         ../packages/home/accounts.nix

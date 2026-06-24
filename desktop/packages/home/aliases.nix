@@ -1,12 +1,9 @@
 {
   config,
   inputs,
-  pkgs,
   ...
 }:
 let
-  writeAlias =
-    a: builtins.attrValues (builtins.mapAttrs (key: value: (pkgs.writeShellScriptBin key value)) a);
   aliases =
     let
       reloadSecrets = "sudo nix flake update secrets --flake ${config.home.homeDirectory}/Sync/NixConfig";
@@ -21,13 +18,11 @@ let
       ) { } remotes;
     in
     {
-      genimage = "nix build ~/Sync/NixConfig#nixosConfigurations.build-qcow2.config.system.build.qcow2 --impure";
       # Bunch of commands I seem to use a lot
       listen = "nc -lk $@";
-      optimise = "nix-store --optimise";
     }
     // cmds;
 in
 {
-  home.packages = (writeAlias aliases);
+  custom.shell.aliases = aliases;
 }
