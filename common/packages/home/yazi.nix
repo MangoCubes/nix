@@ -21,6 +21,24 @@ let
       done
     fi
   '';
+  zips = [
+    "zip"
+    "rar"
+    "7z*"
+    "tar"
+    "gzip"
+    "xz"
+    "zstd"
+    "bzip*"
+    "lzma"
+    "compress"
+    "archive"
+    "cpio"
+    "arj"
+    "xar"
+    "ms-cab*"
+  ];
+
 in
 (
   if isServer then
@@ -39,29 +57,10 @@ in
         };
         mimeApps.defaultApplications =
           let
-            zips =
-              builtins.map
-                (n: {
-                  "application/${n}" = "yazi-term.desktop";
-                })
-                [
-                  "zip"
-                  "rar"
-                  "7z*"
-                  "tar"
-                  "gzip"
-                  "xz"
-                  "zstd"
-                  "bzip*"
-                  "lzma"
-                  "compress"
-                  "archive"
-                  "cpio"
-                  "arj"
-                  "xar"
-                  "ms-cab*"
-                ];
-            merged = builtins.foldl' (x: y: x // y) { } zips;
+            zipsDefault = builtins.map (n: {
+              "application/${n}" = "yazi-term.desktop";
+            }) zips;
+            merged = builtins.foldl' (x: y: x // y) { } zipsDefault;
           in
           {
             "inode/directory" = "yazi-term.desktop";
@@ -247,7 +246,7 @@ in
         )
         ++ [
           {
-            mime = "application/{zip,rar,7z*,tar,gzip,xz,zstd,bzip*,lzma,compress,archive,cpio,arj,xar,ms-cab*}";
+            mime = "application/{${builtins.concatStringsSep "," zips}}";
             use = [
               "extract"
             ];
