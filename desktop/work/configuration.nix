@@ -14,6 +14,13 @@
   ];
   networking.firewall = {
     enable = true;
-    allowedTCPPorts = [ 8080 ];
+    allowedTCPPorts = [
+      # Port for letting desktops to connect to me
+      34669
+    ];
+    allowedUDPPorts = [
+      # Port for letting desktops to connect to me
+      5353
+    ];
   };
 }
