@@ -17,6 +17,8 @@
       '';
       imports = [
         inputs.secrets.desktop.home
+        ./home-options.nix
+
         ../packages/home/dictionary.nix
         # ../packages/home/dconf.nix
         ../packages/home/ghostty.nix
@@ -59,26 +61,28 @@
           recursive = true;
         };
       };
-      home = {
-        packages =
-          (with unstable; [
-            kdiff3
-            libreoffice-qt
-            wl-clipboard
-            adwaita-icon-theme
-            jmtpfs
-            vlc
-            sshpass
-            sops
-            pulseaudio
-            python3
-            signal-desktop
-          ])
-          ++ (with pkgs; [
-            webcord
-            dconf
-            tor-browser
-          ]);
-      };
+      home.packages = lib.mkMerge [
+        (with unstable; [
+          kdiff3
+          libreoffice-qt
+          wl-clipboard
+          adwaita-icon-theme
+          jmtpfs
+          vlc
+          sshpass
+          sops
+          pulseaudio
+          python3
+          signal-desktop
+        ])
+        (with pkgs; [
+          webcord
+          dconf
+          tor-browser
+        ])
+        (lib.mkIf config.custom.microsoftTeams.enable [
+          unstable.teams-for-linux
+        ])
+      ];
     };
 }

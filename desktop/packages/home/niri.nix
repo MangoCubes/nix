@@ -163,7 +163,17 @@ let
   };
   singleNodes = builtins.concatStringsSep "\n" (
     builtins.map (output: (lib.hm.generators.toKDL { } output)) (
-      [
+      (
+        if config.custom.microsoftTeams.enable then
+          ({
+            spawn-at-startup._args = [
+              "teams-for-linux"
+            ];
+          })
+        else
+          [ ]
+      )
+      ++ [
         {
           blur = {
             passes = 3;

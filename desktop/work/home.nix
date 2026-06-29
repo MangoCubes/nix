@@ -9,7 +9,6 @@
       ];
       home.packages = [
         unfreeUnstable.osu-lazer-bin
-        unstable.teams-for-linux
         unstable.ungoogled-chromium
         unstable.rustdesk-flutter
       ];
