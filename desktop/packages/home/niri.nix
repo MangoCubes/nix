@@ -9,6 +9,7 @@
 }:
 let
   killclick = pkgs.writeShellScriptBin "killclick" "kill -9 $(niri msg pick-window | grep PID | tail -n 1 | awk '{print $NF}')";
+  killcurrent = pkgs.writeShellScriptBin "killcurrent" "kill -9 $(niri msg focused-window | grep PID | tail -n 1 | awk '{print $NF}')";
   findwsid = pkgs.writeShellScriptBin "findwsid" ''
     niri msg -j workspaces | ${pkgs.jq}/bin/jq ".[] | select(.name == \"$1\")".id
   '';
@@ -322,6 +323,7 @@ in
   ];
   home.packages = [
     killclick
+    killcurrent
     findwsid
     openconfig
     openmedia
