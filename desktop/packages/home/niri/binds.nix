@@ -220,13 +220,13 @@ in
       };
       close-window._props = { };
     };
-    "Mod+Ctrl+Q" = {
+    "Mod+Shift+Q" = {
       _props = {
         repeat = false;
       };
       spawn = "killclick";
     };
-    "Mod+Shift+Q" = {
+    "Mod+Ctrl+Shift+Q" = {
       _props = {
         repeat = false;
       };

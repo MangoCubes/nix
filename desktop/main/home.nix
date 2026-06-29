@@ -15,6 +15,7 @@
         ../packages/home/mitm-proxy.nix
         ../packages/home/lutris.nix
       ];
+      custom.microsoftTeams.enable = true;
       home.packages = [
         unfreeUnstable.osu-lazer-bin
         # unstable.webcord
@@ -23,7 +24,6 @@
         unfree.beeper
         pkgs.audacity
         inputs.cwcwm.packages."${pkgs.stdenv.hostPlatform.system}".default
-        unstable.teams-for-linux
       ];
     };
 }
