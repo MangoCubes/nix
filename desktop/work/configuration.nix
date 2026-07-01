@@ -17,6 +17,7 @@
     allowedTCPPorts = [
       # Port for letting desktops to connect to me
       34669
+      45371
     ];
     allowedUDPPorts = [
       # Port for letting desktops to connect to me
