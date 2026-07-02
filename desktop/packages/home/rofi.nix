@@ -36,4 +36,6 @@
     };
     cycle = true;
   };
+  xdg.dataFile."rofi/rofi_calc_history".source =
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Sync/LinuxConfig/rofi/calc";
 }
