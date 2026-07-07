@@ -1,6 +1,8 @@
 { pkgs, config, ... }:
 {
-  programs.bash.shellAliases.xdgl = "for p in \${XDG_DATA_DIRS//:/ }; do   find $p/applications -name \'*.desktop\' ; done";
+  home.packages = [
+    (pkgs.writeScriptBin "xdgl" (builtins.readFile ./xdg/xdgl.sh))
+  ];
   xdg = {
     mimeApps.defaultApplications."application/json" = "neovim-new.desktop";
     desktopEntries.neovim-new = {
