@@ -74,6 +74,7 @@
           pulseaudio
           python3
           signal-desktop
+          tokei
         ])
         (with pkgs; [
           webcord

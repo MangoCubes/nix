@@ -34,8 +34,8 @@ in
   programs.zsh = {
     enable = true;
     initContent = ''
-      PROMPT='%F{cyan}╭─%f[%F{blue}%D{%Y-%m-%d} %*%f]─[%F{green}%n%f%F{cyan}@%f%F{magenta}%m%f]─[%F{yellow}%B%~%b%f]%(1j.─[%F{cyan}⚙ %j%f].)%(!.─[%B%F{red}⚠ ROOT%f%b].)
-      %F{cyan}╰─%f%(?.%F{green}[0].%F{red}[%?])%f %F{magenta}>%F{cyan}>%F{yellow}>%f ' '';
+      PROMPT='%f[%F{blue}%D{%Y-%m-%d} %*%f]─[%F{green}%n%f%F{cyan}@%f%F{magenta}%m%f]─[%F{yellow}%B%~%b%f]%(1j.─[%F{cyan}⚙ %j%f].)%(!.─[%B%F{red}⚠ ROOT%f%b].)
+      %f%(?.%F{green}[0].%F{red}[%?])%f %F{magenta}>%F{cyan}>%F{yellow}>%f ' '';
   };
   home = {
     packages = (writeAlias config.custom.shell.aliases);
