@@ -44,19 +44,8 @@ in
 ++ [
   {
     key = "n";
-    desc = " Notifications";
-    submenu = [
-      {
-        key = "c";
-        desc = " Clear latest";
-        cmd = "fnottctl dismiss";
-      }
-      {
-        key = "C";
-        desc = "󰎟 Clear all";
-        cmd = "fnottctl dismiss all";
-      }
-    ];
+    desc = " Clear Notifications";
+    cmd = "fnottctl dismiss all";
   }
   {
     key = "l";

@@ -25,15 +25,16 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1776666442,
-        "narHash": "sha256-jzY+yRbJEpIAg+SPuGpxNzPkbxt/3PaXddcLWI0VGUo=",
+        "lastModified": 1776600666,
+        "narHash": "sha256-8lVoRL2s6rTXqO3xcGsD1PhksmUMvsadsI1hsyBLStc=",
         "owner": "MangoCubes",
         "repo": "ampterm",
-        "rev": "a7b444c53b7c83d4b413edfa7734767dabb56f9d",
+        "rev": "1954a917732660cf75c3debf37621d7e294e22c2",
         "type": "github"
       },
       "original": {
         "owner": "MangoCubes",
+        "ref": "dev",
         "repo": "ampterm",
         "type": "github"
       }
@@ -458,16 +459,16 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1766736597,
-        "narHash": "sha256-BASnpCLodmgiVn0M1MU2Pqyoz0aHwar/0qLkp7CjvSQ=",
+        "lastModified": 1776169885,
+        "narHash": "sha256-l/iNYDZ4bGOAFQY2q8y5OAfBBtrDAaPuRQqWaFHVRXM=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "f560ccec6b1116b22e6ed15f4c510997d99d5852",
+        "rev": "4bd9165a9165d7b5e33ae57f3eecbcb28fb231c9",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
-        "ref": "nixos-25.11",
+        "ref": "nixos-unstable",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -669,7 +670,7 @@
         "sops-nix": "sops-nix"
       },
       "locked": {
-        "lastModified": 1782965013,
+        "lastModified": 1783396284,
         "narHash": "sha256-xbEFlo0IQgTSuGhTcCX9kt2bzZrSfBWyaNF0tHTVn4c=",
         "path": "/home/main/Sync/NixConfig/secrets",
         "type": "path"
