@@ -36,6 +36,7 @@
         ../packages/home/fnott.nix
         ../packages/home/ags.nix
         ../packages/home/dragevac.nix
+        ../packages/home/qagenda.nix
         ../packages/home/kde.nix
         ../packages/home/korean.nix
         ../packages/home/mitm-proxy.nix

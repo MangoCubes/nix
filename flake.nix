@@ -23,6 +23,7 @@
     unstablePkg.url = "github:nixos/nixpkgs/nixos-unstable";
     niri-adv-rules.url = "github:MangoCubes/niri-adv-rules";
     ampterm.url = "github:MangoCubes/ampterm/dev";
+    qagenda.url = "github:MangoCubes/qagenda/dev";
     dragevac.url = "github:MangoCubes/dragevac";
     cwcwm.url = "github:MangoCubes/cwcwm";
     home-manager = {
