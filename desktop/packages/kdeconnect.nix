@@ -19,7 +19,7 @@
             [General]
             name=${hostname}
             keyAlgorithm=EC
-            customDevices=tokay.local
+            customDevices=tokay.local,main.local,windows-work.local,windows-laptop2.local,laptop2.local
           '';
         };
         "kdeconnect/trusted_devices".source =
