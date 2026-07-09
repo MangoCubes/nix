@@ -29,6 +29,7 @@ in
       printscript = "cat $(whereis $1 | awk '{print $2}')";
       shell = "${pkgs.zsh}/bin/zsh";
       o = "xdg-open $@";
+      update = "nix flake update --flake path://${config.home.homeDirectory}/Sync/NixConfig $@";
     };
   };
   programs.zsh = {
