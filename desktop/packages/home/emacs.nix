@@ -19,6 +19,13 @@ let
   emacs-org = pkgs.writeShellScriptBin "emacs-org" ''emacsclient -c --eval '(find-file "${config.home.homeDirectory}/Sync/Notes/Org/Main.org")' '';
   emacs-web = pkgs.writeShellScriptBin "emacs-web" ''emacsclient -c --eval '(find-file "${config.home.homeDirectory}/Sync/Website/src/org/index.org")' '';
   emacs-mail = pkgs.writeShellScriptBin "emacs-mail" ''emacsclient -c -e '(notmuch-search "tag:inbox")' '';
+  emacs-mailto = pkgs.writeShellScriptBin "emacs-mailto" ''
+    if [ -n "$1" ]; then
+    	emacsclient -c -e "(message-mailto (pop server-eval-args-left))" "$1"
+    else
+    	emacsclient -c -e "(compose-mail)"
+    fi
+  '';
   emacs-daily = pkgs.writeShellScriptBin "emacs-daily" "emacsclient -c -e '(org-roam-dailies-goto-today)' ";
   reload-emacs = pkgs.writeShellScriptBin "er" "emacsclient -e '(kill-emacs)'; loademacs";
   reload-emacs-fg = pkgs.writeShellScriptBin "ef" "${envs} emacs -q --fg-daemon --load ${init}";
@@ -55,6 +62,7 @@ in
     emacs-daily
     reload-emacs
     reload-emacs-fg
+    emacs-mailto
   ]
   ++ (with pkgs; [
     # Necessary for exporting an .org document as .odt
@@ -76,7 +84,10 @@ in
       </mime-info>
     '';
     # Use xdg-mime query default <FILETYPE> to query what would be opened when this file is opened
-    mimeApps.defaultApplications."text/org" = "emacs.desktop";
+    mimeApps.defaultApplications = {
+      "text/org" = "emacs.desktop";
+      "x-scheme-handler/mailto" = "emacs-mailto.desktop";
+    };
     desktopEntries = {
       emacs = {
         name = "Emacs Client";
@@ -103,6 +114,10 @@ in
           "text/plain"
           "text/org"
         ];
+      };
+      emacs-mailto = {
+        name = "Emacs (mailto)";
+        exec = "emacs-mailto %u";
       };
       emacsclient = {
         noDisplay = true;

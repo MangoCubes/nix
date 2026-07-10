@@ -7,18 +7,7 @@
   imports = [
     inputs.secrets.hm.accounts
   ];
-
-  home.packages = [
-    pkgs.jq
-  ];
-  programs.thunderbird = {
-    enable = true;
-    profiles = {
-      main = {
-        isDefault = true;
-      };
-    };
-  };
+  programs.msmtp.enable = true;
   services.mbsync = {
     frequency = "*:0/1";
     enable = true;
