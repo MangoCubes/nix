@@ -7,7 +7,18 @@
         cd $tempdir
       '';
       rebuild = (builtins.readFile ./scripts/rebuild.sh);
-      venv = "python -m venv ./.venv; source ./.venv/bin/activate";
     };
+  };
+  programs.zsh = {
+    enable = true;
+    initExtra = ''
+      	venv() {
+      		if [ -d "./.venv" ]; then
+      			source ./.venv/bin/activate
+      		else
+      			python3 -m venv ./.venv && source ./.venv/bin/activate
+      		fi
+      	}
+    '';
   };
 }
