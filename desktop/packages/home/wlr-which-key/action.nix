@@ -43,11 +43,6 @@ in
 )
 ++ [
   {
-    key = "a";
-    desc = " Agenda";
-    cmd = "qagenda";
-  }
-  {
     key = "n";
     desc = " Clear Notifications";
     cmd = "fnottctl dismiss all";

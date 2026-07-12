@@ -27,14 +27,24 @@ in
     cmd = "emacs-web";
   }
   {
-    key = "a";
+    key = "h";
     desc = "󱅙 Edit Android Home Note";
     cmd = config.custom.terminal.genCmd { command = "nvim ~/Sync/Notes/MD/Android.md"; };
+  }
+  {
+    key = "a";
+    desc = " Agenda";
+    cmd = "qagenda";
   }
   {
     key = "e";
     desc = " Emacs";
     submenu = [
+      {
+        key = "m";
+        desc = " Send email";
+        cmd = "emacs-mailto";
+      }
       {
         key = "r";
         desc = " Restart Emacs";
