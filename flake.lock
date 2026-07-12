@@ -664,11 +664,11 @@
         "rust-overlay": "rust-overlay_2"
       },
       "locked": {
-        "lastModified": 1783791109,
-        "narHash": "sha256-4UVCCvI9TH93bH6WUsT9TexGSdfyx4QAxuO2VZEWAdg=",
+        "lastModified": 1783875375,
+        "narHash": "sha256-zOX7HZNvzYN3arxeYBxrLhlXmetSzWWaCC5IPFFXwSo=",
         "owner": "MangoCubes",
         "repo": "qagenda",
-        "rev": "157a9ff9aae68d4a1683c37e3306613b56de05ea",
+        "rev": "b8e541b2eb9f3f01880ee091c63b4ae5ed909530",
         "type": "github"
       },
       "original": {

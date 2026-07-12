@@ -12,6 +12,7 @@
         unfreeUnstable.osu-lazer-bin
         unstable.ungoogled-chromium
         unstable.rustdesk-flutter
+        unstable.libpcap
       ];
     };
 }

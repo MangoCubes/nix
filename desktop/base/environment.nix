@@ -10,6 +10,8 @@
   ];
   environment.sessionVariables = {
     QT_QPA_PLATFORM = "wayland";
+    # Seems to make GTK programs faster?
+    GSK_RENDERER = "gl";
     NIXOS_OZONE_WL = "1";
     NIX_PROFILES = "${builtins.concatStringsSep " " (
       lib.lists.reverseList config.environment.profiles
