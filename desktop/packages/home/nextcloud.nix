@@ -46,6 +46,7 @@
           ExecStart = "${pkgs.python3}/bin/python ${./nextcloud/watch.py}";
           Restart = "always";
           RestartSec = "10";
+          TimeoutSec = "infinity";
         };
       };
     };
