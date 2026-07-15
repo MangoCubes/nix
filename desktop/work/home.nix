@@ -6,6 +6,7 @@
       imports = [
         ../packages/home/windows.nix
         ../packages/home/ghidra.nix
+        ../packages/home/obs.nix
       ];
       custom.microsoftTeams.enable = true;
       home.packages = [
@@ -13,6 +14,7 @@
         unstable.ungoogled-chromium
         unstable.rustdesk-flutter
         unstable.libpcap
+        unstable.kdePackages.kdenlive
       ];
     };
 }
