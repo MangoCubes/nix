@@ -48,6 +48,7 @@ let
         breakurl
         tabularray
         ninecolors
+        listings
         ;
     }
   );

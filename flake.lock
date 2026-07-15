@@ -461,11 +461,11 @@
     },
     "nixpkgs_13": {
       "locked": {
-        "lastModified": 1743076231,
-        "narHash": "sha256-yQugdVfi316qUfqzN8JMaA2vixl+45GxNm4oUfXlbgw=",
+        "lastModified": 1782175435,
+        "narHash": "sha256-EMzXKmnOtBQ2MnvpiNOm7E+kOMvdPrIKaeg52Tip2Uk=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "6c5963357f3c1c840201eda129a99d455074db04",
+        "rev": "89570f24e97e614aa34aa9ab1c927b6578a43775",
         "type": "github"
       },
       "original": {
@@ -664,11 +664,11 @@
         "rust-overlay": "rust-overlay_2"
       },
       "locked": {
-        "lastModified": 1783875375,
-        "narHash": "sha256-zOX7HZNvzYN3arxeYBxrLhlXmetSzWWaCC5IPFFXwSo=",
+        "lastModified": 1783960043,
+        "narHash": "sha256-Q18Y5mQuyzcOYjHfWvDfFJqvMFFd1rzV0HunlgtcNak=",
         "owner": "MangoCubes",
         "repo": "qagenda",
-        "rev": "b8e541b2eb9f3f01880ee091c63b4ae5ed909530",
+        "rev": "b9c2d7c44d76d69db46ea3468340053d17d3ef63",
         "type": "github"
       },
       "original": {
@@ -760,8 +760,8 @@
         "sops-nix": "sops-nix"
       },
       "locked": {
-        "lastModified": 1783836648,
-        "narHash": "sha256-IlAR6ceTPgZtUwXA6UOVkWVv6mpOcRy9m81G+V1LcZk=",
+        "lastModified": 1784081778,
+        "narHash": "sha256-JlvPaSSkB2RaUTuiByxSTfMAvhKK3C1s4t1nBG79/TQ=",
         "path": "/home/main/Sync/NixConfig/secrets",
         "type": "path"
       },
@@ -775,11 +775,11 @@
         "nixpkgs": "nixpkgs_13"
       },
       "locked": {
-        "lastModified": 1743305778,
-        "narHash": "sha256-Ux/UohNtnM5mn9SFjaHp6IZe2aAnUCzklMluNtV6zFo=",
+        "lastModified": 1783174389,
+        "narHash": "sha256-aCWC8ngycU7OdJrU2+Je3qf+1a2ykuBvpPhZT/9tXMc=",
         "owner": "Mic92",
         "repo": "sops-nix",
-        "rev": "8e873886bbfc32163fe027b8676c75637b7da114",
+        "rev": "f1406619a3884cd5c47992a70b8b35c9c0fcb4c9",
         "type": "github"
       },
       "original": {
