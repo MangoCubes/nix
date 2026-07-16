@@ -1,13 +1,15 @@
 require("bunny"):setup({
 	hops = {
 		{ key = "/",          path = "/", },
-		{ key = "T",          path = "~/.local/share/Trash/files",      desc = "Trash" },
+		{ key = "T",          path = "~/.local/share/Trash/files",                    desc = "Trash" },
 		{ key = "t",          path = "~/Temp", },
-		{ key = "d",          path = "~/Downloads",                     desc = "Downloads" },
-		{ key = "N",          path = "~/Nextcloud",                     desc = "Nextcloud Synchronised" },
-		{ key = "p",          path = "~/Nextcloud/Projects",            desc = "Projects" },
-		{ key = "I",          path = "~/Nextcloud/Documents/Important", desc = "Important documents" },
-		{ key = "S",          path = "~/Nextcloud/Documents/School/",   desc = "School files" },
+		{ key = "d",          path = "~/Downloads",                                   desc = "Downloads" },
+
+		{ key = "N",          path = "~/Nextcloud",                                   desc = "Nextcloud Synchronised" },
+		{ key = "p",          path = "~/Nextcloud/Projects",                          desc = "Projects" },
+		{ key = "I",          path = "~/Nextcloud/Documents/Important",               desc = "Important Documents" },
+		{ key = "S",          path = "~/Nextcloud/Documents/School/",                 desc = "School Files" },
+		{ key = "C",          path = "~/Nextcloud/Documents/School/Research/Current", desc = "Current Researches" },
 
 		{ key = "Q",          path = "~/Sync/Quick" },
 		{ key = "q",          path = "~/Sync/QuickSecure" },
@@ -19,13 +21,13 @@ require("bunny"):setup({
 		{ key = { "s", "l" }, path = "~/Sync/LinuxConfig" },
 		{ key = { "s", "n" }, path = "~/Sync/NixConfig" },
 		{ key = { "s", "N" }, path = "~/Sync/NixEnv" },
-		{ key = { "s", "q" }, path = "~/Sync/Quick" },
-		{ key = { "s", "Q" }, path = "~/Sync/QuickSecure" },
+		{ key = { "s", "Q" }, path = "~/Sync/Quick" },
+		{ key = { "s", "q" }, path = "~/Sync/QuickSecure" },
 		{ key = { "s", "p" }, path = "~/Sync/Passwords" },
 
-		{ key = { "l", "s" }, path = "~/.local/share",                  desc = "Local share" },
-		{ key = { "l", "b" }, path = "~/.local/bin",                    desc = "Local bin" },
-		{ key = { "l", "t" }, path = "~/.local/state",                  desc = "Local state" },
+		{ key = { "l", "s" }, path = "~/.local/share",                                desc = "Local share" },
+		{ key = { "l", "b" }, path = "~/.local/bin",                                  desc = "Local bin" },
+		{ key = { "l", "t" }, path = "~/.local/state",                                desc = "Local state" },
 
 		{ key = { "m", "a" }, path = "~/Mounts/Android/" },
 		{ key = { "m", "c" }, path = "~/Mounts/Cloud/" },
