@@ -78,7 +78,14 @@
       ];
     })
   ];
-  custom.web.content.".well-known/matrix/client" = "${./matrix/well-known.json}";
+  custom.web.".well-known/matrix/client/" = {
+    content = "${./matrix}";
+    type = "application/json";
+    headers = {
+      Access-Control-Allow-Origin = "*";
+    };
+    index = "well-known.json";
+  };
   home.activation.matrix =
     lib.hm.dag.entryAfter
       [
