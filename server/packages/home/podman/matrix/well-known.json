@@ -1,0 +1,1 @@
+{"m.homeserver": {"base_url": "https://matrix.skew.ch/"}, "org.matrix.msc2965.authentication": {"issuer": "https://auth.skew.ch/", "account": "https://auth.skew.ch/account/"}}
