@@ -1,7 +1,7 @@
 { username, lib, ... }:
 # For remote access. My main user "main" has a weak password, but cannot be used for remote login.
 # Instead, there is a user named "access" which has a strong password, but can be used to log in over SSH.
-# main user: Public key auth only
+# main user: Public key auth only, can use sudo
 # access user: Public key auth and password
 # test user: Nothing
 let

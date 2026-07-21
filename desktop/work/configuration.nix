@@ -1,5 +1,9 @@
-{ inputs, ... }:
+{ inputs, unfreeUnstable, ... }:
 {
+  virtualisation.vmware.host = {
+    package = unfreeUnstable.vmware-workstation;
+    enable = true;
+  };
   services.printing.enable = true;
   imports = [
     inputs.secrets.hw.work
