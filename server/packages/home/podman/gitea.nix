@@ -25,6 +25,9 @@
         "USER_UID" = "1000";
         "USER_GID" = "1000";
         "GITEA__repository__DEFAULT_BRANCH" = "master";
+        "GITEA__server__DOMAIN" = "git.int";
+        "GITEA__server__SSH_DOMAIN" = "git.int";
+        "GITEA__server__ROOT_URL" = "https://git.int";
       };
       domain = [
         {
