@@ -12,6 +12,10 @@ let
       url = "https://search.nixos.org/packages?channel=unstable&from=0&size=50&sort=relevance&type=packages&query=";
     }
     {
+      name = "Nix Options";
+      url = "https://search.nixos.org/options?channel=unstable&size=50&sort=relevance&type=packages&query=";
+    }
+    {
       name = "Home Manager";
       url = "https://home-manager-options.extranix.com/?release=master&query=";
     }
