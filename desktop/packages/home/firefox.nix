@@ -3,6 +3,7 @@
   lib,
   device,
   hostname,
+  config,
   ...
 }:
 let
@@ -121,7 +122,16 @@ let
           inherit id;
           isDefault = name == "Sandbox";
           name = "${name}";
-          settings = ((import ./firefox/base.nix) { inherit internal lib resetOnClose; });
+          settings = (
+            (import ./firefox/base.nix) {
+              inherit
+                internal
+                lib
+                resetOnClose
+                config
+                ;
+            }
+          );
         }
         (lib.mkIf ((builtins.length engines) != 0) {
           search = {
@@ -135,6 +145,10 @@ let
   browser = pkgs.writeShellScriptBin "browser" ''floorp -P Sandbox "$@"'';
 in
 {
+  imports = [
+    ./firefox/options.nix
+    ./firefox/permissions.nix
+  ];
   home.packages = [
     profilebrowser
     browser
@@ -144,6 +158,7 @@ in
     policies = (policy network);
     profiles = (lib.mkMerge (map genProfile profiles));
   };
+  custom.browser."Sandbox".trustedUrls = [ "https://cloud.skew.ch" ];
   xdg = {
     desktopEntries.firefox-temp = {
       name = "Temporary Firefox";

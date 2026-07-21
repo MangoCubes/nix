@@ -76,6 +76,7 @@
           python3
           signal-desktop
           tokei
+          sqlitebrowser
         ])
         (with pkgs; [
           webcord

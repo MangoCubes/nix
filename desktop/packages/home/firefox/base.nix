@@ -1,4 +1,9 @@
-{ lib, resetOnClose, ... }:
+{
+  lib,
+  config,
+  resetOnClose,
+  ...
+}:
 let
   # lock-false = {
   #   Value = false;
@@ -118,7 +123,11 @@ lib.mkMerge [
     "extensions.webextensions.restrictedDomains" = (lock-string "");
     "privacy.resistFingerprinting.block_mozAddonManager" = lock-true;
 
+    # Remove import button
     "browser.bookmarks.addedImportButton" = lock-false;
+
+    # Ensure download directory never changes
+    "browser.download.dir" = "${config.home.homeDirectory}/Downloads";
   }
   (lib.mkIf resetOnClose {
     "privacy.clearOnShutdown_v2.cache" = lock-true;
