@@ -36,15 +36,14 @@ in
     enable = true;
     initContent = ''
       PROMPT='%f[%F{blue}%D{%Y-%m-%d} %*%f]─[%F{green}%n%f%F{cyan}@%f%F{magenta}%m%f]─[%F{yellow}%B%~%b%f]%(1j.─[%F{cyan}⚙ %j%f].)%(!.─[%B%F{red}⚠ ROOT%f%b].)
-      %f%(?.%F{green}[0].%F{red}[%?])%f %F{magenta}>%F{cyan}>%F{yellow}>%f ' '';
-    initExtra = ''
-      	venv() {
-      		if [ -d "./.venv" ]; then
-      			source ./.venv/bin/activate
-      		else
-      			python3 -m venv ./.venv && source ./.venv/bin/activate
-      		fi
-      	}
+      %f%(?.%F{green}[0].%F{red}[%?])%f %F{magenta}>%F{cyan}>%F{yellow}>%f '
+      venv() {
+      	if [ -d "./.venv" ]; then
+      		source ./.venv/bin/activate
+      	else
+      		python3 -m venv ./.venv && source ./.venv/bin/activate
+      	fi
+      }
     '';
   };
   home = {

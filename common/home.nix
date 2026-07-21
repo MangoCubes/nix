@@ -69,12 +69,20 @@
         # This value should be set to what you had when you initially installed NixOS
         home.stateVersion = "24.11";
       };
-    access =
-      { pkgs, ... }:
+    test =
+      { ... }:
       {
         imports = [
           ./packages/home/zsh.nix
         ];
+      };
+    access =
+      { ... }:
+      {
+        imports = [
+          ./packages/home/zsh.nix
+        ];
+        home.stateVersion = "24.11";
       };
   };
 }

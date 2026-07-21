@@ -59,6 +59,7 @@
       ];
     };
     test = {
+      shell = pkgs.zsh;
       subUidRanges = [
         {
           count = 100000;
