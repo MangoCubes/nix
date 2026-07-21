@@ -10,6 +10,32 @@
       anchor = "top";
       expand = true;
       exclusive = true;
+      actions = [
+        {
+          title = "Quick Sync";
+          command = [
+            "mv"
+            "%ITEMS"
+            "%HOME/Sync/QuickSecure"
+          ];
+          concat = " ";
+          accept = [ "text/uri-list" ];
+          on_drop = "NoAction";
+          block_self_drop = false;
+        }
+        {
+          title = "Move to Downloads";
+          command = [
+            "mv"
+            "%ITEMS"
+            "%HOME/Downloads/"
+          ];
+          concat = " ";
+          accept = [ "text/uri-list" ];
+          on_drop = "NoAction";
+          block_self_drop = false;
+        }
+      ];
     };
   };
 }
