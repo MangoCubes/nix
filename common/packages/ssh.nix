@@ -5,7 +5,6 @@
 # access user: Public key auth and password
 # test user: Nothing
 let
-  sideUser = "access";
   allowPassword =
     { username, allow }:
     let
@@ -24,7 +23,7 @@ in
     settings = {
       AllowUsers = [
         username
-        sideUser
+        "access"
       ];
       DenyUsers = [ "test" ];
       PermitRootLogin = "no";
@@ -33,7 +32,7 @@ in
     extraConfig = builtins.concatStringsSep "\n" [
       (allowPassword {
         allow = true;
-        username = sideUser;
+        username = "access";
       })
       (allowPassword {
         allow = false;
@@ -44,29 +43,5 @@ in
   networking.firewall = {
     enable = true;
     allowedTCPPorts = [ 22 ];
-  };
-  users.users = {
-    "${sideUser}" = {
-      subUidRanges = [
-        {
-          count = 100000;
-          startUid = 300001;
-        }
-      ];
-      subGidRanges = [
-        {
-          count = 100000;
-          startGid = 300001;
-        }
-      ];
-      isNormalUser = true;
-      extraGroups = [
-        "shared"
-      ];
-      initialHashedPassword = "$y$j9T$y2TyywvD./5OrYhqqtXQD/$zeB5LXI/H8/CICFukZPFvUjOrhWGehTwPItXqpL93J1";
-      openssh.authorizedKeys.keys = [
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB4atc4TqiG2UAl1NmeYNdiiRkkYd2HnCAP44D3575h8 ${sideUser}"
-      ];
-    };
   };
 }
