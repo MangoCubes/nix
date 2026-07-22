@@ -26,6 +26,7 @@
           ./packages/home/scripts.nix
           ./packages/home/rclone-koofr.nix
           ./packages/home/rclone-2tb.nix
+          ./packages/home/rclone-drive.nix
           ./home-options.nix
         ]
         ++ (
@@ -75,6 +76,7 @@
         imports = [
           ./packages/home/zsh.nix
         ];
+        home.stateVersion = "24.11";
       };
     access =
       { ... }:
