@@ -21,7 +21,6 @@
         "mariadb"
       ];
       image = "linuxserver/nextcloud:latest";
-      dns = config.custom.podman.dns;
       name = "cloud";
       domain = [
         {

@@ -18,7 +18,6 @@
   needRoot ? false,
   dependsOn,
   exec ? null,
-  dns ? null,
   autoStart ? true,
   daily ? null,
   ip4 ? null,
