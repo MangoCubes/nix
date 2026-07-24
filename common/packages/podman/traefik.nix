@@ -39,7 +39,10 @@ let
               permanent = true;
             };
           };
-          websecure.address = ":443";
+          websecure = {
+            address = ":443";
+            forwardedHeaders.trustedIPs = [ "10.10.0.0/24" ];
+          };
         };
 
         certificatesResolvers.localca.acme = {
@@ -81,8 +84,6 @@ in
     {
       services.podman = {
         containers.traefik = {
-          # TODO: Fix DNS issue: For now, the DNS inside the container does not use the host machine's DNS, and must be hardcoded.
-          # extraPodmanArgs = [ "--dns=${config.custom.podman.dns}" ];
           image = "traefik";
           ports = [
             "80:80"

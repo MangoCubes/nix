@@ -25,7 +25,6 @@
         ../packages/home/podman/gitea.nix
         ../packages/home/podman/website.nix
         ../packages/home/podman/pgadmin.nix
-        ../packages/home/podman/kavita.nix
         ../packages/home/podman/immich.nix
         ../packages/home/podman/calibre.nix
         ../packages/home/podman/redis.nix
