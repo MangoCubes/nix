@@ -111,8 +111,6 @@ let
   deps = (if dependsOn == null then [ ] else (builtins.map (e: "podman-${e}.service") dependsOn)) ++ [
     "podman.socket"
   ];
-  # Specify extra arguments if there are any
-  args = extraPodmanArgs;
   # We generate Traefik labels for each domain entry
   traefikLabels =
     if (domain == null) then
@@ -178,6 +176,7 @@ in
       devices
       exec
       autoStart
+      extraPodmanArgs
       ip4
       ;
     # Set entrypoint if specified
@@ -191,7 +190,6 @@ in
         Requires = deps;
       };
     };
-    extraPodmanArgs = args;
     # autoUpdate = "registry";
     # If [`needRoot`], container is run as fakeroot (ie current user)
     user = if needRoot then 0 else null;
