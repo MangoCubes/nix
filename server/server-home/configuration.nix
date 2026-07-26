@@ -5,6 +5,7 @@
     inputs.secrets.hw.server-home
     inputs.secrets.server-home.config
     ./traefik.nix
+    ./home.nix
   ];
   system.stateVersion = "25.11";
 }

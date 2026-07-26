@@ -29,7 +29,6 @@
         ../packages/home/podman/calibre.nix
         ../packages/home/podman/redis.nix
         ../packages/home/podman/collabora.nix
-        ../packages/home/podman/archive.nix
       ];
     };
 }

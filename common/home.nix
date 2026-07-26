@@ -76,7 +76,6 @@
         imports = [
           ./packages/home/zsh.nix
         ];
-        home.stateVersion = "24.11";
       };
     access =
       { ... }:
