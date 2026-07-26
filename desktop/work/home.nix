@@ -15,6 +15,7 @@
         unstable.rustdesk-flutter
         unstable.libpcap
         unstable.kdePackages.kdenlive
+        unstable.pwntools
       ];
     };
 }
