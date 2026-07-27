@@ -71,19 +71,20 @@
         home.stateVersion = "24.11";
       };
     test =
-      { ... }:
+      { osConfig, ... }:
       {
         imports = [
           ./packages/home/zsh.nix
         ];
+        home.stateVersion = osConfig.system.stateVersion;
       };
     access =
-      { ... }:
+      { osConfig, ... }:
       {
         imports = [
           ./packages/home/zsh.nix
         ];
-        home.stateVersion = "24.11";
+        home.stateVersion = osConfig.system.stateVersion;
       };
   };
 }
