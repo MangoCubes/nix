@@ -16,6 +16,7 @@
         unstable.libpcap
         unstable.kdePackages.kdenlive
         unstable.pwntools
+        unstable.jadx
       ];
     };
 }

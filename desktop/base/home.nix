@@ -88,4 +88,9 @@
         ])
       ];
     };
+  home-manager.users.test =
+    { osConfig, ... }:
+    {
+      home.stateVersion = osConfig.system.stateVersion;
+    };
 }
