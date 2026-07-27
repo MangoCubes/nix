@@ -13,7 +13,7 @@
         {
           routerName = "archive";
           url = "yt.int";
-          type = 1;
+          type = 2;
           port = 8000;
         }
       ];
