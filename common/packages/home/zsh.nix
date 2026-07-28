@@ -44,6 +44,10 @@ in
       		python3 -m venv ./.venv && source ./.venv/bin/activate
       	fi
       }
+      temp() {
+        tempdir=$(mktemp -d "''${"TMPDIR:-/tmp/"}$(basename $0).XXXXXXXXXXXX")
+        cd $tempdir
+      };
     '';
   };
   home = {
