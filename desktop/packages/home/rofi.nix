@@ -2,6 +2,7 @@
   pkgs,
   colours,
   config,
+  lib,
   ...
 }:
 {
@@ -36,6 +37,15 @@
     };
     cycle = true;
   };
-  xdg.dataFile."rofi/rofi_calc_history".source =
-    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Sync/LinuxConfig/rofi/calc";
+  # A workaround for rofi-calc
+  # Currently, rofi theme files are created under rofi/theme, but it also happens to be the location where rofi-calc history get saved
+  # At the same time, rofi-calc seems to overwrite the symlink when the file is updated, breaking the sync
+  # This code changes the theme file location, and symlinks the entire directory that stores the rofi-calc history
+  xdg.dataFile = {
+    "rofi/themes/custom.rasi".enable = lib.mkForce false;
+    "rofi".source =
+      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Sync/LinuxConfig/rofi";
+  };
+
+  xdg.configFile."rofi/themes/custom.rasi".text = config.xdg.dataFile."rofi/themes/custom.rasi".text;
 }
