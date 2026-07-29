@@ -10,7 +10,7 @@
 }:
 let
   isServer = device.type == "server";
-  stateFile = "/home/${username}/Sync/LinuxConfig/data/yazi/projects.json";
+  stateFile = "${config.home.homeDirectory}/Sync/LinuxConfig/data/yazi/projects.json";
   linktofile = pkgs.writeShellScriptBin "linktofile" ''cat "$@" > "$@-temp" && rm "$@" && mv "$@-temp" "$@"'';
   pastecp = pkgs.writeShellScriptBin "pastecp" ''
     OUTPUT=$(wl-paste -t text/uri-list || exit 0)
@@ -306,7 +306,7 @@ in
             [
               {
                 on = [
-                  "M"
+                  "L"
                 ];
                 run = ''shell --orphan 'dir_path=$(dirname "$@") && dragevac --load-dir "$dir_path"' '';
                 desc = "Mouse drag and drop current directory";
@@ -335,6 +335,10 @@ in
         )
         ++ [
           {
+            on = "M";
+            run = "plugin mount";
+          }
+          {
             on = "y";
             run = [
               (lib.mkIf (
@@ -354,12 +358,6 @@ in
             desc = "Jump to a bookmark by fzf";
           }
           {
-            on = "U";
-            run = [
-              ''shell 'umount "$@"' ''
-            ];
-          }
-          {
             on = "p";
             run = "paste";
           }
@@ -370,62 +368,6 @@ in
             ];
             run = "plugin chmod";
             desc = "Chmod on selected files";
-          }
-          {
-            on = [
-              "W"
-              "s"
-            ];
-            run = "plugin projects save";
-            desc = "Save current project";
-          }
-          {
-            on = [
-              "W"
-              "l"
-            ];
-            run = "plugin projects load";
-            desc = "Load project";
-          }
-          {
-            on = [
-              "W"
-              "W"
-            ];
-            run = "plugin projects load_last";
-            desc = "Load last project";
-          }
-          {
-            on = [
-              "W"
-              "d"
-            ];
-            run = "plugin projects delete";
-            desc = "Delete project";
-          }
-          {
-            on = [
-              "W"
-              "D"
-            ];
-            run = "plugin projects delete_all";
-            desc = "Delete all projects";
-          }
-          {
-            on = [
-              "W"
-              "m"
-            ];
-            run = "plugin projects 'merge current'";
-            desc = "Merge current tab to other projects";
-          }
-          {
-            on = [
-              "W"
-              "M"
-            ];
-            run = "plugin projects 'merge all'";
-            desc = "Merge current project to other projects";
           }
           {
             on = [
@@ -480,27 +422,16 @@ in
       in
       {
         chmod = "${plugins-repo}/chmod.yazi";
-        # compress = "${plugins-repo}/compress.yazi";
-        # full-border = "${yazi-plugins}/full-border.yazi";
-        # max-preview = "${yazi-plugins}/max-preview.yazi";
-        projects = pkgs.fetchFromGitHub {
-          owner = "MasouShizuka";
-          repo = "projects.yazi";
-          rev = "main";
-          sha256 = "sha256-XHGlQn0Nsxh/WScz4v2I+IWvzGJ9QTXbB7zgSCPQ+E0=";
-        };
+        compress = "${plugins-repo}/compress.yazi";
+        full-border = "${plugins-repo}/full-border.yazi";
+        max-preview = "${plugins-repo}/max-preview.yazi";
+        mounts = "${plugins-repo}/mount.yazi";
         bunny = pkgs.fetchFromGitHub {
           owner = "stelcodes";
           repo = "bunny.yazi";
           rev = "main";
           sha256 = "sha256-uQO0C00yOFPWq8KEO/kEZM6tFZRc9SiXfgN7kzlwDeA=";
         };
-        # yamb = pkgs.fetchFromGitHub {
-        #   owner = "h-hg";
-        #   repo = "yamb.yazi";
-        #   rev = "main";
-        #   sha256 = "sha256-NMxZ8/7HQgs+BsZeH4nEglWsRH2ibAzq7hRSyrtFDTA=";
-        # };
       };
 
     initLua =
