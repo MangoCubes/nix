@@ -1,4 +1,5 @@
 {
+  lib,
   pkgs,
   username,
   config,
@@ -17,21 +18,10 @@ in
   imports = [
     ./restic/options.nix
   ];
+  users.groups.restic = { };
   users.users."${user}" = {
-    subUidRanges = [
-      {
-        count = 100000;
-        startUid = 400001;
-      }
-    ];
-    subGidRanges = [
-      {
-        count = 100000;
-        startGid = 400001;
-      }
-    ];
-
-    isNormalUser = true;
+    group = "restic";
+    isSystemUser = true;
   };
   services.restic.backups = {
     backblaze = {
@@ -51,7 +41,8 @@ in
       repositoryFile = "/run/secrets/restic/repo";
       passwordFile = "/run/secrets/restic/key";
       timerConfig = {
-        OnUnitActiveSec = "1h";
+        OnCalendar = "daily";
+        Persistent = true;
       };
 
       pruneOpts = [
@@ -63,10 +54,10 @@ in
     };
   };
   security.wrappers.restic = {
-    source = "${pkgs.restic.out}/bin/restic";
-    owner = user;
-    group = "users";
-    permissions = "u=rwx,g=,o=";
-    capabilities = "cap_dac_read_search=+ep";
+    source = lib.getExe pkgs.restic;
+    owner = "restic";
+    group = "restic";
+    permissions = "500";
+    capabilities = "cap_dac_read_search+ep";
   };
 }
