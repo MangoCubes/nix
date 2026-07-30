@@ -434,8 +434,6 @@ in
         };
       };
 
-    initLua =
-      (builtins.readFile ./yazi/bunny.lua)
-      + (builtins.replaceStrings [ "<StateFile>" ] [ stateFile ] (builtins.readFile ./yazi/init.lua));
+    initLua = (builtins.readFile ./yazi/bunny.lua);
   };
 }
