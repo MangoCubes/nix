@@ -37,14 +37,14 @@ in
     cmd = "qagenda";
   }
   {
+    key = "M";
+    desc = " Send email";
+    cmd = "emacs-mailto";
+  }
+  {
     key = "e";
     desc = " Emacs";
     submenu = [
-      {
-        key = "m";
-        desc = " Send email";
-        cmd = "emacs-mailto";
-      }
       {
         key = "r";
         desc = " Restart Emacs";
