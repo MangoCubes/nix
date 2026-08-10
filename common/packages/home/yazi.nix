@@ -417,7 +417,7 @@ in
           owner = "yazi-rs";
           repo = "plugins";
           rev = "main";
-          hash = "sha256-80mR86UWgD11XuzpVNn56fmGRkvj0af2cFaZkU8M31I=";
+          hash = "sha256-IDmmXzQKFx3QZ9u5lMwcTOeWeMPWzIBeKBXkGAgJMaI=";
         };
       in
       {

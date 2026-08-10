@@ -46,6 +46,7 @@
         ../packages/home/keepassxc.nix
         ../packages/home/gocryptfs.nix
         ../packages/home/rclone-server-main.nix
+        ../packages/home/rclone-server-home.nix
         ../packages/home/rclone-server-media.nix
         ../packages/home/ampterm.nix
         ../packages/home/ssh.nix
@@ -68,7 +69,6 @@
           libreoffice-qt
           wl-clipboard
           adwaita-icon-theme
-          jmtpfs
           vlc
           sshpass
           sops
