@@ -194,7 +194,7 @@
                 [
                   # This includes per-machine config based on the flake name
                   ./desktop/${hostname}/configuration.nix
-                  ./server/base/configuration.nix
+                  ./desktop/base/configuration.nix
                   # This creates a module that you can add to the system
                   # Once you add this module, this creates a bunch of new options such as `custom.features.tablet`
                   # What makes this different from just adding new parameters like specialArgs is that these can be both read and written in the config
