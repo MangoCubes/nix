@@ -11,12 +11,15 @@
       custom.microsoftTeams.enable = true;
       home.packages = [
         unfreeUnstable.osu-lazer-bin
-        unstable.ungoogled-chromium
-        unstable.rustdesk-flutter
-        unstable.libpcap
-        unstable.kdePackages.kdenlive
-        unstable.pwntools
-        unstable.jadx
-      ];
+      ]
+      ++ (with unstable; [
+        ungoogled-chromium
+        rustdesk-flutter
+        libpcap
+        kdePackages.kdenlive
+        pwntools
+        jadx
+        mitmproxy
+      ]);
     };
 }
