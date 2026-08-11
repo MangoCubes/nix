@@ -12,7 +12,6 @@
     ./packages/netbird.nix
     ./nix.nix
     ./packages/zsh.nix
-    ./packages/screen.nix
   ]
   ++ (
     if device.type != "vm" then

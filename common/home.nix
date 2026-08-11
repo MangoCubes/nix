@@ -27,6 +27,7 @@
           ./packages/home/rclone-koofr.nix
           ./packages/home/rclone-2tb.nix
           ./packages/home/rclone-drive.nix
+          ./packages/home/tmux.nix
           ./home-options.nix
         ]
         ++ (

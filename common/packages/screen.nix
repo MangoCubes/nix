@@ -1,3 +1,0 @@
-{
-  programs.screen.enable = true;
-}
