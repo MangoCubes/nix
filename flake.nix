@@ -428,10 +428,6 @@
         hostname = "server-network";
         device.type = "server";
       });
-      nixosConfigurations.server-media = nixpkgs.lib.nixosSystem (genSystem {
-        hostname = "server-media";
-        device.type = "vm";
-      });
       nixosConfigurations.server-home = nixpkgs.lib.nixosSystem (genSystem {
         hostname = "server-home";
         device.type = "server";

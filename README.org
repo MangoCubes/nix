@@ -46,5 +46,4 @@ Saleae Logic 2 is a logic analyser software for Saleae devices. You need to set 
 - All =hardware-configuration.nix=: Why are you using mine? I don't modify them much anyway, so there's not much to gain.
 - All secrets: These are imported by a submodule in a different repo. Search by the string =inputs.secrets= if you want to use my config.
 - =ags= widget code and Emacs code: These are in another repository.
-- Entire server-media config: :)
 
