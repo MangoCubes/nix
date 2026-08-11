@@ -145,6 +145,31 @@ in
         desc = "󰟵 Generate Password";
         cmd = "keepassxc-cli generate --exclude-similar -L 32 | wl-copy";
       }
+      {
+        key = "j";
+        desc = "󰘦 Format JSON";
+        cmd = "wl-paste | ${pkgs.jq}/bin/jq | wl-copy";
+      }
+      {
+        key = "h";
+        desc = "󱊧 Hex Decode";
+        cmd = "wl-paste | sed -E 's/0[xX]|\\x//g' | tr -cd '0-9a-fA-F' | xxd -r -p | wl-copy";
+      }
+      {
+        key = "H";
+        desc = "󱊧 Hex Encode";
+        cmd = "wl-paste | xxd -p | tr -d '\n' | wl-copy";
+      }
+      {
+        key = "6";
+        desc = "󰻠 Base64 Decode";
+        cmd = "wl-paste | base64 -d -i | wl-copy";
+      }
+      {
+        key = "^";
+        desc = "󰻠 Base64 Encode";
+        cmd = "wl-paste | base64 -w 0 | wl-copy";
+      }
     ];
   }
 ]
