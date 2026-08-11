@@ -15,7 +15,7 @@
     ../packages/kmonad.nix
     ../packages/bluetooth.nix
     ../packages/fonts.nix
-    ../packages/greetd.nix
+    ../packages/greeter.nix
     ../packages/kdeconnect.nix
     ../packages/traefik.nix
     ../packages/swaylock.nix
