@@ -9,6 +9,13 @@
       lib,
       ...
     }:
+    let
+      remotes = builtins.map (import ../packages/home/rclone-server.nix) [
+        "server-home"
+        "server-main"
+        "server-network"
+      ];
+    in
     {
       home.activation.dirs = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
         mkdir -p ${config.home.homeDirectory}/Temp
@@ -45,13 +52,11 @@
         ../packages/home/periodic.nix
         ../packages/home/keepassxc.nix
         ../packages/home/gocryptfs.nix
-        ../packages/home/rclone-server-main.nix
-        ../packages/home/rclone-server-home.nix
-        ../packages/home/rclone-server-media.nix
         ../packages/home/ampterm.nix
         ../packages/home/ssh.nix
         ../packages/home/matrix.nix
-      ];
+      ]
+      ++ remotes;
       xdg = {
         # Some programs create entries in ~/.config/autostart/, and it doesn't get deleted when the program is removed
         autostart = {
