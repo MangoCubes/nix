@@ -14,6 +14,8 @@
         "server-home"
         "server-main"
         "server-network"
+        "work"
+        "main"
       ];
     in
     {

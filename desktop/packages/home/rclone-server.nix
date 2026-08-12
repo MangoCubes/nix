@@ -15,7 +15,7 @@ in
 {
   systemd.user.services."rclone-${server}" = {
     Unit = {
-      Description = "Mount ${server} automatically";
+      Description = "Mount ${server}";
     };
     Service = {
       Type = "notify";
@@ -24,6 +24,6 @@ in
       Environment = [ "PATH=/run/wrappers/bin/:$PATH" ];
       ExecStop = "/bin/fusermount -u %h/Mounts/${server}";
     };
-    Install.WantedBy = lib.mkForce [ "default.target" ];
+    # Install.WantedBy = lib.mkForce [ "default.target" ];
   };
 }

@@ -8,8 +8,8 @@
       };
     };
   };
-  services.displayManager = {
-    enable = true;
+  programs.regreet.enable = true;
+  programs.regreet = {
     theme = {
       name = "Adwaita-dark";
       package = pkgs.gnome-themes-extra;
