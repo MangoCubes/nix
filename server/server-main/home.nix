@@ -6,7 +6,7 @@
       imports = [
         ../packages/home/podman/mariadb.nix
         ../packages/home/podman/ampache.nix
-        ../packages/home/podman/ampache-test.nix
+        ../packages/home/podman/navidrome.nix
         ../packages/home/podman/nextcloud.nix
         ../packages/home/podman/matrix.nix
         ../packages/home/podman/redlib-vpn.nix
