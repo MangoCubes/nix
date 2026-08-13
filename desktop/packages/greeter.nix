@@ -4,19 +4,9 @@
     enable = true;
     settings = {
       default_session = {
-        user = "main";
+        user = "greeter";
+        command = "${pkgs.tuigreet}/bin/tuigreet --greeting 'Welcome to NixOS!' --asterisks --remember --time --cmd niri-session";
       };
-    };
-  };
-  programs.regreet.enable = true;
-  programs.regreet = {
-    theme = {
-      name = "Adwaita-dark";
-      package = pkgs.gnome-themes-extra;
-    };
-    cursorTheme = {
-      name = "Adwaita";
-      package = pkgs.adwaita-icon-theme;
     };
   };
 }

@@ -830,8 +830,8 @@
         "sops-nix": "sops-nix"
       },
       "locked": {
-        "lastModified": 1786521453,
-        "narHash": "sha256-Fbyz0mlpei15QIlxxW8jrr4CgnWETUtQdRi6Zkx1W5Q=",
+        "lastModified": 1786630337,
+        "narHash": "sha256-A3tZeo0iS/Mwffq37gfC1Uci+9NoqASaLD0zFUDeA7Y=",
         "path": "/home/main/Sync/NixConfig/secrets",
         "type": "path"
       },
@@ -845,11 +845,11 @@
         "nixpkgs": "nixpkgs_15"
       },
       "locked": {
-        "lastModified": 1786375908,
-        "narHash": "sha256-G7qDAT98nywA4EFmJCwIRO5wKvDlBBN3BWpsOnjAto8=",
+        "lastModified": 1786629091,
+        "narHash": "sha256-gkig4nPi1CWc4Z50GBsjE4ygSE7hMpl/TwID2an2Cck=",
         "owner": "Mic92",
         "repo": "sops-nix",
-        "rev": "d1337e05ba0a8e88a75d2c0e1595d82f3b3e2ac4",
+        "rev": "a8627b21b9107c5711c96b84f32a9a4b3d45295f",
         "type": "github"
       },
       "original": {
