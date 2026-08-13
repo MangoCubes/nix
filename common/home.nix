@@ -5,6 +5,9 @@
   ...
 }:
 {
+  imports = [
+    ./multiuser.nix
+  ];
   # This specified home-manager options
   # Anything set in this applies to the user specified only
   # In this case, `username` is "main" (defined in `specialArgs` in flake.nix)
@@ -21,20 +24,15 @@
       }:
       {
         imports = [
-          ./packages/home/atuin.nix
-          ./packages/home/zsh.nix
-          ./packages/home/scripts.nix
           ./packages/home/rclone-koofr.nix
           ./packages/home/rclone-2tb.nix
           ./packages/home/rclone-drive.nix
-          ./packages/home/tmux.nix
           ./home-options.nix
         ]
         ++ (
           if device.type != "vm" then
             [
               ./packages/home/podman/syncthing.nix
-              ./packages/home/yazi.nix
               ./packages/home/neovim.nix
             ]
           else
