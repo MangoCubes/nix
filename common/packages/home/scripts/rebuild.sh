@@ -69,10 +69,15 @@ if [ "$update_all" = true ]; then
 	nix flake update --flake path://$HOME/Sync/NixConfig
 fi
 
+action="switch"
+if [ "$reboot" = true ]; then
+	action="boot"
+fi
+
 if [ "$bootloader" = true ]; then
-	sudo nixos-rebuild --flake path://$HOME/Sync/NixConfig#$device_name switch --install-bootloader
+	sudo nixos-rebuild --flake path://$HOME/Sync/NixConfig#$device_name $action --install-bootloader
 else 
-	sudo nixos-rebuild --flake path://$HOME/Sync/NixConfig#$device_name switch
+	sudo nixos-rebuild --flake path://$HOME/Sync/NixConfig#$device_name $action
 fi
 
 if [ $? -eq 0 ] && [ "$reboot" = true ]; then
