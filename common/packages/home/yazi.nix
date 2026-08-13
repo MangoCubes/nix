@@ -10,7 +10,6 @@
 }:
 let
   isServer = device.type == "server";
-  stateFile = "${config.home.homeDirectory}/Sync/LinuxConfig/data/yazi/projects.json";
   linktofile = pkgs.writeShellScriptBin "linktofile" ''cat "$@" > "$@-temp" && rm "$@" && mv "$@-temp" "$@"'';
   pastecp = pkgs.writeShellScriptBin "pastecp" ''
     OUTPUT=$(wl-paste -t text/uri-list || exit 0)

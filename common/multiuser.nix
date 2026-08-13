@@ -10,11 +10,9 @@ lib.mkMerge (
         { ... }:
         {
           imports = [
-            ./packages/home/atuin.nix
             ./packages/home/zsh.nix
             ./packages/home/scripts.nix
             ./packages/home/tmux.nix
-            ./packages/home/yazi.nix
           ];
         };
     })

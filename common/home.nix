@@ -24,6 +24,7 @@
       }:
       {
         imports = [
+          ./packages/home/atuin.nix
           ./packages/home/rclone-koofr.nix
           ./packages/home/rclone-2tb.nix
           ./packages/home/rclone-drive.nix
@@ -32,6 +33,7 @@
         ++ (
           if device.type != "vm" then
             [
+              ./packages/home/yazi.nix
               ./packages/home/podman/syncthing.nix
               ./packages/home/neovim.nix
             ]
