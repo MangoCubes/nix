@@ -433,6 +433,25 @@ in
         };
       };
 
+    flavors =
+      let
+        flavors-repo = pkgs.fetchFromGitHub {
+          owner = "yazi-rs";
+          repo = "flavors";
+          rev = "main";
+          hash = "sha256-Dy73TfcrcbCXY9lwDszNgAKLiCAHf1KIwC4Q5U6k21E=";
+        };
+      in
+      {
+        catppuccin-mocha = "${flavors-repo}/catppuccin-mocha.yazi";
+      };
+
+    theme = {
+      flavor = {
+        dark = "catppuccin-mocha";
+      };
+    };
+
     initLua = (builtins.readFile ./yazi/bunny.lua);
   };
 }
