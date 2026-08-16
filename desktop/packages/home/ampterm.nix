@@ -5,9 +5,9 @@
     enable = true;
     settings = {
       auth = {
-        url = "echo https://music.skew.ch";
+        url = "echo https://music.int";
         username = "echo admin";
-        password = "secret-tool lookup Path '/Scripts/Ampache'";
+        password = "secret-tool lookup Path '/Scripts/Navidrome'";
       };
       use_legacy_auth = true;
       behaviour.auto_focus = true;
