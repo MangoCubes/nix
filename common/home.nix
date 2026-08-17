@@ -34,7 +34,7 @@
           if device.type != "vm" then
             [
               ./packages/home/yazi.nix
-              ./packages/home/podman/syncthing.nix
+              ./packages/home/syncthing.nix
               ./packages/home/neovim.nix
             ]
           else
