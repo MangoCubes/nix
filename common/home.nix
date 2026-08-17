@@ -22,12 +22,15 @@
         config,
         ...
       }:
+      let
+        mount = (import ./packages/home/rclone.nix);
+      in
       {
         imports = [
+          (mount "koofr")
+          (mount "2tb")
+          (mount "drive")
           ./packages/home/atuin.nix
-          ./packages/home/rclone-koofr.nix
-          ./packages/home/rclone-2tb.nix
-          ./packages/home/rclone-drive.nix
           ./home-options.nix
         ]
         ++ (
