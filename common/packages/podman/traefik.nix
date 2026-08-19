@@ -12,11 +12,23 @@ let
   dynamicFile = (pkgs.formats.yaml { }).generate "config.yml" (
     lib.attrsets.recursiveUpdate {
       http = {
+        routers.syncthing = {
+          rule = "Host(`sync.${hostname}.local`)";
+          service = "s-syncthing";
+          # middlewares = [ "m-ip" ];
+          entryPoints = [ "websecure" ];
+          tls.certResolver = "localca";
+        };
+        services.s-syncthing.loadBalancer = {
+          servers = [
+            { url = "http://host.containers.internal:8384"; }
+          ];
+        };
         serversTransports = {
           internalTransport.rootCAs = [ "/etc/traefik/ssl/cert.crt" ];
         };
         middlewares = {
-          m-ip.ipAllowList.sourceRange = [ "100.64.0.0/16" ];
+          m-ip.ipAllowList.sourceRange = [ "100.64.0.0/10" ];
           m-redir.redirectscheme.scheme = "https";
         };
       };
@@ -41,7 +53,6 @@ let
           };
           websecure = {
             address = ":443";
-            forwardedHeaders.trustedIPs = [ "10.10.0.0/24" ];
           };
         };
 
@@ -84,13 +95,13 @@ in
     {
       services.podman = {
         containers.traefik = {
+          network = [ "proxy" ];
           image = "traefik";
           ports = [
             "80:80"
             "443:443"
           ];
           autoStart = true;
-          network = "proxy";
           volumes = [
             "${staticFile { inherit config; }}:/etc/traefik/traefik.yaml"
             "${dynamicFile}:/etc/traefik/config.yaml"
