@@ -79,7 +79,7 @@
     })
   ];
   custom.web.".well-known/matrix/client/" = {
-    content = "${./matrix}";
+    content = "${./matrix/well-known}";
     type = "application/json";
     headers = {
       Access-Control-Allow-Origin = "*";
