@@ -12,18 +12,18 @@ let
   dynamicFile = (pkgs.formats.yaml { }).generate "config.yml" (
     lib.attrsets.recursiveUpdate {
       http = {
-        routers.syncthing = {
-          rule = "Host(`sync.${hostname}.local`)";
-          service = "s-syncthing";
-          # middlewares = [ "m-ip" ];
-          entryPoints = [ "websecure" ];
-          tls.certResolver = "localca";
-        };
-        services.s-syncthing.loadBalancer = {
-          servers = [
-            { url = "http://host.containers.internal:8384"; }
-          ];
-        };
+        # routers.syncthing = {
+        #   rule = "Host(`sync.${hostname}.local`)";
+        #   service = "s-syncthing";
+        #   # middlewares = [ "m-ip" ];
+        #   entryPoints = [ "websecure" ];
+        #   tls.certResolver = "localca";
+        # };
+        # services.s-syncthing.loadBalancer = {
+        #   servers = [
+        #     { url = "http://host.containers.internal:8384"; }
+        #   ];
+        # };
         serversTransports = {
           internalTransport.rootCAs = [ "/etc/traefik/ssl/cert.crt" ];
         };
