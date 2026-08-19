@@ -11,6 +11,7 @@
     ./home.nix
     ../packages/avahi.nix
     ../packages/wireshark.nix
+    ../packages/mitmproxy-wifi.nix
     (import ../packages/android.nix {
       androidStudio = false;
       heimdall = false;

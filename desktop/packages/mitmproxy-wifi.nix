@@ -8,6 +8,10 @@
   imports = [
     inputs.secrets.networks.mitm
   ];
+  # How to set up MITM
+  # Copy the nmconnection to /etc/static/NetworkManager/system-connections/MITM.nmconnection
+  # Enable connection
+  # Run mitmweb without any flags
   home-manager.users."${username}" =
     {
       unstable,
