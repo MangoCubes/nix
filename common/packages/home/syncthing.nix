@@ -12,11 +12,34 @@ let
     syncthing debug reset-database;
     systemctl --user restart syncthing
   '';
-  st-default-folder = pkgs.writeShellScript "st-default-folder" ''
-    while ! curl -f http://localhost:8384/rest/noauth/health; do sleep 1; done;
-    API_KEY=${config.services.syncthing.settings.gui.apikey}
-    ${pkgs.curl}/bin/curl -X PATCH -H "X-API-Key: $API_KEY" -H "Content-Type: application/json" -d '{"path": "${syncPath}"}' http://localhost:8384/rest/config/defaults/folder
-  '';
+  st-default-folder =
+    let
+      syncthingDir = "\${XDG_STATE_HOME:-$HOME/.local/state}/syncthing";
+      syncthingDirShell = ''
+        syncthing_state_dir="${syncthingDir}"
+        syncthing_config_dir="''${XDG_CONFIG_HOME:-$HOME/.config}/syncthing"
+
+        if [[ -e "$syncthing_state_dir/config.xml" || ! -e "$syncthing_config_dir/config.xml" ]]; then
+            syncthing_dir="$syncthing_state_dir"
+        else
+            syncthing_dir="$syncthing_config_dir"
+        fi
+      '';
+    in
+    pkgs.writeShellScript "st-default-folder" ''
+      	${syncthingDirShell}
+
+        config_file="$syncthing_dir/config.xml"
+        if [[ ! -f "$config_file" ]]; then
+            echo "Error: Syncthing config.xml not found at $config_file"
+            exit 1
+        fi
+
+        API_KEY=$(${pkgs.libxml2}/bin/xmllint --xpath 'string(configuration/gui/apikey)' "$config_file")
+
+        while ! curl -f http://localhost:8384/rest/noauth/health; do sleep 1; done;
+        ${pkgs.curl}/bin/curl -X PATCH -H "X-API-Key: $API_KEY" -H "Content-Type: application/json" -d '{"path": "${syncPath}"}' http://localhost:8384/rest/config/defaults/folder
+    '';
 in
 {
   services.syncthing = {
@@ -31,14 +54,14 @@ in
     Unit = {
       Description = "Set Syncthing default folder path";
       After = [ "syncthing.service" ];
-      PartOf = [ "syncthing.service" ];
+      Requires = [ "syncthing.service" ];
     };
     Service = {
       Type = "oneshot";
       ExecStart = "${st-default-folder}";
     };
     Install = {
-      WantedBy = [ "syncthing.service" ];
+      WantedBy = [ "default.target" ];
     };
   };
   home = {
