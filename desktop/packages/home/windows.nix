@@ -41,7 +41,7 @@ in
         PASSWORD = password;
         LANGUAGE = "Korean";
         HOME = "${config.home.homeDirectory}/Windows";
-        DISK_SIZE = "64G";
+        DISK_SIZE = "16G";
         CPU_CORES = "4";
       };
       devices = [
