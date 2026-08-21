@@ -306,7 +306,7 @@ in
               {
                 on = "T";
                 run = [
-                  "shell --orphan -- ${config.custom.terminal.genCmd { workingDirectory = ''$(dirname "$@")''; }}"
+                  "shell ${config.custom.shell.program} --block --confirm"
                 ];
               }
               {
