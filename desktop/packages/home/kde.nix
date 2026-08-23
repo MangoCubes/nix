@@ -9,11 +9,10 @@
   xdg.configFile."dolphinrc".source =
     config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Sync/LinuxConfig/kde/dolphinrc";
   xdg.configFile."Kvantum".source =
-    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Sync/LinuxConfig/themeing/Kvantum";
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Sync/LinuxConfig/kde/Kvantum";
   home.packages = (
     with unstable.kdePackages;
     [
-      filelight
       dolphin
       qtsvg
       breeze-icons
