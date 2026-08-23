@@ -17,6 +17,14 @@ reboot=false
 # Without it, computer will not be able to boot into newer builds on reboot, and make it look like the computer is resetting every reboot
 bootloader=false
 
+# Boot mode
+# Use boot instead of switch
+boot_mode=false
+
+if [[ $1 == *"b"* ]]; then
+    boot_mode=true
+fi
+
 if [[ $1 == *"s"* ]]; then
     rebuild_secrets=true
 fi
@@ -36,10 +44,11 @@ if [[ $1 == *"a"* ]]; then
 fi
 
 if [[ $1 == *"r"* ]]; then
+	boot_mode=true
     reboot=true
 fi
 
-if [[ $1 == *"b"* ]]; then
+if [[ $1 == *"B"* ]]; then
     bootloader=true
 fi
 
@@ -50,6 +59,7 @@ echo "Update unstable: $update_unstable"
 echo "Update all: $update_all"
 echo "Reboot after successful rebuild: $reboot"
 echo "Install bootloader: $bootloader"
+echo "Boot mode: $boot_mode"
 
 if [ "$rebuild_secrets" = true ]; then
 	sudo nix flake update secrets --flake $HOME/Sync/NixConfig
@@ -70,7 +80,7 @@ if [ "$update_all" = true ]; then
 fi
 
 action="switch"
-if [ "$reboot" = true ]; then
+if [ "$boot_mode" = true ]; then
 	action="boot"
 fi
 
