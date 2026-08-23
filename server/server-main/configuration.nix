@@ -1,6 +1,5 @@
 { inputs, ... }:
 {
-  system.tools.nixos-rebuild.enableRun0Elevation = true;
   programs.fuse = {
     userAllowOther = true;
     enable = true;

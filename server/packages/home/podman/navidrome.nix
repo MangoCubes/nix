@@ -8,6 +8,9 @@
       dependsOn = [ "traefik" ];
       image = "deluan/navidrome:latest";
       name = "navidrome";
+      environment = {
+        ND_AUTOIMPORTPLAYLISTS = "false";
+      };
       domain = [
         {
           routerName = "navidrome";
