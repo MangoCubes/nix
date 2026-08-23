@@ -36,7 +36,7 @@ let
 
       API_KEY=$(${pkgs.libxml2}/bin/xmllint --xpath 'string(configuration/gui/apikey)' "$config_file")
 
-      while ! curl -f http://localhost:8384/rest/noauth/health; do sleep 1; done;
+      while ! ${pkgs.curl}/bin/curl -f http://localhost:8384/rest/noauth/health; do ${pkgs.coreutils}/bin/sleep 1; done;
       ${pkgs.curl}/bin/curl -X PATCH -H "X-API-Key: $API_KEY" -H "Content-Type: application/json" -d '{"path": "${syncPath}"}' http://localhost:8384/rest/config/defaults/folder
       ${pkgs.curl}/bin/curl -X PUT   -H "X-API-Key: $API_KEY" -H "Content-Type: application/json" -d '{"lines": ["#include ./.ignore.txt"]}' http://localhost:8384/rest/config/defaults/ignores
     '';
@@ -59,9 +59,6 @@ in
     Service = {
       Type = "oneshot";
       ExecStart = "${st-default-folder}";
-    };
-    Install = {
-      WantedBy = [ "default.target" ];
     };
   };
   home = {
