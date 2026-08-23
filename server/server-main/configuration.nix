@@ -1,6 +1,10 @@
 { inputs, ... }:
 {
-  programs.fuse.userAllowOther = true;
+  system.tools.nixos-rebuild.enableRun0Elevation = true;
+  programs.fuse = {
+    userAllowOther = true;
+    enable = true;
+  };
   boot.kernel.sysctl = {
     "net.ipv4.conf.all.forwarding" = 1;
     "net.ipv4.conf.all.src_valid_mark" = 1;
@@ -11,7 +15,6 @@
     inputs.secrets.server-main.restic
     ./traefik.nix
     ../packages/podman/mitmproxy-wg.nix
-    ../packages/podman/plex.nix
     ./home.nix
     ./networking.nix
   ];

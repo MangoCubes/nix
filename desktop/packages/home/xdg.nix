@@ -4,6 +4,31 @@
     (pkgs.writeScriptBin "xdgl" (builtins.readFile ./xdg/xdgl.sh))
   ];
   xdg = {
+    dataFile."mime/packages/sops-encrypted.xml".text = ''
+      <?xml version="1.0" encoding="utf-8"?>
+      <mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
+      <mime-type type="text/sops-encrypted">
+        <glob pattern="*.enc.txt"/>
+        <glob pattern="*.enc.conf"/>
+        <comment>Secret protected by SOPS</comment>
+      </mime-type>
+      </mime-info>
+    '';
+    mimeApps.defaultApplications = {
+      "text/sops-encrypted" = "sops-nvim.desktop";
+    };
+    desktopEntries = {
+      sops-nvim = {
+        name = "SOPS Neovim";
+        genericName = "Secret Editor";
+        exec = "sops %f";
+        terminal = true;
+        mimeType = [
+          "text/sops-encrypted"
+        ];
+      };
+    };
+
     mimeApps.defaultApplications."application/json" = "neovim-new.desktop";
     desktopEntries.neovim-new = {
       name = "Neovim Terminal";

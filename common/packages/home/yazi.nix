@@ -143,14 +143,6 @@ in
                   orphan = true;
                 }
               ];
-              sops = [
-                {
-                  run = (config.custom.terminal.genCmd { command = ''sops "$@"''; });
-                  for = "unix";
-                  desc = "Decrypt";
-                  orphan = true;
-                }
-              ];
               pdf = [
                 {
                   run = ''browser "$@"'';
@@ -207,10 +199,6 @@ in
               {
                 url = "*.apk";
                 use = [ "apk" ];
-              }
-              {
-                url = "*.enc.*";
-                use = [ "sops" ];
               }
               {
                 url = "*.pdf";
@@ -318,7 +306,7 @@ in
               {
                 on = "T";
                 run = [
-                  "shell --orphan -- ${config.custom.terminal.genCmd { workingDirectory = ''$(dirname "$@")''; }}"
+                  "shell ${config.custom.shell.program} --block --confirm"
                 ];
               }
               {

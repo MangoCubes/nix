@@ -1,6 +1,6 @@
 { unstable, ... }:
 {
   home.packages = [
-    unstable.fluffychat
+    unstable.cinny-desktop
   ];
 }

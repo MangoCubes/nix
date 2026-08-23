@@ -21,8 +21,9 @@
     enable = true;
     allowedTCPPorts = [
       # Port for letting desktops to connect to me
-      34669
-      45371
+      # 34669
+      # 45371
+      8770
     ];
     allowedUDPPorts = [
       # Port for letting desktops to connect to me
