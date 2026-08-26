@@ -1,7 +1,4 @@
 {
-  # Debugging NixOS when "Failed to start transient service unit..."
-  # 1. journalctl -xe
-  # 2. sudo systemctl stop nixos-rebuild-switch-to-configuration
   nix = {
     extraOptions = ''
       keep-outputs = true
