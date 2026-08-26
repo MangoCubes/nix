@@ -1,5 +1,5 @@
 {
-  unfree,
+  config,
   lib,
   pkgs,
   ...
@@ -11,6 +11,8 @@
     pkg:
     builtins.elem (lib.getName pkg) [
       "nvidia-x11"
+      "nvidia-kernel-modules"
+      "nvidia-settings"
     ];
 
   hardware.nvidia = {
@@ -41,7 +43,7 @@
     nvidiaSettings = true;
 
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
-    package = unfree.linuxPackages.nvidiaPackages.latest; # config.boot.kernelPackages.nvidiaPackages.stable;
+    package = config.boot.kernelPackages.nvidiaPackages.latest;
   };
   boot.kernelParams = [
     "nvidia_drm.modeset=1"
