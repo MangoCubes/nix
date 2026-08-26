@@ -51,6 +51,7 @@
             nix-tree
             btop
             fzf
+            gdu
             ouch
             rclone
           ])
