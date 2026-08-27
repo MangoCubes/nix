@@ -13,6 +13,10 @@
       };
     };
     kernelParams = [
+      # https://bbs.archlinux.org/viewtopic.php?id=308539
+      "i915.enable_psr=0"
+      "intel_idle.max_cstate=1"
+      "i915.enable_dc=0"
       "splash"
     ];
     extraModprobeConfig = ''
