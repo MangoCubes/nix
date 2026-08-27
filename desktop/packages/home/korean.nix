@@ -1,7 +1,6 @@
 {
   pkgs,
   config,
-  lib,
   ...
 }:
 {
@@ -35,8 +34,6 @@
       waylandFrontend = true;
     };
   };
-  # fcitx5 will be started manually
-  systemd.user.services.fcitx5-daemon.Install.WantedBy = lib.mkForce [ ];
   home.sessionVariables = {
     # GTK_IM_MODULE = "wayland";
     QT_IM_MODULE = "fcitx";
