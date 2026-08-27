@@ -27,24 +27,24 @@ let
       '';
     in
     pkgs.writeShellScript "st-default-folder" ''
-      	${syncthingDirShell}
-      	config_file="$syncthing_dir/config.xml"
-      	if [[ ! -f "$config_file" ]]; then
-      		echo "Error: Syncthing config.xml not found at $config_file"
-      		exit 1
-      	fi
+      ${syncthingDirShell}
+      config_file="$syncthing_dir/config.xml"
+      if [[ ! -f "$config_file" ]]; then
+      	echo "Error: Syncthing config.xml not found at $config_file"
+      	exit 1
+      fi
 
-      	dirs=($(find ${syncPath} -mindepth 1 -maxdepth 1 -type d))
-      	for dir in "''${dirs[@]}"; do
-      		cd "$dir"
-      		[ ! -f ./.ignore.txt ] && touch ./.ignore.txt
-      	done
+      dirs=($(find ${syncPath} -mindepth 1 -maxdepth 1 -type d))
+      for dir in "''${dirs[@]}"; do
+      	cd "$dir"
+      	[ ! -f ./.ignore.txt ] && touch ./.ignore.txt
+      done
 
-      	API_KEY=$(${pkgs.libxml2}/bin/xmllint --xpath 'string(configuration/gui/apikey)' "$config_file")
-      	
-      	while ! ${pkgs.curl}/bin/curl -f http://localhost:8384/rest/noauth/health; do ${pkgs.coreutils}/bin/sleep 1; done;
-      	${pkgs.curl}/bin/curl -X PATCH -H "X-API-Key: $API_KEY" -H "Content-Type: application/json" -d '{"path": "${syncPath}"}' http://localhost:8384/rest/config/defaults/folder
-      	${pkgs.curl}/bin/curl -X PUT   -H "X-API-Key: $API_KEY" -H "Content-Type: application/json" -d '{"lines": ["#include ./.ignore.txt"]}' http://localhost:8384/rest/config/defaults/ignores
+      API_KEY=$(< ${config.sops.secrets.syncthing-apikey.path})
+
+      ${pkgs.xmlstarlet}/bin/xmlstarlet ed -L -u "/configuration/gui/apikey" -v $API_KEY "$config_file"
+      ${pkgs.xmlstarlet}/bin/xmlstarlet ed -L -u "/configuration/defaults/folder/@path" -v "${syncPath}" "$config_file"
+      ${pkgs.xmlstarlet}/bin/xmlstarlet ed -L -u "/configuration/defaults/ignores/line" -v "#include ./.ignore.txt" "$config_file"
     '';
 in
 {
