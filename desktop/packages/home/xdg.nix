@@ -1,8 +1,20 @@
-{ pkgs, config, ... }:
 {
-  home.packages = [
-    (pkgs.writeScriptBin "xdgl" (builtins.readFile ./xdg/xdgl.sh))
-  ];
+  pkgs,
+  config,
+  lib,
+  ...
+}:
+{
+  home = {
+    packages = [
+      (pkgs.writeScriptBin "xdgl" (builtins.readFile ./xdg/xdgl.sh))
+    ];
+    activation.updateMimeDb = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      if [ -d "$HOME/.local/share/mime/packages" ]; then
+        ${pkgs.shared-mime-info}/bin/update-mime-database "$HOME/.local/share/mime"
+      fi
+    '';
+  };
   xdg = {
     dataFile."mime/packages/sops-encrypted.xml".text = ''
       <?xml version="1.0" encoding="utf-8"?>
