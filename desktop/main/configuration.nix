@@ -16,4 +16,8 @@
     ../../common/troubleshooting.nix
     ./networking.nix
   ];
+  services.logind.settings.Login = {
+    HandleLidSwitch = "suspend";
+    HandlePowerKey = "poweroff";
+  };
 }
