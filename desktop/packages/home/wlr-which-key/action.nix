@@ -143,7 +143,7 @@ in
       {
         key = "p";
         desc = "󰟵 Generate Password";
-        cmd = "keepassxc-cli generate --exclude-similar -L 32 | wl-copy";
+        cmd = "keepassxc-cli generate --exclude-similar -L 32 | tr -d '\n' | wl-copy";
       }
       {
         key = "j";
