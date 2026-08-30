@@ -26,6 +26,24 @@
       ];
     })
     ((import ../../../../lib/podman.nix) {
+      dependsOn = [ "matrix" ];
+      image = "halfshot/matrix-hookshot:latest";
+      name = "matrix-hookshot";
+      labels = {
+        "traefik.enable" = "true";
+        "traefik.http.routers.hookshot.rule" = "Host(`matrix.skew.ch`) && PathPrefix(`/webhook`)";
+        "traefik.http.routers.hookshot.entrypoints" = "websecure";
+        "traefik.http.routers.hookshot.tls" = "true";
+        "traefik.http.routers.hookshot.tls.certResolver" = "letsencrypt";
+        "traefik.http.routers.hookshot.service" = "s-hookshot";
+
+        "traefik.http.services.s-hookshot.loadbalancer.server.port" = "9000";
+      };
+      volumes = [
+        "${config.home.homeDirectory}/.podman/matrix-hookshot:/data"
+      ];
+    })
+    ((import ../../../../lib/podman.nix) {
       dependsOn = [ "traefik" ];
       image = "ghcr.io/element-hq/matrix-authentication-service:latest";
       name = "mas";
@@ -108,6 +126,12 @@
 
         ${pkgs.rootlesskit}/bin/rootlesskit rm -f ${config.home.homeDirectory}/.podman/matrix/mas.yaml
         ${pkgs.rootlesskit}/bin/rootlesskit cp ${config.home.homeDirectory}/.config/sops-nix/secrets/matrix/mas.yaml ${config.home.homeDirectory}/.podman/matrix/mas.yaml
+        ${pkgs.rootlesskit}/bin/rootlesskit rm -f ${config.home.homeDirectory}/.podman/matrix/hookshot.yaml
+        ${pkgs.rootlesskit}/bin/rootlesskit cp ${config.home.homeDirectory}/.config/sops-nix/secrets/matrix/hookshot.yaml ${config.home.homeDirectory}/.podman/matrix/hookshot.yaml
+        ${pkgs.rootlesskit}/bin/rootlesskit rm -f ${config.home.homeDirectory}/.podman/matrix-hookshot/registration.yml
+        ${pkgs.rootlesskit}/bin/rootlesskit cp ${config.home.homeDirectory}/.config/sops-nix/secrets/matrix/hookshot.yaml ${config.home.homeDirectory}/.podman/matrix-hookshot/registration.yml
+        ${pkgs.rootlesskit}/bin/rootlesskit rm -f ${config.home.homeDirectory}/.podman/matrix-hookshot/config.yml
+        ${pkgs.rootlesskit}/bin/rootlesskit cp ${./matrix/hookshot.yaml} ${config.home.homeDirectory}/.podman/matrix-hookshot/cinfig.yml
 
         ${pkgs.rootlesskit}/bin/rootlesskit chown 991:991 -R ${config.home.homeDirectory}/.podman/matrix
         ${pkgs.rootlesskit}/bin/rootlesskit chown 65532:65532 ${config.home.homeDirectory}/.podman/matrix/mas.yaml
