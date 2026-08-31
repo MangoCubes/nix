@@ -131,7 +131,7 @@
         ${pkgs.rootlesskit}/bin/rootlesskit rm -f ${config.home.homeDirectory}/.podman/matrix-hookshot/registration.yml
         ${pkgs.rootlesskit}/bin/rootlesskit cp ${config.home.homeDirectory}/.config/sops-nix/secrets/matrix/hookshot.yaml ${config.home.homeDirectory}/.podman/matrix-hookshot/registration.yml
         ${pkgs.rootlesskit}/bin/rootlesskit rm -f ${config.home.homeDirectory}/.podman/matrix-hookshot/config.yml
-        ${pkgs.rootlesskit}/bin/rootlesskit cp ${./matrix/hookshot.yaml} ${config.home.homeDirectory}/.podman/matrix-hookshot/cinfig.yml
+        ${pkgs.rootlesskit}/bin/rootlesskit cp ${./matrix/hookshot.yaml} ${config.home.homeDirectory}/.podman/matrix-hookshot/config.yml
 
         ${pkgs.rootlesskit}/bin/rootlesskit chown 991:991 -R ${config.home.homeDirectory}/.podman/matrix
         ${pkgs.rootlesskit}/bin/rootlesskit chown 65532:65532 ${config.home.homeDirectory}/.podman/matrix/mas.yaml

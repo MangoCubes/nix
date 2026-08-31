@@ -2,7 +2,7 @@
 
 bridge:
   domain: skew.ch
-  url: https://matrix.skew.ch
+  url: http://matrix:8008
   port: 9993
   bindAddress: 0.0.0.0
 logging:
