@@ -1,6 +1,6 @@
 { unstable, ... }:
 {
   home.packages = [
-    unstable.cinny-desktop
+    unstable.element-desktop
   ];
 }

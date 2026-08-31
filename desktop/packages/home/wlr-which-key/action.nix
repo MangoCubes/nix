@@ -44,7 +44,12 @@ in
 ++ [
   {
     key = "n";
-    desc = " Clear Notifications";
+    desc = "󰎟 Clear Notifications";
+    cmd = "fnottctl dismiss all";
+  }
+  {
+    key = "N";
+    desc = " Open Latest Notification";
     cmd = "fnottctl dismiss all";
   }
   {
