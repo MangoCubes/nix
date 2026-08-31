@@ -44,12 +44,11 @@ encryption:
   # If omitted, encryption support will be disabled.
   storagePath: /data/cryptostore
 
-#permissions:
-#  # (Optional) Permissions for using the bridge. See docs/setup.md#permissions for help
-#  - actor: example.com
-#    services:
-#      - service: "*"
-#        level: admin
+permissions:
+  - actor: "@main:skew.ch"
+    services:
+      - service: "*"
+        level: admin
 
 #github:
 #  # (Optional) Configure this to enable GitHub support
