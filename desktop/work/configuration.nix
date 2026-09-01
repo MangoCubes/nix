@@ -13,6 +13,7 @@
     ../packages/wireshark.nix
     ../packages/mitmproxy-wifi.nix
     ../../common/troubleshooting.nix
+    ../packages/owl.nix
     (import ../packages/android.nix {
       androidStudio = false;
       heimdall = false;

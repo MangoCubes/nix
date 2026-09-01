@@ -22,6 +22,7 @@ in
 {
   home.packages = [
     run-windows
+    pkgs.remmina
   ];
   custom.features.windows = true;
   imports = [

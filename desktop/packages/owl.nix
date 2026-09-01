@@ -70,15 +70,9 @@ in
     after = [ "network.target" ];
     wantedBy = [ "multi-user.target" ];
     serviceConfig = {
-      ExecStartPre = [
-        "${pkgs.iw}/bin/iw dev ${config.custom.networking.primary} interface add mon0 type monitor"
-        "${pkgs.iproute2}/bin/ip link set mon0 up"
-      ];
-      ExecStart = "${owl}/bin/owl -i mon0 -N";
-      ExecStopPost = [
-        "${pkgs.iproute2}/bin/ip link set mon0 down"
-        "${pkgs.iw}/bin/iw dev mon0 del"
-      ];
+      ExecStartPre = "${pkgs.iproute2}/bin/ip link set ${config.custom.networking.secondary} down";
+      ExecStart = "${owl}/bin/owl -i ${config.custom.networking.secondary}";
+      ExecStopPost = "${pkgs.iproute2}/bin/ip link set ${config.custom.networking.secondary} up";
       Restart = "on-failure";
       RestartSec = "5s";
       CapabilityBoundingSet = "CAP_NET_ADMIN CAP_NET_RAW";
