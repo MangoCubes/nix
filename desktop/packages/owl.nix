@@ -72,9 +72,15 @@ in
     after = [ "network.target" ];
     wantedBy = [ "multi-user.target" ];
     serviceConfig = {
-      ExecStartPre = "${pkgs.iproute2}/bin/ip link set ${config.custom.networking.secondary} down";
+      ExecStartPre = [
+        "${pkgs.iproute2}/bin/ip link set ${config.custom.networking.secondary} down"
+        "${pkgs.iproute2}/bin/ip link set ${config.custom.networking.secondary} promisc on"
+      ];
       ExecStart = "${owl}/bin/owl -i ${config.custom.networking.secondary}";
-      ExecStopPost = "${pkgs.iproute2}/bin/ip link set ${config.custom.networking.secondary} up";
+      ExecStopPost = [
+        "${pkgs.iproute2}/bin/ip link set ${config.custom.networking.secondary} promisc off"
+        "${pkgs.iproute2}/bin/ip link set ${config.custom.networking.secondary} up"
+      ];
       Restart = "on-failure";
       RestartSec = "5s";
       CapabilityBoundingSet = "CAP_NET_ADMIN CAP_NET_RAW";
