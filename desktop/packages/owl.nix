@@ -65,6 +65,8 @@ in
     ];
   };
 
+  environment.systemPackages = [ owl ];
+
   systemd.services.open-wireless-link = {
     description = "Open Wireless Link (AWDL Daemon)";
     after = [ "network.target" ];

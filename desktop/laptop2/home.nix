@@ -11,6 +11,7 @@
       custom.microsoftTeams.enable = true;
       home.packages = [
         unfreeUnstable.osu-lazer-bin
+        pkgs.iw
       ];
     };
 }

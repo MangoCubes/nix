@@ -20,6 +20,7 @@
         pwntools
         jadx
         mitmproxy
+        iw
       ]);
     };
 }
