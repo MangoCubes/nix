@@ -12,7 +12,6 @@
     ../packages/avahi.nix
     ../packages/wireshark.nix
     ../packages/mitmproxy-wifi.nix
-    ../packages/owl.nix
     ../../common/troubleshooting.nix
     (import ../packages/android.nix {
       androidStudio = false;

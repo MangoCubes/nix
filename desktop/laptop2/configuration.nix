@@ -8,7 +8,6 @@
     ./networking.nix
     (import ../packages/android.nix { androidStudio = false; })
     ../packages/wireshark.nix
-    ../packages/owl.nix
   ];
   services.logind.settings.Login = {
     HandleLidSwitch = "suspend";

@@ -20,26 +20,14 @@
         select_playlist_popup = {
           "<d>" = {
             SelectID = {
-              id = "800000014";
+              id = "DhOLTZmLFxF92UW3PUfMpC";
               name = "Duplicate";
-            };
-          };
-          "<c>" = {
-            SelectID = {
-              id = "800000016";
-              name = "Too Calm";
             };
           };
           "<s>" = {
             SelectID = {
-              id = "800000009";
+              id = "Xbb77rVlHJAeIFylD9Wneu";
               name = "Short";
-            };
-          };
-          "<n>" = {
-            SelectID = {
-              id = "800000015";
-              name = "Not My Style";
             };
           };
         };
