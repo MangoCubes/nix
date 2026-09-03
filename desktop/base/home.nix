@@ -62,7 +62,7 @@
       xdg = {
         # Some programs create entries in ~/.config/autostart/, and it doesn't get deleted when the program is removed
         autostart = {
-          enable = false;
+          enable = true;
           readOnly = true;
         };
         configFile."configMedia" = {

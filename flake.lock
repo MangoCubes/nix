@@ -26,11 +26,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1784036266,
-        "narHash": "sha256-/MEOqoDBGg4IM/5/EJxZoADL8957uSyrjaS9RmVGGLo=",
+        "lastModified": 1788400023,
+        "narHash": "sha256-4xt+LgHLFXEst3B8yrA8IVs4t99DkdqudFzUS5pYoKY=",
         "owner": "MangoCubes",
         "repo": "ampterm",
-        "rev": "5c4423df0deca0a2d6da0754717f5fdb6002a90a",
+        "rev": "b02940f88dfdf850f8e677dc230d2fd1c12b0697",
         "type": "github"
       },
       "original": {
@@ -830,7 +830,7 @@
         "sops-nix": "sops-nix"
       },
       "locked": {
-        "lastModified": 1788364622,
+        "lastModified": 1788441787,
         "narHash": "sha256-dO2ao7abytnjDaxHBDafZ4dw2LYxuVvhfu8vco9HceU=",
         "path": "/home/main/Sync/NixConfig/secrets",
         "type": "path"
