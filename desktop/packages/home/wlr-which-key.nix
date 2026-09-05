@@ -5,22 +5,25 @@
   config,
   colours,
   hostname,
+  inputs,
   ...
 }:
 let
-  genFile = name: {
+  genFile = name: list: {
     "wlr-which-key/${name}.yaml".source = (
-      (pkgs.formats.yaml { }).generate "${name}.yml" (
+      ((pkgs.formats.yaml { }).generate "${name}.yml" (
         {
-          menu = (import ./wlr-which-key/${name}.nix) {
-            inherit
-              colours
-              pkgs
-              config
-              osConfig
-              hostname
-              ;
-          };
+          menu = (
+            list {
+              inherit
+                colours
+                pkgs
+                config
+                osConfig
+                hostname
+                ;
+            }
+          );
         }
         // ((import ./wlr-which-key/theme.nix) {
           inherit
@@ -30,9 +33,10 @@ let
             osConfig
             ;
         })
-      )
+      ))
     );
   };
+  loadFile = name: (genFile name (import ./wlr-which-key/${name}.nix));
 in
 {
   home.packages = [
@@ -41,11 +45,12 @@ in
   ];
 
   xdg.configFile =
-    (genFile "action")
-    // (genFile "media")
-    // (genFile "niri")
-    // (genFile "browser")
-    // (genFile "soundboard")
-    // (genFile "dragevac")
-    // (genFile "advrun");
+    (loadFile "action")
+    // (loadFile "media")
+    // (loadFile "niri")
+    // (loadFile "browser")
+    // (loadFile "soundboard")
+    // (loadFile "dragevac")
+    // (genFile "auto" inputs.secrets.hm.wlr-which-key.auto)
+    // (loadFile "advrun");
 }

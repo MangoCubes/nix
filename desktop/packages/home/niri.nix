@@ -137,6 +137,11 @@ let
       };
       gaps = 4;
       center-focused-column = "on-overflow";
+      preset-window-heights._children = [
+        {
+          proportion = 1.0;
+        }
+      ];
       preset-column-widths._children = [
         {
           proportion = 0.5;

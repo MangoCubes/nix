@@ -14,7 +14,6 @@
       ];
       home.packages = [
         unfreeUnstable.osu-lazer-bin
-        unfree.beeper
       ];
     };
 }
