@@ -39,10 +39,6 @@
     # This flake is stored in ./secrets
     secrets.url = "path:/home/main/Sync/NixConfig/secrets";
     yazi.url = "github:sxyazi/yazi";
-    nixvim = {
-      url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "unstablePkg";
-    };
   };
 
   # This @ sign binds inputs to the value that comes after it
