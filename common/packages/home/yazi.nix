@@ -94,7 +94,7 @@ in
                 {
                   run = (
                     config.custom.terminal.genCmd {
-                      workingDirectory = ''$(dirname "$@")'';
+                      workingDirectory = ''$(dirname "%s")'';
                       command = "nix develop";
                     }
                   );
@@ -107,7 +107,7 @@ in
                 {
                   run = (
                     config.custom.terminal.genCmd {
-                      command = ''"nix-shell "$@"'';
+                      command = ''"nix-shell "%s"'';
                     }
                   );
                   for = "unix";
@@ -117,45 +117,45 @@ in
               ];
               terminal = [
                 {
-                  run = (config.custom.terminal.genCmd { workingDirectory = "$@"; });
+                  run = (config.custom.terminal.genCmd { workingDirectory = "%s"; });
                   desc = "Open in terminal";
                   orphan = true;
                 }
               ];
               vlc = [
                 {
-                  run = ''vlc "$@"'';
+                  run = ''vlc "%s"'';
                   desc = "Open in VLC";
                   orphan = true;
                 }
               ];
               dolphin = [
                 {
-                  run = ''dolphin "$@"'';
+                  run = "dolphin %s";
                   desc = "Open in Dolphin";
                   orphan = true;
                 }
               ];
               apk = [
                 {
-                  run = ''adb install "$@"'';
+                  run = ''adb install "%s"'';
                   desc = "Install Application";
                   orphan = true;
                 }
               ];
               pdf = [
                 {
-                  run = ''browser "$@"'';
+                  run = ''browser "%s"'';
                   desc = "Browser";
                   orphan = true;
                 }
                 {
-                  run = ''pdfjam --outfile "$@" --angle 270 --fitpaper true --rotateoversize true "$@"'';
+                  run = ''pdfjam --outfile "%s" --angle 270 --fitpaper true --rotateoversize true "%s"'';
                   desc = "Rotate Clockwise";
                   orphan = true;
                 }
                 {
-                  run = ''pdfjam --outfile "$@" --angle 90 --fitpaper true --rotateoversize true "$@"'';
+                  run = ''pdfjam --outfile "%s" --angle 90 --fitpaper true --rotateoversize true "%s"'';
                   desc = "Rotate Anticlockwise";
                   orphan = true;
                 }
@@ -165,19 +165,19 @@ in
         // {
           extract = [
             {
-              run = ''for file in "$@"; do f=''${file##*/}; ouch decompress "$file" -d "./''${f%.*}"; done;'';
+              run = ''for file in "%s"; do f=''${file##*/}; ouch decompress "$file" -d "./''${f%.*}"; done;'';
               desc = "Extract";
               orphan = true;
             }
           ];
           compress = [
             {
-              run = ''ouch compress "$@" "$@.zip"'';
+              run = ''ouch compress "%s" "%s.zip"'';
               desc = "Compress to .zip";
               orphan = true;
             }
             {
-              run = ''ouch compress "$@" "$@.tar.gz"'';
+              run = ''ouch compress "%s" "%s.tar.gz"'';
               desc = "Compress to .tar.gz";
               orphan = true;
             }
@@ -296,7 +296,7 @@ in
                 on = [
                   "L"
                 ];
-                run = ''shell --orphan 'dir_path=$(dirname "$@") && dragevac --load-dir "$dir_path"' '';
+                run = "shell --orphan 'dragevac --load-dir %d' ";
                 desc = "Mouse drag and drop current directory";
               }
               {
@@ -315,7 +315,7 @@ in
                   "c"
                 ];
                 run = [
-                  ''shell 'cat "$@" | wl-copy' ''
+                  ''shell 'cat "%s" | wl-copy' ''
                 ];
                 desc = "Copy file into clipboard";
               }
@@ -331,7 +331,7 @@ in
             run = [
               (lib.mkIf (
                 !isServer
-              ) ''shell 'for path in "$@"; do echo "file://$path"; done | wl-copy -t text/uri-list' --confirm'')
+              ) ''shell 'for path in "%s"; do echo "file://$path"; done | wl-copy -t text/uri-list' --confirm'')
               "yank"
             ];
           }
@@ -363,7 +363,7 @@ in
               "L"
             ];
             run = [
-              "shell 'linktofile $@' "
+              "shell 'linktofile %s' "
             ];
             desc = "Convert a link into a regular file";
           }
@@ -383,7 +383,7 @@ in
               "z"
             ];
             run = [
-              "shell 'ouch compress $@ compressed.zip' "
+              "shell 'ouch compress %s compressed.zip' "
             ];
             desc = "Archive selected files to .zip";
           }
@@ -393,7 +393,7 @@ in
               "t"
             ];
             run = [
-              "shell 'ouch compress $@ compressed.tar.gz' "
+              "shell 'ouch compress %s compressed.tar.gz' "
             ];
             desc = "Archive selected files to .tar.gz";
           }
