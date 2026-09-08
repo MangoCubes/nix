@@ -87,11 +87,11 @@
         "rust-overlay": "rust-overlay_2"
       },
       "locked": {
-        "lastModified": 1781542783,
-        "narHash": "sha256-GXQvMAvaMeVfSculLv4CYfrD3QWKZUsCW3BupKT2U+0=",
+        "lastModified": 1788798305,
+        "narHash": "sha256-hbpRmQVPhcFrdLnzmBNtZKXT+8eisAv2dtsMYi/lV8U=",
         "owner": "MangoCubes",
         "repo": "dragevac",
-        "rev": "ae4b6821930e57cfdae8958ac4085df7141efb05",
+        "rev": "9e7c1fe85d57b4576971324b2446a5791b8baf43",
         "type": "github"
       },
       "original": {
@@ -786,8 +786,8 @@
         "sops-nix": "sops-nix"
       },
       "locked": {
-        "lastModified": 1788762996,
-        "narHash": "sha256-we6i/ewzV3RgXuLTOSZzuyyWT5Z5REkInGo4GRLyTOw=",
+        "lastModified": 1788783563,
+        "narHash": "sha256-DqtCxyT3V+w3rJqjivxVAXhrvUv2XNwbaRzf4nuyNNg=",
         "path": "/home/main/Sync/NixConfig/secrets",
         "type": "path"
       },

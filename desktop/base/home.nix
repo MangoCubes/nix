@@ -16,6 +16,7 @@
         "server-network"
         "work"
         "main"
+        "work-laptop"
       ];
     in
     {
