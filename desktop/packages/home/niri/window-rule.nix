@@ -10,6 +10,27 @@
   }
   {
     window-rule = {
+      match._props.app-id = "org.kde.kdeconnect.daemon";
+      open-floating = true;
+      open-fullscreen = false;
+      default-floating-position._props = {
+        x = 0;
+        y = 0;
+        relative-to = "top-left";
+      };
+      default-column-width.proportion = 1.0;
+      default-window-height.proportion = 1.0;
+
+      tiled-state = true;
+
+      focus-ring.off._props = { };
+      border.off._props = { };
+      shadow.off._props = { };
+      draw-border-with-background = false;
+    };
+  }
+  {
+    window-rule = {
       match._props = {
         app-id = "floorp$";
         title = "Extension";
