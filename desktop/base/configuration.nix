@@ -16,7 +16,6 @@
     ../packages/bluetooth.nix
     ../packages/fonts.nix
     ../packages/greeter.nix
-    ../packages/kdeconnect.nix
     ../packages/traefik.nix
     ../packages/swaylock.nix
     ../packages/ydotool.nix

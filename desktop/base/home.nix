@@ -31,6 +31,7 @@
 
         ../packages/home/dictionary.nix
         # ../packages/home/dconf.nix
+        ../packages/home/kdeconnect.nix
         ../packages/home/ghostty.nix
         ../packages/home/cursor.nix
         ../packages/home/emacs.nix
