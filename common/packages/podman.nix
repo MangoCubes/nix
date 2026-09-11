@@ -29,9 +29,13 @@
       podmanStatus = pkgs.writeShellScriptBin "podman-status" ''
         ${podman-watcher}/bin/podman-watcher ${builtins.concatStringsSep " " services}
       '';
+      containers = (builtins.map (import ./podman/podman.nix) config.custom.podman.containers);
     in
     {
-      imports = [ ./podman/options.nix ];
+      imports = [
+        ./podman/options.nix
+        containers
+      ];
       custom.podman = {
         dns = "107.175.189.176";
         dnsProvider = "10.10.0.53";
