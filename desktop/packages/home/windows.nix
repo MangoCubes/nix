@@ -7,7 +7,7 @@
 let
   username = "Windows";
   password = "Password";
-  rdpCmd = "${pkgs.remmina}/bin/remmina /home/main/.local/share/remmina/rdp.remmina";
+  rdpCmd = "${pkgs.freerdp}/bin/sdl-freerdp /u:${username} /p:${password} /dynamic-resolution /drive:shared,${config.home.homeDirectory} /v:127.0.0.1";
   run-windows = pkgs.writeShellScriptBin "run-windows" ''
     if systemctl --user is-active --quiet "podman-windows"; then
         ${pkgs.notify-desktop}/bin/notify-desktop "Opening RDP..." "Windows is already running.";
@@ -22,7 +22,6 @@ in
 {
   home.packages = [
     run-windows
-    pkgs.remmina
   ];
   custom.features.windows = true;
   custom.podman.containers = [
@@ -61,8 +60,4 @@ in
     mkdir -p ${config.home.homeDirectory}/Windows/storage
     mkdir -p ${config.home.homeDirectory}/Windows/data
   '';
-  xdg.dataFile."remmina".source =
-    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Sync/LinuxConfig/remmina/connections";
-  xdg.configFile."remmina".source =
-    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Sync/LinuxConfig/remmina/config";
 }

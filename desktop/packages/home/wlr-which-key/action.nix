@@ -175,6 +175,11 @@ in
         desc = "󰻠 Base64 Encode";
         cmd = "wl-paste | base64 -w 0 | wl-copy";
       }
+      {
+        key = "i";
+        desc = " Convert To Bitmap";
+        cmd = "wl-paste --type image/png | ${pkgs.imagemagick}/bin/convert - bmp:- | wl-copy --type image/bmp";
+      }
     ];
   }
 ]
