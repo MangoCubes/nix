@@ -92,40 +92,44 @@ let
       (builtins.foldl' (acc: elem: acc // elem) {
         "traefik.enable" = "true";
       } (builtins.map genRouters domain));
+  dailyBackup =
+    if (daily != null) then
+      {
+        timers."podman-${name}-daily" = {
+          Install.WantedBy = [ "timers.target" ];
+          Timer = {
+            OnBootSec = "6h";
+            OnUnitActiveSec = "6h";
+            Unit = "podman-${name}-daily.service";
+          };
+          Unit.Description = "Timer for podman-${name}-daily.service";
+        };
+        services."podman-${name}-daily" = {
+          Unit.Description = "Backup preparation command for ${name}";
+          Service = {
+            Type = "oneshot";
+            ExecStart =
+              let
+                cmd = pkgs.writeShellScriptBin "${name}-cmd" daily;
+              in
+              "${cmd}/bin/${name}-cmd";
+          };
+        };
+      }
+    else
+      {
+        timers = { };
+        services = { };
+      };
 in
-(
-  if (daily != null) then
-    ({
-      systemd.user.timers."podman-${name}-daily" = {
-        Install.WantedBy = [ "timers.target" ];
-        Timer = {
-          OnBootSec = "6h";
-          OnUnitActiveSec = "6h";
-          Unit = "podman-${name}-daily.service";
-        };
-        Unit.Description = "Timer for podman-${name}-daily.service";
-      };
-      systemd.user.services."podman-${name}-daily" = {
-        Unit.Description = "Backup preparation command for ${name}";
-        Service = {
-          Type = "oneshot";
-          ExecStart =
-            let
-              cmd = pkgs.writeShellScriptBin "${name}-cmd" daily;
-            in
-            "${cmd}/bin/${name}-cmd";
-        };
-      };
-    })
-  else
-    { }
-)
-// {
+{
+  timer = dailyBackup.timers;
+  service = dailyBackup.services;
   # Automatically create directory for the container if it has volumes
   # Then run other commands specified via [`activation`]
-  home.activation."podman-${name}" =
-    if (builtins.length volumes != 0) then
-      (lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+  activation = lib.mkIf (builtins.length volumes != 0 || activation != "") {
+    "podman-${name}" = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      ${lib.optionalString (builtins.length volumes != 0) ''
         VOLUMES=${config.home.homeDirectory}/.podman/volumes/${name}
         if [ ! -d "$VOLUMES" ]; then
           mkdir -p $VOLUMES
@@ -142,11 +146,11 @@ in
         if [ ! -d "$DIR" ]; then
           mkdir -p $DIR
         fi
-        ${activation}
-      '')
-    else
-      activation;
-  services.podman.containers."${name}" = {
+      ''}
+      ${activation}
+    '';
+  };
+  container."${name}" = {
     # Mount entrypoint script as volume so that it exists within the container if specified
     volumes =
       ([ "/etc/ssl/certs/ca-certificates.crt:/etc/ssl/certs/ca-certificates.crt" ] ++ volumes)

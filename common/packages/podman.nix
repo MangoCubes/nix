@@ -29,12 +29,13 @@
       podmanStatus = pkgs.writeShellScriptBin "podman-status" ''
         ${podman-watcher}/bin/podman-watcher ${builtins.concatStringsSep " " services}
       '';
-      containers = (builtins.map (import ./podman/podman.nix) config.custom.podman.containers);
+      containerConfigs = builtins.map (
+        c: (import ./podman/podman.nix c) { inherit lib config pkgs; }
+      ) config.custom.podman.containers;
     in
     {
       imports = [
         ./podman/options.nix
-        containers
       ];
       custom.podman = {
         dns = "107.175.189.176";
@@ -51,6 +52,7 @@
       services.podman = {
         autoUpdate.enable = true;
         enable = true;
+        containers = lib.mkMerge (builtins.map (c: c.container) containerConfigs);
         settings = {
           storage = {
             storage.driver = "overlay";
@@ -58,6 +60,9 @@
           };
         };
       };
+      home.activation = lib.mkMerge (builtins.map (c: c.activation) containerConfigs);
+      systemd.user.timers = lib.mkMerge (builtins.map (c: c.timer) containerConfigs);
+      systemd.user.services = lib.mkMerge (builtins.map (c: c.service) containerConfigs);
       custom.shell.aliases = {
         ubuntu = "podman run --rm -it ubuntu bash";
         docker = "podman $@";
