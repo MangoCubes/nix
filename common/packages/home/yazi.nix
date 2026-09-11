@@ -145,7 +145,7 @@ in
               ];
               pdf = [
                 {
-                  run = ''browser "%s"'';
+                  run = "browser %s";
                   desc = "Browser";
                   orphan = true;
                 }
