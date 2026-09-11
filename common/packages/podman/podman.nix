@@ -29,32 +29,6 @@
   ...
 }:
 let
-  backupService =
-    {
-      command,
-      desc,
-    }:
-    let
-      cmd = pkgs.writeShellScriptBin "${name}-cmd" command;
-    in
-    {
-      systemd.user.timers."podman-${name}-daily" = {
-        Install.WantedBy = [ "timers.target" ];
-        Timer = {
-          OnBootSec = "6h";
-          OnUnitActiveSec = "6h";
-          Unit = "podman-${name}-daily.service";
-        };
-        Unit.Description = "Timer for podman-${name}-daily.service";
-      };
-      systemd.user.services."podman-${name}-daily" = {
-        Unit.Description = desc;
-        Service = {
-          Type = "oneshot";
-          ExecStart = "${cmd}/bin/${name}-cmd";
-        };
-      };
-    };
   # If domain = null, then it should not be accessible from outside
   # URL is expected in the following form
   # This creates an executable bash script if the entrypoint is given
@@ -119,13 +93,34 @@ let
         "traefik.enable" = "true";
       } (builtins.map genRouters domain));
 in
-{
-  imports = [
-    (lib.mkIf (daily != null) (backupService {
-      command = daily;
-      desc = "Backup preparation command for ${name}";
-    }))
-  ];
+(
+  if (daily != null) then
+    ({
+      systemd.user.timers."podman-${name}-daily" = {
+        Install.WantedBy = [ "timers.target" ];
+        Timer = {
+          OnBootSec = "6h";
+          OnUnitActiveSec = "6h";
+          Unit = "podman-${name}-daily.service";
+        };
+        Unit.Description = "Timer for podman-${name}-daily.service";
+      };
+      systemd.user.services."podman-${name}-daily" = {
+        Unit.Description = "Backup preparation command for ${name}";
+        Service = {
+          Type = "oneshot";
+          ExecStart =
+            let
+              cmd = pkgs.writeShellScriptBin "${name}-cmd" daily;
+            in
+            "${cmd}/bin/${name}-cmd";
+        };
+      };
+    })
+  else
+    { }
+)
+// {
   # Automatically create directory for the container if it has volumes
   # Then run other commands specified via [`activation`]
   home.activation."podman-${name}" =
