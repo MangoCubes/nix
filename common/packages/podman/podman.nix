@@ -26,7 +26,6 @@
   lib,
   config,
   pkgs,
-  osConfig,
   ...
 }:
 let
@@ -81,7 +80,7 @@ let
     entry:
     let
       useLocalCa =
-        if (entry.type == 1) then
+        if (entry.type == "global") then
           {
             "traefik.http.routers.${entry.routerName}.tls.certResolver" = "letsencrypt";
           }
@@ -127,7 +126,6 @@ in
       desc = "Backup preparation command for ${name}";
     }))
   ];
-  custom.podman.containers = [ name ];
   # Automatically create directory for the container if it has volumes
   # Then run other commands specified via [`activation`]
   home.activation."podman-${name}" =

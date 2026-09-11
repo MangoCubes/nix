@@ -6,7 +6,9 @@
 {
   imports = [
     inputs.secrets.server-main.home.atuin
-    ((import ../../../../lib/podman.nix) {
+  ];
+  custom.podman.containers = [
+    {
       dependsOn = [
         "traefik"
         "postgresql"
@@ -16,7 +18,7 @@
       domain = [
         {
           routerName = "atuin";
-          type = 1;
+          type = "global";
           url = "sh.skew.ch";
           port = 8888;
         }
@@ -28,6 +30,6 @@
         "RUST_LOG" = "info,atuin_server=debug";
       };
       environmentFile = [ "${config.home.homeDirectory}/.config/sops-nix/secrets/atuin-db" ];
-    })
+    }
   ];
 }

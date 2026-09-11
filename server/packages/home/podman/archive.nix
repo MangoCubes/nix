@@ -1,7 +1,7 @@
 { config, ... }:
 {
-  imports = [
-    ((import ../../../../lib/podman.nix) {
+  custom.podman.containers = [
+    {
       dependsOn = [
         "traefik"
         "archive-es"
@@ -13,7 +13,7 @@
         {
           routerName = "archive";
           url = "yt.int";
-          type = 2;
+          type = "local";
           port = 8000;
         }
       ];
@@ -32,14 +32,14 @@
         "cache:/cache"
         "${config.home.homeDirectory}/Mounts/Drive/Archive/Video:/youtube"
       ];
-    })
-    ((import ../../../../lib/podman.nix) {
+    }
+    {
       dependsOn = [ "archive-es" ];
       image = "redis";
       name = "archive-redis";
-    })
+    }
     # UID: 1000
-    ((import ../../../../lib/podman.nix) {
+    {
       dependsOn = [ ];
       image = "bbilly1/tubearchivist-es";
       name = "archive-es";
@@ -53,6 +53,6 @@
       volumes = [
         "${config.home.homeDirectory}/.podman/archive-es:/usr/share/elasticsearch/data"
       ];
-    })
+    }
   ];
 }

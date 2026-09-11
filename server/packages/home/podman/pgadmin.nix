@@ -7,7 +7,9 @@
 {
   imports = [
     inputs.secrets.hm.other
-    ((import ../../../../lib/podman.nix) {
+  ];
+  custom.podman.containers = [
+    {
       dependsOn = [
         "traefik"
         "postgresql"
@@ -24,12 +26,12 @@
       domain = [
         {
           routerName = "pgadmin";
-          type = 2;
+          type = "local";
           url = "pg.int";
           port = 5050;
         }
       ];
       environmentFile = [ "${config.home.homeDirectory}/.config/sops-nix/secrets/pgadmin" ];
-    })
+    }
   ];
 }

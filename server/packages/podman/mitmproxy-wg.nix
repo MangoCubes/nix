@@ -15,7 +15,9 @@
     {
       imports = [
         inputs.secrets.server-main.home.mitm
-        ((import ../../../lib/podman.nix) {
+      ];
+      custom.podman.containers = [
+        {
           dependsOn = [ "traefik" ];
           image = "mitmproxy/mitmproxy";
           name = "mitm";
@@ -23,7 +25,7 @@
             {
               routerName = "mitm-web";
               url = "mitm.int";
-              type = 2;
+              type = "local";
               port = 8081;
             }
           ];
@@ -42,7 +44,7 @@
               "${config.home.homeDirectory}/.config/sops-nix/secrets/mitm/mitmproxy-dhparam.pem:/etc/mitm/mitmproxy-dhparam.pem"
               "${config.home.homeDirectory}/.config/sops-nix/secrets/mitm/wireguard.conf:/etc/mitm/wireguard.conf"
             ];
-        })
+        }
       ];
     };
 }

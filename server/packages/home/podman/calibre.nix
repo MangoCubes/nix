@@ -3,8 +3,8 @@
   ...
 }:
 {
-  imports = [
-    ((import ../../../../lib/podman.nix) {
+  custom.podman.containers = [
+    {
       dependsOn = [
         "traefik"
       ];
@@ -18,12 +18,12 @@
       domain = [
         {
           routerName = "calibre";
-          type = 1;
+          type = "global";
           url = "books.skew.ch";
           port = 9090;
         }
       ];
       exec = "calibre-server --enable-auth --port=9090 --userdb=/Config/server-users.sqlite --auth-mode=basic /Library";
-    })
+    }
   ];
 }

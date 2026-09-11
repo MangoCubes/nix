@@ -15,7 +15,9 @@
   # ${pkgs.rootlesskit}/bin/rootlesskit chown -R 1000:1000 ${config.home.homeDirectory}/.podman/cloud
   imports = [
     inputs.secrets.hm.cloud
-    ((import ../../../../lib/podman.nix) {
+  ];
+  custom.podman.containers = [
+    {
       dependsOn = [
         "traefik"
         "mariadb"
@@ -25,7 +27,7 @@
       domain = [
         {
           routerName = "cloud";
-          type = 1;
+          type = "global";
           url = "cloud.skew.ch";
           port = 80;
         }
@@ -64,6 +66,6 @@
         "traefik.http.routers.cloud.middlewares" =
           "m-cloud@docker,m-cloud-dav@docker,m-cloud-webfinger@docker,m-cloud-nodeinfo@docker";
       };
-    })
+    }
   ];
 }

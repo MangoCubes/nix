@@ -56,7 +56,7 @@
                             "local"
                             "auto"
                           ];
-                          description = ''Routing type: "global" (globally accessible), "local" (locally named), or "auto" (local and automatically generated).'';
+                          description = ''Routing type: "global" (globally accessible), "local" (locally named), or "auto" (local and automatically generated)'';
                         };
                         url = lib.mkOption {
                           type = lib.types.str;

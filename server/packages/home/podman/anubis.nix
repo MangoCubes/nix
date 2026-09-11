@@ -13,8 +13,8 @@ in
   ...
 }:
 {
-  imports = [
-    ((import ../../../../lib/podman.nix) {
+  custom.podman.containers = [
+    {
       dependsOn = [ "traefik" ];
       image = "ghcr.io/techarohq/anubis:latest";
       name = name;
@@ -26,7 +26,7 @@ in
       domain = [
         {
           routerName = name;
-          type = 1;
+          type = "global";
           port = anubisPort;
           inherit url;
         }
@@ -41,6 +41,6 @@ in
         "OG_PASSTHROUGH" = "true";
         "OG_EXPIRY_TIME" = "24h";
       };
-    })
+    }
   ];
 }

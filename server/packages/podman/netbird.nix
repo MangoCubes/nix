@@ -15,7 +15,9 @@
     {
       imports = [
         inputs.secrets.server-network.home.netbird
-        ((import ../../../lib/podman.nix) {
+      ];
+      custom.podman.containers = [
+        {
           dependsOn = [ "traefik" ];
           image = "netbirdio/netbird-server:latest";
           name = "netbird-server";
@@ -49,8 +51,8 @@
 
             "traefik.http.services.netbird-server.loadbalancer.server.port" = "80";
           };
-        })
-        ((import ../../../lib/podman.nix) {
+        }
+        {
           dependsOn = [ "traefik" ];
           image = "netbirdio/dashboard:latest";
           name = "netbird-dashboard";
@@ -58,12 +60,12 @@
           domain = [
             {
               routerName = "netbird-dashboard";
-              type = 1;
+              type = "global";
               url = "vpn.skew.ch";
               port = 80;
             }
           ];
-        })
+        }
       ];
     };
 }

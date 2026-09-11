@@ -3,8 +3,8 @@
   ...
 }:
 {
-  imports = [
-    ((import ../../../../lib/podman.nix) {
+  custom.podman.containers = [
+    {
       dependsOn = [ "traefik" ];
       image = "deluan/navidrome:latest";
       name = "navidrome";
@@ -15,7 +15,7 @@
         {
           routerName = "navidrome";
           url = "music.int";
-          type = 2;
+          type = "local";
           port = 4533;
         }
       ];
@@ -24,6 +24,6 @@
         "${config.home.homeDirectory}/Mounts/koofr/Media/Music:/music/koofr"
         "${config.home.homeDirectory}/Mounts/drive/Archive/Music:/music/drive"
       ];
-    })
+    }
   ];
 }

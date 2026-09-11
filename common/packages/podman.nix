@@ -25,7 +25,7 @@
           libxkbcommon
           ;
       };
-      services = builtins.map (s: "podman-${s}.service") config.custom.podman.containers;
+      services = builtins.map (s: "podman-${s.name}.service") config.custom.podman.containers;
       podmanStatus = pkgs.writeShellScriptBin "podman-status" ''
         ${podman-watcher}/bin/podman-watcher ${builtins.concatStringsSep " " services}
       '';

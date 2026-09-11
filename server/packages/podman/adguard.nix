@@ -11,8 +11,8 @@
       ...
     }:
     {
-      imports = [
-        ((import ../../../lib/podman.nix) {
+      custom.podman.containers = [
+        {
           dependsOn = null;
           image = "adguard/adguardhome";
           name = "adguard";
@@ -28,12 +28,12 @@
           domain = [
             {
               routerName = "adguard";
-              type = 1;
+              type = "global";
               url = "dns.skew.ch";
               port = 80;
             }
           ];
-        })
+        }
       ];
     };
 }

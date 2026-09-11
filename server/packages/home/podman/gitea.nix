@@ -10,7 +10,9 @@
   imports = [
     # UID: 1000
     inputs.secrets.server-main.home.gitea
-    ((import ../../../../lib/podman.nix) {
+  ];
+  custom.podman.containers = [
+    {
       dependsOn = [
         "traefik"
         "mariadb"
@@ -32,12 +34,12 @@
       domain = [
         {
           routerName = "gitea";
-          type = 2;
+          type = "local";
           url = "git.int";
           port = 3000;
         }
       ];
       environmentFile = [ "${config.home.homeDirectory}/.config/sops-nix/secrets/gitea" ];
-    })
+    }
   ];
 }

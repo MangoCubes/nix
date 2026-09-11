@@ -11,7 +11,9 @@
 
   imports = [
     (inputs.secrets."${hostname}".home.gluetun { inherit name; })
-    ((import ../../../../lib/podman.nix) ({
+  ];
+  custom.podman.containers = [
+    {
       dependsOn = [ "traefik" ];
       domain = null;
       network = [ "proxy" ];
@@ -27,6 +29,6 @@
         /gluetun-entrypoint
       '';
       environmentFile = [ "${config.home.homeDirectory}/.config/sops-nix/secrets/gluetun/${name}" ];
-    }))
+    }
   ];
 }

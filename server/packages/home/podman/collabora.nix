@@ -1,6 +1,6 @@
 {
-  imports = [
-    ((import ../../../../lib/podman.nix) {
+  custom.podman.containers = [
+    {
       dependsOn = [ "cloud" ];
       image = "collabora/code:latest";
       name = "collabora";
@@ -17,10 +17,10 @@
         {
           routerName = "collabora";
           url = "office.skew.ch";
-          type = 1;
+          type = "global";
           port = 9980;
         }
       ];
-    })
+    }
   ];
 }

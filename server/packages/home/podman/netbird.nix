@@ -1,6 +1,6 @@
 {
-  imports = [
-    ((import ../../../../lib/podman.nix) {
+  custom.podman.containers = [
+    {
       dependsOn = [ "proton-exit" ];
       # addCapabilities = [
       #   "NET_ADMIN"
@@ -17,6 +17,6 @@
       volumes = [
         "netbird-client:/var/lib/netbird"
       ];
-    })
+    }
   ];
 }

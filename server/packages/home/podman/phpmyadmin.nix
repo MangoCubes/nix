@@ -1,7 +1,7 @@
 { config, ... }:
 {
-  imports = [
-    ((import ../../../../lib/podman.nix) {
+  custom.podman.containers = [
+    {
       dependsOn = [
         "traefik"
         "mariadb"
@@ -20,11 +20,11 @@
       domain = [
         {
           routerName = "pma";
-          type = 2;
+          type = "local";
           url = "db.int";
           port = 80;
         }
       ];
-    })
+    }
   ];
 }

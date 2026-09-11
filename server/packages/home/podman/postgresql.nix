@@ -6,7 +6,9 @@
 {
   imports = [
     inputs.secrets.hm.other
-    ((import ../../../../lib/podman.nix) {
+  ];
+  custom.podman.containers = [
+    {
       dependsOn = null;
       image = "postgres:17";
       name = "postgresql";
@@ -19,8 +21,8 @@
         "${config.home.homeDirectory}/.podman/postgres/scripts:/var/lib/postgresql/scripts"
       ];
       environmentFile = [
-        ''${config.home.homeDirectory}/.config/sops-nix/secrets/postgresql''
+        "${config.home.homeDirectory}/.config/sops-nix/secrets/postgresql"
       ];
-    })
+    }
   ];
 }

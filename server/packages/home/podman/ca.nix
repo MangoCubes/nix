@@ -6,7 +6,9 @@
 {
   imports = [
     inputs.secrets.hm.ca
-    ((import ../../../../lib/podman.nix) {
+  ];
+  custom.podman.containers = [
+    {
       dependsOn = [ "traefik" ];
       image = "smallstep/step-ca";
       name = "ca";
@@ -29,7 +31,7 @@
       domain = [
         {
           routerName = "ca";
-          type = 2;
+          type = "local";
           url = "ca.int";
           port = 9000;
         }
@@ -42,6 +44,6 @@
         "traefik.http.services.s-ca.loadbalancer.server.scheme" = "https";
         # "traefik.http.services.s-ca.loadbalancer.serversTransport" = "homeTransport";
       };
-    })
+    }
   ];
 }

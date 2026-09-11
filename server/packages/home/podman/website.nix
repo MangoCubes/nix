@@ -41,7 +41,9 @@ in
   };
   imports = [
     ./web/options.nix
-    ((import ../../../../lib/podman.nix) {
+  ];
+  custom.podman.containers = [
+    {
       dependsOn = [ "traefik" ];
       image = "nginx:stable-alpine";
       name = "website";
@@ -49,11 +51,11 @@ in
         {
           routerName = "website";
           url = "skew.ch";
-          type = 1;
+          type = "global";
           port = 80;
         }
       ];
       inherit volumes;
-    })
+    }
   ];
 }

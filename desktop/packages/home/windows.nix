@@ -25,8 +25,8 @@ in
     pkgs.remmina
   ];
   custom.features.windows = true;
-  imports = [
-    ((import ../../../lib/podman.nix) {
+  custom.podman.containers = [
+    {
       dependsOn = [ ];
       autoStart = false;
       image = "ghcr.io/dockur/windows:latest";
@@ -54,7 +54,7 @@ in
         "3389:3389/udp"
         "8006:8006"
       ];
-    })
+    }
   ];
 
   home.activation.windows = lib.hm.dag.entryAfter [ "writeBoundary" ] ''

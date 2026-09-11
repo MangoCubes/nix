@@ -8,8 +8,10 @@
 {
   imports = [
     inputs.secrets.server-main.home.matrix
+  ];
+  custom.podman.containers = [
     # UID: 991
-    ((import ../../../../lib/podman.nix) {
+    {
       dependsOn = [ "traefik" ];
       image = "vectorim/element-web";
       name = "element";
@@ -19,13 +21,13 @@
       domain = [
         {
           routerName = "element";
-          type = 1;
+          type = "global";
           url = "chat.skew.ch";
           port = 8080;
         }
       ];
-    })
-    ((import ../../../../lib/podman.nix) {
+    }
+    {
       dependsOn = [ "matrix" ];
       image = "halfshot/matrix-hookshot:latest";
       name = "matrix-hookshot";
@@ -42,8 +44,8 @@
       volumes = [
         "${config.home.homeDirectory}/.podman/matrix-hookshot:/data"
       ];
-    })
-    ((import ../../../../lib/podman.nix) {
+    }
+    {
       dependsOn = [ "traefik" ];
       image = "ghcr.io/element-hq/matrix-authentication-service:latest";
       name = "mas";
@@ -63,13 +65,13 @@
       domain = [
         {
           routerName = "mas";
-          type = 1;
+          type = "global";
           url = "auth.skew.ch";
           port = 8080;
         }
       ];
-    })
-    ((import ../../../../lib/podman.nix) {
+    }
+    {
       dependsOn = [ "traefik" ];
       image = "ghcr.io/element-hq/synapse";
       name = "matrix";
@@ -89,12 +91,12 @@
       domain = [
         {
           routerName = "matrix";
-          type = 1;
+          type = "global";
           url = "matrix.skew.ch";
           port = 8008;
         }
       ];
-    })
+    }
   ];
   custom.web.".well-known/matrix/client/" = {
     content = "${./matrix/well-known}";
