@@ -8,17 +8,25 @@
       config,
       ...
     }:
-    let
-      onlock = pkgs.writeShellScriptBin "onlock" "keepassxc --lock; ${unstable.swaylock-effects}/bin/swaylock";
-      onunlock = pkgs.writeShellScriptBin "onunlock" "";
-    in
     {
       services.swayidle = {
         enable = true;
         timeouts = [
           {
-            command = "${onlock}/bin/onlock";
+            command =
+              let
+                script = pkgs.writeShellScriptBin "script" "${pkgs.keepassxc}/bin/keepassxc --lock; ${unstable.swaylock-effects}/bin/swaylock";
+              in
+              "${script}/bin/script";
             timeout = 600;
+          }
+          {
+            command =
+              let
+                script = pkgs.writeShellScriptBin "script" "${pkgs.niri}/binniri msg action power-off-monitors";
+              in
+              "${script}/bin/script";
+            timeout = 660;
           }
         ];
       };
