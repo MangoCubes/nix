@@ -20,7 +20,7 @@ in
         Type = "notify";
         ExecStartPre = "/run/current-system/sw/bin/mkdir -p %h/Mounts/${name}";
         # Needs --allow-other because of music player
-        ExecStart = ''${pkgs.rclone}/bin/rclone --config=%h/.config/sops-nix/secrets/${name} --vfs-cache-mode full mount "${name}:" %h/Mounts/${name} ${flags}'';
+        ExecStart = ''${pkgs.rclone}/bin/rclone --config=%h/.config/sops-nix/secrets/${name} --vfs-cache-mode full mount "${name}:" %h/Mounts/${name} ${flags} -vv'';
         Environment = [ "PATH=/run/wrappers/bin/:$PATH" ];
         ExecStop = "/bin/fusermount -u %h/Mounts/${name}";
       };
