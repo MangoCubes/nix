@@ -15,18 +15,18 @@
           {
             command =
               let
-                script = pkgs.writeShellScriptBin "script" "${pkgs.keepassxc}/bin/keepassxc --lock; ${unstable.swaylock-effects}/bin/swaylock";
+                script = pkgs.writeShellScriptBin "script" "${pkgs.keepassxc}/bin/keepassxc --lock; (${unstable.swaylock-effects}/bin/swaylock &)";
               in
               "${script}/bin/script";
-            timeout = 600;
+            timeout = 300;
           }
           {
             command =
               let
-                script = pkgs.writeShellScriptBin "script" "${pkgs.niri}/binniri msg action power-off-monitors";
+                script = pkgs.writeShellScriptBin "script" "${pkgs.niri}/bin/niri msg action power-off-monitors";
               in
               "${script}/bin/script";
-            timeout = 660;
+            timeout = 360;
           }
         ];
       };
