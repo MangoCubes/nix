@@ -18,10 +18,10 @@
     ../packages/bluetooth.nix
     ../packages/fonts.nix
     ../packages/greeter.nix
-    ../packages/traefik.nix
     ../packages/swaylock.nix
     ../packages/ydotool.nix
   ];
+  custom.traefik.enable = true;
   powerManagement.enable = true;
   programs.nix-ld.enable = true;
   boot.kernelParams = [ "mem_sleep_default=s2idle" ];

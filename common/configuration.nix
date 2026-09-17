@@ -13,6 +13,7 @@
     ./packages/zsh.nix
     ./packages/ssh.nix
     ./packages/podman.nix
+    ./packages/podman/traefik.nix
   ];
   config.custom.ssh = config.custom.device.type != "vm";
   config.custom.podman = config.custom.device.type != "vm";

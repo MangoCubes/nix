@@ -1,20 +1,8 @@
+{ inputs, ... }:
 {
-  username,
-  pkgs,
-  lib,
-  inputs,
-  ...
-}:
-let
-  traefikFile = (inputs.secrets.server-home.traefik);
-in
-((import ../../common/packages/podman/traefik.nix) {
-  inherit
-    username
-    inputs
-    pkgs
-    lib
-    ;
-  dynamic = traefikFile.dynamic;
-  static = traefikFile.static;
-})
+  custom.traefik = {
+    enable = true;
+    dynamic = inputs.secrets.server-home.traefik.dynamic;
+    static = inputs.secrets.server-home.traefik.static;
+  };
+}
