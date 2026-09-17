@@ -3,4 +3,5 @@
   imports = [
     ./noswap.nix
   ];
+  custom.traefik.enable = true;
 }

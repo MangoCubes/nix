@@ -9,6 +9,7 @@
     inputs.secrets.hw.work
     ./boot.nix
     ./home.nix
+    ../../common/packages/k3s.nix
     ../packages/avahi.nix
     ../packages/wireshark.nix
     ../packages/mitmproxy-wifi.nix
