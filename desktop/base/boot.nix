@@ -1,6 +1,6 @@
 {
   inputs,
-  device,
+  config,
   ...
 }:
 {
@@ -25,7 +25,7 @@
     footer = true;
     customResolution =
       let
-        mon = (builtins.elemAt device.monitors 0);
+        mon = (builtins.elemAt config.custom.device.monitors 0);
       in
       "${builtins.toString mon.x}x${builtins.toString mon.y}";
   };

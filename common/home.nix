@@ -1,6 +1,5 @@
 {
   username,
-  device,
   lib,
   ...
 }:
@@ -20,6 +19,7 @@
         unstable,
         inputs,
         config,
+        osConfig,
         ...
       }:
       let
@@ -32,17 +32,12 @@
           (mount "drive")
           ./packages/home/atuin.nix
           ./home-options.nix
-        ]
-        ++ (
-          if device.type != "vm" then
-            [
-              ./packages/home/yazi.nix
-              ./packages/home/syncthing.nix
-              ./packages/home/neovim.nix
-            ]
-          else
-            [ ]
-        );
+          ./options.nix
+          ./packages/home/yazi.nix
+          ./packages/home/syncthing.nix
+          ./packages/home/neovim.nix
+        ];
+        custom.device = osConfig.custom.device;
 
         home.packages =
           (with pkgs; [

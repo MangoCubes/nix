@@ -3,11 +3,11 @@ name:
   pkgs,
   lib,
   inputs,
-  device,
+  config,
   ...
 }:
 let
-  flags = if device.type == "server" then "--allow-other" else "";
+  flags = if config.custom.device.type == "server" then "--allow-other" else "";
 in
 {
   imports = [ inputs.secrets.hm."${name}" ];
@@ -24,7 +24,9 @@ in
         Environment = [ "PATH=/run/wrappers/bin/:$PATH" ];
         ExecStop = "/bin/fusermount -u %h/Mounts/${name}";
       };
-      Install.WantedBy = lib.mkForce (if device.type == "server" then [ "default.target" ] else [ ]);
+      Install.WantedBy = lib.mkForce (
+        if config.custom.device.type == "server" then [ "default.target" ] else [ ]
+      );
     };
   };
 }

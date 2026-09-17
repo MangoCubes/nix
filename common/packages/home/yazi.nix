@@ -1,7 +1,6 @@
 {
   pkgs,
   username,
-  device,
   unfree,
   config,
   lib,
@@ -10,7 +9,7 @@
   ...
 }:
 let
-  isServer = device.type == "server";
+  isServer = config.custom.device.type == "server";
   linktofile = pkgs.writeShellScriptBin "linktofile" ''cat "$@" > "$@-temp" && rm "$@" && mv "$@-temp" "$@"'';
   pastecp = pkgs.writeShellScriptBin "pastecp" ''
     OUTPUT=$(wl-paste -t text/uri-list || exit 0)
@@ -40,35 +39,30 @@ let
   ];
 
 in
-(
-  if isServer then
-    { }
-  else
-    {
-      xdg = {
-        desktopEntries = {
-          yazi-term = {
-            name = "Yazi With Terminal";
-            genericName = "Terminal File Manager";
-            exec = config.custom.terminal.genCmd {
-              command = "yazi %f";
-            };
-          };
+(lib.mkIf (!isServer) {
+  xdg = {
+    desktopEntries = {
+      yazi-term = {
+        name = "Yazi With Terminal";
+        genericName = "Terminal File Manager";
+        exec = config.custom.terminal.genCmd {
+          command = "yazi %f";
         };
-        mimeApps.defaultApplications =
-          let
-            zipsDefault = builtins.map (n: {
-              "application/${n}" = "yazi-term.desktop";
-            }) zips;
-            merged = builtins.foldl' (x: y: x // y) { } zipsDefault;
-          in
-          {
-            "inode/directory" = "yazi-term.desktop";
-          }
-          // merged;
       };
-    }
-)
+    };
+    mimeApps.defaultApplications =
+      let
+        zipsDefault = builtins.map (n: {
+          "application/${n}" = "yazi-term.desktop";
+        }) zips;
+        merged = builtins.foldl' (x: y: x // y) { } zipsDefault;
+      in
+      {
+        "inode/directory" = "yazi-term.desktop";
+      }
+      // merged;
+  };
+})
 // {
   home.packages = [
     linktofile

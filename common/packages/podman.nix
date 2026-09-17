@@ -1,79 +1,85 @@
 {
   username,
+  lib,
+  config,
   ...
 }:
 {
-  # When using home-manager podman, this option must be enabled
-  virtualisation.podman.enable = true;
+  options.custom.podman = lib.mkEnableOption "Enable podman";
 
-  home-manager.users."${username}" =
-    {
-      pkgs,
-      config,
-      lib,
-      ...
-    }:
-    let
-      podman-watcher = import ./podman/podman-watcher.nix {
-        inherit (pkgs)
-          rustPlatform
-          fetchFromGitHub
-          pkg-config
-          lib
-          glib
-          pango
-          libxkbcommon
-          ;
-      };
-      services = builtins.map (s: "podman-${s.name}.service") config.custom.podman.containers;
-      podmanStatus = pkgs.writeShellScriptBin "podman-status" ''
-        ${podman-watcher}/bin/podman-watcher ${builtins.concatStringsSep " " services}
-      '';
-      containerConfigs = builtins.map (
-        c: (import ./podman/podman.nix c) { inherit lib config pkgs; }
-      ) config.custom.podman.containers;
-    in
-    {
-      imports = [
-        ./podman/options.nix
-      ];
-      custom.podman = {
-        dns = "107.175.189.176";
-        dnsProvider = "10.10.0.53";
-        subnet = "10.10.0.0/24";
-      };
-      home.packages = with pkgs; [
-        dive # look into podman image layers
-        podman-tui # status of containers in the terminal
-        podman-compose # start group of containers for dev
-        rootlesskit
-        podmanStatus
-      ];
-      services.podman = {
-        autoUpdate.enable = true;
-        enable = true;
-        containers = lib.mkMerge (builtins.map (c: c.container) containerConfigs);
-        settings = {
-          storage = {
-            storage.driver = "overlay";
-            storage.options.overlay.mount_program = "${pkgs.fuse-overlayfs}/bin/fuse-overlayfs";
+  config = lib.mkIf config.custom.podman {
+    # When using home-manager podman, this option must be enabled
+    virtualisation.podman.enable = true;
+
+    home-manager.users."${username}" =
+      {
+        pkgs,
+        config,
+        lib,
+        ...
+      }:
+      let
+        podman-watcher = import ./podman/podman-watcher.nix {
+          inherit (pkgs)
+            rustPlatform
+            fetchFromGitHub
+            pkg-config
+            lib
+            glib
+            pango
+            libxkbcommon
+            ;
+        };
+        services = builtins.map (s: "podman-${s.name}.service") config.custom.podman.containers;
+        podmanStatus = pkgs.writeShellScriptBin "podman-status" ''
+          ${podman-watcher}/bin/podman-watcher ${builtins.concatStringsSep " " services}
+        '';
+        containerConfigs = builtins.map (
+          c: (import ./podman/podman.nix c) { inherit lib config pkgs; }
+        ) config.custom.podman.containers;
+      in
+      {
+        imports = [
+          ./podman/options.nix
+        ];
+        custom.podman = {
+          dns = "107.175.189.176";
+          dnsProvider = "10.10.0.53";
+          subnet = "10.10.0.0/24";
+        };
+        home.packages = with pkgs; [
+          dive # look into podman image layers
+          podman-tui # status of containers in the terminal
+          podman-compose # start group of containers for dev
+          rootlesskit
+          podmanStatus
+        ];
+        services.podman = {
+          autoUpdate.enable = true;
+          enable = true;
+          containers = lib.mkMerge (builtins.map (c: c.container) containerConfigs);
+          settings = {
+            storage = {
+              storage.driver = "overlay";
+              storage.options.overlay.mount_program = "${pkgs.fuse-overlayfs}/bin/fuse-overlayfs";
+            };
           };
         };
+        home.activation = lib.mkMerge (builtins.map (c: c.activation) containerConfigs);
+        systemd.user.timers = lib.mkMerge (builtins.map (c: c.timer) containerConfigs);
+        systemd.user.services = lib.mkMerge (builtins.map (c: c.service) containerConfigs);
+        custom.shell.aliases = {
+          ubuntu = "podman run --rm -it ubuntu bash";
+          docker = "podman $@";
+          pcu = "podman compose up -d";
+          pcul = "podman compose up -d && podman compose logs -f";
+          pcl = "podman compose logs -f";
+          pcd = "podman compose down";
+          pcdv = "podman compose down -v";
+          pcr = "podman compose restart";
+          pcrv = "podman compose down -v && podman compose up -d";
+          pcrvl = "podman compose down -v && podman compose up -d && podman compose logs -f";
+        };
       };
-      home.activation = lib.mkMerge (builtins.map (c: c.activation) containerConfigs);
-      systemd.user.timers = lib.mkMerge (builtins.map (c: c.timer) containerConfigs);
-      systemd.user.services = lib.mkMerge (builtins.map (c: c.service) containerConfigs);
-      custom.shell.aliases = {
-        ubuntu = "podman run --rm -it ubuntu bash";
-        docker = "podman $@";
-        pcu = "podman compose up -d";
-        pcul = "podman compose up -d && podman compose logs -f";
-        pcl = "podman compose logs -f";
-        pcd = "podman compose down";
-        pcdv = "podman compose down -v";
-        pcr = "podman compose restart";
-        pcrv = "podman compose down -v && podman compose up -d";
-        pcrvl = "podman compose down -v && podman compose up -d && podman compose logs -f";
-      };
-    };
+  };
 }

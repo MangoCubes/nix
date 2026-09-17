@@ -1,7 +1,6 @@
 {
   config,
   unstable,
-  device,
   ...
 }:
 {
@@ -13,7 +12,7 @@
       fd
     ]
     ++ (
-      if device.type == "desktop" || device.type == "laptop" then
+      if config.custom.device.type == "desktop" || config.custom.device.type == "laptop" then
         [
           lua-language-server
           pyright

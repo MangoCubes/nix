@@ -3,7 +3,6 @@
   inputs,
   pkgs,
   lib,
-  device,
   colours,
   ...
 }:
@@ -38,7 +37,7 @@ let
   '';
   mon1 = "DP-1";
   mon2 = "HDMI-A-2";
-  multiMonitors = (builtins.length device.monitors) != 1;
+  multiMonitors = (builtins.length config.custom.device.monitors) != 1;
   gesture = lib.hm.generators.toKDL { } {
     gestures.hot-corners.off._props = { };
   };
@@ -81,7 +80,7 @@ let
             output._args = [ mon1 ];
             output = {
               mode = "3840x2160@59.997";
-              scale = device.scale;
+              scale = config.custom.device.scale;
               transform = "normal";
               position._props = {
                 x = 0;
@@ -93,7 +92,7 @@ let
             output._args = [ mon2 ];
             output = {
               mode = "3840x2160@59.997";
-              scale = device.scale;
+              scale = config.custom.device.scale;
               transform = "normal";
               position._props = {
                 x = 1920;
@@ -107,7 +106,7 @@ let
           {
             output._args = [ "eDP-1" ];
             output = {
-              scale = device.scale;
+              scale = config.custom.device.scale;
               transform = "normal";
               position._props = {
                 x = 0;

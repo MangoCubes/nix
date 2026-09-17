@@ -1,7 +1,6 @@
 {
   pkgs,
   lib,
-  device,
   hostname,
   config,
   ...
@@ -44,7 +43,7 @@ let
     # };
   }
   // (
-    if device.presentation then
+    if config.custom.device.presentation then
       {
         "{8d656ba5-0532-4eec-8c8f-766020caef13}" = {
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/nyan-cat-animated/latest.xpi";

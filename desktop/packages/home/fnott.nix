@@ -1,6 +1,6 @@
-{ colours, device, ... }:
+{ colours, config, ... }:
 let
-  width = builtins.floor (4 * device.scale);
+  width = builtins.floor (4 * config.custom.device.scale);
   title = "Courier New:size=${builtins.toString (width * 3)}";
   body = "Courier New:size=${builtins.toString (width * 2)}";
 in

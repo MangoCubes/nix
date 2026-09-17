@@ -1,12 +1,11 @@
 {
-  device,
   config,
   unstable,
   ...
 }:
 let
   img =
-    if device.presentation then
+    if config.custom.device.presentation then
       "${config.home.homeDirectory}/.config/configMedia/wallpaper/sc2.png"
     else
       "${config.home.homeDirectory}/.config/configMedia/wallpaper/miku.png";

@@ -1,6 +1,5 @@
 {
   unstable,
-  device,
   pkgs,
   config,
   ...
@@ -12,7 +11,7 @@ let
   #   (defvar default-scale ${(toString device.emacsScale)})
   #   (defvar my-use-straight nil "If non-nil, the package will be installed using straight.")
   # '';
-  envs = "DEFAULT_SCALE=${(toString device.emacsScale)}";
+  envs = "DEFAULT_SCALE=${(toString config.custom.device.emacsScale)}";
   init = "~/Sync/EmacsConfig/init.el";
 
   loademacs = pkgs.writeShellScriptBin "loademacs" "${envs} emacs -q --daemon --load ${init}";
