@@ -22,14 +22,9 @@
         osConfig,
         ...
       }:
-      let
-        mount = (import ./packages/home/rclone.nix);
-      in
       {
         imports = [
-          (mount "koofr")
-          (mount "2tb")
-          (mount "drive")
+          ./packages/home/rclone.nix
           ./packages/home/atuin.nix
           ./home-options.nix
           ./options.nix
@@ -38,6 +33,11 @@
           ./packages/home/neovim.nix
         ];
         custom.device = osConfig.custom.device;
+        custom.rclone.mounts = [
+          "koofr"
+          "2tb"
+          "drive"
+        ];
 
         home.packages =
           (with pkgs; [
