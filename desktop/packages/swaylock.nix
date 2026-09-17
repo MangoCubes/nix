@@ -1,4 +1,7 @@
-{ username, ... }:
+{
+  username,
+  ...
+}:
 {
   home-manager.users."${username}" =
     {
@@ -78,5 +81,4 @@
         };
       };
     };
-  security.pam.services.swaylock = { };
 }
