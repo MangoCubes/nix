@@ -124,7 +124,6 @@ let
           settings = (
             (import ./firefox/base.nix) {
               inherit
-                internal
                 lib
                 resetOnClose
                 config
