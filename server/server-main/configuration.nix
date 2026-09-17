@@ -15,6 +15,5 @@
     ./traefik.nix
     ../packages/podman/mitmproxy-wg.nix
     ./home.nix
-    ./networking.nix
   ];
 }
