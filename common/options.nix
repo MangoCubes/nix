@@ -1,8 +1,5 @@
 { lib, ... }:
 {
-  options.custom.hostname = lib.mkOption {
-    type = lib.types.str;
-  };
   options.custom.device = lib.mkOption {
     type = lib.types.submodule {
       options.type = lib.mkOption {

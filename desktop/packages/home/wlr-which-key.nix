@@ -4,7 +4,6 @@
   unstable,
   config,
   colours,
-  hostname,
   inputs,
   ...
 }:
@@ -15,12 +14,12 @@ let
         {
           menu = (
             list {
+              hostname = osConfig.networking.hostName;
               inherit
                 colours
                 pkgs
                 config
                 osConfig
-                hostname
                 ;
             }
           );

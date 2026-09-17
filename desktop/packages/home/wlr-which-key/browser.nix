@@ -1,4 +1,4 @@
-{ hostname, ... }:
+{ osConfig, ... }:
 [
   {
     key = "s";
@@ -17,7 +17,7 @@
   }
 ]
 ++ (
-  if hostname == "main" then
+  if osConfig.networking.hostName == "main" then
     [
       {
         key = "a";

@@ -5,7 +5,6 @@
   username,
   lib,
   inputs,
-  hostname,
   ...
 }:
 let
@@ -91,7 +90,7 @@ in
     ];
   };
   home-manager.users."${username}" =
-    { config, ... }:
+    { config, osConfig, ... }:
     {
       services.podman = {
         containers.traefik = {
@@ -112,7 +111,8 @@ in
           ];
           labels = {
             "traefik.enable" = "true";
-            "traefik.http.routers.traefik-dashboard.rule" = "Host(`proxy.${hostname}.local`)";
+            "traefik.http.routers.traefik-dashboard.rule" =
+              "Host(`proxy.${osConfig.networking.hostName}.local`)";
             "traefik.http.routers.traefik-dashboard.entrypoints" = "websecure";
             "traefik.http.routers.traefik-dashboard.service" = "api@internal";
             "traefik.http.routers.traefik-dashboard.tls" = "true";

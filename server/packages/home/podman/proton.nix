@@ -1,16 +1,13 @@
-{
-  name,
-}:
+{ name }:
 {
   config,
   inputs,
-  hostname,
   ...
 }:
 {
 
   imports = [
-    (inputs.secrets."${hostname}".home.gluetun { inherit name; })
+    (inputs.secrets."${config.networking.hostName}".home.gluetun { inherit name; })
   ];
   custom.podman.containers = [
     {

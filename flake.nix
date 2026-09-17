@@ -117,14 +117,13 @@
               unfree
               insecure
               unfreeUnstable
-              hostname
               username
               ;
           };
           modules = [
             ./common/options.nix
             { config.custom.device = device; }
-            { config.custom.hostname = hostname; }
+            { networking.hostName = hostname; }
             # This includes my basic desktop environment setup
             ./common/configuration.nix
             # This includes home manager module so that I can use home manager in my config
@@ -152,7 +151,6 @@
                     unfree
                     unstable
                     colours
-                    hostname
                     system
                     username
                     ;

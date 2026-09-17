@@ -1,7 +1,7 @@
 {
   pkgs,
   config,
-  hostname,
+  osConfig,
   ...
 }:
 {
@@ -11,7 +11,7 @@
     "kdeconnect/config" = {
       text = ''
         [General]
-        name=${hostname}
+        name=${osConfig.networking.hostName}
         keyAlgorithm=EC
         customDevices=phone.local,main.local,windows-work.local,windows-laptop2.local,laptop2.local
       '';

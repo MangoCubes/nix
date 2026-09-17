@@ -3,7 +3,6 @@
   pkgs,
   lib,
   inputs,
-  hostname,
   ...
 }:
 let
@@ -19,7 +18,6 @@ let
 in
 ((import ../../common/packages/podman/traefik.nix) {
   inherit
-    hostname
     username
     dynamic
     static

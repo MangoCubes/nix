@@ -10,9 +10,7 @@
         ../packages/home/podman/matrix.nix
         ../packages/home/podman/redlib-vpn.nix
         ../packages/home/podman/searxng.nix
-        ((import ../packages/home/podman/proton.nix) {
-          name = "redlib";
-        })
+        ((import ../packages/home/podman/proton.nix) { name = "redlib"; })
         ((import ../packages/home/podman/anubis.nix) {
           url = "r.genit.al";
           port = 8080;

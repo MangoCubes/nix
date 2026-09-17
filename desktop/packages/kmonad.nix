@@ -1,9 +1,10 @@
 {
-  hostname,
+  config,
   inputs,
   ...
 }:
 let
+  hostname = config.networking.hostName;
   kb = {
     "main" = "/dev/input/by-id/usb-GIGABYTE_USB-HID_Keyboard_AP0000000003-event-kbd";
     "laptop" = "/dev/input/by-path/platform-i8042-serio-0-event-kbd";

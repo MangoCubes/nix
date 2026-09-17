@@ -6,7 +6,6 @@
     ./time.nix
     ./users.nix
     ./environment.nix
-    ./networking.nix
     ./security.nix
     ./home.nix
     ./packages/netbird.nix
