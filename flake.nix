@@ -126,6 +126,8 @@
               ;
           };
           modules = [
+            ./common/options.nix
+            { config.custom.device = device; }
             # This includes my basic desktop environment setup
             ./common/configuration.nix
             # This includes home manager module so that I can use home manager in my config
@@ -197,14 +199,12 @@
                   # When added as specialArgs, you cannot change this within the config, and can only set them in flake.nix
                   options
                 ]
-              else if device.type == "server" || device.type == "vm" then
+              else
                 [
                   # This includes per-machine config based on the flake name
                   ./server/${hostname}/configuration.nix
                   ./server/base/configuration.nix
                 ]
-              else
-                builtins.throw "Invalid device type: ${device.type}"
             )
             ++ extraModules;
         });
@@ -234,48 +234,6 @@
             bash --init-file ${initFile}; exit
           '';
       };
-      # Generate config for each machine I have
-      # homeConfigurations.portable = inputs.home-manager.lib.homeManagerConfiguration (
-      #   ({
-      #     pkgs = unstable;
-      #   })
-      #   // (genHome {
-      #     hostname = "portable";
-      #   })
-      # );
-      # This is note to self for the type for each parameter
-      # This is not how you define parameter types
-      # {
-      #   hostname = string;
-      #   device = {
-      #     type = "laptop";
-      #     features = {
-      #       tablet = bool;
-      #     };
-      #     emacsScale = number;
-      #     scale = number;
-      #     presentation = bool;
-      #     monitors = {
-      #       x = number;
-      #       y = number;
-      #     }[];
-      #   } | {
-      #     type = "server";
-      #   } | {
-      #     type = "desktop";
-      #     features = {
-      #       tablet = bool;
-      #     };
-      #     scale = number;
-      #     emacsScale = number;
-      #     presentation = bool;
-      #     monitors = {
-      #       x = number;
-      #       y = number;
-      #     }[];
-      #   };
-      # }
-
       # This is the definition of my device named `laptop2`
       # To load config for this device, I would type `sudo nixos-rebuild --flake path:///home/main/Sync/NixConfig#laptop2 switch` if I didn't write a script for this
       nixosConfigurations.laptop2 = nixpkgs.lib.nixosSystem (genSystem {
