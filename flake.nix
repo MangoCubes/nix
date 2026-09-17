@@ -173,9 +173,6 @@
         }:
         # And this is the value this function will return
         # I use hostname to set my device hostnames, and also specify which configuration should be loaded
-        let
-          options = (import ./desktop/base/options.nix);
-        in
         (sysBase {
           inherit hostname device;
           extraModules =
@@ -185,11 +182,6 @@
                   # This includes per-machine config based on the flake name
                   ./desktop/${hostname}/configuration.nix
                   ./desktop/base/configuration.nix
-                  # This creates a module that you can add to the system
-                  # Once you add this module, this creates a bunch of new options such as `custom.features.tablet`
-                  # What makes this different from just adding new parameters like specialArgs is that these can be both read and written in the config
-                  # When added as specialArgs, you cannot change this within the config, and can only set them in flake.nix
-                  options
                 ]
               else
                 [
