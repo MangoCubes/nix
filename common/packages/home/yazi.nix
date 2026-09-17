@@ -5,7 +5,7 @@
   unfree,
   config,
   lib,
-  yazi,
+  inputs,
   colours,
   ...
 }:
@@ -79,7 +79,7 @@ in
     enableZshIntegration = true;
     shellWrapperName = "y";
     enable = true;
-    package = yazi.packages.${pkgs.stdenv.hostPlatform.system}.default.override {
+    package = inputs.yazi.packages.${pkgs.stdenv.hostPlatform.system}.default.override {
       _7zz = unfree._7zz-rar;
     };
     settings = {

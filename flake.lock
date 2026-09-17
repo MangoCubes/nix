@@ -786,8 +786,8 @@
         "sops-nix": "sops-nix"
       },
       "locked": {
-        "lastModified": 1789539983,
-        "narHash": "sha256-zUoWWzzPjZUXhTRp5c9R7bhSu1i87NXO+KKyN9sucsY=",
+        "lastModified": 1789607115,
+        "narHash": "sha256-MqLiqThqeNgIeB3V1uPwNiE2d///64TBF2zZfPw+nFw=",
         "path": "/home/main/Sync/NixConfig/secrets",
         "type": "path"
       },

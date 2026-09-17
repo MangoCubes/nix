@@ -49,7 +49,6 @@
       # nixpkgs,
       home-manager,
       unstablePkg,
-      yazi,
       sops-nix,
       ...
     }:
@@ -94,7 +93,6 @@
       };
       # Some personal variables
       username = "main";
-      homeDir = "/home/${username}";
       colours = (import ./common/colours.nix);
     in
     # There is no real reasons to have multiple `let ... in`, but I like to add them for dividing variables into sections
@@ -122,7 +120,6 @@
               hostname
               device
               username
-              homeDir
               ;
           };
           modules = [
@@ -149,7 +146,6 @@
                 #   }:
                 extraSpecialArgs = {
                   inherit
-                    yazi
                     inputs
                     unfreeUnstable
                     insecure
@@ -160,7 +156,6 @@
                     device
                     system
                     username
-                    homeDir
                     ;
                 };
               };
