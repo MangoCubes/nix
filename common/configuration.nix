@@ -15,6 +15,10 @@
     ./packages/podman.nix
     ./packages/podman/traefik.nix
   ];
-  config.custom.ssh = config.custom.device.type != "vm";
-  config.custom.podman = config.custom.device.type != "vm";
+  custom.ssh = config.custom.device.type != "vm";
+  custom.podman = config.custom.device.type != "vm";
+  services.udisks2 = {
+    enable = true;
+    mountOnMedia = true;
+  };
 }
