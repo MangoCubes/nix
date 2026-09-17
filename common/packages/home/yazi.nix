@@ -1,6 +1,5 @@
 {
   pkgs,
-  username,
   unfree,
   config,
   lib,
@@ -39,8 +38,8 @@ let
   ];
 
 in
-(lib.mkIf (!isServer) {
-  xdg = {
+{
+  xdg = lib.mkIf (!isServer) {
     desktopEntries = {
       yazi-term = {
         name = "Yazi With Terminal";
@@ -62,8 +61,6 @@ in
       }
       // merged;
   };
-})
-// {
   home.packages = [
     linktofile
     pastecp
