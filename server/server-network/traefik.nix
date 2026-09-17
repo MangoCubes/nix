@@ -12,11 +12,6 @@
         tlsChallenge = true;
         storage = "/etc/traefik/ssl/local.json";
       };
-      certificatesResolvers.letsencrypt.acme = {
-        email = "postmaster@skew.ch";
-        storage = "/etc/traefik/ssl/letsencrypt.json";
-        httpChallenge.entryPoint = "web";
-      };
     };
   };
 }
