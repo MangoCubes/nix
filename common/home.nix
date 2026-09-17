@@ -35,7 +35,6 @@
         custom.device = osConfig.custom.device;
         custom.rclone.mounts = [
           "koofr"
-          "2tb"
           "drive"
         ];
 
