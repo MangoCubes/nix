@@ -1,7 +1,4 @@
-{
-  config,
-  ...
-}:
+{ config, ... }:
 {
   custom.podman.containers.navidrome = {
     dependsOn = [ "traefik" ];

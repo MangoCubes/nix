@@ -24,7 +24,7 @@
     dependsOn = [
       "traefik"
       "redis"
-      "postgresql"
+      "postgresql-immich"
     ];
     image = "ghcr.io/immich-app/immich-server:release";
     volumes = [

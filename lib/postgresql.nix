@@ -23,9 +23,7 @@ in
       DB_USERNAME = name;
       DB_DATABASE_NAME = "${name}-db";
     };
-    environmentFile = [
-      secretEnvPath
-    ];
+    environmentFile = [ secretEnvPath ];
   };
 }
 # database:
