@@ -3,12 +3,13 @@
   config,
   inputs,
   hostname,
+  osConfig,
   ...
 }:
 {
 
   imports = [
-    (inputs.secrets."${config.networking.hostName}".home.gluetun { inherit name; })
+    (inputs.secrets."${osConfig.networking.hostName}".home.gluetun { inherit name; })
   ];
   custom.podman.containers."proton-${name}" = {
     dependsOn = [ "traefik" ];
