@@ -34,7 +34,6 @@
       domain = [
         {
           routerName = "gitea";
-          type = "local";
           url = "git.int";
           port = 3000;
         }

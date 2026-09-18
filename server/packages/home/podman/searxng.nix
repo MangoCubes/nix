@@ -8,7 +8,6 @@
       domain = [
         {
           routerName = "searxng";
-          type = "global";
           url = "genit.al";
           port = 8080;
         }

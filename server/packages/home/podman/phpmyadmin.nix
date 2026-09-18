@@ -20,7 +20,6 @@
       domain = [
         {
           routerName = "pma";
-          type = "local";
           url = "db.int";
           port = 80;
         }

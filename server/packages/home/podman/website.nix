@@ -51,7 +51,6 @@ in
         {
           routerName = "website";
           url = "skew.ch";
-          type = "global";
           port = 80;
         }
       ];

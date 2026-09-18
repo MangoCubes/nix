@@ -18,7 +18,6 @@
       domain = [
         {
           routerName = "atuin";
-          type = "global";
           url = "sh.skew.ch";
           port = 8888;
         }

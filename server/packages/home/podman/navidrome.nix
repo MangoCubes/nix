@@ -15,7 +15,6 @@
         {
           routerName = "navidrome";
           url = "music.int";
-          type = "local";
           port = 4533;
         }
       ];

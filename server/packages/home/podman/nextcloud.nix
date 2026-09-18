@@ -27,7 +27,6 @@
       domain = [
         {
           routerName = "cloud";
-          type = "global";
           url = "cloud.skew.ch";
           port = 80;
         }

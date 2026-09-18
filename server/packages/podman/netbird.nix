@@ -60,7 +60,6 @@
           domain = [
             {
               routerName = "netbird-dashboard";
-              type = "global";
               url = "vpn.skew.ch";
               port = 80;
             }

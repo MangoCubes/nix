@@ -17,7 +17,6 @@
         {
           routerName = "collabora";
           url = "office.skew.ch";
-          type = "global";
           port = 9980;
         }
       ];

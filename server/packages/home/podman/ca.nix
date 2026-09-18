@@ -31,7 +31,6 @@
       domain = [
         {
           routerName = "ca";
-          type = "local";
           url = "ca.int";
           port = 9000;
         }

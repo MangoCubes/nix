@@ -13,7 +13,6 @@
         {
           routerName = "archive";
           url = "yt.int";
-          type = "local";
           port = 8000;
         }
       ];

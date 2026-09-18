@@ -46,23 +46,17 @@ let
   genRouters =
     # [`entry`] is a set with the following attributes
     # {
-    #   type = 1, 2, or 3; # 1: Globally accessible, 2: Locally named, 3: Local and automatically generated
     #   url = "something.url"
     #   routerName = "router" # Router name
     #   port = number # Port of the container
     # }
     entry:
     let
-      useLocalCa =
-        if (entry.type == "global") then
-          {
-            "traefik.http.routers.${entry.routerName}.tls.certResolver" = "letsencrypt";
-          }
+      certResolver =
+        if (lib.hasSuffix ".local" entry.url || lib.hasSuffix ".int" entry.url) then
+          "localca"
         else
-          {
-            # If type is not 1, then we are relying on local CA for generating certificates
-            "traefik.http.routers.${entry.routerName}.tls.certResolver" = "localca";
-          };
+          "letsencrypt";
     in
     {
       # Set the URL
@@ -73,12 +67,12 @@ let
       "traefik.http.routers.${entry.routerName}.service" = "s-${entry.routerName}";
       # Enable HTTPS
       "traefik.http.routers.${entry.routerName}.tls" = "true";
+      "traefik.http.routers.${entry.routerName}.tls.certResolver" = certResolver;
       # Specify the port in the container the router routes the requests to
       "traefik.http.services.s-${entry.routerName}.loadbalancer.server.port" = (
         builtins.toString entry.port
       );
-    }
-    // useLocalCa;
+    };
   # Automatically create dependencies if dependsOn is specified
   # Note that dependencies are other containers
   deps = (if dependsOn == null then [ ] else (builtins.map (e: "podman-${e}.service") dependsOn)) ++ [

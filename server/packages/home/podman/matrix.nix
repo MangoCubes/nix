@@ -21,7 +21,6 @@
       domain = [
         {
           routerName = "element";
-          type = "global";
           url = "chat.skew.ch";
           port = 8080;
         }
@@ -65,7 +64,6 @@
       domain = [
         {
           routerName = "mas";
-          type = "global";
           url = "auth.skew.ch";
           port = 8080;
         }
@@ -91,7 +89,6 @@
       domain = [
         {
           routerName = "matrix";
-          type = "global";
           url = "matrix.skew.ch";
           port = 8008;
         }

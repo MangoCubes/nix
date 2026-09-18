@@ -26,7 +26,6 @@ in
       domain = [
         {
           routerName = name;
-          type = "global";
           port = anubisPort;
           inherit url;
         }

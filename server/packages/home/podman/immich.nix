@@ -37,7 +37,6 @@
       domain = [
         {
           routerName = "immich";
-          type = "global";
           url = "pics.skew.ch";
           port = 2283;
         }

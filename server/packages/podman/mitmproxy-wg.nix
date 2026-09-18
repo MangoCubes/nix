@@ -25,7 +25,6 @@
             {
               routerName = "mitm-web";
               url = "mitm.int";
-              type = "local";
               port = 8081;
             }
           ];

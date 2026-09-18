@@ -50,14 +50,6 @@
                           type = lib.types.str;
                           description = "Traefik router name";
                         };
-                        type = lib.mkOption {
-                          type = lib.types.enum [
-                            "global"
-                            "local"
-                            "auto"
-                          ];
-                          description = ''Routing type: "global" (globally accessible), "local" (locally named), or "auto" (local and automatically generated)'';
-                        };
                         url = lib.mkOption {
                           type = lib.types.str;
                           description = "Host domain to access the container";
