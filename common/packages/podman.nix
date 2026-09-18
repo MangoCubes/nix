@@ -38,7 +38,7 @@
         '';
         podmanStart = pkgs.writeShellScriptBin "podman-start" (
           builtins.concatStringsSep "\n" (
-            map (s: ''(echo "Starting ${s}..." && systemctl --user start podman-${s} &); '') services
+            map (s: ''(echo "Starting ${s}..." && systemctl --user start ${s} &); '') services
           )
         );
         containerConfigs = lib.mapAttrsToList (
