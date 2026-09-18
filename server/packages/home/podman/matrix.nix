@@ -9,12 +9,11 @@
   imports = [
     inputs.secrets.server-main.home.matrix
   ];
-  custom.podman.containers = [
+  custom.podman.containers = {
     # UID: 991
-    {
+    element = {
       dependsOn = [ "traefik" ];
       image = "vectorim/element-web";
-      name = "element";
       environment = {
         ELEMENT_WEB_PORT = "8080";
       };
@@ -25,11 +24,10 @@
           port = 8080;
         }
       ];
-    }
-    {
+    };
+    matrix-hookshot = {
       dependsOn = [ "matrix" ];
       image = "halfshot/matrix-hookshot:latest";
-      name = "matrix-hookshot";
       labels = {
         "traefik.enable" = "true";
         "traefik.http.routers.hookshot.rule" = "Host(`matrix.skew.ch`) && PathPrefix(`/webhook`)";
@@ -43,11 +41,10 @@
       volumes = [
         "${config.home.homeDirectory}/.podman/matrix-hookshot:/data"
       ];
-    }
-    {
+    };
+    mas = {
       dependsOn = [ "traefik" ];
       image = "ghcr.io/element-hq/matrix-authentication-service:latest";
-      name = "mas";
       labels = {
         "traefik.enable" = "true";
 
@@ -68,11 +65,10 @@
           port = 8080;
         }
       ];
-    }
-    {
+    };
+    matrix = {
       dependsOn = [ "traefik" ];
       image = "ghcr.io/element-hq/synapse";
-      name = "matrix";
       labels = {
         "traefik.http.routers.matrix-auth.rule" = "Host(`skew.ch`) && PathPrefix(`/_synapse`)";
         "traefik.http.routers.matrix-auth.entrypoints" = "websecure";
@@ -93,8 +89,8 @@
           port = 8008;
         }
       ];
-    }
-  ];
+    };
+  };
   custom.web.".well-known/matrix/client/" = {
     content = "${./matrix/well-known}";
     type = "application/json";

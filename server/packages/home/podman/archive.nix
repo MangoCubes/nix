@@ -1,14 +1,13 @@
 { config, ... }:
 {
-  custom.podman.containers = [
-    {
+  custom.podman.containers = {
+    archive = {
       dependsOn = [
         "traefik"
         "archive-es"
         "archive-redis"
       ];
       image = "bbilly1/tubearchivist";
-      name = "archive";
       domain = [
         {
           routerName = "archive";
@@ -31,17 +30,15 @@
         "cache:/cache"
         "${config.home.homeDirectory}/Mounts/Drive/Archive/Video:/youtube"
       ];
-    }
-    {
+    };
+    archive-redis = {
       dependsOn = [ "archive-es" ];
       image = "redis";
-      name = "archive-redis";
-    }
+    };
     # UID: 1000
-    {
+    archive-es = {
       dependsOn = [ ];
       image = "bbilly1/tubearchivist-es";
-      name = "archive-es";
       environment = {
         "ELASTIC_PASSWORD" = "7WR3cPbAbRkgvfUoUSaQRechfQjLZyJ2";
         "ES_JAVA_OPTS" = "-Xms1g -Xmx1g";
@@ -52,6 +49,6 @@
       volumes = [
         "${config.home.homeDirectory}/.podman/archive-es:/usr/share/elasticsearch/data"
       ];
-    }
-  ];
+    };
+  };
 }

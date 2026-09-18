@@ -11,28 +11,25 @@
       ...
     }:
     {
-      custom.podman.containers = [
-        {
-          dependsOn = null;
-          image = "adguard/adguardhome";
-          name = "adguard";
-          needRoot = true;
-          volumes = [
-            "${config.home.homeDirectory}/.podman/adguard:/opt/adguardhome/conf"
-            "dns:/opt/adguardhome/work"
-          ];
-          ip4 = config.custom.podman.dnsProvider;
-          # This needs to be specified, otherwise podman's internal DNS stops working.
-          ports = [ "3553:3553/udp" ];
+      custom.podman.containers.adguard = {
+        dependsOn = null;
+        image = "adguard/adguardhome";
+        needRoot = true;
+        volumes = [
+          "${config.home.homeDirectory}/.podman/adguard:/opt/adguardhome/conf"
+          "dns:/opt/adguardhome/work"
+        ];
+        ip4 = config.custom.podman.dnsProvider;
+        # This needs to be specified, otherwise podman's internal DNS stops working.
+        ports = [ "3553:3553/udp" ];
 
-          domain = [
-            {
-              routerName = "adguard";
-              url = "dns.skew.ch";
-              port = 80;
-            }
-          ];
-        }
-      ];
+        domain = [
+          {
+            routerName = "adguard";
+            url = "dns.skew.ch";
+            port = 80;
+          }
+        ];
+      };
     };
 }

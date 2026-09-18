@@ -3,7 +3,7 @@
   options.custom.podman = lib.mkOption {
     type = lib.types.submodule {
       options.containers = lib.mkOption {
-        type = lib.types.listOf (
+        type = lib.types.attrsOf (
           lib.types.submodule {
             options = {
               activation = lib.mkOption {
@@ -15,10 +15,6 @@
                 type = lib.types.either lib.types.str (lib.types.listOf lib.types.str);
                 default = "proxy";
                 description = "Network for the container";
-              };
-              name = lib.mkOption {
-                type = lib.types.str;
-                description = "Name of the container";
               };
               volumes = lib.mkOption {
                 type = lib.types.listOf lib.types.str;
@@ -138,7 +134,7 @@
             };
           }
         );
-        default = [ ];
+        default = { };
       };
       options.dns = lib.mkOption {
         type = lib.types.str;

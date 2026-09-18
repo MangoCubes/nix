@@ -30,17 +30,19 @@
             libxkbcommon
             ;
         };
-        services = builtins.map (s: "podman-${s.name}.service") config.custom.podman.containers;
+        services = builtins.map (name: "podman-${name}.service") (
+          builtins.attrNames config.custom.podman.containers
+        );
         podmanStatus = pkgs.writeShellScriptBin "podman-status" ''
           ${podman-watcher}/bin/podman-watcher ${builtins.concatStringsSep " " services}
         '';
         podmanStart = pkgs.writeShellScriptBin "podman-start" (
           builtins.concatStringsSep "\n" (
-            map (s: ''(echo "Starting ${s}..." && systemctl --user start podman-${s} &); '' services)
+            map (s: ''(echo "Starting ${s}..." && systemctl --user start podman-${s} &); '') services
           )
         );
-        containerConfigs = builtins.map (
-          c: (import ./podman/podman.nix c) { inherit lib config pkgs; }
+        containerConfigs = lib.mapAttrsToList (
+          name: c: (import ./podman/podman.nix (c // { inherit name; })) { inherit lib config pkgs; }
         ) config.custom.podman.containers;
       in
       {

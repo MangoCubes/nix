@@ -1,14 +1,11 @@
 { config, ... }:
 {
-  custom.podman.containers = [
+  custom.podman.containers.redis = {
     # UID: 999
-    {
-      dependsOn = null;
-      image = "docker.io/library/redis:alpine";
-      name = "redis";
-      volumes = [
-        "${config.home.homeDirectory}/.podman/redis:/data"
-      ];
-    }
-  ];
+    dependsOn = null;
+    image = "docker.io/library/redis:alpine";
+    volumes = [
+      "${config.home.homeDirectory}/.podman/redis:/data"
+    ];
+  };
 }

@@ -4,34 +4,29 @@
   image ? "postgres:17",
   config,
 }:
+let
+  path = "${config.home.homeDirectory}/.podman/postgres-${name}";
+in
 {
-  custom.podman.containers = [
-    (
-      let
-        path = "${config.home.homeDirectory}/.podman/postgres-${name}";
-      in
-      {
-        dependsOn = null;
-        inherit image;
-        name = "postgresql-${name}";
-        activation = ''
-          mkdir -p ${path}/scripts
-          mkdir -p ${path}/data
-        '';
-        volumes = [
-          "${path}/data:/var/lib/postgresql/data"
-          "${path}/scripts:/var/lib/postgresql/scripts"
-        ];
-        environment = {
-          DB_USERNAME = name;
-          DB_DATABASE_NAME = "${name}-db";
-        };
-        environmentFile = [
-          secretEnvPath
-        ];
-      }
-    )
-  ];
+  custom.podman.containers."postgresql-${name}" = {
+    dependsOn = null;
+    inherit image;
+    activation = ''
+      mkdir -p ${path}/scripts
+      mkdir -p ${path}/data
+    '';
+    volumes = [
+      "${path}/data:/var/lib/postgresql/data"
+      "${path}/scripts:/var/lib/postgresql/scripts"
+    ];
+    environment = {
+      DB_USERNAME = name;
+      DB_DATABASE_NAME = "${name}-db";
+    };
+    environmentFile = [
+      secretEnvPath
+    ];
+  };
 }
 # database:
 #   container_name: immich_postgres

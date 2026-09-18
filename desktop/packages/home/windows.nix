@@ -24,37 +24,34 @@ in
     run-windows
   ];
   custom.features.windows = true;
-  custom.podman.containers = [
-    {
-      dependsOn = [ ];
-      autoStart = false;
-      image = "ghcr.io/dockur/windows:latest";
-      name = "windows";
-      volumes = [
-        "${config.home.homeDirectory}/Windows/storage:/storage"
-        "${config.home.homeDirectory}/Windows/data:/data"
-      ];
-      environment = {
-        VERSION = "10";
-        USERNAME = username;
-        RAM_SIZE = "4G";
-        PASSWORD = password;
-        LANGUAGE = "Korean";
-        HOME = "${config.home.homeDirectory}/Windows";
-        DISK_SIZE = "16G";
-        CPU_CORES = "4";
-      };
-      devices = [
-        "/dev/net/tun"
-        "/dev/kvm"
-      ];
-      ports = [
-        "3389:3389/tcp"
-        "3389:3389/udp"
-        "8006:8006"
-      ];
-    }
-  ];
+  custom.podman.containers.windows = {
+    dependsOn = [ ];
+    autoStart = false;
+    image = "ghcr.io/dockur/windows:latest";
+    volumes = [
+      "${config.home.homeDirectory}/Windows/storage:/storage"
+      "${config.home.homeDirectory}/Windows/data:/data"
+    ];
+    environment = {
+      VERSION = "10";
+      USERNAME = username;
+      RAM_SIZE = "4G";
+      PASSWORD = password;
+      LANGUAGE = "Korean";
+      HOME = "${config.home.homeDirectory}/Windows";
+      DISK_SIZE = "16G";
+      CPU_CORES = "4";
+    };
+    devices = [
+      "/dev/net/tun"
+      "/dev/kvm"
+    ];
+    ports = [
+      "3389:3389/tcp"
+      "3389:3389/udp"
+      "8006:8006"
+    ];
+  };
 
   home.activation.windows = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     mkdir -p ${config.home.homeDirectory}/Windows/storage
