@@ -92,6 +92,9 @@ in
       background-blur = true;
       background = "#000000";
       font-size = 10;
+      window-save-state = "never";
+      window-inherit-working-directory = false;
+      working-directory = "home";
     };
   };
 }
