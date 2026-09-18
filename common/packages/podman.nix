@@ -34,6 +34,11 @@
         podmanStatus = pkgs.writeShellScriptBin "podman-status" ''
           ${podman-watcher}/bin/podman-watcher ${builtins.concatStringsSep " " services}
         '';
+        podmanStart = pkgs.writeShellScriptBin "podman-start" (
+          builtins.concatStringsSep "\n" (
+            map (s: ''(echo "Starting ${s}..." && systemctl --user start podman-${s} &); '' services)
+          )
+        );
         containerConfigs = builtins.map (
           c: (import ./podman/podman.nix c) { inherit lib config pkgs; }
         ) config.custom.podman.containers;
@@ -53,6 +58,7 @@
           podman-compose # start group of containers for dev
           rootlesskit
           podmanStatus
+          podmanStart
         ];
         services.podman = {
           autoUpdate.enable = true;
