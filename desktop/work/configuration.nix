@@ -6,10 +6,9 @@
   };
   services.printing.enable = true;
   imports = [
-    inputs.secrets.hw.work
+    inputs.secrets.desktop.work
     ./boot.nix
     ./home.nix
-    ../../common/packages/k3s.nix
     ../packages/avahi.nix
     ../packages/wireshark.nix
     ../packages/mitmproxy-wifi.nix
@@ -19,17 +18,6 @@
       heimdall = false;
     })
   ];
-  networking.firewall = {
-    enable = true;
-    allowedTCPPorts = [
-      # Port for letting desktops to connect to me
-      # 34669
-      # 45371
-      8770
-    ];
-    allowedUDPPorts = [
-      # Port for letting desktops to connect to me
-      5353
-    ];
-  };
+  networking.wireless.enable = true;
+  networking.wireless.userControlled.enable = true;
 }

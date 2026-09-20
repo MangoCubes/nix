@@ -1,7 +1,7 @@
 { inputs, ... }:
 {
   imports = [
-    inputs.secrets.hw.main
+    inputs.secrets.desktop.main
     # inputs.secrets.networks.wg-mitm
     ./boot.nix
     ./home.nix
