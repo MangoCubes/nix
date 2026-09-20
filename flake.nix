@@ -376,20 +376,10 @@
       });
       # Generate ISO file with =nix build path://$HOME/Sync/NixConfig#nixosConfigurations.installer.config.system.build.isoImage -o ~/Temp/result=
       nixosConfigurations.installer = nixpkgs.lib.nixosSystem (genSystem {
-        hostname = "laptop";
         extraModules = [ "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-base.nix" ];
-        device = {
-          type = "laptop";
-          emacsScale = 1;
-          scale = 1;
-          presentation = true;
-          monitors = [
-            {
-              x = 1920;
-              y = 1080;
-            }
-          ];
-        };
+
+        hostname = "server-home";
+        device.type = "server";
       });
     };
 }

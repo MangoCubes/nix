@@ -24,7 +24,6 @@
         mkdir -p ${config.home.homeDirectory}/Downloads
       '';
       imports = [
-        inputs.secrets.desktop.home
         ./home-options.nix
 
         ../packages/home/dictionary.nix

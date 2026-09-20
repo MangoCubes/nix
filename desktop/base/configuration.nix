@@ -5,7 +5,7 @@
 { inputs, ... }:
 {
   imports = [
-    inputs.secrets.desktop.configuration
+    inputs.secrets.desktop.base
     ./environment.nix
     ./home.nix
     ./networking.nix
