@@ -13,7 +13,6 @@
     ../packages/wireshark.nix
     ../packages/tablet.nix
     ../packages/nvidia.nix
-    ../../common/troubleshooting.nix
     ./networking.nix
   ];
   services.logind.settings.Login = {
