@@ -3,13 +3,6 @@
   unstable,
   ...
 }:
-let
-  img =
-    if config.custom.device.presentation then
-      "${config.home.homeDirectory}/.config/configMedia/wallpaper/sc2.png"
-    else
-      "${config.home.homeDirectory}/.config/configMedia/wallpaper/miku.png";
-in
 {
   home.packages = [
     unstable.awww
@@ -29,7 +22,7 @@ in
     Service = {
       # Type = "oneshot";
       ExecStart = "${unstable.awww}/bin/awww-daemon";
-      ExecStartPost = "${unstable.awww}/bin/awww img ${img}";
+      ExecStartPost = "${unstable.awww}/bin/awww img ${config.custom.wallpaper}";
       Restart = "always";
       RestartSec = 10;
     };

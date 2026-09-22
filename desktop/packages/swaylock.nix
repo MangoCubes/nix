@@ -38,7 +38,7 @@
         package = unstable.swaylock-effects;
         settings = {
           # screenshots = true;
-          image = "${config.home.homeDirectory}/.config/configMedia/wallpaper/miku.png";
+          image = config.custom.wallpaper;
           clock = true;
           indicator = true;
           indicator-thickness = 4;
