@@ -40,7 +40,6 @@
 						"*.int",
 						"*.local",
 						"*.work.local",
-						"*.laptop.local",
 						"*.laptop2.local",
 						"*.main.local",
 						"*.server-main.local",

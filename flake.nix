@@ -250,36 +250,6 @@
           ];
         };
       });
-      nixosConfigurations.laptop = nixpkgs.lib.nixosSystem (genSystem {
-        hostname = "laptop";
-        device = {
-          type = "laptop";
-          emacsScale = 1;
-          scale = 1;
-          presentation = false;
-          monitors = [
-            {
-              x = 1920;
-              y = 1080;
-            }
-          ];
-        };
-      });
-      nixosConfigurations.laptopPresentation = nixpkgs.lib.nixosSystem (genSystem {
-        hostname = "laptop";
-        device = {
-          type = "laptop";
-          emacsScale = 1;
-          scale = 1;
-          presentation = true;
-          monitors = [
-            {
-              x = 1920;
-              y = 1080;
-            }
-          ];
-        };
-      });
       nixosConfigurations.mainPresentation = nixpkgs.lib.nixosSystem (genSystem {
         hostname = "main";
         device = {

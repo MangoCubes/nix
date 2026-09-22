@@ -16,7 +16,6 @@
         "server-network"
         "work"
         "main"
-        "work-laptop"
       ];
       home.activation.dirs = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
         mkdir -p ${config.home.homeDirectory}/Temp
