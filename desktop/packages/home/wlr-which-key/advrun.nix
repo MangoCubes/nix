@@ -41,17 +41,6 @@ in
     desc = " Send email";
     cmd = "emacs-mailto";
   }
-  {
-    key = "e";
-    desc = " Emacs";
-    submenu = [
-      {
-        key = "r";
-        desc = " Restart Emacs";
-        cmd = config.custom.terminal.genCmd { command = "er"; };
-      }
-    ];
-  }
 ]
 ++ (
   if config.custom.features.windows then

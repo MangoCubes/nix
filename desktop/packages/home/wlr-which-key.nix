@@ -51,5 +51,6 @@ in
     // (loadFile "soundboard")
     // (loadFile "dragevac")
     // (genFile "auto" inputs.secrets.hm.wlr-which-key.auto)
-    // (loadFile "advrun");
+    // (loadFile "advrun")
+    // (loadFile "restart");
 }

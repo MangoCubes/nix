@@ -399,6 +399,12 @@ in
         "action"
       ];
     };
+    "Mod+Ctrl+R" = {
+      spawn._args = [
+        "wlr-which-key"
+        "restart"
+      ];
+    };
     "Mod+Shift+R" = {
       spawn._args = [
         "wlr-which-key"
