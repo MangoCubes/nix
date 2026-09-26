@@ -49,6 +49,12 @@ let
   attached = pkgs.writeShellScriptBin "ta" (genCmd {
     command = "shell";
   });
+  # Terminal Detached At
+  tdat = pkgs.writeShellScriptBin "tdat" (genCmd {
+    command = "shell";
+    detached = true;
+    workingDirectory = ''"$@"'';
+  });
 in
 {
   programs.zsh.shellAliases = {
@@ -57,6 +63,7 @@ in
   home.packages = [
     detached
     attached
+    tdat
     tc
     t
   ];
