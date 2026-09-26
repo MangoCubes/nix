@@ -39,6 +39,7 @@
     # This flake is stored in ./secrets
     secrets.url = "path:/home/main/Sync/NixConfig/secrets";
     yazi.url = "github:sxyazi/yazi";
+    niri.url = "git+https://git.int/main/niri";
   };
 
   # This @ sign binds inputs to the value that comes after it

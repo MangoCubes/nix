@@ -323,8 +323,10 @@ in
   ]
   ++ (with pkgs; [
     playerctl
-    niri
-  ]);
+  ])
+  ++ [
+    inputs.niri.packages.${pkgs.system}.default
+  ];
   xdg.configFile."niri/config.kdl".text = niriConfig;
   xdg.configFile."niri-adv-rules/config.json".text = ''
     [{"Window":{"conditions":[{"IsFloating":true},{"AppID":{"id":"org.keepassxc.KeePassXC","invert":false}}],"actions":[{"MoveToWorkspace":null}]}}]
