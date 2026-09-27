@@ -52,6 +52,7 @@ in
     enable = true;
     overrideDevices = false;
     overrideFolders = false;
+    guiAddress = "0.0.0.0:8384";
   };
   imports = [
     inputs.secrets.hm.syncthing
