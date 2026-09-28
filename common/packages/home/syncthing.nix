@@ -34,14 +34,6 @@ let
           exit 1
       fi
 
-      dirs=($(find ${syncPath} -mindepth 1 -maxdepth 1 -type d))
-      for dir in "''${dirs[@]}"; do
-          cd "$dir"
-          if [ -z "$(find "$dir" -maxdepth 1 -type d -name "*.syncthing-enc")" ]; then
-              [ ! -f ./.ignore.txt ] && touch ./.ignore.txt
-          fi
-      done
-
       API_KEY=$(< ${config.sops.secrets.syncthing-apikey.path})
 
       ${pkgs.xmlstarlet}/bin/xmlstarlet ed -L -u "/configuration/gui/apikey" -v $API_KEY "$config_file"

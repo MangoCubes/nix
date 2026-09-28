@@ -112,13 +112,6 @@ lib.mkMerge [
     # Don't stop on "debugger" statement
     "devtools.debugger.pause-on-debugger-statement" = lock-false;
 
-    # KDE integration for file picker and other stuff
-    "widget.use-xdg-desktop-portal.file-picker" = (lock-string 1);
-    "widget.use-xdg-desktop-portal.mime-handler" = (lock-string 1);
-    "widget.use-xdg-desktop-portal.settings" = (lock-string 1);
-    "widget.use-xdg-desktop-portal.location" = (lock-string 1);
-    "widget.use-xdg-desktop-portal.open-uri" = (lock-string 1);
-
     # Allow extensions to work everywhere
     "extensions.webextensions.restrictedDomains" = (lock-string "");
     "privacy.resistFingerprinting.block_mozAddonManager" = lock-true;
