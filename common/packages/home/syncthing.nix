@@ -30,14 +30,16 @@ let
       ${syncthingDirShell}
       config_file="$syncthing_dir/config.xml"
       if [[ ! -f "$config_file" ]]; then
-      	echo "Error: Syncthing config.xml not found at $config_file"
-      	exit 1
+          echo "Error: Syncthing config.xml not found at $config_file"
+          exit 1
       fi
 
       dirs=($(find ${syncPath} -mindepth 1 -maxdepth 1 -type d))
       for dir in "''${dirs[@]}"; do
-      	cd "$dir"
-      	[ ! -f ./.ignore.txt ] && touch ./.ignore.txt
+          cd "$dir"
+          if [ -z "$(find "$dir" -maxdepth 1 -type d -name "*.syncthing-enc")" ]; then
+              [ ! -f ./.ignore.txt ] && touch ./.ignore.txt
+          fi
       done
 
       API_KEY=$(< ${config.sops.secrets.syncthing-apikey.path})
