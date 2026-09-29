@@ -291,6 +291,10 @@ let
   recent-windows = lib.hm.generators.toKDL { } (
     (import ./niri/recent-windows.nix) { inherit colours; }
   );
+  # cursor = lib.hm.generators.toKDL { } { cursor.plugin = "${./niri/cursor.lua}"; };
+  cursor = lib.hm.generators.toKDL { } {
+    cursor.plugin = "${config.home.homeDirectory}/.config/niri/cursor.lua";
+  };
   binds = lib.hm.generators.toKDL { } ((import ./niri/binds.nix) { inherit config pkgs; });
   clipboard = lib.hm.generators.toKDL { } {
     clipboard.disable-primary._props = { };
@@ -307,6 +311,7 @@ let
     binds
     clipboard
     hotkeyOverlay
+    cursor
   ];
 in
 {
