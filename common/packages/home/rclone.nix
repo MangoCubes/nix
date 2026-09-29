@@ -56,7 +56,7 @@ in
             Service = {
               Type = "notify";
               ExecStartPre = "/run/current-system/sw/bin/mkdir -p %h/Mounts/${server}";
-              ExecStart = "${pkgs.rclone}/bin/rclone --config=${conf} --vfs-cache-mode full mount \"${server}:/home/main\" %h/Mounts/${server} -vv";
+              ExecStart = ''${pkgs.rclone}/bin/rclone --config=${conf} --vfs-cache-mode full mount "${server}:${config.home.homeDirectory}" %h/Mounts/${server} -vv'';
               Environment = [ "PATH=/run/wrappers/bin/:$PATH" ];
               ExecStop = "/bin/fusermount -u %h/Mounts/${server}";
             };
