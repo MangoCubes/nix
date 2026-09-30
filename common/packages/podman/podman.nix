@@ -44,23 +44,22 @@ let
         ${entrypoint}'';
   # This is a function that automatically create Traefik labels
   genRouters =
-    # [`entry`] is a set with the following attributes
-    # {
-    #   url = "something.url"
-    #   routerName = "router" # Router name
-    #   port = number # Port of the container
-    # }
     entry:
     let
+      hasUrl = entry.url != null;
+      rule = if hasUrl then "Host(`${entry.url}`)" else entry.rule;
+
       certResolver =
-        if (lib.hasSuffix ".local" entry.url || lib.hasSuffix ".int" entry.url) then
-          "localca"
+        if hasUrl then
+          if (lib.hasSuffix ".local" entry.url || lib.hasSuffix ".int" entry.url) then
+            "localca"
+          else
+            "letsencrypt"
         else
-          "letsencrypt";
+          entry.certResolver;
     in
     {
-      # Set the URL
-      "traefik.http.routers.${entry.routerName}.rule" = "Host(`${entry.url}`)";
+      "traefik.http.routers.${entry.routerName}.rule" = rule;
       # Ensure traffic can only enter via HTTPS
       "traefik.http.routers.${entry.routerName}.entrypoints" = "websecure";
       # Explicitly mention the name of the service this allows access to
