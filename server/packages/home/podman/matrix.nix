@@ -28,16 +28,14 @@
     matrix-hookshot = {
       dependsOn = [ "matrix" ];
       image = "halfshot/matrix-hookshot:latest";
-      labels = {
-        "traefik.enable" = "true";
-        "traefik.http.routers.hookshot.rule" = "Host(`matrix.skew.ch`) && PathPrefix(`/webhook`)";
-        "traefik.http.routers.hookshot.entrypoints" = "websecure";
-        "traefik.http.routers.hookshot.tls" = "true";
-        "traefik.http.routers.hookshot.tls.certResolver" = "letsencrypt";
-        "traefik.http.routers.hookshot.service" = "s-hookshot";
-
-        "traefik.http.services.s-hookshot.loadbalancer.server.port" = "9000";
-      };
+      domain = [
+        {
+          routerName = "hookshot";
+          rule = "Host(`matrix.skew.ch`) && PathPrefix(`/webhook`)";
+          certResolver = "letsencrypt";
+          port = 9000;
+        }
+      ];
       volumes = [
         "${config.home.homeDirectory}/.podman/matrix-hookshot:/data"
       ];
@@ -45,37 +43,27 @@
     mas = {
       dependsOn = [ "traefik" ];
       image = "ghcr.io/element-hq/matrix-authentication-service:latest";
-      labels = {
-        "traefik.enable" = "true";
-
-        "traefik.http.routers.mas-legacy.rule" =
-          "Host(`matrix.skew.ch`) && (PathRegexp(`^/_matrix/client/([^/]+)/(login|logout|refresh)`) || PathPrefix(`/oauth2`))";
-        "traefik.http.routers.mas-legacy.entrypoints" = "websecure";
-        "traefik.http.routers.mas-legacy.tls" = "true";
-        "traefik.http.routers.mas-legacy.tls.certResolver" = "letsencrypt";
-        "traefik.http.routers.mas-legacy.service" = "s-mas";
-      };
-      volumes = [
-        "${config.home.homeDirectory}/.podman/matrix/mas.yaml:/config.yaml"
-      ];
       domain = [
         {
           routerName = "mas";
           url = "auth.skew.ch";
           port = 8080;
         }
+        {
+          routerName = "mas-legacy";
+          rule =
+            "Host(`matrix.skew.ch`) && (PathRegexp(`^/_matrix/client/([^/]+)/(login|logout|refresh)`) || PathPrefix(`/oauth2`))";
+          certResolver = "letsencrypt";
+          port = 8080;
+        }
+      ];
+      volumes = [
+        "${config.home.homeDirectory}/.podman/matrix/mas.yaml:/config.yaml"
       ];
     };
     matrix = {
       dependsOn = [ "traefik" ];
       image = "ghcr.io/element-hq/synapse";
-      labels = {
-        "traefik.http.routers.matrix-auth.rule" = "Host(`skew.ch`) && PathPrefix(`/_synapse`)";
-        "traefik.http.routers.matrix-auth.entrypoints" = "websecure";
-        "traefik.http.routers.matrix-auth.tls" = "true";
-        "traefik.http.routers.matrix-auth.tls.certResolver" = "letsencrypt";
-        "traefik.http.routers.matrix-auth.service" = "s-matrix";
-      };
       volumes = [
         "${config.home.homeDirectory}/.podman/matrix:/data"
       ];
@@ -86,6 +74,12 @@
         {
           routerName = "matrix";
           url = "matrix.skew.ch";
+          port = 8008;
+        }
+        {
+          routerName = "matrix-auth";
+          rule = "Host(`skew.ch`) && PathPrefix(`/_synapse`)";
+          certResolver = "letsencrypt";
           port = 8008;
         }
       ];
