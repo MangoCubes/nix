@@ -44,8 +44,9 @@ let
         ${entrypoint}'';
   # This is a function that automatically create Traefik labels
   genRouters =
-    entry:
+    index: entry:
     let
+      routerName = "${name}-${builtins.toString index}";
       hasUrl = entry.url != null;
       rule = if hasUrl then "Host(`${entry.url}`)" else entry.rule;
 
@@ -57,21 +58,40 @@ let
             "letsencrypt"
         else
           entry.certResolver;
+
+      flattenAttrs =
+        prefix: attrs:
+        builtins.foldl' (
+          acc: n:
+          let
+            val = attrs.${n};
+            newKey = if prefix == "" then n else "${prefix}.${n}";
+          in
+          if builtins.isAttrs val then
+            acc // (flattenAttrs newKey val)
+          else
+            acc // { "${newKey}" = (builtins.toString val); }
+        ) { } (builtins.attrNames attrs);
+
+      extraRouterLabels = flattenAttrs "traefik.http.routers.${routerName}" (entry.extraRouterConfig);
+      extraServiceLabels = flattenAttrs "traefik.http.services.s-${routerName}" (
+        entry.extraServiceConfig
+      );
     in
     {
-      "traefik.http.routers.${entry.routerName}.rule" = rule;
+      "traefik.http.routers.${routerName}.rule" = rule;
       # Ensure traffic can only enter via HTTPS
-      "traefik.http.routers.${entry.routerName}.entrypoints" = "websecure";
+      "traefik.http.routers.${routerName}.entrypoints" = "websecure";
       # Explicitly mention the name of the service this allows access to
-      "traefik.http.routers.${entry.routerName}.service" = "s-${entry.routerName}";
+      "traefik.http.routers.${routerName}.service" = "s-${routerName}";
       # Enable HTTPS
-      "traefik.http.routers.${entry.routerName}.tls" = "true";
-      "traefik.http.routers.${entry.routerName}.tls.certResolver" = certResolver;
+      "traefik.http.routers.${routerName}.tls" = "true";
+      "traefik.http.routers.${routerName}.tls.certResolver" = certResolver;
       # Specify the port in the container the router routes the requests to
-      "traefik.http.services.s-${entry.routerName}.loadbalancer.server.port" = (
-        builtins.toString entry.port
-      );
-    };
+      "traefik.http.services.s-${routerName}.loadbalancer.server.port" = (builtins.toString entry.port);
+    }
+    // extraRouterLabels
+    // extraServiceLabels;
   # Automatically create dependencies if dependsOn is specified
   # Note that dependencies are other containers
   deps = (if dependsOn == null then [ ] else (builtins.map (e: "podman-${e}.service") dependsOn)) ++ [
@@ -84,7 +104,7 @@ let
     else
       (builtins.foldl' (acc: elem: acc // elem) {
         "traefik.enable" = "true";
-      } (builtins.map genRouters domain));
+      } (builtins.genList (i: genRouters (i + 1) (builtins.elemAt domain i)) (builtins.length domain)));
   dailyBackup =
     if (daily != null) then
       {

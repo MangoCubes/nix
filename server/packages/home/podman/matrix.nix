@@ -19,7 +19,6 @@
       };
       domain = [
         {
-          routerName = "element";
           url = "chat.skew.ch";
           port = 8080;
         }
@@ -30,7 +29,6 @@
       image = "halfshot/matrix-hookshot:latest";
       domain = [
         {
-          routerName = "hookshot";
           rule = "Host(`matrix.skew.ch`) && PathPrefix(`/webhook`)";
           certResolver = "letsencrypt";
           port = 9000;
@@ -45,12 +43,10 @@
       image = "ghcr.io/element-hq/matrix-authentication-service:latest";
       domain = [
         {
-          routerName = "mas";
           url = "auth.skew.ch";
           port = 8080;
         }
         {
-          routerName = "mas-legacy";
           rule =
             "Host(`matrix.skew.ch`) && (PathRegexp(`^/_matrix/client/([^/]+)/(login|logout|refresh)`) || PathPrefix(`/oauth2`))";
           certResolver = "letsencrypt";
@@ -72,12 +68,10 @@
       };
       domain = [
         {
-          routerName = "matrix";
           url = "matrix.skew.ch";
           port = 8008;
         }
         {
-          routerName = "matrix-auth";
           rule = "Host(`skew.ch`) && PathPrefix(`/_synapse`)";
           certResolver = "letsencrypt";
           port = 8008;

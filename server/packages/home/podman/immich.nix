@@ -34,7 +34,6 @@
     environmentFile = [ "${config.home.homeDirectory}/.config/sops-nix/secrets/immich" ];
     domain = [
       {
-        routerName = "immich";
         url = "pics.skew.ch";
         port = 2283;
       }

@@ -47,7 +47,6 @@ in
     image = "nginx:stable-alpine";
     domain = [
       {
-        routerName = "website";
         url = "skew.ch";
         port = 80;
       }

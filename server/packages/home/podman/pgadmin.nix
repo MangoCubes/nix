@@ -23,7 +23,6 @@
     ];
     domain = [
       {
-        routerName = "pgadmin";
         url = "pg.int";
         port = 5050;
       }

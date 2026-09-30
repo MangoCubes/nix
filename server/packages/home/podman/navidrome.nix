@@ -8,7 +8,6 @@
     };
     domain = [
       {
-        routerName = "navidrome";
         url = "music.int";
         port = 4533;
       }

@@ -15,7 +15,6 @@
     ];
     domain = [
       {
-        routerName = "calibre";
         url = "books.skew.ch";
         port = 9090;
       }

@@ -23,7 +23,6 @@ in
     # dns = "10.89.0.1";
     domain = [
       {
-        routerName = name;
         port = anubisPort;
         inherit url;
       }

@@ -24,9 +24,9 @@
     image = "linuxserver/nextcloud:latest";
     domain = [
       {
-        routerName = "cloud";
         url = "cloud.skew.ch";
         port = 80;
+        extraRouterConfig.middlewares = "m-cloud@docker,m-cloud-dav@docker,m-cloud-webfinger@docker,m-cloud-nodeinfo@docker";
       }
     ];
     volumes = [
@@ -44,6 +44,9 @@
       #"REDIS_HOST" = "redis"
       #"REDIS_PORT" = "6379"
       #"REDIS_HOST_PASSWORD" = "asdfasdf"
+    };
+    labels = {
+
       "traefik.http.middlewares.m-cloud.headers.customFrameOptionsValue" = "SAMEORIGIN";
       "traefik.http.middlewares.m-cloud.headers.framedeny" = "true";
       "traefik.http.middlewares.m-cloud.headers.sslredirect" = "true";
@@ -60,8 +63,6 @@
       "traefik.http.middlewares.m-cloud-nodeinfo.replacepathregex.regex" = "^/.well-known/nodeinfo";
       "traefik.http.middlewares.m-cloud-nodeinfo.replacepathregex.replacement" =
         "/index.php/.well-known/nodeinfo";
-      "traefik.http.routers.cloud.middlewares" =
-        "m-cloud@docker,m-cloud-dav@docker,m-cloud-webfinger@docker,m-cloud-nodeinfo@docker";
     };
   };
 }

@@ -10,7 +10,6 @@
       image = "bbilly1/tubearchivist";
       domain = [
         {
-          routerName = "archive";
           url = "yt.int";
           port = 8000;
         }

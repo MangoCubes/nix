@@ -37,30 +37,39 @@
                 type = lib.types.str;
                 description = "Image for the container";
               };
-              domain =
-                let
-                  urlSubmodule = lib.types.addCheck (lib.types.submodule {
-                    options = {
-                      routerName = lib.mkOption { type = lib.types.str; };
-                      url = lib.mkOption { type = lib.types.str; };
-                      port = lib.mkOption { type = lib.types.port; };
-                    };
-                  }) (x: (builtins.isAttrs x) && (x ? url) && !(x ? rule));
-
-                  ruleSubmodule = lib.types.addCheck (lib.types.submodule {
-                    options = {
-                      routerName = lib.mkOption { type = lib.types.str; };
-                      rule = lib.mkOption { type = lib.types.str; };
-                      certResolver = lib.mkOption { type = lib.types.str; };
-                      port = lib.mkOption { type = lib.types.port; };
-                    };
-                  }) (x: (builtins.isAttrs x) && !(x ? url) && (x ? rule));
-                in
-                lib.mkOption {
-                  type = lib.types.nullOr (lib.types.listOf (lib.types.either urlSubmodule ruleSubmodule));
-                  default = null;
-                  description = "Traefik routing configurations for the container";
-                };
+              domain = lib.mkOption {
+                type = lib.types.nullOr (
+                  lib.types.listOf (
+                    lib.types.submodule {
+                      options = {
+                        url = lib.mkOption {
+                          type = lib.types.nullOr lib.types.str;
+                          default = null;
+                        };
+                        rule = lib.mkOption {
+                          type = lib.types.nullOr lib.types.str;
+                          default = null;
+                        };
+                        certResolver = lib.mkOption {
+                          type = lib.types.nullOr lib.types.str;
+                          default = null;
+                        };
+                        port = lib.mkOption { type = lib.types.port; };
+                        extraRouterConfig = lib.mkOption {
+                          type = lib.types.attrs;
+                          default = { };
+                        };
+                        extraServiceConfig = lib.mkOption {
+                          type = lib.types.attrs;
+                          default = { };
+                        };
+                      };
+                    }
+                  )
+                );
+                default = null;
+                description = "Traefik routing configurations for the container";
+              };
               user = lib.mkOption {
                 type = lib.types.nullOr (lib.types.either lib.types.str lib.types.int);
                 default = null;

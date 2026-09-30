@@ -28,25 +28,19 @@
           entrypoint = "/go/bin/netbird-server --config /etc/netbird/config.yaml";
           domain = [
             {
-              routerName = "netbird-grpc";
-              rule =
-                "Host(`vpn.skew.ch`) && (PathPrefix(`/signalexchange.SignalExchange/`) || PathPrefix(`/management.ManagementService/`))";
+              rule = "Host(`vpn.skew.ch`) && (PathPrefix(`/signalexchange.SignalExchange/`) || PathPrefix(`/management.ManagementService/`))";
               certResolver = "letsencrypt";
               port = 80;
+              extraRouterConfig.priority = "1000";
+              extraServiceConfig.loadbalancer.server.scheme = "h2c";
             }
             {
-              routerName = "netbird-backend";
-              rule =
-                "Host(`vpn.skew.ch`) && (PathPrefix(`/relay`) || PathPrefix(`/ws-proxy/`) || PathPrefix(`/api`) || PathPrefix(`/oauth2`))";
+              rule = "Host(`vpn.skew.ch`) && (PathPrefix(`/relay`) || PathPrefix(`/ws-proxy/`) || PathPrefix(`/api`) || PathPrefix(`/oauth2`))";
               certResolver = "letsencrypt";
               port = 80;
+              extraRouterConfig.priority = "1000";
             }
           ];
-          labels = {
-            "traefik.http.routers.netbird-grpc.priority" = "1000";
-            "traefik.http.services.s-netbird-grpc.loadbalancer.server.scheme" = "h2c";
-            "traefik.http.routers.netbird-backend.priority" = "1000";
-          };
         };
         netbird-dashboard = {
           dependsOn = [ "traefik" ];
@@ -54,7 +48,6 @@
           environmentFile = [ "${config.home.homeDirectory}/.config/sops-nix/secrets/netbird/env.conf" ];
           domain = [
             {
-              routerName = "netbird-dashboard";
               url = "vpn.skew.ch";
               port = 80;
             }

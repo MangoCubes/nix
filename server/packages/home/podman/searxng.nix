@@ -5,7 +5,6 @@
     image = "searxng/searxng:latest";
     domain = [
       {
-        routerName = "searxng";
         url = "genit.al";
         port = 8080;
       }

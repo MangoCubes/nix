@@ -15,7 +15,6 @@
     image = "ghcr.io/atuinsh/atuin:latest";
     domain = [
       {
-        routerName = "atuin";
         url = "sh.skew.ch";
         port = 8888;
       }

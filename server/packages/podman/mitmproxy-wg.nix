@@ -21,7 +21,6 @@
         image = "mitmproxy/mitmproxy";
         domain = [
           {
-            routerName = "mitm-web";
             url = "mitm.int";
             port = 8081;
           }

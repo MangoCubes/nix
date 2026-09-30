@@ -25,7 +25,6 @@
 
         domain = [
           {
-            routerName = "adguard";
             url = "dns.skew.ch";
             port = 80;
           }
