@@ -10,7 +10,6 @@
     ./rofi/rofi-simplelogin.nix
     ./rofi/search/rofi-engines.nix
     ./rofi/rofi-browser.nix
-    ./rofi/rofi-removable.nix
     ./rofi/search/rofi-search.nix
     ./rofi/rofi-input.nix
     ./rofi/rofi-env.nix
