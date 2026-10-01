@@ -1,27 +1,11 @@
 { pkgs, ... }:
 let
-  rlcheck = pkgs.writeShellScriptBin "rlcheck" ''
-    # For debugging purpose
-    #set -eu
-    # Get status code of "r.genit.al"
-    status=`${pkgs.coreutils}/bin/timeout 5 ${pkgs.curl}/bin/curl -o /dev/null -s -w "%{http_code}" https://r.genit.al`
-    echo "Status: $status"
-    # 4XX implies rate limit in Redlib
-    if [[ $status != 2* ]]; then
-    	echo "Ratelimited!"
-        echo "Stopping Redlib..."
-        ${pkgs.systemd}/bin/systemctl --user stop podman-anubis-redlib-vpn
-        ${pkgs.systemd}/bin/systemctl --user stop podman-redlib-vpn
-        echo "Restarting VPN..."
-    	${pkgs.systemd}/bin/systemctl --user restart podman-proton-redlib
-    	echo "Starting Redlib..."
-    	${pkgs.systemd}/bin/systemctl --user start podman-redlib-vpn
-        ${pkgs.systemd}/bin/systemctl --user start podman-anubis-redlib-vpn
-    else
-      echo "Server is working!"
-    fi
-    echo "Done!"
-  '';
+  rlcheck = pkgs.writeShellScriptBin "rlcheck" (
+    builtins.replaceStrings
+      [ "@timeout@" "@curl@" "@systemctl@" ]
+      [ "${pkgs.coreutils}/bin/timeout" "${pkgs.curl}/bin/curl" "${pkgs.systemd}/bin/systemctl" ]
+      (builtins.readFile ./redlib-vpn/rlcheck.sh)
+  );
 in
 {
   home.packages = [
