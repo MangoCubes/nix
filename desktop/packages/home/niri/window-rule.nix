@@ -114,4 +114,13 @@
       clip-to-geometry = true;
     };
   }
+  {
+    window-rule = {
+      match._props = {
+        app-id = "ghostty";
+        title = "^file_chooser";
+      };
+      open-floating = true;
+    };
+  }
 ]
