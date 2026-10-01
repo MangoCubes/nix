@@ -330,7 +330,7 @@ in
     playerctl
   ])
   ++ [
-    inputs.niri.packages.${pkgs.system}.default
+    inputs.niri.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
   xdg.configFile."niri/config.kdl".text = niriConfig;
   xdg.configFile."niri-adv-rules/config.json".text = ''

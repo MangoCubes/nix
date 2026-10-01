@@ -18,6 +18,8 @@
       heimdall = false;
     })
   ];
-  networking.wireless.enable = true;
-  networking.wireless.userControlled.enable = true;
+  networking.wireless = {
+    enable = true;
+    userControlled = true;
+  };
 }

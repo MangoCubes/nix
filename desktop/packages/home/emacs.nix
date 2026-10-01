@@ -31,9 +31,8 @@ let
   # Note to self:
   # If I am searching for a package because of an error "File `stuff.sty' not found", go to https://ctan.org/search and search for the package that contains that sty
   tex = (
-    pkgs.texlive.combine {
-      inherit (pkgs.texlive)
-        scheme-medium
+    pkgs.texliveMedium.withPackages (
+      ps: with ps; [
         dvisvgm
         dvipng # for preview and export as html
         wrapfig
@@ -48,8 +47,8 @@ let
         tabularray
         ninecolors
         listings
-        ;
-    }
+      ]
+    )
   );
 in
 {
