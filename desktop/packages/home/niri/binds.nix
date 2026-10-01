@@ -2,16 +2,12 @@
 let
   microphone = "alsa_input.usb-Samsung_Samsung_USB_C_Earphones_20160406.1-00.analog-stereo";
   playSpeaker = file: "${pkgs.sox}/bin/play ${file}";
-  togglemic = pkgs.writeShellScriptBin "togglemic" ''
-    vol=$(pactl get-source-volume ${microphone} | grep -o '[0-9]\+%' | head -n1 | tr -d '%')
-    if [ "$vol" -eq 0 ]; then
-        ${playSpeaker ./effects/on.mp3}
-        pactl set-source-volume ${microphone} 100%
-    else
-        ${playSpeaker ./effects/off.mp3}
-        pactl set-source-volume ${microphone} 0%
-    fi
-  '';
+  togglemic = pkgs.writeShellScriptBin "togglemic" (
+    builtins.replaceStrings
+      [ "@microphone@" "@playOn@" "@playOff@" ]
+      [ microphone (playSpeaker ./effects/on.mp3) (playSpeaker ./effects/off.mp3) ]
+      (builtins.readFile ./togglemic.sh)
+  );
 in
 {
   binds = {
@@ -120,15 +116,6 @@ in
       spawn._args = [
         "wlr-which-key"
         "browser"
-      ];
-    };
-    "Mod+D" = {
-      spawn._args = [
-        "rofi"
-        "-show"
-        "devices"
-        "-modes"
-        "\"devices:rofi-removable\""
       ];
     };
     "Mod+Space" = {

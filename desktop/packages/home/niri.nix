@@ -12,29 +12,28 @@ let
   findwsid = pkgs.writeShellScriptBin "findwsid" ''
     niri msg -j workspaces | ${pkgs.jq}/bin/jq ".[] | select(.name == \"$1\")".id
   '';
-  # getwindowsbywsid = pkgs.writeShellScriptBin "getwindowsbywsid" ''
-  #   niri msg -j windows | jq '.[] | select(.workspace_id == $1)'
-  # '';
-  openconfig = pkgs.writeShellScriptBin "openconfig" ''
-    # WSID: ID of the workspace with the name "config"
-    WSID=$(${findwsid}/bin/findwsid config)
-    niri msg action focus-workspace config
-    niri msg -j windows | ${pkgs.jq}/bin/jq -e ".[] | select(.workspace_id == $WSID and .title == \"NixConfig\")" > /dev/null || rofi-env NixConfig;
-  '';
+  openconfig = pkgs.writeShellScriptBin "openconfig" (
+    builtins.replaceStrings [ "@findwsid@" "@jq@" ] [ "${findwsid}/bin/findwsid" "${pkgs.jq}/bin/jq" ] (
+      builtins.readFile ./niri/openconfig.sh
+    )
+  );
   qrscan = pkgs.writeShellScriptBin "qrscan" ''
     selected_area=$(${pkgs.slurp}/bin/slurp) && ${pkgs.grim}/bin/grim -g "$selected_area" - | ${pkgs.zbar}/bin/zbarimg - | tee >(${pkgs.notify-desktop}/bin/notify-desktop "QR Code Captured" "$(cat)") | wl-copy;
   '';
-  openmedia = pkgs.writeShellScriptBin "openmedia" ''
-    WSID=$(${findwsid}/bin/findwsid media)
-    niri msg action focus-workspace media
-    niri msg -j windows | ${pkgs.jq}/bin/jq -e ".[] | select(.workspace_id == $WSID and .title == \"ampterm\")" > /dev/null || ${
-      config.custom.terminal.genCmd {
-        command = "ampterm";
-        title = "ampterm";
-        detached = true;
-      }
-    }
-  '';
+  openmedia = pkgs.writeShellScriptBin "openmedia" (
+    builtins.replaceStrings
+      [ "@findwsid@" "@jq@" "@amptermCmd@" ]
+      [
+        "${findwsid}/bin/findwsid"
+        "${pkgs.jq}/bin/jq"
+        (config.custom.terminal.genCmd {
+          command = "ampterm";
+          title = "ampterm";
+          detached = true;
+        })
+      ]
+      (builtins.readFile ./niri/openmedia.sh)
+  );
   mon1 = "DP-1";
   mon2 = "HDMI-A-2";
   multiMonitors = (builtins.length config.custom.device.monitors) != 1;
