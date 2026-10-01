@@ -12,34 +12,12 @@ let
     syncthing debug reset-database;
     systemctl --user restart syncthing
   '';
-  st-default-folder =
-    let
-      syncthingDir = "\${XDG_STATE_HOME:-$HOME/.local/state}/syncthing";
-      syncthingDirShell = ''
-        syncthing_state_dir="${syncthingDir}"
-        syncthing_config_dir="''${XDG_CONFIG_HOME:-$HOME/.config}/syncthing"
-
-        if [[ -e "$syncthing_state_dir/config.xml" || ! -e "$syncthing_config_dir/config.xml" ]]; then
-            syncthing_dir="$syncthing_state_dir"
-        else
-            syncthing_dir="$syncthing_config_dir"
-        fi
-      '';
-    in
-    pkgs.writeShellScript "st-default-folder" ''
-      ${syncthingDirShell}
-      config_file="$syncthing_dir/config.xml"
-      if [[ ! -f "$config_file" ]]; then
-          echo "Error: Syncthing config.xml not found at $config_file"
-          exit 1
-      fi
-
-      API_KEY=$(< ${config.sops.secrets.syncthing-apikey.path})
-
-      ${pkgs.xmlstarlet}/bin/xmlstarlet ed -L -u "/configuration/gui/apikey" -v $API_KEY "$config_file"
-      ${pkgs.xmlstarlet}/bin/xmlstarlet ed -L -u "/configuration/defaults/folder/@path" -v "${syncPath}" "$config_file"
-      ${pkgs.xmlstarlet}/bin/xmlstarlet ed -L -u "/configuration/defaults/ignores/line" -v "#include ./.ignore.txt" "$config_file"
-    '';
+  st-default-folder = pkgs.writeShellScript "st-default-folder" (
+    builtins.replaceStrings
+      [ "@apiKeyPath@" "@syncPath@" "@xmlstarlet@" ]
+      [ config.sops.secrets.syncthing-apikey.path syncPath "${pkgs.xmlstarlet}/bin/xmlstarlet" ]
+      (builtins.readFile ./syncthing/st-default-folder.sh)
+  );
 in
 {
   services.syncthing = {
