@@ -6,9 +6,9 @@
     ./boot.nix
     ./home.nix
     ./networking.nix
-    (import ../packages/android.nix { androidStudio = false; })
     ../packages/wireshark.nix
   ];
+  custom.android.enable = true;
   services.logind.settings.Login = {
     HandleLidSwitch = "suspend";
     HandlePowerKey = "ignore";

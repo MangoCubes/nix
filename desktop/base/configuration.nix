@@ -20,6 +20,7 @@
     ../packages/greeter.nix
     ../packages/swaylock.nix
     ../packages/ydotool.nix
+    ../packages/android.nix
     ./options.nix
   ];
   custom.traefik.enable = true;

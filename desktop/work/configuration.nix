@@ -13,11 +13,8 @@
     ../packages/wireshark.nix
     ../packages/mitmproxy-wifi.nix
     ../packages/afl.nix
-    (import ../packages/android.nix {
-      androidStudio = false;
-      heimdall = false;
-    })
   ];
+  custom.android.enable = true;
   networking.wireless = {
     enable = true;
     userControlled = true;
