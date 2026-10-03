@@ -10,7 +10,7 @@ args=()
 if [ "$save" = "1" ]; then
   args+=(--chooser-file="$out")
 elif [ "$directory" = "1" ]; then
-  args+=(--chooser-dir="$out")
+  args+=(--chooser-file="$out")
 else
   args+=(--chooser-file="$out")
 fi
