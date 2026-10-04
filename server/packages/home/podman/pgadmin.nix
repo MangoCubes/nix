@@ -5,9 +5,7 @@
   ...
 }:
 {
-  imports = [
-    inputs.secrets.hm.other
-  ];
+  imports = [ inputs.secrets.hm.other ];
   custom.podman.containers.pgadmin = {
     dependsOn = [
       "traefik"
@@ -27,6 +25,6 @@
         port = 5050;
       }
     ];
-    environmentFile = [ "${config.home.homeDirectory}/.config/sops-nix/secrets/pgadmin" ];
+    environmentFile = [ config.sops.secrets.pgadmin.path ];
   };
 }

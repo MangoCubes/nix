@@ -4,13 +4,8 @@
   ...
 }:
 {
-  custom.backups.backblaze = [
-    "${config.home.homeDirectory}/.podman/gitea"
-  ];
-  imports = [
-    # UID: 1000
-    inputs.secrets.server-main.home.gitea
-  ];
+  custom.backups.backblaze = [ "${config.home.homeDirectory}/.podman/gitea" ];
+  imports = [ inputs.secrets.server-main.home.gitea ];
   custom.podman.containers.gitea = {
     dependsOn = [
       "traefik"
@@ -35,6 +30,6 @@
         port = 3000;
       }
     ];
-    environmentFile = [ "${config.home.homeDirectory}/.config/sops-nix/secrets/gitea" ];
+    environmentFile = [ config.sops.secrets.gitea.path ];
   };
 }

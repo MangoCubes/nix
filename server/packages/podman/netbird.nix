@@ -13,9 +13,7 @@
       ...
     }:
     {
-      imports = [
-        inputs.secrets.server-network.home.netbird
-      ];
+      imports = [ inputs.secrets.server-network.home.netbird ];
       custom.podman.containers = {
         netbird-server = {
           dependsOn = [ "traefik" ];
@@ -23,7 +21,7 @@
           ports = [ "3478:3478/udp" ];
           volumes = [
             "${config.home.homeDirectory}/.podman/netbird:/var/lib/netbird"
-            "${config.home.homeDirectory}/.config/sops-nix/secrets/netbird/config.yaml:/etc/netbird/config.yaml"
+            "${config.sops.secrets.netbird-config.path}:/etc/netbird/config.yaml"
           ];
           entrypoint = "/go/bin/netbird-server --config /etc/netbird/config.yaml";
           domain = [
@@ -45,7 +43,7 @@
         netbird-dashboard = {
           dependsOn = [ "traefik" ];
           image = "netbirdio/dashboard:latest";
-          environmentFile = [ "${config.home.homeDirectory}/.config/sops-nix/secrets/netbird/env.conf" ];
+          environmentFile = [ config.sops.secrets.netbird-env.path ];
           domain = [
             {
               url = "vpn.skew.ch";

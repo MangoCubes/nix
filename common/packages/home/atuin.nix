@@ -4,9 +4,7 @@
   ...
 }:
 {
-  imports = [
-    inputs.secrets.hm.atuin
-  ];
+  imports = [ inputs.secrets.hm.atuin ];
   programs.atuin = {
     enableZshIntegration = true;
     enable = true;
@@ -18,7 +16,7 @@
       enter_accept = true;
       filter_mode = "global";
       filter_mode_shell_up_key_binding = "session";
-      key_path = "${config.home.homeDirectory}/.config/sops-nix/secrets/atuin/key";
+      key_path = config.sops.secrets.atuin-key.path;
       keymap_mode = "vim-insert";
       inline_height = 10;
     };

@@ -6,9 +6,7 @@
   ...
 }:
 {
-  imports = [
-    inputs.secrets.server-main.home.matrix
-  ];
+  imports = [ inputs.secrets.server-main.home.matrix ];
   custom.podman.containers = {
     # UID: 991
     element = {
@@ -95,8 +93,24 @@
       ]
       (
         builtins.replaceStrings
-          [ "@rootlesskit@" "@hookshotConfig@" ]
-          [ "${pkgs.rootlesskit}/bin/rootlesskit" "${./matrix/hookshot.yaml}" ]
+          [
+            "@rootlesskit@"
+            "@hookshotConfig@"
+            "@homeserverSecret@"
+            "@signingKeySecret@"
+            "@logConfigSecret@"
+            "@masSecret@"
+            "@hookshotSecret@"
+          ]
+          [
+            "${pkgs.rootlesskit}/bin/rootlesskit"
+            "${./matrix/hookshot.yaml}"
+            config.sops.secrets.matrix-homeserver.path
+            config.sops.secrets.matrix-signing-key.path
+            config.sops.secrets.matrix-log-config.path
+            config.sops.secrets.matrix-mas.path
+            config.sops.secrets.matrix-hookshot.path
+          ]
           (builtins.readFile ./matrix/activation.sh)
       );
 }

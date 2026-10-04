@@ -4,21 +4,19 @@
   ...
 }:
 {
-  imports = [
-    inputs.secrets.hm.ca
-  ];
+  imports = [ inputs.secrets.hm.ca ];
   custom.podman.containers.ca = {
     dependsOn = [ "traefik" ];
     image = "smallstep/step-ca";
     needRoot = true;
     volumes = [
 
-      "${config.home.homeDirectory}/.config/sops-nix/secrets/caPassword:/home/step/secrets/password"
-      "${config.home.homeDirectory}/.config/sops-nix/secrets/provisionerPassword:/home/step/secrets/provisioner_password"
-      "${config.home.homeDirectory}/.config/sops-nix/secrets/intermediateCaKey:/home/step/secrets/intermediate_ca_key"
+      "${config.sops.secrets.caPassword.path}:/home/step/secrets/password"
+      "${config.sops.secrets.provisionerPassword.path}:/home/step/secrets/provisioner_password"
+      "${config.sops.secrets.intermediateCaKey.path}:/home/step/secrets/intermediate_ca_key"
 
-      "${config.home.homeDirectory}/.config/sops-nix/secrets/rootCaCert:/home/step/certs/root_ca.crt"
-      "${config.home.homeDirectory}/.config/sops-nix/secrets/intermediateCaCrt:/home/step/certs/intermediate_ca.crt"
+      "${config.sops.secrets.rootCaCert.path}:/home/step/certs/root_ca.crt"
+      "${config.sops.secrets.intermediateCaCrt.path}:/home/step/certs/intermediate_ca.crt"
 
       "/etc/ssl/certs/ca-certificates.crt:/etc/ssl/certs/ca-certificates.crt"
 

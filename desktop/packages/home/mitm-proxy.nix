@@ -5,13 +5,9 @@
   ...
 }:
 let
-  wireproxy = pkgs.writeShellScriptBin "wireproxy" ''${pkgs.wireproxy}/bin/wireproxy -c ${config.home.homeDirectory}/.config/sops-nix/secrets/mitm/wireproxy.conf'';
+  wireproxy = pkgs.writeShellScriptBin "wireproxy" "${pkgs.wireproxy}/bin/wireproxy -c ${config.sops.secrets.mitm-wireproxy.path}";
 in
 {
-  imports = [
-    inputs.secrets.hm.mitm-proxy
-  ];
-  home.packages = [
-    wireproxy
-  ];
+  imports = [ inputs.secrets.hm.mitm-proxy ];
+  home.packages = [ wireproxy ];
 }

@@ -4,9 +4,7 @@
   ...
 }:
 {
-  imports = [
-    inputs.secrets.server-main.home.atuin
-  ];
+  imports = [ inputs.secrets.server-main.home.atuin ];
   custom.podman.containers.atuin = {
     dependsOn = [
       "traefik"
@@ -25,6 +23,6 @@
       "ATUIN_OPEN_REGISTRATION" = "true";
       "RUST_LOG" = "info,atuin_server=debug";
     };
-    environmentFile = [ "${config.home.homeDirectory}/.config/sops-nix/secrets/atuin-db" ];
+    environmentFile = [ config.sops.secrets.atuin-db.path ];
   };
 }

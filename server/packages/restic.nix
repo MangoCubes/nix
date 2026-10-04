@@ -28,8 +28,8 @@ in
       inherit user;
       initialize = true;
       package = pkgs.writeShellScriptBin "restic" ''
-        export B2_ACCOUNT_ID=$(<"/run/secrets/restic/account-id")
-        export B2_ACCOUNT_KEY=$(<"/run/secrets/restic/account-key")
+        export B2_ACCOUNT_ID=$(<"${config.sops.secrets.restic-account-id.path}")
+        export B2_ACCOUNT_KEY=$(<"${config.sops.secrets.restic-account-key.path}")
         exec /run/wrappers/bin/restic "$@"
       '';
       paths =
@@ -38,8 +38,8 @@ in
           "${config.users.users.${username}.home}/.podman/shared/backups/"
         ]
         ++ config.home-manager.users."${username}".custom.backups.backblaze;
-      repositoryFile = "/run/secrets/restic/repo";
-      passwordFile = "/run/secrets/restic/key";
+      repositoryFile = config.sops.secrets.restic-repo.path;
+      passwordFile = config.sops.secrets.restic-key.path;
       timerConfig = {
         OnCalendar = "daily";
         Persistent = true;

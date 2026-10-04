@@ -13,9 +13,7 @@
       ...
     }:
     {
-      imports = [
-        inputs.secrets.server-main.home.mitm
-      ];
+      imports = [ inputs.secrets.server-main.home.mitm ];
       custom.podman.containers.mitm = {
         dependsOn = [ "traefik" ];
         image = "mitmproxy/mitmproxy";
@@ -35,10 +33,10 @@
             "${files}/keys/mitm/mitm.pem:/etc/mitm/mitmproxy-ca-cert.cer"
             "${files}/keys/mitm/mitm.p12:/etc/mitm/mitmproxy-ca-cert.p12"
             "${files}/keys/mitm/mitm.pem:/etc/mitm/mitmproxy-ca-cert.pem"
-            "${config.home.homeDirectory}/.config/sops-nix/secrets/mitm/mitmproxy-ca.p12:/etc/mitm/mitmproxy-ca.p12"
-            "${config.home.homeDirectory}/.config/sops-nix/secrets/mitm/mitmproxy-ca.pem:/etc/mitm/mitmproxy-ca.pem"
-            "${config.home.homeDirectory}/.config/sops-nix/secrets/mitm/mitmproxy-dhparam.pem:/etc/mitm/mitmproxy-dhparam.pem"
-            "${config.home.homeDirectory}/.config/sops-nix/secrets/mitm/wireguard.conf:/etc/mitm/wireguard.conf"
+            "${config.sops.secrets.mitm-mitmproxy-ca-p12.path}:/etc/mitm/mitmproxy-ca.p12"
+            "${config.sops.secrets.mitm-mitmproxy-ca-pem.path}:/etc/mitm/mitmproxy-ca.pem"
+            "${config.sops.secrets.mitm-mitmproxy-dhparam-pem.path}:/etc/mitm/mitmproxy-dhparam.pem"
+            "${config.sops.secrets.mitm-wireguard.path}:/etc/mitm/wireguard.conf"
           ];
       };
     };

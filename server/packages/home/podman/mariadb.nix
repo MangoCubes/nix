@@ -5,9 +5,7 @@
 }:
 {
   # UID: 999
-  imports = [
-    inputs.secrets.hm.other
-  ];
+  imports = [ inputs.secrets.hm.other ];
   custom.podman.containers.mariadb = {
     daily = "podman exec -it mariadb mariadb-dump --user=root --password=$MYSQL_ROOT_PASSWORD --lock-tables --all-databases > ${config.home.homeDirectory}/.podman/shared/backups/mariadb.sql";
     dependsOn = null;
@@ -19,6 +17,6 @@
     ports = [
       "3306:3306"
     ];
-    environmentFile = [ "${config.home.homeDirectory}/.config/sops-nix/secrets/mariadb" ];
+    environmentFile = [ config.sops.secrets.mariadb.path ];
   };
 }
