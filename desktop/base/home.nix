@@ -80,6 +80,7 @@
           python3
           signal-desktop
           tokei
+          rustdesk-flutter
           sqlitebrowser
         ])
         (with pkgs; [

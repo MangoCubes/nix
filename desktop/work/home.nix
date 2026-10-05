@@ -14,7 +14,6 @@
       ]
       ++ (with unstable; [
         ungoogled-chromium
-        rustdesk-flutter
         libpcap
         kdePackages.kdenlive
         pwntools
