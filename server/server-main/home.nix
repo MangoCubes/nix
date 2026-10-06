@@ -8,13 +8,12 @@
         ../packages/home/podman/navidrome.nix
         ../packages/home/podman/nextcloud.nix
         ../packages/home/podman/matrix.nix
-        ../packages/home/podman/redlib-vpn.nix
+        ../packages/home/podman/redlib.nix
         ../packages/home/podman/searxng.nix
-        ((import ../packages/home/podman/proton.nix) { name = "redlib"; })
         ((import ../packages/home/podman/anubis.nix) {
           url = "r.genit.al";
           port = 8080;
-          target = "redlib-vpn";
+          target = "redlib";
         })
         ../packages/home/podman/phpmyadmin.nix
         ../packages/home/podman/collabora.nix

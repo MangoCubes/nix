@@ -4,7 +4,7 @@ let
     builtins.replaceStrings
       [ "@timeout@" "@curl@" "@systemctl@" ]
       [ "${pkgs.coreutils}/bin/timeout" "${pkgs.curl}/bin/curl" "${pkgs.systemd}/bin/systemctl" ]
-      (builtins.readFile ./redlib-vpn/rlcheck.sh)
+      (builtins.readFile ./redlib/rlcheck.sh)
   );
 in
 {
@@ -12,11 +12,11 @@ in
     rlcheck
   ];
 
-  services.podman.containers.redlib-vpn = {
+  services.podman.containers.redlib = {
     extraConfig.Quadlet.DefaultDependencies = false;
     image = "ghcr.io/cycneuramus/containers:redlib";
     autoStart = true;
-    network = [ "container:proton-redlib" ];
+    network = [ "container:gluetun-redlib" ];
     autoUpdate = "registry";
     dropCapabilities = [ "all" ];
     extraPodmanArgs = [

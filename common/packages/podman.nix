@@ -16,39 +16,65 @@
         pkgs,
         config,
         lib,
+        inputs,
+        osConfig,
         ...
       }:
       let
-        podman-watcher = import ./podman/podman-watcher.nix {
-          inherit (pkgs)
-            rustPlatform
-            fetchFromGitHub
-            pkg-config
-            lib
-            glib
-            pango
-            libxkbcommon
-            ;
-        };
+        podman-watcher = pkgs.callPackage ./podman/podman-watcher.nix { };
+        mkContainer = c: (import ./podman/podman.nix c) { inherit lib config pkgs; };
+        containerConfigs = builtins.attrValues (
+          builtins.mapAttrs (name: c: mkContainer (c // { inherit name; })) config.custom.podman.containers
+        );
+        # Name of VPNs to use
+        vpnKeys = lib.unique (
+          builtins.filter (v: v != null) (
+            builtins.catAttrs "vpn" (builtins.attrValues config.custom.podman.containers)
+          )
+        );
+        vpnConfigs = builtins.map (
+          vpn:
+          mkContainer {
+            name = "gluetun-${vpn}";
+            image = "qmcgaw/gluetun:latest";
+            dependsOn = [ "traefik" ];
+            addCapabilities = [
+              "NET_ADMIN"
+              "NET_RAW"
+            ];
+            devices = [ "/dev/net/tun:/dev/net/tun" ];
+            entrypoint = ''
+              export Country=$(/gluetun-entrypoint format-servers -protonvpn -format json | grep country | uniq | shuf | head -n 1 | sed -nE 's/.+"country": "(.+)".+/\1/p');
+              /gluetun-entrypoint
+            '';
+            environmentFile = [ config.sops.secrets."gluetun-${vpn}".path ];
+          }
+        ) vpnKeys;
+        # All container configs in a form of list
+        allConfigs = containerConfigs ++ vpnConfigs;
+        mergeAll = key: lib.mkMerge (builtins.catAttrs key allConfigs);
+        # List of all container services
         services = builtins.map (name: "podman-${name}.service") (
-          builtins.attrNames config.custom.podman.containers
+          (builtins.attrNames config.custom.podman.containers)
+          ++ (builtins.map (vpn: "gluetun-${vpn}") vpnKeys)
         );
         podmanStatus = pkgs.writeShellScriptBin "podman-status" ''
           ${podman-watcher}/bin/podman-watcher ${builtins.concatStringsSep " " services}
         '';
         podmanStart = pkgs.writeShellScriptBin "podman-start" (
           builtins.concatStringsSep "\n" (
-            map (s: ''(echo "Starting ${s}..." && systemctl --user start ${s} &); '') services
+            builtins.map (s: ''(echo "Starting ${s}..." && systemctl --user start ${s} &); '') services
           )
         );
-        containerConfigs = lib.mapAttrsToList (
-          name: c: (import ./podman/podman.nix (c // { inherit name; })) { inherit lib config pkgs; }
-        ) config.custom.podman.containers;
+        secrets = name: {
+          "gluetun-${name}" = (
+            inputs.secrets."${osConfig.networking.hostName}".home.gluetun { inherit name; }
+          );
+        };
       in
       {
-        imports = [
-          ./podman/options.nix
-        ];
+        imports = [ ./podman/options.nix ];
+        sops.secrets = lib.mkMerge (builtins.map secrets vpnKeys);
         custom.podman = {
           dns = "107.175.189.176";
           dnsProvider = "10.10.0.53";
@@ -65,7 +91,7 @@
         services.podman = {
           autoUpdate.enable = true;
           enable = true;
-          containers = lib.mkMerge (builtins.map (c: c.container) containerConfigs);
+          containers = mergeAll "container";
           settings = {
             storage = {
               storage.driver = "overlay";
@@ -73,9 +99,9 @@
             };
           };
         };
-        home.activation = lib.mkMerge (builtins.map (c: c.activation) containerConfigs);
-        systemd.user.timers = lib.mkMerge (builtins.map (c: c.timer) containerConfigs);
-        systemd.user.services = lib.mkMerge (builtins.map (c: c.service) containerConfigs);
+        home.activation = mergeAll "activation";
+        systemd.user.timers = mergeAll "timer";
+        systemd.user.services = mergeAll "service";
         custom.shell.aliases = {
           ubuntu = "podman run --rm -it ubuntu bash";
           docker = "podman $@";

@@ -16,7 +16,7 @@ in
   custom.podman.containers."${name}" = {
     dependsOn = [ "traefik" ];
     image = "ghcr.io/techarohq/anubis:latest";
-    network = [ "container:proton-redlib" ];
+    vpn = target;
     volumes = [
       "${./anubis/botPolicy.json}:/data/cfg/botPolicy.json"
     ];

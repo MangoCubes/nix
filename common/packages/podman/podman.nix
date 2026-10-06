@@ -21,6 +21,7 @@
   autoStart ? true,
   daily ? null,
   ip4 ? null,
+  vpn ? null,
 }:
 {
   lib,
@@ -92,11 +93,15 @@ let
     }
     // extraRouterLabels
     // extraServiceLabels;
+  vpnEnabled = vpn != null;
+  vpnContainer = "gluetun-${vpn}";
+
   # Automatically create dependencies if dependsOn is specified
   # Note that dependencies are other containers
-  deps = (if dependsOn == null then [ ] else (builtins.map (e: "podman-${e}.service") dependsOn)) ++ [
-    "podman.socket"
-  ];
+  deps =
+    (if dependsOn == null then [ ] else (builtins.map (e: "podman-${e}.service") dependsOn))
+    ++ [ "podman.socket" ]
+    ++ (if vpnEnabled then [ "podman-${vpnContainer}.service" ] else [ ]);
   # We generate Traefik labels for each domain entry
   traefikLabels =
     if (domain == null) then
@@ -178,7 +183,6 @@ in
     inherit
       environmentFile
       image
-      network
       environment
       ports
       dropCapabilities
@@ -189,6 +193,7 @@ in
       extraPodmanArgs
       ip4
       ;
+    network = if vpnEnabled then [ "container:${vpnContainer}" ] else network;
     # Set entrypoint if specified
     entrypoint = if entrypoint == null then null else "/my/podman-start.sh";
     extraConfig = {

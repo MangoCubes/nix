@@ -140,6 +140,11 @@
                 default = null;
                 description = "Static IPv4 address for the container";
               };
+              vpn = lib.mkOption {
+                type = lib.types.nullOr lib.types.str;
+                default = null;
+                description = "VPN key to use with gluetun";
+              };
             };
           }
         );
