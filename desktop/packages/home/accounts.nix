@@ -3,6 +3,13 @@
   pkgs,
   ...
 }:
+let
+  checkKeyring = pkgs.writeShellScript "check-keyring-unlocked" (
+    builtins.replaceStrings [ "@busctl@" ] [ "${pkgs.systemd}/bin/busctl" ] (
+      builtins.readFile ./accounts/check-keyring.sh
+    )
+  );
+in
 {
   imports = [
     inputs.secrets.hm.accounts
@@ -18,11 +25,21 @@
   programs.mbsync = {
     enable = true;
   };
+  systemd.user.services.mbsync = {
+    Service = {
+      ExecCondition = "${checkKeyring}";
+    };
+  };
   services.vdirsyncer = {
     enable = true;
     frequency = "*:0/1";
   };
   programs.vdirsyncer.enable = true;
+  systemd.user.services.vdirsyncer = {
+    Service = {
+      ExecCondition = "${checkKeyring}";
+    };
+  };
   programs.notmuch = {
     new.tags = [
       "unread"
