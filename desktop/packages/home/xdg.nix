@@ -27,8 +27,8 @@ in
       <?xml version="1.0" encoding="utf-8"?>
       <mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
       <mime-type type="text/sops-encrypted">
-        <glob pattern="*.enc.txt"/>
-        <glob pattern="*.enc.conf"/>
+        <glob pattern="*.enc.*"/>
+        <glob pattern="*.enc.*"/>
         <comment>Secret protected by SOPS</comment>
       </mime-type>
       </mime-info>
