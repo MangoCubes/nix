@@ -41,7 +41,7 @@ in
     };
   };
   programs.notmuch = {
-    new.tags = [
+    settings.new.tags = [
       "unread"
       "inbox"
       "new"
