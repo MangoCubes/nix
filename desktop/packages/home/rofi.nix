@@ -16,16 +16,6 @@
   ];
   programs.rofi = {
     enable = true;
-    extraConfig = {
-      modi = "drun,ssh";
-      display-drun = "󰀻 Apps ";
-      display-ssh = "󰣀 SSH ";
-      drun-display-format = "{icon} {name}";
-      display-calc = "󰪚 Calc ";
-      show-icons = true;
-    };
-    package = pkgs.rofi;
-    terminal = config.custom.terminal.program;
     plugins = [
       pkgs.rofi-calc
       pkgs.rofi-emoji
@@ -34,7 +24,16 @@
       inherit config;
       inherit colours;
     };
-    cycle = true;
+    settings = {
+      cycle = true;
+      terminal = config.custom.terminal.program;
+      modi = "drun,ssh";
+      display-drun = "󰀻 Apps ";
+      display-ssh = "󰣀 SSH ";
+      drun-display-format = "{icon} {name}";
+      display-calc = "󰪚 Calc ";
+      show-icons = true;
+    };
   };
   # A workaround for rofi-calc
   # Currently, rofi theme files are created under rofi/theme, but it also happens to be the location where rofi-calc history get saved
