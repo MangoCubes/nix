@@ -7,7 +7,7 @@
 {
   nix.settings.trusted-users = [ "@wheel" ];
   imports = [
-    inputs.secrets.common
+    inputs.secrets.common.users
   ];
 
   users.users = {

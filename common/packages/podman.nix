@@ -17,7 +17,6 @@
         config,
         lib,
         inputs,
-        osConfig,
         ...
       }:
       let
@@ -67,9 +66,7 @@
           )
         );
         secrets = name: {
-          "gluetun-${name}" = (
-            inputs.secrets."${osConfig.networking.hostName}".home.gluetun { inherit name; }
-          );
+          "gluetun-${name}" = inputs.secrets.common.home.gluetun { inherit name; };
         };
       in
       {
