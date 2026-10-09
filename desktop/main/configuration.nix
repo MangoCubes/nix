@@ -14,7 +14,7 @@
   ];
   custom = {
     android.enable = true;
-    features.tablet.enable = true;
+    tablet.enable = true;
   };
   services.logind.settings.Login = {
     HandleLidSwitch = "suspend";

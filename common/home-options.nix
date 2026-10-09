@@ -1,6 +1,6 @@
 { lib, ... }:
 {
-  options.custom.features = lib.mkOption {
+  options.custom = lib.mkOption {
     type = lib.types.submodule {
       options.windows = lib.mkOption {
         type = lib.types.bool;

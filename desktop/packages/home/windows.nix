@@ -23,7 +23,7 @@ in
   home.packages = [
     run-windows
   ];
-  custom.features.windows = true;
+  custom.windows = true;
   custom.podman.containers.windows = {
     dependsOn = [ ];
     autoStart = false;

@@ -5,10 +5,10 @@
   ...
 }:
 let
-  cfg = config.custom.features.tablet;
+  cfg = config.custom.tablet;
 in
 {
-  options.custom.features.tablet = {
+  options.custom.tablet = {
     enable = lib.mkEnableOption "Enable tablet driver";
   };
 

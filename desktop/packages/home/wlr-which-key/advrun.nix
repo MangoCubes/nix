@@ -43,7 +43,7 @@ in
   }
 ]
 ++ (
-  if config.custom.features.windows then
+  if config.custom.windows then
     [
       {
         key = "w";
