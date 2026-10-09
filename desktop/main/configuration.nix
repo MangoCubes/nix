@@ -7,7 +7,6 @@
     ./home.nix
     ./security.nix
     # ../packages/mikuboot.nix
-    ../base/configuration.nix
     ../packages/wireshark.nix
     ../packages/nvidia.nix
     ./networking.nix

@@ -1,16 +1,7 @@
 {
   boot = {
     loader = {
-      efi = {
-        canTouchEfiVariables = true;
-        efiSysMountPoint = "/boot";
-      };
-      grub = {
-        enable = true;
-        efiSupport = true;
-        device = "nodev";
-        useOSProber = true;
-      };
+      efi.efiSysMountPoint = "/boot";
     };
     kernelParams = [
       "splash"

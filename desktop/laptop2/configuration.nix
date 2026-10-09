@@ -2,7 +2,6 @@
 {
   imports = [
     inputs.secrets.desktop.laptop2
-    ../base/configuration.nix
     ./boot.nix
     ./home.nix
     ./networking.nix
