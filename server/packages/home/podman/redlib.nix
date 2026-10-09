@@ -8,16 +8,10 @@ let
   );
 in
 {
-  home.packages = [
-    rlcheck
-  ];
-
-  services.podman.containers.redlib = {
-    extraConfig.Quadlet.DefaultDependencies = false;
+  custom.podman.containers.redlib = {
     image = "ghcr.io/cycneuramus/containers:redlib";
-    autoStart = true;
-    network = [ "container:gluetun-redlib" ];
-    autoUpdate = "registry";
+    vpn = "redlib";
+    dependsOn = null;
     dropCapabilities = [ "all" ];
     extraPodmanArgs = [
       "--security-opt=no-new-privileges"
