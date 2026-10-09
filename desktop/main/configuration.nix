@@ -8,15 +8,13 @@
     ./security.nix
     # ../packages/mikuboot.nix
     ../base/configuration.nix
-    ../packages/virtualbox.nix
     ../packages/wireshark.nix
-    ../packages/tablet.nix
     ../packages/nvidia.nix
     ./networking.nix
   ];
-  custom.android = {
-    enable = true;
-    androidStudio = true;
+  custom = {
+    android.enable = true;
+    features.tablet.enable = true;
   };
   services.logind.settings.Login = {
     HandleLidSwitch = "suspend";

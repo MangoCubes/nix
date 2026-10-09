@@ -10,7 +10,7 @@ let
     ''err=$(systemctl ${cmd} --check-inhibitors=yes 2>&1) || ${pkgs.notify-desktop}/bin/notify-desktop "Shutdown Blocked" "$err";'';
 in
 (
-  if osConfig.custom.features.tablet then
+  if osConfig.custom.features.tablet.enable then
     [
       {
         key = "t";

@@ -19,9 +19,4 @@
       secondary = "";
     };
   };
-  # Create a new option named `custom.features.tablet`
-  options.custom.features.tablet = lib.mkOption {
-    type = lib.types.bool;
-    default = false;
-  };
 }

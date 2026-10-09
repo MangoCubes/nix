@@ -21,6 +21,7 @@
     ../packages/swaylock.nix
     ../packages/ydotool.nix
     ../packages/android.nix
+    ../packages/tablet.nix
     ./options.nix
   ];
   custom.traefik.enable = true;
