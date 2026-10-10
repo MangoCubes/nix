@@ -1,7 +1,6 @@
 { config, ... }:
 {
   custom.podman.containers.navidrome = {
-    dependsOn = [ "traefik" ];
     image = "deluan/navidrome:latest";
     environment = {
       ND_AUTOIMPORTPLAYLISTS = "false";

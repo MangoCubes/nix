@@ -3,7 +3,6 @@
   custom.podman.containers = {
     archive = {
       dependsOn = [
-        "traefik"
         "archive-es"
         "archive-redis"
       ];
@@ -31,7 +30,6 @@
       ];
     };
     archive-redis = {
-      dependsOn = [ "archive-es" ];
       image = "redis";
     };
     # UID: 1000

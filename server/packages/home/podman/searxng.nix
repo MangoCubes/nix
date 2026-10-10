@@ -1,7 +1,6 @@
 { config, ... }:
 {
   custom.podman.containers.search = {
-    dependsOn = [ "traefik" ];
     image = "searxng/searxng:latest";
     domain = [
       {

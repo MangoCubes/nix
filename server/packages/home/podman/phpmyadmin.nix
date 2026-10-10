@@ -1,10 +1,7 @@
 { config, ... }:
 {
   custom.podman.containers.phpmyadmin = {
-    dependsOn = [
-      "traefik"
-      "mariadb"
-    ];
+    dependsOn = [ "mariadb" ];
     image = "lscr.io/linuxserver/phpmyadmin";
     volumes = [
       "${config.home.homeDirectory}/.podman/volumes/phpmyadmin:/config"

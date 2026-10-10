@@ -17,10 +17,7 @@
     inputs.secrets.hm.cloud
   ];
   custom.podman.containers.cloud = {
-    dependsOn = [
-      "traefik"
-      "mariadb"
-    ];
+    dependsOn = [ "mariadb" ];
     image = "linuxserver/nextcloud:latest";
     domain = [
       {

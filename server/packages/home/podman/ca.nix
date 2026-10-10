@@ -6,7 +6,6 @@
 {
   imports = [ inputs.secrets.hm.ca ];
   custom.podman.containers.ca = {
-    dependsOn = [ "traefik" ];
     image = "smallstep/step-ca";
     needRoot = true;
     volumes = [

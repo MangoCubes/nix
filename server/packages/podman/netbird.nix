@@ -16,7 +16,6 @@
       imports = [ inputs.secrets.server-network.home.netbird ];
       custom.podman.containers = {
         netbird-server = {
-          dependsOn = [ "traefik" ];
           image = "netbirdio/netbird-server:latest";
           ports = [ "3478:3478/udp" ];
           volumes = [
@@ -41,7 +40,6 @@
           ];
         };
         netbird-dashboard = {
-          dependsOn = [ "traefik" ];
           image = "netbirdio/dashboard:latest";
           environmentFile = [ config.sops.secrets.netbird-env.path ];
           domain = [

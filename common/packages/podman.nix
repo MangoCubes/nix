@@ -36,7 +36,7 @@
           mkContainer {
             name = "gluetun-${vpn}";
             image = "qmcgaw/gluetun:latest";
-            dependsOn = [ "traefik" ];
+            dependsOn = null;
             addCapabilities = [
               "NET_ADMIN"
               "NET_RAW"

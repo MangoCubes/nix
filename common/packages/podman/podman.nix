@@ -96,8 +96,7 @@ let
   vpnEnabled = vpn != null;
   vpnContainer = "gluetun-${vpn}";
 
-  # Automatically create dependencies if dependsOn is specified
-  # Note that dependencies are other containers
+  # List of containers this container needs running already to get it running
   deps =
     (lib.optionals (dependsOn != null) (builtins.map (e: "podman-${e}.service") dependsOn))
     ++ [ "podman.socket" ]
@@ -192,10 +191,10 @@ in
     extraConfig = {
       # Not setting this causes the container startup to be delayed by 90 seconds because the container dependencies are not satisfied
       Quadlet.DefaultDependencies = false;
-      # Set dependencies so that the containers start only after certain containers are running
+      # Start dependencies first, but don't make container's restart and stops spread to other containers
       Unit = {
         After = deps;
-        Requires = deps;
+        Wants = deps;
       };
     };
     # autoUpdate = "registry";

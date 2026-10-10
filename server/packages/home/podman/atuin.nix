@@ -6,10 +6,7 @@
 {
   imports = [ inputs.secrets.server-main.home.atuin ];
   custom.podman.containers.atuin = {
-    dependsOn = [
-      "traefik"
-      "postgresql"
-    ];
+    dependsOn = [ "postgresql" ];
     image = "ghcr.io/atuinsh/atuin:latest";
     domain = [
       {

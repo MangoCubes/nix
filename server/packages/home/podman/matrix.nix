@@ -10,7 +10,6 @@
   custom.podman.containers = {
     # UID: 991
     element = {
-      dependsOn = [ "traefik" ];
       image = "vectorim/element-web";
       environment = {
         ELEMENT_WEB_PORT = "8080";
@@ -23,7 +22,10 @@
       ];
     };
     matrix-hookshot = {
-      dependsOn = [ "matrix" ];
+      dependsOn = [
+        "matrix"
+        "redis"
+      ];
       image = "halfshot/matrix-hookshot:latest";
       domain = [
         {
@@ -37,7 +39,6 @@
       ];
     };
     mas = {
-      dependsOn = [ "traefik" ];
       image = "ghcr.io/element-hq/matrix-authentication-service:latest";
       domain = [
         {
@@ -55,7 +56,6 @@
       ];
     };
     matrix = {
-      dependsOn = [ "traefik" ];
       image = "ghcr.io/element-hq/synapse";
       volumes = [
         "${config.home.homeDirectory}/.podman/matrix:/data"

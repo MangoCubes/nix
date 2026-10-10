@@ -15,7 +15,6 @@
     {
       imports = [ inputs.secrets.server-main.home.mitm ];
       custom.podman.containers.mitm = {
-        dependsOn = [ "traefik" ];
         image = "mitmproxy/mitmproxy";
         domain = [
           {

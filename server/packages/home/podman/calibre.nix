@@ -4,9 +4,6 @@
 }:
 {
   custom.podman.containers.calibre = {
-    dependsOn = [
-      "traefik"
-    ];
     image = "linuxserver/calibre:latest";
     volumes = [
       "${config.home.homeDirectory}/.podman/calibre/Library:/Library"

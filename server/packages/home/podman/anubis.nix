@@ -14,7 +14,6 @@ in
 }:
 {
   custom.podman.containers."${name}" = {
-    dependsOn = [ "traefik" ];
     image = "ghcr.io/techarohq/anubis:latest";
     vpn = target;
     volumes = [

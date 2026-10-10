@@ -7,10 +7,7 @@
 {
   imports = [ inputs.secrets.hm.other ];
   custom.podman.containers.pgadmin = {
-    dependsOn = [
-      "traefik"
-      "postgresql"
-    ];
+    dependsOn = [ "postgresql" ];
     image = "dpage/pgadmin4";
     # Change owner to 5050
     activation = ''

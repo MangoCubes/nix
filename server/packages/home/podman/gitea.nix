@@ -7,10 +7,7 @@
   custom.backups.backblaze = [ "${config.home.homeDirectory}/.podman/gitea" ];
   imports = [ inputs.secrets.server-main.home.gitea ];
   custom.podman.containers.gitea = {
-    dependsOn = [
-      "traefik"
-      "mariadb"
-    ];
+    dependsOn = [ "mariadb" ];
     image = "gitea/gitea:latest";
     volumes = [
       "${config.home.homeDirectory}/.podman/gitea:/data"

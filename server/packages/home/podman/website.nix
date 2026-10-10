@@ -43,7 +43,6 @@ in
     ./web/options.nix
   ];
   custom.podman.containers.website = {
-    dependsOn = [ "traefik" ];
     image = "nginx:stable-alpine";
     domain = [
       {

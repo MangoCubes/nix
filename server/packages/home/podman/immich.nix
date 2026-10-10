@@ -22,7 +22,6 @@
       mkdir -p ${config.home.homeDirectory}/.podman/immich/data
     '';
     dependsOn = [
-      "traefik"
       "redis"
       "postgresql-immich"
     ];
