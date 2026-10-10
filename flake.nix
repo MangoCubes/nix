@@ -18,6 +18,10 @@
   };
   # Where we will get our source code
   inputs = {
+    agsWidget = {
+      url = "github:MangoCubes/ags-widget";
+      flake = false;
+    };
     mikuboot.url = "gitlab:evysgarden/mikuboot";
     # nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
     unstablePkg.url = "github:nixos/nixpkgs/nixos-unstable";

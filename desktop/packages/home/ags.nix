@@ -8,8 +8,7 @@
   programs.ags = {
     enable = true;
 
-    # symlink to ~/.config/ags
-    configDir = ./ags;
+    configDir = inputs.agsWidget;
 
     # additional packages to add to gjs's runtime
     extraPackages = (

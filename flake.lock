@@ -19,6 +19,22 @@
         "type": "github"
       }
     },
+    "agsWidget": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1780979326,
+        "narHash": "sha256-JmlP+iHDnZyawCInnGl1s2oXCfz56fZkXQDMcqGNfnY=",
+        "owner": "MangoCubes",
+        "repo": "ags-widget",
+        "rev": "4a143b8732ca5c6b4ed9d9197fb5a0512ba7af9c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "MangoCubes",
+        "repo": "ags-widget",
+        "type": "github"
+      }
+    },
     "ampterm": {
       "inputs": {
         "flake-utils": "flake-utils",
@@ -692,6 +708,7 @@
     "root": {
       "inputs": {
         "ags": "ags",
+        "agsWidget": "agsWidget",
         "ampterm": "ampterm",
         "cwcwm": "cwcwm",
         "dragevac": "dragevac",
@@ -807,7 +824,7 @@
         "sops-nix": "sops-nix"
       },
       "locked": {
-        "lastModified": 1791595486,
+        "lastModified": 1791597177,
         "narHash": "sha256-T20RaQtHGcvPfzrBJjvTHxetJobqKrbSM7JaP7QvbOA=",
         "path": "/home/main/Sync/NixConfig/secrets",
         "type": "path"
