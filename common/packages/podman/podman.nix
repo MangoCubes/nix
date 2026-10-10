@@ -99,9 +99,9 @@ let
   # Automatically create dependencies if dependsOn is specified
   # Note that dependencies are other containers
   deps =
-    (if dependsOn == null then [ ] else (builtins.map (e: "podman-${e}.service") dependsOn))
+    (lib.optionals (dependsOn != null) (builtins.map (e: "podman-${e}.service") dependsOn))
     ++ [ "podman.socket" ]
-    ++ (if vpnEnabled then [ "podman-${vpnContainer}.service" ] else [ ]);
+    ++ (lib.optional vpnEnabled "podman-${vpnContainer}.service");
   # We generate Traefik labels for each domain entry
   traefikLabels =
     if (domain == null) then
@@ -109,7 +109,7 @@ let
     else
       (builtins.foldl' (acc: elem: acc // elem) {
         "traefik.enable" = "true";
-      } (builtins.genList (i: genRouters (i + 1) (builtins.elemAt domain i)) (builtins.length domain)));
+      } (lib.imap1 genRouters domain));
   dailyBackup =
     if (daily != null) then
       {
@@ -172,14 +172,7 @@ in
     # Mount entrypoint script as volume so that it exists within the container if specified
     volumes =
       ([ "/etc/ssl/certs/ca-certificates.crt:/etc/ssl/certs/ca-certificates.crt" ] ++ volumes)
-      ++ (
-        if entrypoint == null then
-          [ ]
-        else
-          ([
-            "${start}/bin/podman-start.sh:/my/podman-start.sh"
-          ])
-      );
+      ++ (lib.optional (entrypoint != null) "${start}/bin/podman-start.sh:/my/podman-start.sh");
     inherit
       environmentFile
       image
@@ -208,6 +201,6 @@ in
     # autoUpdate = "registry";
     # If [`needRoot`], container is run as fakeroot (ie current user)
     user = if needRoot then 0 else null;
-    labels = (if (domain == null) then { } else traefikLabels) // labels;
+    labels = traefikLabels // labels;
   };
 }
