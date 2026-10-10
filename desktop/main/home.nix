@@ -21,7 +21,6 @@
         # unstable.webcord
         unstable.prismlauncher
         pkgs.xournalpp
-        inputs.cwcwm.packages."${pkgs.stdenv.hostPlatform.system}".default
       ];
     };
 }

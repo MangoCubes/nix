@@ -29,7 +29,6 @@
     ampterm.url = "github:MangoCubes/ampterm/dev";
     qagenda.url = "github:MangoCubes/qagenda/dev";
     dragevac.url = "github:MangoCubes/dragevac";
-    cwcwm.url = "github:MangoCubes/cwcwm";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "unstablePkg";
