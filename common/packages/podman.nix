@@ -97,8 +97,31 @@
           };
         };
         home.activation = mergeAll "activation";
-        systemd.user.timers = mergeAll "timer";
-        systemd.user.services = mergeAll "service";
+        systemd.user.timers = lib.mkMerge [
+          (mergeAll "timer")
+          {
+            podman-prune = {
+              Unit.Description = "Prune unused Podman data";
+              Timer = {
+                OnCalendar = "daily";
+                Persistent = true;
+              };
+              Install.WantedBy = [ "timers.target" ];
+            };
+          }
+        ];
+        systemd.user.services = lib.mkMerge [
+          (mergeAll "service")
+          {
+            podman-prune = {
+              Unit.Description = "Prune unused Podman data";
+              Service = {
+                Type = "oneshot";
+                ExecStart = "${pkgs.podman}/bin/podman system prune -a";
+              };
+            };
+          }
+        ];
         custom.shell.aliases = {
           ubuntu = "podman run --rm -it ubuntu bash";
           docker = "podman $@";
