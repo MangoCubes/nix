@@ -18,7 +18,10 @@ let
   openBrowser =
     { name, ... }:
     ''if [ $first == "${name}" ]; then coproc (profilebrowser "${name}" > /dev/null 2>&1); exit 0; fi'';
-  envs = ((import ../firefox/profiles.nix) { hostname = osConfig.networking.hostName; });
+  envs = (import ../firefox/profiles.nix) {
+    hostname = osConfig.networking.hostName;
+    inherit lib;
+  };
   rofi-browser = pkgs.writeShellScriptBin "rofi-browser" ''
     if [ $# -eq 0 ]
       then

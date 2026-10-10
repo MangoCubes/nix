@@ -6,6 +6,10 @@
   ...
 }:
 let
+  extension = name: {
+    install_url = "https://addons.mozilla.org/firefox/downloads/latest/${name}/latest.xpi";
+    installation_mode = "force_installed";
+  };
   extensionsBase = {
     # "*".installation_mode = "blocked"; # blocks all addons except the ones specified below
     # The ID of each plugin can be found in about:support when you install them
@@ -13,30 +17,15 @@ let
     # where the <NAME> part is https://addons.mozilla.org/en-US/firefox/addon/<NAME> in the addon URL
 
     # Redirect websites
-    "7esoorv3@alefvanoon.anonaddy.me" = {
-      install_url = "https://addons.mozilla.org/firefox/downloads/latest/libredirect/latest.xpi";
-      installation_mode = "force_installed";
-    };
+    "7esoorv3@alefvanoon.anonaddy.me" = extension "libredirect";
     # Disable cookie overlay
-    "idcac-pub@guus.ninja" = {
-      install_url = "https://addons.mozilla.org/firefox/downloads/latest/istilldontcareaboutcookies/latest.xpi";
-      installation_mode = "force_installed";
-    };
+    "idcac-pub@guus.ninja" = extension "istilldontcareaboutcookies";
     # uBlock Origin
-    "uBlock0@raymondhill.net" = {
-      install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
-      installation_mode = "force_installed";
-    };
+    "uBlock0@raymondhill.net" = extension "ublock-origin";
     # KeepassXC
-    "keepassxc-browser@keepassxc.org" = {
-      install_url = "https://addons.mozilla.org/firefox/downloads/latest/keepassxc-browser/latest.xpi";
-      installation_mode = "force_installed";
-    };
+    "keepassxc-browser@keepassxc.org" = extension "keepassxc-browser";
     # Vimium
-    "{d7742d87-e61d-4b78-b8a1-b469842139fa}" = {
-      install_url = "https://addons.mozilla.org/firefox/downloads/latest/vimium-ff/latest.xpi";
-      installation_mode = "force_installed";
-    };
+    "{d7742d87-e61d-4b78-b8a1-b469842139fa}" = extension "vimium-ff";
     # "@testpilot-containers" = {
     #   install_url = "https://addons.mozilla.org/firefox/downloads/latest/multi-account-containers/latest.xpi";
     #   installation_mode = "force_installed";
@@ -45,42 +34,30 @@ let
   // (
     if config.custom.device.presentation then
       {
-        "{8d656ba5-0532-4eec-8c8f-766020caef13}" = {
-          install_url = "https://addons.mozilla.org/firefox/downloads/latest/nyan-cat-animated/latest.xpi";
-          installation_mode = "force_installed";
-        };
+        "{8d656ba5-0532-4eec-8c8f-766020caef13}" = extension "nyan-cat-animated";
       }
     else
       {
         # MIKU THEME
-        "{746ecd4b-0121-453a-862d-e378c0254733}" = {
-          install_url = "https://addons.mozilla.org/firefox/downloads/latest/sleeping-hatsune-miku-animate2/latest.xpi";
-          installation_mode = "force_installed";
-        };
+        "{746ecd4b-0121-453a-862d-e378c0254733}" = extension "sleeping-hatsune-miku-animate2";
       }
   );
 in
 let
   network = extensionsBase // {
     # Simplelogin
-    "addon@simplelogin" = {
-      install_url = "https://addons.mozilla.org/firefox/downloads/latest/simplelogin/latest.xpi";
-      installation_mode = "force_installed";
-    };
+    "addon@simplelogin" = extension "simplelogin";
     # NoScript
-    "{73a6fe31-595d-460b-a920-fcc0f8843232}" = {
-      install_url = "https://addons.mozilla.org/firefox/downloads/latest/noscript/latest.xpi";
-      installation_mode = "force_installed";
-    };
+    "{73a6fe31-595d-460b-a920-fcc0f8843232}" = extension "noscript";
     # Bypass right click and select protection
-    "{9350bc42-47fb-4598-ae0f-825e3dd9ceba}" = {
-      install_url = "https://addons.mozilla.org/firefox/downloads/latest/absolute-enable-right-click/latest.xpi";
-      installation_mode = "force_installed";
-    };
+    "{9350bc42-47fb-4598-ae0f-825e3dd9ceba}" = extension "absolute-enable-right-click";
   };
 in
 let
-  profiles = ((import ./firefox/profiles.nix) { hostname = osConfig.networking.hostName; });
+  profiles = (import ./firefox/profiles.nix) {
+    hostname = osConfig.networking.hostName;
+    inherit lib;
+  };
   policy = plugins: {
     DisableTelemetry = true;
     DisableFirefoxStudies = true;

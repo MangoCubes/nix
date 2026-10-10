@@ -1,4 +1,4 @@
-{ hostname }:
+{ hostname, lib }:
 [
   {
     name = "School";
@@ -27,14 +27,9 @@
     id = 0;
   }
 ]
-++ (
-  if hostname == "main" then
-    [
-      {
-        name = "Anime";
-        id = 5;
-      }
-    ]
-  else
-    [ ]
-)
+++ lib.optionals (hostname == "main") [
+  {
+    name = "Anime";
+    id = 5;
+  }
+]
