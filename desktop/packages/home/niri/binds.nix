@@ -148,6 +148,9 @@ in
         allow-when-locked = true;
       };
     };
+    "Mod+O" = {
+      focus-window-previous._props = { };
+    };
     "Mod+Left" = {
       focus-column-left._props = { };
     };

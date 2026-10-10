@@ -41,11 +41,11 @@ in
   {
     key = "n";
     desc = "󰎟 Clear Notifications";
-    cmd = "swaync-client --close-all";
+    cmd = "swaync-client --hide-all";
   }
   {
     key = "N";
-    desc = " Open Latest Notification";
+    desc = " Open Notification Centre";
     cmd = "swaync-client --open-panel";
   }
   {
