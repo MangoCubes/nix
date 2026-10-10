@@ -1,8 +1,14 @@
-{ config, pkgs, ... }:
+{
+  config,
+  inputs,
+  pkgs,
+  ...
+}:
 let
   stopAll = "pkill -x play";
   combined = "Combined";
   microphone = "alsa_input.usb-Samsung_Samsung_USB_C_Earphones_20160406.1-00.analog-stereo";
+  sound = name: "${inputs.secrets.res}/media/sounds/${name}";
   playSpeaker = file: "${pkgs.sox}/bin/play ${file}";
   play = file: "AUDIODEV=${combined} ${pkgs.sox}/bin/play ${file}";
   setup = ''
@@ -29,31 +35,31 @@ in
   {
     key = "d";
     desc = "Discord notification";
-    cmd = playSound ./effects/discord-notification.mp3;
+    cmd = playSound (sound "discord-notification.mp3");
   }
   {
     key = "D";
     desc = "Discord join";
-    cmd = playSound ./effects/discord-join.mp3;
+    cmd = playSound (sound "discord-join.mp3");
   }
   {
     key = "o";
     desc = "Owned";
-    cmd = playSound ./effects/victory.mp3;
+    cmd = playSound (sound "victory.mp3");
   }
   {
     key = "a";
     desc = "Alert";
-    cmd = playSound ./effects/alert.mp3;
+    cmd = playSound (sound "alert.mp3");
   }
   {
     key = "b";
     desc = "BTP";
-    cmd = playSound ./effects/sss.wav;
+    cmd = playSound (sound "sss.wav");
   }
   {
     key = "n";
     desc = "Nuclear launch detected";
-    cmd = playSound ./effects/nuclear-launch-detected.mp3;
+    cmd = playSound (sound "nuclear-launch-detected.mp3");
   }
 ]

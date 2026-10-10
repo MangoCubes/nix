@@ -20,6 +20,7 @@ let
                 colours
                 pkgs
                 config
+                inputs
                 lib
                 osConfig
                 ;
