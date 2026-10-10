@@ -228,8 +228,6 @@
         hostname = "laptop2";
         device = {
           type = "laptop";
-          emacsScale = 1;
-          scale = 1;
           presentation = false;
           monitors = [
             {
@@ -243,8 +241,6 @@
         hostname = "laptop2";
         device = {
           type = "laptop";
-          emacsScale = 1;
-          scale = 1;
           presentation = true;
           monitors = [
             {
@@ -258,8 +254,6 @@
         hostname = "main";
         device = {
           type = "desktop";
-          emacsScale = 1;
-          scale = 1;
           presentation = true;
           monitors = [
             {
@@ -283,8 +277,6 @@
         hostname = "main";
         device = {
           type = "desktop";
-          emacsScale = 1;
-          scale = 1;
           presentation = false;
           monitors = [
             {
@@ -298,8 +290,6 @@
         hostname = "work";
         device = {
           type = "desktop";
-          emacsScale = 1;
-          scale = 1.5;
           presentation = false;
           monitors = [
             {
@@ -317,8 +307,6 @@
         hostname = "work";
         device = {
           type = "desktop";
-          emacsScale = 1;
-          scale = 1.5;
           presentation = true;
           monitors = [
             {

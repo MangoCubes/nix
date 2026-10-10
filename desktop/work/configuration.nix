@@ -5,6 +5,7 @@
     enable = true;
   };
   services.printing.enable = true;
+  custom.device.scale = 1.5;
   imports = [
     inputs.secrets.desktop.work
     ./boot.nix
