@@ -1,11 +1,20 @@
-{ config, pkgs, ... }:
+{
+  config,
+  inputs,
+  pkgs,
+  ...
+}:
 let
   microphone = "alsa_input.usb-Samsung_Samsung_USB_C_Earphones_20160406.1-00.analog-stereo";
   playSpeaker = file: "${pkgs.sox}/bin/play ${file}";
   togglemic = pkgs.writeShellScriptBin "togglemic" (
     builtins.replaceStrings
       [ "@microphone@" "@playOn@" "@playOff@" ]
-      [ microphone (playSpeaker ./effects/on.mp3) (playSpeaker ./effects/off.mp3) ]
+      [
+        microphone
+        (playSpeaker "${inputs.secrets.res}/media/sounds/on.mp3")
+        (playSpeaker "${inputs.secrets.res}/media/sounds/off.mp3")
+      ]
       (builtins.readFile ./togglemic.sh)
   );
 in

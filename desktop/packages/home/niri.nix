@@ -239,7 +239,7 @@ let
   cursor = toKDL {
     cursor.plugin = "${config.home.homeDirectory}/.config/niri/cursor.lua";
   };
-  binds = toKDL ((import ./niri/binds.nix) { inherit config pkgs; });
+  binds = toKDL ((import ./niri/binds.nix) { inherit config inputs pkgs; });
   clipboard = toKDL {
     clipboard.disable-primary._props = { };
   };
