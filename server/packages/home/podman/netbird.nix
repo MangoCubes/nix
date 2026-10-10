@@ -1,6 +1,5 @@
 {
   custom.podman.containers.netbird = {
-    dependsOn = null;
     vpn = "exit";
     image = "netbirdio/netbird:rootless-latest";
     # devices = [ "/dev/net/tun" ];

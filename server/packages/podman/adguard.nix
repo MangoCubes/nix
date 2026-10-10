@@ -12,7 +12,6 @@
     }:
     {
       custom.podman.containers.adguard = {
-        dependsOn = null;
         image = "adguard/adguardhome";
         needRoot = true;
         volumes = [

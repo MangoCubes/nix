@@ -11,7 +11,6 @@ in
   custom.podman.containers.redlib = {
     image = "ghcr.io/cycneuramus/containers:redlib";
     vpn = "redlib";
-    dependsOn = null;
     dropCapabilities = [ "all" ];
     extraPodmanArgs = [
       "--security-opt=no-new-privileges"

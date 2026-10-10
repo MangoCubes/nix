@@ -9,7 +9,6 @@ let
 in
 {
   custom.podman.containers."postgresql-${name}" = {
-    dependsOn = null;
     inherit image;
     activation = ''
       mkdir -p ${path}/scripts

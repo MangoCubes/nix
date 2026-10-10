@@ -36,7 +36,6 @@
     };
     # UID: 1000
     archive-es = {
-      dependsOn = [ ];
       image = "bbilly1/tubearchivist-es";
       environment = {
         "ELASTIC_PASSWORD" = "7WR3cPbAbRkgvfUoUSaQRechfQjLZyJ2";

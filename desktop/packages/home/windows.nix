@@ -25,7 +25,6 @@ in
   ];
   custom.windows = true;
   custom.podman.containers.windows = {
-    dependsOn = [ ];
     autoStart = false;
     image = "ghcr.io/dockur/windows:latest";
     volumes = [

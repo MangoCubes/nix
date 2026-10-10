@@ -6,7 +6,6 @@
 {
   imports = [ inputs.secrets.hm.other ];
   custom.podman.containers.postgresql = {
-    dependsOn = null;
     image = "postgres:17";
     activation = ''
       mkdir -p /home/main/.podman/postgres/scripts

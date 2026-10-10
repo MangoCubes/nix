@@ -8,7 +8,6 @@
   imports = [ inputs.secrets.hm.other ];
   custom.podman.containers.mariadb = {
     daily = "podman exec -it mariadb mariadb-dump --user=root --password=$MYSQL_ROOT_PASSWORD --lock-tables --all-databases > ${config.home.homeDirectory}/.podman/shared/backups/mariadb.sql";
-    dependsOn = null;
     image = "mariadb:lts";
     volumes = [
       "${config.home.homeDirectory}/.podman/mariadb:/var/lib/mysql"
