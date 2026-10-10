@@ -101,12 +101,9 @@
     in
     # There is no real reasons to have multiple `let ... in`, but I like to add them for dividing variables into sections
     let
-      # I define a function that takes in hostname, device config and extra modules I want to add, and returns a set that can be used as argument for the function nixpkgs.lib.nixosSystem
-      # Reason for this to have both system builder (genSystem) and NixOS iso builder (genImage)
       sysBase =
         {
           hostname,
-          device,
           extraModules,
         }:
         {
@@ -126,7 +123,6 @@
           };
           modules = [
             ./common/options.nix
-            { config.custom.device = device; }
             { networking.hostName = hostname; }
             # This includes my basic desktop environment setup
             ./common/configuration.nix
@@ -170,36 +166,39 @@
     in
     let
       genSystem =
-        {
-          hostname,
-          device,
-          extraModules ? [ ],
-        }:
+        configurationRoot:
+        { hostname, extraModules }:
         # And this is the value this function will return
         # I use hostname to set my device hostnames, and also specify which configuration should be loaded
         (sysBase {
-          inherit hostname device;
-          extraModules =
-            (
-              if device.type == "desktop" || device.type == "laptop" then
-                [
-                  # This includes per-machine config based on the flake name
-                  ./desktop/${hostname}/configuration.nix
-                  ./desktop/base/configuration.nix
-                ]
-              else
-                [
-                  # This includes per-machine config based on the flake name
-                  ./server/${hostname}/configuration.nix
-                  ./server/base/configuration.nix
-                ]
-            )
-            ++ extraModules;
+          inherit hostname;
+          extraModules = [
+            # This includes per-machine config based on the flake name
+            (configurationRoot + "/${hostname}/configuration.nix")
+            (configurationRoot + "/base/configuration.nix")
+          ]
+          ++ extraModules;
         });
+      genDesktopSystem =
+        {
+          hostname,
+          presentation ? false,
+          extraModules ? [ ],
+        }:
+        (genSystem ./desktop {
+          inherit hostname;
+          inherit extraModules;
+        });
+      genServerSystem =
+        {
+          hostname,
+          extraModules ? [ ],
+        }:
+        (genSystem ./server { inherit hostname extraModules; });
       genImage =
-        { hostname, device }:
+        { hostname }:
         (sysBase {
-          inherit hostname device;
+          inherit hostname;
           extraModules = [
             ./server/image/qcow.nix
             ./server/base/configuration.nix
@@ -224,44 +223,16 @@
       };
       # This is the definition of my device named `laptop2`
       # To load config for this device, I would type `sudo nixos-rebuild --flake path:///home/main/Sync/NixConfig#laptop2 switch` if I didn't write a script for this
-      nixosConfigurations.laptop2 = nixpkgs.lib.nixosSystem (genSystem {
+      nixosConfigurations.laptop2 = nixpkgs.lib.nixosSystem (genDesktopSystem {
         hostname = "laptop2";
-        device = {
-          type = "laptop";
-          presentation = false;
-          monitors = [
-            {
-              x = 1920;
-              y = 1200;
-            }
-          ];
-        };
       });
-      nixosConfigurations.laptop2Presentation = nixpkgs.lib.nixosSystem (genSystem {
+      nixosConfigurations.laptop2Presentation = nixpkgs.lib.nixosSystem (genDesktopSystem {
         hostname = "laptop2";
-        device = {
-          type = "laptop";
-          presentation = true;
-          monitors = [
-            {
-              x = 1920;
-              y = 1200;
-            }
-          ];
-        };
+        presentation = true;
       });
-      nixosConfigurations.mainPresentation = nixpkgs.lib.nixosSystem (genSystem {
+      nixosConfigurations.mainPresentation = nixpkgs.lib.nixosSystem (genDesktopSystem {
         hostname = "main";
-        device = {
-          type = "desktop";
-          presentation = true;
-          monitors = [
-            {
-              x = 1920;
-              y = 1080;
-            }
-          ];
-        };
+        presentation = true;
       });
       # sudo mount /dev/nvme0n1p1 /mnt/boot
       # sudo mount /dev/nvme0n1p5 /mnt/
@@ -273,75 +244,33 @@
           ./desktop/minimal/configuration.nix
         ];
       };
-      nixosConfigurations.main = nixpkgs.lib.nixosSystem (genSystem {
+      nixosConfigurations.main = nixpkgs.lib.nixosSystem (genDesktopSystem {
         hostname = "main";
-        device = {
-          type = "desktop";
-          presentation = false;
-          monitors = [
-            {
-              x = 1920;
-              y = 1080;
-            }
-          ];
-        };
       });
-      nixosConfigurations.work = nixpkgs.lib.nixosSystem (genSystem {
+      nixosConfigurations.work = nixpkgs.lib.nixosSystem (genDesktopSystem {
         hostname = "work";
-        device = {
-          type = "desktop";
-          presentation = false;
-          monitors = [
-            {
-              x = 3840;
-              y = 2160;
-            }
-            {
-              x = 3840;
-              y = 2160;
-            }
-          ];
-        };
       });
-      nixosConfigurations.workPresentation = nixpkgs.lib.nixosSystem (genSystem {
+      nixosConfigurations.workPresentation = nixpkgs.lib.nixosSystem (genDesktopSystem {
         hostname = "work";
-        device = {
-          type = "desktop";
-          presentation = true;
-          monitors = [
-            {
-              x = 3840;
-              y = 2160;
-            }
-            {
-              x = 3840;
-              y = 2160;
-            }
-          ];
-        };
+        presentation = true;
       });
-      nixosConfigurations.server-main = nixpkgs.lib.nixosSystem (genSystem {
+      nixosConfigurations.server-main = nixpkgs.lib.nixosSystem (genServerSystem {
         hostname = "server-main";
-        device.type = "server";
       });
-      nixosConfigurations.server-network = nixpkgs.lib.nixosSystem (genSystem {
+      nixosConfigurations.server-network = nixpkgs.lib.nixosSystem (genServerSystem {
         hostname = "server-network";
-        device.type = "server";
       });
-      nixosConfigurations.server-home = nixpkgs.lib.nixosSystem (genSystem {
+      nixosConfigurations.server-home = nixpkgs.lib.nixosSystem (genServerSystem {
         hostname = "server-home";
-        device.type = "server";
       });
       nixosConfigurations.build-qcow2 = nixpkgs.lib.nixosSystem (genImage {
         hostname = "PLACEHOLDER";
-        device.type = "server";
       });
       # Generate ISO file with =nix build path://$HOME/Sync/NixConfig#nixosConfigurations.installer.config.system.build.isoImage -o ~/Temp/result=
-      nixosConfigurations.installer = nixpkgs.lib.nixosSystem (genSystem {
+      nixosConfigurations.installer = nixpkgs.lib.nixosSystem (genServerSystem {
         extraModules = [ "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-base.nix" ];
 
         hostname = "server-home";
-        device.type = "server";
       });
     };
 }

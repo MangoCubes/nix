@@ -5,7 +5,20 @@
     enable = true;
   };
   services.printing.enable = true;
-  custom.device.scale = 1.5;
+  custom.device = {
+    type = "desktop";
+    scale = 1.5;
+    monitors = [
+      {
+        x = 3840;
+        y = 2160;
+      }
+      {
+        x = 3840;
+        y = 2160;
+      }
+    ];
+  };
   imports = [
     inputs.secrets.desktop.work
     ./boot.nix

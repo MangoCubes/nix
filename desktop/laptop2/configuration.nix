@@ -7,6 +7,15 @@
     ./networking.nix
     ../packages/wireshark.nix
   ];
+  custom.device = {
+    type = "laptop";
+    monitors = [
+      {
+        x = 1920;
+        y = 1200;
+      }
+    ];
+  };
   custom.android.enable = true;
   services.logind.settings.Login = {
     HandleLidSwitch = "suspend";

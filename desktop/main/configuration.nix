@@ -14,6 +14,15 @@
   custom = {
     android.enable = true;
     tablet.enable = true;
+    device = {
+      type = "desktop";
+      monitors = [
+        {
+          x = 1920;
+          y = 1080;
+        }
+      ];
+    };
   };
   services.logind.settings.Login = {
     HandleLidSwitch = "suspend";
