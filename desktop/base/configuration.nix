@@ -25,6 +25,7 @@
     ./options.nix
   ];
   custom.traefik.enable = true;
+  specialisation.presentation.configuration.custom.device.presentation = true;
   powerManagement.enable = true;
   programs.nix-ld.enable = true;
   boot.kernelParams = [ "mem_sleep_default=s2idle" ];

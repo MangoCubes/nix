@@ -182,7 +182,6 @@
       genDesktopSystem =
         {
           hostname,
-          presentation ? false,
           extraModules ? [ ],
         }:
         (genSystem ./desktop {
@@ -226,14 +225,6 @@
       nixosConfigurations.laptop2 = nixpkgs.lib.nixosSystem (genDesktopSystem {
         hostname = "laptop2";
       });
-      nixosConfigurations.laptop2Presentation = nixpkgs.lib.nixosSystem (genDesktopSystem {
-        hostname = "laptop2";
-        presentation = true;
-      });
-      nixosConfigurations.mainPresentation = nixpkgs.lib.nixosSystem (genDesktopSystem {
-        hostname = "main";
-        presentation = true;
-      });
       # sudo mount /dev/nvme0n1p1 /mnt/boot
       # sudo mount /dev/nvme0n1p5 /mnt/
       # sudo mount /dev/nvme0n1p6 /mnt/home
@@ -249,10 +240,6 @@
       });
       nixosConfigurations.work = nixpkgs.lib.nixosSystem (genDesktopSystem {
         hostname = "work";
-      });
-      nixosConfigurations.workPresentation = nixpkgs.lib.nixosSystem (genDesktopSystem {
-        hostname = "work";
-        presentation = true;
       });
       nixosConfigurations.server-main = nixpkgs.lib.nixosSystem (genServerSystem {
         hostname = "server-main";
