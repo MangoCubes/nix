@@ -1,7 +1,6 @@
 {
   unstable,
   inputs,
-  lib,
   ...
 }:
 {
@@ -24,14 +23,5 @@
       ]
     );
     systemd.enable = true;
-  };
-  systemd.user.services.ags = {
-    Unit = {
-      After = lib.mkForce [ ];
-      PartOf = lib.mkForce [ ];
-    };
-    Install = {
-      WantedBy = lib.mkForce [ ];
-    };
   };
 }

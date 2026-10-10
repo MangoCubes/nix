@@ -7,6 +7,9 @@
   ...
 }:
 let
+  toKDL = lib.hm.generators.toKDL { };
+  genNodes = nodes: builtins.concatStringsSep "\n" (builtins.map toKDL nodes);
+  spawnAtStartup = args: { spawn-at-startup._args = args; };
   killclick = pkgs.writeShellScriptBin "killclick" "kill -9 $(niri msg pick-window | grep PID | tail -n 1 | awk '{print $NF}')";
   killcurrent = pkgs.writeShellScriptBin "killcurrent" "kill -9 $(niri msg focused-window | grep PID | tail -n 1 | awk '{print $NF}')";
   findwsid = pkgs.writeShellScriptBin "findwsid" ''
@@ -37,10 +40,22 @@ let
   mon1 = "DP-1";
   mon2 = "HDMI-A-2";
   multiMonitors = (builtins.length config.custom.device.monitors) != 1;
-  gesture = lib.hm.generators.toKDL { } {
+  mkOutput = name: x: extra: {
+    output = {
+      _args = [ name ];
+      scale = config.custom.device.scale;
+      transform = "normal";
+      position._props = {
+        inherit x;
+        y = 0;
+      };
+    }
+    // extra;
+  };
+  gesture = toKDL {
     gestures.hot-corners.off._props = { };
   };
-  input = lib.hm.generators.toKDL { } {
+  input = toKDL {
     input = {
       keyboard = {
         xkb._props = { };
@@ -71,57 +86,21 @@ let
       };
     };
   };
-  outputs = builtins.concatStringsSep "\n" (
-    builtins.map (output: (lib.hm.generators.toKDL { } output)) (
-      if multiMonitors then
-        ([
-          {
-            output._args = [ mon1 ];
-            output = {
-              mode = "3840x2160@59.997";
-              scale = config.custom.device.scale;
-              transform = "normal";
-              position._props = {
-                x = 0;
-                y = 0;
-              };
-            };
-          }
-          {
-            output._args = [ mon2 ];
-            output = {
-              mode = "3840x2160@59.997";
-              scale = config.custom.device.scale;
-              transform = "normal";
-              position._props = {
-                x = 1920;
-                y = 0;
-              };
-            };
-          }
-        ])
-      else
-        [
-          {
-            output._args = [ "eDP-1" ];
-            output = {
-              scale = config.custom.device.scale;
-              transform = "normal";
-              position._props = {
-                x = 0;
-                y = 0;
-              };
-            };
-          }
-        ]
-    )
+  outputs = genNodes (
+    if multiMonitors then
+      [
+        (mkOutput mon1 0 { mode = "3840x2160@59.997"; })
+        (mkOutput mon2 1920 { mode = "3840x2160@59.997"; })
+      ]
+    else
+      [ (mkOutput "eDP-1" 0 { }) ]
   );
-  hotkeyOverlay = lib.hm.generators.toKDL { } {
+  hotkeyOverlay = toKDL {
     hotkey-overlay = {
       skip-at-startup._props = { };
     };
   };
-  layout = lib.hm.generators.toKDL { } {
+  layout = toKDL {
     layout = {
       always-center-single-column._props = { };
       tab-indicator = {
@@ -165,137 +144,103 @@ let
       struts._props = { };
     };
   };
-  singleNodes = builtins.concatStringsSep "\n" (
-    builtins.map (output: (lib.hm.generators.toKDL { } output)) (
+  singleNodes = genNodes (
+    (builtins.map spawnAtStartup [
       [
-        {
-          blur = {
-            passes = 3;
-            offset = 3;
-            noise = 0.02;
-            saturation = 1.5;
+        "keepassxc"
+        "~/Sync/Passwords/Passwords.kdbx"
+      ]
+      [ "niri-adv-rules" ]
+      [ "xwayland-satellite" ]
+      [
+        "niri"
+        "msg"
+        "action"
+        "focus-workspace"
+        "one"
+      ]
+      [ "loademacs" ]
+    ])
+    ++ [
+      {
+        blur = {
+          passes = 3;
+          offset = 3;
+          noise = 0.02;
+          saturation = 1.5;
+        };
+      }
+      {
+        environment.DISPLAY._args = [
+          ":0"
+        ];
+      }
+      { prefer-no-csd._props = { }; }
+      { screenshot-path = "~/Sync/QuickSecure/Pictures/Screenshot from %Y-%m-%d %H-%M-%S.png"; }
+    ]
+    ++ lib.optionals multiMonitors [
+      (spawnAtStartup [
+        "niri"
+        "msg"
+        "action"
+        "focus-workspace"
+        "two"
+      ])
+    ]
+  );
+  windowRule = genNodes (import ./niri/window-rule.nix);
+  workspace = genNodes (
+    let
+      buildWs = (ws: { workspace._args = [ ws ]; });
+      buildWsMon =
+        mon:
+        (ws: {
+          workspace = {
+            _args = [ ws ];
+            open-on-output = mon;
           };
-        }
-        {
-          spawn-at-startup._args = [
-            "niri-adv-rules"
-          ];
-        }
-        {
-          spawn-at-startup._args = [
-            "keepassxc"
-            "~/Sync/Passwords/Passwords.kdbx"
-          ];
-        }
-        {
-          spawn-at-startup._args = [
-            "xwayland-satellite"
-          ];
-        }
-        {
-          spawn-at-startup._args = [
-            "niri"
-            "msg"
-            "action"
-            "focus-workspace"
-            "one"
-          ];
-        }
-        {
-          spawn-at-startup._args = [
-            "loademacs"
-          ];
-        }
-        {
-          spawn-at-startup._args = [
-            "sur"
-            "ags"
-          ];
-        }
-        {
-          environment.DISPLAY._args = [
-            ":0"
-          ];
-        }
-        { prefer-no-csd._props = { }; }
-        { screenshot-path = "~/Sync/QuickSecure/Pictures/Screenshot from %Y-%m-%d %H-%M-%S.png"; }
-      ]
-      ++ (
-        if multiMonitors then
-          [
-            {
-              spawn-at-startup._args = [
-                "niri"
-                "msg"
-                "action"
-                "focus-workspace"
-                "two"
-              ];
-            }
-          ]
-        else
-          [ ]
-      )
-    )
-
-  );
-  windowRule = builtins.concatStringsSep "\n" (
-    builtins.map (output: (lib.hm.generators.toKDL { } output)) (import ./niri/window-rule.nix)
-  );
-  workspace = builtins.concatStringsSep "\n" (
-    builtins.map (output: (lib.hm.generators.toKDL { } output)) (
-      let
-        buildWs = (ws: { workspace._args = [ ws ]; });
-        buildWsMon =
-          mon:
-          (ws: {
-            workspace = {
-              _args = [ ws ];
-              open-on-output = mon;
-            };
-          });
-        buildWsMon1 = buildWsMon mon1;
-        buildWsMon2 = buildWsMon mon2;
-      in
-      [
-        (buildWs "security")
-        (buildWs "media")
-        (buildWs "config")
-        (buildWs "scratch")
-      ]
-      ++ (
-        if multiMonitors then
-          [
-            (buildWsMon1 "one")
-            (buildWsMon1 "three")
-            (buildWsMon1 "five")
-            (buildWsMon1 "urgent")
-            (buildWsMon2 "two")
-            (buildWsMon2 "four")
-            (buildWsMon2 "six")
-          ]
-        else
-          (builtins.map buildWs [
-            "one"
-            "two"
-            "three"
-            "four"
-            "five"
-            "six"
-            "urgent"
-          ])
-      )
+        });
+      buildWsMon1 = buildWsMon mon1;
+      buildWsMon2 = buildWsMon mon2;
+    in
+    (builtins.map buildWs [
+      "security"
+      "media"
+      "config"
+      "scratch"
+    ])
+    ++ (
+      if multiMonitors then
+        (builtins.map buildWsMon1 [
+          "one"
+          "three"
+          "five"
+          "urgent"
+        ])
+        ++ (builtins.map buildWsMon2 [
+          "two"
+          "four"
+          "six"
+        ])
+      else
+        (builtins.map buildWs [
+          "one"
+          "two"
+          "three"
+          "four"
+          "five"
+          "six"
+          "urgent"
+        ])
     )
   );
-  recent-windows = lib.hm.generators.toKDL { } (
-    (import ./niri/recent-windows.nix) { inherit colours; }
-  );
+  recent-windows = toKDL ((import ./niri/recent-windows.nix) { inherit colours; });
   # cursor = lib.hm.generators.toKDL { } { cursor.plugin = "${./niri/cursor.lua}"; };
-  cursor = lib.hm.generators.toKDL { } {
+  cursor = toKDL {
     cursor.plugin = "${config.home.homeDirectory}/.config/niri/cursor.lua";
   };
-  binds = lib.hm.generators.toKDL { } ((import ./niri/binds.nix) { inherit config pkgs; });
-  clipboard = lib.hm.generators.toKDL { } {
+  binds = toKDL ((import ./niri/binds.nix) { inherit config pkgs; });
+  clipboard = toKDL {
     clipboard.disable-primary._props = { };
   };
   niriConfig = builtins.concatStringsSep "\n" [
