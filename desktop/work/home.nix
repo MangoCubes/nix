@@ -1,7 +1,12 @@
 { username, ... }:
 {
   home-manager.users."${username}" =
-    { unfreeUnstable, unstable, ... }:
+    {
+      pkgs,
+      unfreeUnstable,
+      unstable,
+      ...
+    }:
     {
       imports = [
         ../packages/home/windows.nix
@@ -10,6 +15,7 @@
       ];
       custom.microsoftTeams.enable = true;
       home.packages = [
+        pkgs.iw
         unfreeUnstable.osu-lazer-bin
       ]
       ++ (with unstable; [
@@ -19,7 +25,6 @@
         pwntools
         jadx
         mitmproxy
-        iw
       ]);
     };
 }

@@ -5,21 +5,19 @@
 }:
 {
   home.packages =
-    with unstable;
-    [
-      lazygit
+    (with unstable; [
       nil
       fd
-    ]
+    ])
     ++ (
       if config.custom.device.type == "desktop" || config.custom.device.type == "laptop" then
-        [
+        (with unstable; [
           lua-language-server
           pyright
           clang-tools
           libxml2
           typescript-language-server
-        ]
+        ])
       else
         [ ]
     );

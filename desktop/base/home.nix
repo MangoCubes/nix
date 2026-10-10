@@ -77,7 +77,6 @@
           sshpass
           sops
           pulseaudio
-          python3
           signal-desktop
           tokei
           rustdesk-flutter
@@ -87,6 +86,7 @@
           webcord
           dconf
           tor-browser
+          python3
         ])
         (lib.mkIf config.custom.microsoftTeams.enable [
           unstable.teams-for-linux
