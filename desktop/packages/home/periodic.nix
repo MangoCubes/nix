@@ -37,7 +37,7 @@ in
     (genSys {
       name = "hourly";
       period = "1h";
-      command = ''${pkgs.notify-desktop}/bin/notify-desktop "Hourly Reminder" "An hour has passed since the last notification." '';
+      command = ''${pkgs.libnotify}/bin/notify-send "Hourly Reminder" "An hour has passed since the last notification." '';
       desc = "Run a set of commands every hour";
     })
   ];

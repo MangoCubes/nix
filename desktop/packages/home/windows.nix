@@ -10,9 +10,9 @@ let
   rdpCmd = "${pkgs.freerdp}/bin/sdl-freerdp /u:${username} /p:${password} /dynamic-resolution /drive:shared,${config.home.homeDirectory} /v:127.0.0.1";
   run-windows = pkgs.writeShellScriptBin "run-windows" ''
     if systemctl --user is-active --quiet "podman-windows"; then
-        ${pkgs.notify-desktop}/bin/notify-desktop "Opening RDP..." "Windows is already running.";
+        ${pkgs.libnotify}/bin/notify-send "Opening RDP..." "Windows is already running.";
     else
-        ${pkgs.notify-desktop}/bin/notify-desktop "Booting Windows..." "Windows container is starting.";
+        ${pkgs.libnotify}/bin/notify-send "Booting Windows..." "Windows container is starting.";
         systemctl --user start podman-windows;
     fi
     ${rdpCmd}

@@ -33,6 +33,6 @@
   {
     key = "p";
     desc = "Show Window Information";
-    cmd = ''${pkgs.notify-desktop}/bin/notify-desktop "Niri Pick Window" "$(niri msg pick-window)"'';
+    cmd = ''${pkgs.libnotify}/bin/notify-send "Niri Pick Window" "$(niri msg pick-window)"'';
   }
 ]

@@ -50,7 +50,7 @@ in
       ${pkgs.notmuch}/bin/notmuch search --format json tag:new and tag:unread \
         | ${pkgs.jq}/bin/jq -r '.[] | "New email from \"\(.authors)\"\n\(.subject)"' \
         | while IFS= read -r title && IFS= read -r body; do
-          ${pkgs.notify-desktop}/bin/notify-desktop "$title" "$body";
+          ${pkgs.libnotify}/bin/notify-send "$title" "$body";
         done
       ${pkgs.notmuch}/bin/notmuch tag -new tag:new
     '';

@@ -21,7 +21,7 @@ let
     )
   );
   qrscan = pkgs.writeShellScriptBin "qrscan" ''
-    selected_area=$(${pkgs.slurp}/bin/slurp) && ${pkgs.grim}/bin/grim -g "$selected_area" - | ${pkgs.zbar}/bin/zbarimg - | tee >(${pkgs.notify-desktop}/bin/notify-desktop "QR Code Captured" "$(cat)") | wl-copy;
+    selected_area=$(${pkgs.slurp}/bin/slurp) && ${pkgs.grim}/bin/grim -g "$selected_area" - | ${pkgs.zbar}/bin/zbarimg - | tee >(${pkgs.libnotify}/bin/notify-send "QR Code Captured" "$(cat)") | wl-copy;
   '';
   openmedia = pkgs.writeShellScriptBin "openmedia" (
     builtins.replaceStrings

@@ -8,7 +8,7 @@
 let
   inhibited =
     cmd:
-    ''err=$(systemctl ${cmd} --check-inhibitors=yes 2>&1) || ${pkgs.notify-desktop}/bin/notify-desktop "Shutdown Blocked" "$err";'';
+    ''err=$(systemctl ${cmd} --check-inhibitors=yes 2>&1) || ${pkgs.libnotify}/bin/notify-send "Shutdown Blocked" "$err";'';
 in
 (lib.optionals osConfig.custom.tablet.enable [
   {
@@ -61,7 +61,7 @@ in
   {
     key = "m";
     desc = "󱋈 Sync Mail";
-    cmd = ''ID=$(${pkgs.notify-desktop}/bin/notify-desktop "Syncing..." "Synchronising all mailboxes...") && systemctl --user restart mbsync && ${pkgs.notify-desktop}/bin/notify-desktop -r $ID "Synced!" "All the mailboxes have been updated successfully." || ${pkgs.notify-desktop}/bin/notify-desktop -r $ID "Sync failed!" "mbsync exited with code $?"'';
+    cmd = ''ID=$(${pkgs.libnotify}/bin/notify-send --print-id "Syncing..." "Synchronising all mailboxes...") && systemctl --user restart mbsync && ${pkgs.libnotify}/bin/notify-send --replace-id="$ID" "Synced!" "All the mailboxes have been updated successfully." || ${pkgs.libnotify}/bin/notify-send --replace-id="$ID" "Sync failed!" "mbsync exited with code $?"'';
   }
   {
     key = "p";
