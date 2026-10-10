@@ -41,12 +41,12 @@ in
   {
     key = "n";
     desc = "󰎟 Clear Notifications";
-    cmd = "fnottctl dismiss all";
+    cmd = "swaync-client --close-all";
   }
   {
     key = "N";
     desc = " Open Latest Notification";
-    cmd = "fnottctl dismiss all";
+    cmd = "swaync-client --open-panel";
   }
   {
     key = "l";

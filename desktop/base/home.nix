@@ -40,7 +40,7 @@
         ../packages/home/accounts.nix
         ../packages/home/awww.nix
         ../packages/home/niri.nix
-        ../packages/home/fnott.nix
+        ../packages/home/swaync.nix
         ../packages/home/ags.nix
         ../packages/home/dragevac.nix
         ../packages/home/qagenda.nix

@@ -1,81 +1,93 @@
-{ colours, config, ... }:
+{
+  colours,
+  config,
+  pkgs,
+  ...
+}:
 let
   width = builtins.floor (4 * config.custom.device.scale);
-  title = "Courier New:size=${builtins.toString (width * 3)}";
-  body = "Courier New:size=${builtins.toString (width * 2)}";
+  titleSize = width * 3;
+  bodySize = width * 2;
+  notificationSound = ./sfx/Transmission.wav;
 in
 {
-  services.fnott = {
+  services.swaync = {
     enable = true;
+
     settings = {
-      main = {
-        # -*- conf -*-
+      positionX = "right";
+      positionY = "top";
+      layer = "top";
+      control-center-layer = "top";
+      layer-shell = true;
+      cssPriority = "user";
 
-        # For documentation on these options, see `man fnott.ini`
+      notification-window-width = 500;
+      notification-window-preferred-output = "DP-1";
+      control-center-width = 500;
+      control-center-preferred-output = "DP-1";
 
-        # Global values
-        output = "DP-1";
-        min-width = 50;
-        max-width = 500;
-        # max-height=50
-        # stacking-order=bottom-up
-        # anchor=top-right
-        edge-margin-vertical = width;
-        edge-margin-horizontal = width;
-        notification-margin = width;
-        # icon-theme=hicolor
-        # max-icon-size=32
-        # selection-helper=dmenu
-        # selection-helper-uses-null-separator=no
-        play-sound = "pw-play ${./fnott/Transmission.wav}";
+      notification-grouping = false;
+      notification-2fa-action = false;
+      notification-inline-replies = false;
+      timeout = 0;
+      timeout-low = 0;
+      timeout-critical = 0;
+      script-fail-notify = false;
 
-        # Default values, may be overridden in 'urgency' specific sections
-        # layer=top
-        background = colours.withTransparency.blackBg;
-
-        border-color = colours.withTransparency.miku;
-        # border-radius=0
-        border-size = width;
-
-        padding-vertical = width * 4;
-        padding-horizontal = width * 4;
-
-        title-font = title;
-        # title-color=ffffffff
-        title-format = "%a%A";
-
-        summary-font = body;
-        # summary-color=ffffffff
-        # summary-format=<b>%s</b>\n
-
-        body-font = body;
-        # body-color=ffffffff
-        # body-format=%b
-
-        progress-bar-height = width * 5;
-        progress-color = colours.withTransparency.miku;
-        progress-style = "bar";
-
-        sound-file = "${./fnott/Transmission.wav}";
-        # icon=
-
-        # Timeout values are in seconds. 0 to disable
-        # max-timeout = 0;
-        # default-timeout = 0;
-        # idle-timeout=0
+      scripts."notification-sound" = {
+        app-name = ".*";
+        run-on = "receive";
+        exec = "${pkgs.pipewire}/bin/pw-play ${notificationSound}";
       };
-
-      # [low]
-      # background=2b2b2bff
-      # title-color=888888ff
-      # summary-color=888888ff
-      # body-color=888888ff
-
-      # [normal]
-
-      # [critical]
-      # background=6c3333ff
-
     };
+
+    style = ''
+      :root {
+        --cc-bg: #${colours.withTransparency.blackBg};
+        --noti-bg: 0, 0, 0;
+        --noti-bg-alpha: 0.8157;
+        --noti-border-color: #${colours.withTransparency.miku};
+        --bg-selected: #${colours.withTransparency.miku};
+        --border: ${builtins.toString width}px solid var(--noti-border-color);
+        --border-radius: 0;
+        --font-size-summary: ${builtins.toString titleSize}pt;
+        --font-size-body: ${builtins.toString bodySize}pt;
+      }
+
+      * {
+        font-family: "Courier New";
+      }
+
+      .notification-row .notification-background {
+        padding: ${builtins.toString width}px;
+      }
+
+      .notification-row .notification-background .notification .notification-default-action {
+        padding: ${builtins.toString (width * 3)}px;
+      }
+
+      .notification-row .notification-background .notification .notification-default-action:hover {
+        background: transparent;
+      }
+
+      .close-button {
+        background: transparent;
+      }
+
+      .close-button:hover {
+        background: transparent;
+      }
+
+      .notification-row .notification progressbar trough,
+      .notification-row .notification progressbar progress {
+        min-height: ${builtins.toString width}px;
+        border-radius: 0;
+      }
+
+      .notification-row .notification progressbar progress {
+        background: #${colours.withTransparency.miku};
+      }
+    '';
   };
 }
