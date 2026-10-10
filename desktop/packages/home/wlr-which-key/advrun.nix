@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, lib, ... }:
 let
   japanese = ''
     d browser https://ja.dict.naver.com;
@@ -42,20 +42,15 @@ in
     cmd = "emacs-mailto";
   }
 ]
-++ (
-  if config.custom.windows then
-    [
-      {
-        key = "w";
-        desc = " Run Windows";
-        cmd = "run-windows";
-      }
-      {
-        key = "W";
-        desc = " Stop Windows";
-        cmd = "sup podman-windows";
-      }
-    ]
-  else
-    [ ]
-)
+++ lib.optionals config.custom.windows [
+  {
+    key = "w";
+    desc = " Run Windows";
+    cmd = "run-windows";
+  }
+  {
+    key = "W";
+    desc = " Stop Windows";
+    cmd = "sup podman-windows";
+  }
+]

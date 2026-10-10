@@ -1,4 +1,4 @@
-{ osConfig, ... }:
+{ osConfig, lib, ... }:
 [
   {
     key = "s";
@@ -16,15 +16,10 @@
     cmd = "profilebrowser Community";
   }
 ]
-++ (
-  if osConfig.networking.hostName == "main" then
-    [
-      {
-        key = "a";
-        desc = "Anime";
-        cmd = "profilebrowser Anime";
-      }
-    ]
-  else
-    [ ]
-)
+++ lib.optionals (osConfig.networking.hostName == "main") [
+  {
+    key = "a";
+    desc = "Anime";
+    cmd = "profilebrowser Anime";
+  }
+]

@@ -5,6 +5,7 @@
   config,
   colours,
   inputs,
+  lib,
   ...
 }:
 let
@@ -19,6 +20,7 @@ let
                 colours
                 pkgs
                 config
+                lib
                 osConfig
                 ;
             }
@@ -29,6 +31,7 @@ let
             colours
             pkgs
             config
+            lib
             osConfig
             ;
         })
@@ -44,13 +47,17 @@ in
   ];
 
   xdg.configFile =
-    (loadFile "action")
-    // (loadFile "media")
-    // (loadFile "niri")
-    // (loadFile "browser")
-    // (loadFile "soundboard")
-    // (loadFile "dragevac")
-    // (genFile "auto" inputs.secrets.hm.wlr-which-key.auto)
-    // (loadFile "advrun")
-    // (loadFile "restart");
+    lib.mergeAttrsList (
+      builtins.map loadFile [
+        "action"
+        "media"
+        "niri"
+        "browser"
+        "soundboard"
+        "dragevac"
+        "advrun"
+        "restart"
+      ]
+    )
+    // (genFile "auto" inputs.secrets.hm.wlr-which-key.auto);
 }

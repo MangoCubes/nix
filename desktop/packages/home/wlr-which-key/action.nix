@@ -2,6 +2,7 @@
   config,
   osConfig,
   pkgs,
+  lib,
   ...
 }:
 let
@@ -9,38 +10,33 @@ let
     cmd:
     ''err=$(systemctl ${cmd} --check-inhibitors=yes 2>&1) || ${pkgs.notify-desktop}/bin/notify-desktop "Shutdown Blocked" "$err";'';
 in
-(
-  if osConfig.custom.tablet.enable then
-    [
-      {
-        key = "t";
-        desc = " Tablet Driver";
-        submenu =
-          let
-            load = name: "otd loadsettings ${config.home.homeDirectory}/Sync/GeneralConfig/Tablet/${name}.json";
-          in
-          [
-            {
-              key = "n";
-              desc = " Normal";
-              cmd = (load "Normal");
-            }
-            {
-              key = "f";
-              desc = " FPS";
-              cmd = (load "FPS");
-            }
-            {
-              key = "w";
-              desc = " Writing";
-              cmd = (load "Writing");
-            }
-          ];
-      }
-    ]
-  else
-    [ ]
-)
+(lib.optionals osConfig.custom.tablet.enable [
+  {
+    key = "t";
+    desc = " Tablet Driver";
+    submenu =
+      let
+        load = name: "otd loadsettings ${config.home.homeDirectory}/Sync/GeneralConfig/Tablet/${name}.json";
+      in
+      [
+        {
+          key = "n";
+          desc = " Normal";
+          cmd = (load "Normal");
+        }
+        {
+          key = "f";
+          desc = " FPS";
+          cmd = (load "FPS");
+        }
+        {
+          key = "w";
+          desc = " Writing";
+          cmd = (load "Writing");
+        }
+      ];
+  }
+])
 ++ [
   {
     key = "n";
