@@ -1,5 +1,6 @@
 {
   networking.firewall.enable = true;
+  security.pam.sshAgentAuth.enable = true;
   imports = [
     ./noswap.nix
   ];

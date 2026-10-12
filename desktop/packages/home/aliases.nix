@@ -6,14 +6,14 @@
 let
   aliases =
     let
-      reloadSecrets = "sudo nix flake update secrets --flake ${config.home.homeDirectory}/Sync/NixConfig";
+      reloadSecrets = "nix flake update secrets --flake ${config.home.homeDirectory}/Sync/NixConfig";
       remotes = inputs.secrets.servers;
       cmds = builtins.foldl' (
         acc: hostname:
         acc
         // {
           "rebuild-${hostname}" =
-            "${reloadSecrets} && nixos-rebuild --flake ${config.home.homeDirectory}/Sync/NixConfig#${hostname} --target-host main@${hostname} --sudo --ask-sudo-password switch";
+            "${reloadSecrets} && NIX_SSHOPTS=-A nixos-rebuild --flake ${config.home.homeDirectory}/Sync/NixConfig#${hostname} --target-host main@${hostname} --sudo switch";
         }
       ) { } remotes;
     in
