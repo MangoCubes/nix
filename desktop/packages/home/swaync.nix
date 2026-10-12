@@ -5,7 +5,8 @@
   ...
 }:
 let
-  width = builtins.floor (4 * config.custom.device.scale);
+  borderWidth = 4;
+  width = builtins.floor (borderWidth * config.custom.device.scale);
   titleSize = width * 3;
   bodySize = width * 2;
   notificationSound = ./sfx/Transmission.wav;
@@ -49,7 +50,7 @@ in
         --noti-bg-alpha: 0.8157;
         --noti-border-color: #${colours.withTransparency.miku};
         --bg-selected: #${colours.withTransparency.miku};
-        --border: ${builtins.toString width}px solid var(--noti-border-color);
+        --border: ${builtins.toString borderWidth}px solid var(--noti-border-color);
         --border-radius: 0;
         --font-size-summary: ${builtins.toString titleSize}pt;
         --font-size-body: ${builtins.toString bodySize}pt;
@@ -60,7 +61,7 @@ in
       }
 
       .notification-row .notification-background {
-        padding: ${builtins.toString width}px;
+        padding: ${builtins.toString borderWidth}px;
       }
 
       .notification-row .notification-background .notification .notification-default-action {

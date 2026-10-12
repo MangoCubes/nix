@@ -442,11 +442,11 @@
     },
     "nixpkgs_14": {
       "locked": {
-        "lastModified": 1790769526,
-        "narHash": "sha256-5AIVFLRcx8YAwbFTVPTs7YhwJH7JyHfAQsvXmpovcXI=",
+        "lastModified": 1791487292,
+        "narHash": "sha256-tqM7xDEsaeK1p6VvRygeZ9LkQRpUUkbRT02BHv6hnTM=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "c9fe7d12cd78d1adcd12dd15e24432dde5b155a0",
+        "rev": "8edc0c72e3a38faf5434e40d1f19431125fe4b30",
         "type": "github"
       },
       "original": {
@@ -755,8 +755,8 @@
         "sops-nix": "sops-nix"
       },
       "locked": {
-        "lastModified": 1791639245,
-        "narHash": "sha256-0ywKSzfRtXw8w/kxDjjglkO22oY9Z6YFX3qKTPW3JX8=",
+        "lastModified": 1791764537,
+        "narHash": "sha256-Ny/iWW51Qz9gPta0awCwyKa/IPQpw+K1EuBoniJlVAg=",
         "path": "/home/main/Sync/NixConfig/secrets",
         "type": "path"
       },
@@ -770,11 +770,11 @@
         "nixpkgs": "nixpkgs_14"
       },
       "locked": {
-        "lastModified": 1791564412,
-        "narHash": "sha256-XeFH51BnMGx6kX7WaY8oif3/c6QxY8vJVdTb5LRHOKU=",
+        "lastModified": 1791710405,
+        "narHash": "sha256-mVD4XIc5JkqMW2K04IkFUzHgHmyJZlzw5ktfgMDCbKU=",
         "owner": "Mic92",
         "repo": "sops-nix",
-        "rev": "311ef9409edcbb8368af04f4bc0456c5f3dd80bf",
+        "rev": "ee48786c6f9160d2c1a084aac841f68195b8420c",
         "type": "github"
       },
       "original": {
