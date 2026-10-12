@@ -10,10 +10,20 @@ let
   titleSize = width * 3;
   bodySize = width * 2;
   notificationSound = ./sfx/Transmission.wav;
+  swaync = pkgs.swaynotificationcenter.overrideAttrs (_: {
+    version = "0.12.6-unstable-2026-06-25";
+    src = pkgs.fetchFromGitHub {
+      owner = "ErikReider";
+      repo = "SwayNotificationCenter";
+      rev = "b8017a4d1a53debdf0e8766628fb80357eae31e7";
+      hash = "sha256-ZKJIrDPfQcVPqufBeXAx56UmSfDp3il84MtzLjq2Cjs=";
+    };
+  });
 in
 {
   services.swaync = {
     enable = true;
+    package = swaync;
 
     settings = {
       positionX = "right";
@@ -65,7 +75,7 @@ in
       }
 
       .notification-row .notification-background .notification .notification-default-action {
-        padding: ${builtins.toString (width * 3)}px;
+        padding: ${builtins.toString width}px;
       }
 
       .notification-row .notification-background .notification .notification-default-action:hover {
