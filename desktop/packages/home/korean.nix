@@ -34,7 +34,8 @@
           "Hotkey/EnumerateForwardKeys"."0" = "Hangul";
           "Hotkey/EnumerateGroupForwardKeys"."0" = "Control+Alt+Hangul";
           Behavior = {
-            ShareInputState = "All";
+            ActiveByDefault = false;
+            ShareInputState = "Program";
             showInputMethodInformationWhenFocusIn = true;
             CompactInputMethodInformation = false;
             ShowFirstInputMethodInformation = false;
@@ -55,8 +56,8 @@
             "Default Layout" = "us";
             DefaultIM = "mozc";
           };
-          "Groups/1/Items/0".Name = "mozc";
-          "Groups/1/Items/1".Name = "keyboard-us";
+          "Groups/1/Items/0".Name = "keyboard-us";
+          "Groups/1/Items/1".Name = "mozc";
           GroupOrder = {
             "0" = "한국어";
             "1" = "日本語";
