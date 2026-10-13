@@ -56,7 +56,6 @@
       # nixpkgs,
       home-manager,
       unstablePkg,
-      sops-nix,
       ...
     }:
     let
@@ -135,6 +134,7 @@
             {
               home-manager = {
                 backupFileExtension = "backup";
+                sharedModules = [ inputs.secrets.homeManagerModules.sops ];
                 # Anything I put in here would become available when setting home-manager options
                 # home-manager.users."${username}" =
                 #   {
@@ -161,7 +161,7 @@
               };
             }
             # This allows me to use sops options within my config
-            sops-nix.nixosModules.sops
+            inputs.secrets.nixosModules.sops
           ]
           # ...then I add all extra modules at the end
           ++ extraModules;
