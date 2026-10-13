@@ -11,24 +11,25 @@
       config,
       ...
     }:
+    let
+      lockDesktop = pkgs.writeShellScriptBin "lock-desktop" ''
+        ${pkgs.keepassxc}/bin/keepassxc --lock;
+        ${config.programs.swaylock.package}/bin/swaylock -f;
+      '';
+    in
     {
+      home.packages = [ lockDesktop ];
       services.swayidle = {
         enable = true;
+        events.lock = "${lockDesktop}/bin/lock-desktop";
+
         timeouts = [
           {
-            command =
-              let
-                script = pkgs.writeShellScriptBin "script" "${pkgs.keepassxc}/bin/keepassxc --lock; (${unstable.swaylock-effects}/bin/swaylock &)";
-              in
-              "${script}/bin/script";
+            command = "${pkgs.systemd}/bin/loginctl lock-session";
             timeout = 300;
           }
           {
-            command =
-              let
-                script = pkgs.writeShellScriptBin "script" "${pkgs.niri}/bin/niri msg action power-off-monitors";
-              in
-              "${script}/bin/script";
+            command = "${pkgs.niri}/bin/niri msg action power-off-monitors";
             timeout = 360;
           }
         ];

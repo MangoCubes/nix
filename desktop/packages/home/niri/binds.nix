@@ -143,7 +143,7 @@ in
       show-hotkey-overlay._props = { };
     };
     "Mod+L" = {
-      spawn = "swaylock";
+      spawn = "lock-desktop";
       _props = {
         allow-when-locked = true;
       };

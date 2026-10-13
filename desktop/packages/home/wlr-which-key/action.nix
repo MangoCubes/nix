@@ -51,7 +51,7 @@ in
   {
     key = "l";
     desc = " Lock";
-    cmd = "swaylock";
+    cmd = "lock-desktop";
   }
   {
     key = "k";
