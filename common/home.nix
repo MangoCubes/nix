@@ -16,9 +16,6 @@
     "${username}" =
       {
         pkgs,
-        unstable,
-        inputs,
-        config,
         osConfig,
         ...
       }:

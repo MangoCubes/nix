@@ -5,8 +5,6 @@
       pkgs,
       unfreeUnstable,
       unstable,
-      unfree,
-      inputs,
       ...
     }:
     {

@@ -7,7 +7,6 @@
   environment ? { },
   image,
   domain ? null,
-  user ? null,
   entrypoint ? null,
   environmentFile ? [ ],
   labels ? { },

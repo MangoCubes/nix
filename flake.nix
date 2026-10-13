@@ -22,7 +22,6 @@
       url = "github:MangoCubes/ags-widget";
       flake = false;
     };
-    mikuboot.url = "gitlab:evysgarden/mikuboot";
     # nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
     unstablePkg.url = "github:nixos/nixpkgs/nixos-unstable";
     niri-adv-rules.url = "github:MangoCubes/niri-adv-rules";
@@ -37,7 +36,6 @@
     kmonad.url = "github:kmonad/kmonad?dir=nix";
     grub2-themes.url = "github:vinceliuice/grub2-themes";
     sops-nix.url = "github:Mic92/sops-nix";
-    nix-alien.url = "github:thiagokokada/nix-alien";
     # Notice that the path starts with path:
     # This flake is stored in ./secrets
     secrets.url = "path:/home/main/Sync/NixConfig/secrets";

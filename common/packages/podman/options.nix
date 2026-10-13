@@ -70,11 +70,6 @@
                 default = null;
                 description = "Traefik routing configurations for the container";
               };
-              user = lib.mkOption {
-                type = lib.types.nullOr (lib.types.either lib.types.str lib.types.int);
-                default = null;
-                description = "User to run the container as";
-              };
               entrypoint = lib.mkOption {
                 type = lib.types.nullOr lib.types.str;
                 default = null;

@@ -87,7 +87,6 @@ let
     {
       name,
       id,
-      internal ? false,
       engines ? [ ],
       resetOnClose ? false,
       ...

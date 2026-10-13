@@ -10,7 +10,7 @@ let
 in
 {
   home-manager.users."${username}" =
-    { pkgs, lib, ... }:
+    { pkgs, ... }:
     {
       home.packages = [ pkgs.restic ];
       imports = [ ./restic/options.nix ];

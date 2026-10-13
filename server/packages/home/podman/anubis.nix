@@ -8,10 +8,7 @@ let
   # Random number, hopefully no services use this
   anubisPort = 57261;
 in
-{
-  config,
-  ...
-}:
+{ ... }:
 {
   custom.podman.containers."${name}" = {
     image = "ghcr.io/techarohq/anubis:latest";

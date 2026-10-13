@@ -1,9 +1,4 @@
-{
-  config,
-  osConfig,
-  pkgs,
-  ...
-}:
+{ ... }:
 [
   {
     key = "d";

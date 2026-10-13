@@ -7,7 +7,6 @@
   home-manager.users."${username}" =
     {
       config,
-      lib,
       ...
     }:
     {
