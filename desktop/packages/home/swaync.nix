@@ -75,7 +75,7 @@ in
       }
 
       .notification-row .notification-background .notification .notification-default-action {
-        padding: ${builtins.toString width}px;
+        padding: ${builtins.toString bodySize}px;
       }
 
       .notification-row .notification-background .notification .notification-default-action:hover {

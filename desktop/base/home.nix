@@ -12,6 +12,8 @@
     {
       dconf.settings."org/gnome/desktop/interface".icon-theme = "breeze-dark";
 
+      custom.kdeconnect.enable = true;
+
       custom.rclone.sftp = [
         "server-home"
         "server-main"
