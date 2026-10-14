@@ -78,6 +78,13 @@ let
     DisplayMenuBar = "default-off"; # alternatives: "always", "never" or "default-on"
     SearchBar = "unified"; # alternative: "separate"
     ExtensionSettings = plugins;
+    "3rdparty".Extensions."keepassxc-browser@keepassxc.org".settings = {
+      passkeys = true;
+      redirectAllowance = 1;
+      usePasswordGeneratorIcons = true;
+      autoReconnect = true;
+      saveDomainOnly = true;
+    };
     DisableSetDesktopBackground = true;
   };
   searches = (import ./firefox/search.nix);
