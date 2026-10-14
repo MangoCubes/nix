@@ -23,7 +23,9 @@
     ../packages/android.nix
     ../packages/tablet.nix
     ./options.nix
+    ../packages/kdeconnect.nix
   ];
+  custom.kdeconnect.enable = true;
   custom.traefik.enable = true;
   specialisation.presentation.configuration.custom.device.presentation = true;
   powerManagement.enable = true;
