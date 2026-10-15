@@ -35,16 +35,23 @@ in
 
       notification-window-width = 500;
       notification-window-preferred-output = "DP-1";
+
       control-center-width = 500;
       control-center-preferred-output = "DP-1";
 
-      notification-grouping = false;
-      notification-2fa-action = false;
-      notification-inline-replies = false;
+      notification-grouping = true;
+      notification-2fa-action = true;
+      notification-inline-replies = true;
+      relative-timestamps = true;
+
       timeout = 0;
       timeout-low = 0;
       timeout-critical = 0;
-      script-fail-notify = false;
+      script-fail-notify = true;
+
+      hide-on-action = true;
+
+      keyboard-shortcuts = true;
 
       scripts."notification-sound" = {
         app-name = ".*";
