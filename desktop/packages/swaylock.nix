@@ -22,6 +22,7 @@
       services.swayidle = {
         enable = true;
         events.lock = "${lockDesktop}/bin/lock-desktop";
+        events.before-sleep = config.services.swayidle.events.lock;
 
         timeouts = [
           {
