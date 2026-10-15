@@ -17,8 +17,8 @@
     ];
   };
   custom.android.enable = true;
+  custom.hibernation.enable = true;
   services.logind.settings.Login = {
-    HandleLidSwitch = "suspend";
     HandlePowerKey = "ignore";
   };
   services.logrotate.checkConfig = false;

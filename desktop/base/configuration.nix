@@ -18,6 +18,7 @@
     ../packages/bluetooth.nix
     ../packages/fonts.nix
     ../packages/greeter.nix
+    ../packages/hibernation.nix
     ../packages/swaylock.nix
     ../packages/ydotool.nix
     ../packages/android.nix
