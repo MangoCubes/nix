@@ -13,7 +13,7 @@
       libsecret
     ]
   );
-  imports = [ inputs.secrets.hm.nextcloud ];
+  imports = [ inputs.secrets.desktop.packages.home.nextcloud ];
   systemd.user = {
     timers.nextcloud-autosync = {
       Unit = {

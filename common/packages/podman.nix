@@ -66,7 +66,7 @@
           )
         );
         secrets = name: {
-          "gluetun-${name}" = inputs.secrets.common.home.gluetun { inherit name; };
+          "gluetun-${name}" = inputs.secrets.common.packages.home.gluetun { inherit name; };
         };
       in
       {

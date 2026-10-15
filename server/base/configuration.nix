@@ -3,7 +3,7 @@
   networking.firewall.enable = true;
   security.pam.sshAgentAuth.enable = true;
   imports = [
-    inputs.secrets.server
+    inputs.secrets.server.common
     ./noswap.nix
   ];
   custom.device.type = "server";

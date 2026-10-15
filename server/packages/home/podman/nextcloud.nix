@@ -14,7 +14,7 @@
   # mkdir -p ${config.home.homeDirectory}/.podman/cloud/data
   # ${pkgs.rootlesskit}/bin/rootlesskit chown -R 1000:1000 ${config.home.homeDirectory}/.podman/cloud
   imports = [
-    inputs.secrets.hm.cloud
+    inputs.secrets.server.packages.home.podman.cloud
   ];
   custom.podman.containers.cloud = {
     dependsOn = [ "mariadb" ];

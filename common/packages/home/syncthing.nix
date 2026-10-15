@@ -27,7 +27,7 @@ in
     guiAddress = "0.0.0.0:8384";
   };
   imports = [
-    inputs.secrets.hm.syncthing
+    inputs.secrets.common.packages.home.syncthing
   ];
   systemd.user.services.st-default-folder = {
     Unit = {

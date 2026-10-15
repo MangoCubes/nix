@@ -60,5 +60,5 @@ in
         "restart"
       ]
     )
-    // (genFile "auto" inputs.secrets.hm.wlr-which-key.auto);
+    // (genFile "auto" inputs.secrets.desktop.packages.home.wlr-which-key.auto);
 }

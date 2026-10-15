@@ -24,7 +24,9 @@ in
   };
 
   config = {
-    sops.secrets = lib.mkMerge (map (name: (inputs.secrets.hm."${name}").sops.secrets) cfg.mounts);
+    sops.secrets = lib.mkMerge (
+      map (name: (inputs.secrets.common.packages.home."${name}").sops.secrets) cfg.mounts
+    );
 
     systemd.user.services = lib.mkMerge (
       (map (name: {

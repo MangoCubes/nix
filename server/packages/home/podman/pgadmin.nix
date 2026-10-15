@@ -5,7 +5,7 @@
   ...
 }:
 {
-  imports = [ inputs.secrets.hm.other ];
+  imports = [ inputs.secrets.server.packages.home.podman.other ];
   custom.podman.containers.pgadmin = {
     dependsOn = [ "postgresql" ];
     image = "dpage/pgadmin4";

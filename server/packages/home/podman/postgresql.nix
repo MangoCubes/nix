@@ -4,7 +4,7 @@
   ...
 }:
 {
-  imports = [ inputs.secrets.hm.other ];
+  imports = [ inputs.secrets.server.packages.home.podman.other ];
   custom.podman.containers.postgresql = {
     image = "postgres:17";
     activation = ''

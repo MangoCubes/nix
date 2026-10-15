@@ -11,9 +11,7 @@ let
   );
 in
 {
-  imports = [
-    inputs.secrets.hm.accounts
-  ];
+  imports = [ inputs.secrets.desktop.packages.home.accounts ];
   programs.msmtp.enable = true;
   services.mbsync = {
     frequency = "*:0/1";

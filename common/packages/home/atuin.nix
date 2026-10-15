@@ -4,7 +4,7 @@
   ...
 }:
 {
-  imports = [ inputs.secrets.hm.atuin ];
+  imports = [ inputs.secrets.common.packages.home.atuin ];
   programs.atuin = {
     enableZshIntegration = true;
     enable = true;
