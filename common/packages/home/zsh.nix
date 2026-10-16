@@ -14,14 +14,16 @@ in
     program = "zsh";
     aliases = {
       # Baseline commands only
-      jl = "sudo journalctl --follow -xeu $@";
-      jul = "journalctl --user --follow -xeu $@";
+      jl = ''sudo journalctl --follow --no-tail -xu "$@" | less -R'';
+      jul = ''journalctl --user --follow --no-tail -xu "$@" | less -R'';
       ss = "sudo systemctl status $@";
       sr = "sudo systemctl restart $@";
       sp = "sudo systemctl stop $@";
+      sv = "cat $(systemctl show $@ --property=FragmentPath --value)";
       sus = "systemctl --user status $@";
       sur = "systemctl --user restart $@";
       sup = "systemctl --user stop $@";
+      suv = "cat $(systemctl --user show $@ --property=FragmentPath --value)";
       hml = "journalctl -u home-manager-${username}.service -b";
       km = ''echo "Copy the following into hardware-configuration.nix to get the OS to reboot."; nixos-generate-config --show-hardware-config'';
       currentboot = "journalctl -o short-precise -k";
