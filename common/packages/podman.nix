@@ -4,12 +4,17 @@
   config,
   ...
 }:
+let
+  isPodmanUsed =
+    config.custom.podman.enable
+    || config.home-manager.users."${username}".services.podman.containers != { };
+in
 {
-  options.custom.podman = lib.mkEnableOption "Enable podman";
+  options.custom.podman.enable = lib.mkEnableOption "Enable podman";
 
-  config = lib.mkIf config.custom.podman {
+  config = {
     # When using home-manager podman, this option must be enabled
-    virtualisation.podman.enable = true;
+    virtualisation.podman.enable = isPodmanUsed;
 
     home-manager.users."${username}" =
       {
@@ -71,69 +76,82 @@
       in
       {
         imports = [ ./podman/options.nix ];
-        sops.secrets = lib.mkMerge (builtins.map secrets vpnKeys);
-        custom.podman = {
-          dns = "107.175.189.176";
-          dnsProvider = "10.10.0.53";
-          subnet = "10.10.0.0/24";
-        };
-        home.packages = with pkgs; [
-          dive # look into podman image layers
-          podman-tui # status of containers in the terminal
-          podman-compose # start group of containers for dev
-          rootlesskit
-          podmanStatus
-          podmanStart
-        ];
-        services.podman = {
-          autoUpdate.enable = true;
-          enable = true;
-          containers = mergeAll "container";
-          settings = {
-            storage = {
-              storage.driver = "overlay";
-              storage.options.overlay.mount_program = "${pkgs.fuse-overlayfs}/bin/fuse-overlayfs";
-            };
-          };
-        };
-        home.activation = mergeAll "activation";
-        systemd.user.timers = lib.mkMerge [
-          (mergeAll "timer")
+        config = lib.mkMerge [
           {
-            podman-prune = {
-              Unit.Description = "Prune unused Podman data";
-              Timer = {
-                OnCalendar = "daily";
-                Persistent = true;
-              };
-              Install.WantedBy = [ "timers.target" ];
+            custom.podman = {
+              dns = "107.175.189.176";
+              dnsProvider = "10.10.0.53";
+              subnet = "10.10.0.0/24";
             };
+            custom.shell.aliases = lib.mkIf isPodmanUsed {
+              ubuntu = "podman run --rm -it ubuntu bash";
+              docker = "podman $@";
+              pcu = "podman compose up -d";
+              pcul = "podman compose up -d && podman compose logs -f";
+              pcl = "podman compose logs -f";
+              pcd = "podman compose down";
+              pcdv = "podman compose down -v";
+              pcr = "podman compose restart";
+              pcrv = "podman compose down -v && podman compose up -d";
+              pcrvl = "podman compose down -v && podman compose up -d && podman compose logs -f";
+            };
+            services.podman.containers = mergeAll "container";
           }
-        ];
-        systemd.user.services = lib.mkMerge [
-          (mergeAll "service")
-          {
-            podman-prune = {
-              Unit.Description = "Prune unused Podman data";
-              Service = {
-                Type = "oneshot";
-                ExecStart = "${pkgs.podman}/bin/podman system prune -a";
+          (lib.mkIf isPodmanUsed {
+            sops.secrets = lib.mkMerge (builtins.map secrets vpnKeys);
+            services.podman = {
+              autoUpdate.enable = true;
+              enable = true;
+              settings = {
+                storage = {
+                  storage.driver = "overlay";
+                  storage.options.overlay.mount_program = "${pkgs.fuse-overlayfs}/bin/fuse-overlayfs";
+                };
               };
             };
-          }
+            home.packages = (
+              with pkgs;
+              [
+                dive # look into podman image layers
+                podman-tui # status of containers in the terminal
+                podman-compose # start group of containers for dev
+                rootlesskit
+                podmanStatus
+                podmanStart
+              ]
+            );
+            home.activation = mergeAll "activation";
+            systemd.user.timers = (
+              lib.mkMerge [
+                (mergeAll "timer")
+                {
+                  podman-prune = {
+                    Unit.Description = "Prune unused Podman data";
+                    Timer = {
+                      OnCalendar = "daily";
+                      Persistent = true;
+                    };
+                    Install.WantedBy = [ "timers.target" ];
+                  };
+                }
+              ]
+            );
+            systemd.user.services = (
+              lib.mkMerge [
+                (mergeAll "service")
+                {
+                  podman-prune = {
+                    Unit.Description = "Prune unused Podman data";
+                    Service = {
+                      Type = "oneshot";
+                      ExecStart = "${pkgs.podman}/bin/podman system prune -a";
+                    };
+                  };
+                }
+              ]
+            );
+          })
         ];
-        custom.shell.aliases = {
-          ubuntu = "podman run --rm -it ubuntu bash";
-          docker = "podman $@";
-          pcu = "podman compose up -d";
-          pcul = "podman compose up -d && podman compose logs -f";
-          pcl = "podman compose logs -f";
-          pcd = "podman compose down";
-          pcdv = "podman compose down -v";
-          pcr = "podman compose restart";
-          pcrv = "podman compose down -v && podman compose up -d";
-          pcrvl = "podman compose down -v && podman compose up -d && podman compose logs -f";
-        };
       };
   };
 }
