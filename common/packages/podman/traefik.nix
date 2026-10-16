@@ -93,9 +93,14 @@ in
     };
     home-manager.users."${username}" =
       { config, osConfig, ... }:
+      let
+        isTraefikUsed = lib.any (container: container.domain != null) (
+          builtins.attrValues config.custom.podman.containers
+        );
+      in
       {
         services.podman = {
-          containers.traefik = {
+          containers.traefik = lib.mkIf isTraefikUsed {
             network = [ "proxy" ];
             image = "traefik";
             ports = [
