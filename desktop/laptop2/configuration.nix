@@ -5,6 +5,7 @@
     ./boot.nix
     ./home.nix
     ./networking.nix
+    ../packages/avahi.nix
     ../packages/wireshark.nix
   ];
   custom.device = {
