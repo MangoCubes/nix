@@ -44,6 +44,10 @@
       url = "git+https://git.int/main/niri";
       inputs.nixpkgs.follows = "unstablePkg";
     };
+    niri-cursor = {
+      url = "git+https://git.int/main/niri-cursor?ref=chevron";
+      inputs.nixpkgs.follows = "unstablePkg";
+    };
   };
 
   # This @ sign binds inputs to the value that comes after it

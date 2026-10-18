@@ -156,6 +156,24 @@
         "systems": "systems_4"
       },
       "locked": {
+        "lastModified": 1791914995,
+        "narHash": "sha256-Zf/xfQEAasnwnmEfHqW/4hjDE/s44yn2hD4RuVIZRjA=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "b7a79d3fea1e214f6d668d521cecec0c01e26544",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "flake-utils_5": {
+      "inputs": {
+        "systems": "systems_5"
+      },
+      "locked": {
         "lastModified": 1731533236,
         "narHash": "sha256-l0KFg5HjrsfsO/JpG+r7fRrqm12kzFHyUHqHCVpMMbI=",
         "owner": "numtide",
@@ -169,9 +187,9 @@
         "type": "github"
       }
     },
-    "flake-utils_5": {
+    "flake-utils_6": {
       "inputs": {
-        "systems": "systems_5"
+        "systems": "systems_6"
       },
       "locked": {
         "lastModified": 1731533236,
@@ -252,11 +270,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1790531973,
-        "narHash": "sha256-G6P3bjeFEzC2AIZRFZyUK7/ggRR+3Rc25Ozk31oQr18=",
+        "lastModified": 1792315107,
+        "narHash": "sha256-1E2tq82iEdhgBiMqmqS1OKPDQWGmE6X67fnQ8LMeoyY=",
         "ref": "refs/heads/main",
-        "rev": "55b1a67f10584644bb525e1cf885be9c69dc930f",
-        "revCount": 2940,
+        "rev": "2bd61740246ab9ee685eb4f29e01f6884faabfa5",
+        "revCount": 2941,
         "type": "git",
         "url": "https://git.int/main/niri"
       },
@@ -283,6 +301,31 @@
         "owner": "MangoCubes",
         "repo": "niri-adv-rules",
         "type": "github"
+      }
+    },
+    "niri-cursor": {
+      "inputs": {
+        "flake-utils": "flake-utils_4",
+        "niri-source": [
+          "niri"
+        ],
+        "nixpkgs": [
+          "unstablePkg"
+        ]
+      },
+      "locked": {
+        "lastModified": 1792315314,
+        "narHash": "sha256-r40vZzL3KovcZ9tPi6dwiF8xz9Lc7M9eIZ+W7RgxOeQ=",
+        "ref": "chevron",
+        "rev": "73842d157f72bb2e668ce9b872071be487f6f463",
+        "revCount": 3,
+        "type": "git",
+        "url": "https://git.int/main/niri-cursor"
+      },
+      "original": {
+        "ref": "chevron",
+        "type": "git",
+        "url": "https://git.int/main/niri-cursor"
       }
     },
     "nixpkgs": {
@@ -511,7 +554,7 @@
     },
     "qagenda": {
       "inputs": {
-        "flake-utils": "flake-utils_4",
+        "flake-utils": "flake-utils_5",
         "nixpkgs": "nixpkgs_10",
         "rust-overlay": "rust-overlay_4"
       },
@@ -541,6 +584,7 @@
         "kmonad": "kmonad",
         "niri": "niri",
         "niri-adv-rules": "niri-adv-rules",
+        "niri-cursor": "niri-cursor",
         "qagenda": "qagenda",
         "secrets": "secrets",
         "sops-nix": "sops-nix_2",
@@ -646,8 +690,8 @@
         "sops-nix": "sops-nix"
       },
       "locked": {
-        "lastModified": 1792140714,
-        "narHash": "sha256-XmDWrtDcH2pTGhkbUFfa8J2ty4VAhuWOtf3mbb0RE54=",
+        "lastModified": 1792315403,
+        "narHash": "sha256-CMEx+xkaEbO7fMlp0kflk+LgLlUiCVqLHLPHrHwAW1A=",
         "path": "/home/main/Sync/NixConfig/secrets",
         "type": "path"
       },
@@ -767,6 +811,21 @@
         "type": "github"
       }
     },
+    "systems_6": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    },
     "unstablePkg": {
       "locked": {
         "lastModified": 1791260994,
@@ -785,7 +844,7 @@
     },
     "yazi": {
       "inputs": {
-        "flake-utils": "flake-utils_5",
+        "flake-utils": "flake-utils_6",
         "nixpkgs": "nixpkgs_14",
         "rust-overlay": "rust-overlay_5"
       },

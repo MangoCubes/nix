@@ -7,6 +7,7 @@
   ...
 }:
 let
+  cursorPlugin = inputs.niri-cursor.packages.${pkgs.stdenv.hostPlatform.system}.default;
   toKDL = lib.hm.generators.toKDL { };
   genNodes = nodes: builtins.concatStringsSep "\n" (builtins.map toKDL nodes);
   spawnAtStartup = args: { spawn-at-startup._args = args; };
@@ -237,7 +238,7 @@ let
   recent-windows = toKDL ((import ./niri/recent-windows.nix) { inherit colours; });
   # cursor = lib.hm.generators.toKDL { } { cursor.plugin = "${./niri/cursor.lua}"; };
   cursor = toKDL {
-    cursor.plugin = "${config.home.homeDirectory}/.config/niri/cursor.lua";
+    cursor.plugin = "${cursorPlugin}/lib/libniri_cursor_plugin.so";
   };
   binds = toKDL ((import ./niri/binds.nix) { inherit config inputs pkgs; });
   clipboard = toKDL {
