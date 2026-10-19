@@ -270,11 +270,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1792315107,
-        "narHash": "sha256-1E2tq82iEdhgBiMqmqS1OKPDQWGmE6X67fnQ8LMeoyY=",
+        "lastModified": 1792367332,
+        "narHash": "sha256-Do5i8h+popX1Cy9kM62fXDNvAReBt24+CtMYWHrZShI=",
         "ref": "refs/heads/main",
-        "rev": "2bd61740246ab9ee685eb4f29e01f6884faabfa5",
-        "revCount": 2941,
+        "rev": "6aff77821c681a6deada366d0033498e6081a937",
+        "revCount": 2943,
         "type": "git",
         "url": "https://git.int/main/niri"
       },
@@ -314,16 +314,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1792315314,
-        "narHash": "sha256-r40vZzL3KovcZ9tPi6dwiF8xz9Lc7M9eIZ+W7RgxOeQ=",
-        "ref": "chevron",
-        "rev": "73842d157f72bb2e668ce9b872071be487f6f463",
-        "revCount": 3,
+        "lastModified": 1792370381,
+        "narHash": "sha256-3hzFQWI7GaDGArEw5+6TYBF2FywMfSstqD7y/rJR5H8=",
+        "ref": "diamond",
+        "rev": "383990507c026435b0100bcf572a88eaa2899be4",
+        "revCount": 6,
         "type": "git",
         "url": "https://git.int/main/niri-cursor"
       },
       "original": {
-        "ref": "chevron",
+        "ref": "diamond",
         "type": "git",
         "url": "https://git.int/main/niri-cursor"
       }
@@ -690,8 +690,8 @@
         "sops-nix": "sops-nix"
       },
       "locked": {
-        "lastModified": 1792315403,
-        "narHash": "sha256-CMEx+xkaEbO7fMlp0kflk+LgLlUiCVqLHLPHrHwAW1A=",
+        "lastModified": 1792340743,
+        "narHash": "sha256-MdUrfyvqJeVFC8U6wYC5UCn8CNIb0+n4Y8vqXZV8Iao=",
         "path": "/home/main/Sync/NixConfig/secrets",
         "type": "path"
       },
