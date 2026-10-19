@@ -1,5 +1,7 @@
 {
+  config,
   inputs,
+  lib,
   pkgs,
   ...
 }:
@@ -13,8 +15,19 @@ in
 {
   imports = [ inputs.secrets.desktop.packages.home.accounts ];
   programs.msmtp.enable = true;
+  services.imapnotify = {
+    enable = true;
+    path = [ pkgs.libsecret ];
+  };
+  accounts.email.accounts.personal.imapnotify = {
+    enable = true;
+    boxes = [ "INBOX" ];
+    onNotify = "${pkgs.systemd}/bin/systemctl --user start mbsync";
+    extraConfig.passwordCmd = "${checkKeyring} && ${lib.concatStringsSep " " config.accounts.email.accounts.personal.passwordCommand}";
+  };
+  systemd.user.services.imapnotify-personal.Service.ExecStartPre = "${checkKeyring}";
   services.mbsync = {
-    frequency = "*:0/1";
+    frequency = "*:0/15";
     enable = true;
     # Delete ~/.mail/personal (keep ~/.mail/personal directory itself) if this error happens:
     # Error: channel personal: far side box ___ cannot be opened anymore.
@@ -30,7 +43,7 @@ in
   };
   services.vdirsyncer = {
     enable = true;
-    frequency = "*:0/1";
+    frequency = "*:0/15";
   };
   programs.vdirsyncer.enable = true;
   systemd.user.services.vdirsyncer = {
