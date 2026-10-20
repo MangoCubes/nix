@@ -19,11 +19,10 @@
         "HOST_UID" = "1000";
         "HOST_GID" = "1000";
         "TA_HOST" = "https://yt.int";
-        "ELASTIC_PASSWORD" = "7WR3cPbAbRkgvfUoUSaQRechfQjLZyJ2";
         "TZ" = "America/New_York";
         "TA_USERNAME" = "admin";
-        "TA_PASSWORD" = "XTQVSNXTSfcCEQUFwYScxZUgZDd3FYh3";
       };
+      environmentFile = [ config.sops.secrets.archive.path ];
       volumes = [
         "cache:/cache"
         "${config.home.homeDirectory}/Mounts/Drive/Archive/Video:/youtube"
@@ -37,12 +36,12 @@
       image = "bbilly1/tubearchivist-es";
       disk.persistOnly = [ "archive-es" ];
       environment = {
-        "ELASTIC_PASSWORD" = "7WR3cPbAbRkgvfUoUSaQRechfQjLZyJ2";
         "ES_JAVA_OPTS" = "-Xms1g -Xmx1g";
         "xpack.security.enabled" = "true";
         "discovery.type" = "single-node";
         "path.repo" = "/usr/share/elasticsearch/data/snapshot";
       };
+      environmentFile = [ config.sops.secrets.archive.path ];
       volumes = [
         "${config.home.homeDirectory}/.podman/archive-es:/usr/share/elasticsearch/data"
       ];
