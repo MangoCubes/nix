@@ -2,6 +2,7 @@
 {
   custom.podman.containers.search = {
     image = "searxng/searxng:latest";
+    disk.persistOnly = [ "searxng" ];
     domain = [
       {
         url = "genit.al";

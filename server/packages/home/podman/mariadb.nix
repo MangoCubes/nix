@@ -9,6 +9,10 @@
   custom.podman.containers.mariadb = {
     daily = "podman exec -it mariadb mariadb-dump --user=root --password=$MYSQL_ROOT_PASSWORD --lock-tables --all-databases > ${config.home.homeDirectory}/.podman/shared/backups/mariadb.sql";
     image = "mariadb:lts";
+    disk = {
+      persistOnly = [ "mariadb" ];
+      persistBackup = [ "shared/backups/mariadb" ];
+    };
     volumes = [
       "${config.home.homeDirectory}/.podman/mariadb:/var/lib/mysql"
       "${config.home.homeDirectory}/.podman/shared/backups/mariadb:/var/lib/backups"

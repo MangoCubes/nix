@@ -1,4 +1,11 @@
 { lib, ... }:
+let
+  diskPaths = lib.types.listOf (
+    lib.types.addCheck lib.types.str (
+      path: path != "" && !lib.hasPrefix "/" path && !(builtins.elem ".." (lib.splitString "/" path))
+    )
+  );
+in
 {
   options.custom.podman = lib.mkOption {
     type = lib.types.submodule {
@@ -20,6 +27,24 @@
                 type = lib.types.listOf lib.types.str;
                 default = [ ];
                 description = "Volumes to mount to the container";
+              };
+              disk = lib.mkOption {
+                type = lib.types.submodule {
+                  options = {
+                    persistOnly = lib.mkOption {
+                      type = diskPaths;
+                      default = [ ];
+                      description = "Directories to create outside the container";
+                    };
+                    persistBackup = lib.mkOption {
+                      type = diskPaths;
+                      default = [ ];
+                      description = "Directories to create outside the container and include in backups";
+                    };
+                  };
+                };
+                default = { };
+                description = "Container directories to create and optionally back up";
               };
               ports = lib.mkOption {
                 type = lib.types.listOf lib.types.str;

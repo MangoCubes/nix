@@ -17,6 +17,7 @@
       custom.podman.containers = {
         netbird-server = {
           image = "netbirdio/netbird-server:latest";
+          disk.persistOnly = [ "netbird" ];
           ports = [ "3478:3478/udp" ];
           volumes = [
             "${config.home.homeDirectory}/.podman/netbird:/var/lib/netbird"

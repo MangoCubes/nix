@@ -35,6 +35,7 @@
     # UID: 1000
     archive-es = {
       image = "bbilly1/tubearchivist-es";
+      disk.persistOnly = [ "archive-es" ];
       environment = {
         "ELASTIC_PASSWORD" = "7WR3cPbAbRkgvfUoUSaQRechfQjLZyJ2";
         "ES_JAVA_OPTS" = "-Xms1g -Xmx1g";

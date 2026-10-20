@@ -4,14 +4,7 @@
   ...
 }:
 {
-  custom.backups.backblaze = [
-    "${config.home.homeDirectory}/.podman/cloud/data/user/files"
-  ];
-  # mkdir -p ${config.home.homeDirectory}/.podman/cloud/config
   # cp ${config.home.homeDirectory}/.config/sops-nix/secrets/cloud ${config.home.homeDirectory}/.podman/cloud/config/config.php
-  # mkdir -p ${config.home.homeDirectory}/.podman/cloud/php
-  # mkdir -p ${config.home.homeDirectory}/.podman/cloud/crontabs
-  # mkdir -p ${config.home.homeDirectory}/.podman/cloud/data
   # ${pkgs.rootlesskit}/bin/rootlesskit chown -R 1000:1000 ${config.home.homeDirectory}/.podman/cloud
   imports = [
     inputs.secrets.server.packages.home.podman.cloud
@@ -19,6 +12,15 @@
   custom.podman.containers.cloud = {
     dependsOn = [ "mariadb" ];
     image = "linuxserver/nextcloud:latest";
+    disk = {
+      persistOnly = [
+        "cloud/config"
+        "cloud/php"
+        "cloud/crontabs"
+        "cloud/data"
+      ];
+      persistBackup = [ "cloud/data/user/files" ];
+    };
     domain = [
       {
         url = "cloud.skew.ch";

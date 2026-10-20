@@ -27,6 +27,7 @@
         "redis"
       ];
       image = "halfshot/matrix-hookshot:latest";
+      disk.persistOnly = [ "matrix-hookshot" ];
       domain = [
         {
           rule = "Host(`matrix.skew.ch`) && PathPrefix(`/webhook`)";
@@ -40,6 +41,7 @@
     };
     mas = {
       image = "ghcr.io/element-hq/matrix-authentication-service:latest";
+      disk.persistOnly = [ "matrix" ];
       domain = [
         {
           url = "auth.skew.ch";
@@ -57,6 +59,7 @@
     };
     matrix = {
       image = "ghcr.io/element-hq/synapse";
+      disk.persistOnly = [ "matrix" ];
       volumes = [
         "${config.home.homeDirectory}/.podman/matrix:/data"
       ];

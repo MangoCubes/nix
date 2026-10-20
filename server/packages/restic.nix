@@ -10,10 +10,14 @@ let
 in
 {
   home-manager.users."${username}" =
-    { pkgs, ... }:
+    { pkgs, config, ... }:
     {
       home.packages = [ pkgs.restic ];
       imports = [ ./restic/options.nix ];
+      custom.backups.backblaze = lib.concatMap (
+        container:
+        builtins.map (path: "${config.home.homeDirectory}/.podman/${path}") container.disk.persistBackup
+      ) (builtins.attrValues config.custom.podman.containers);
     };
   imports = [
     ./restic/options.nix

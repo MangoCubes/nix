@@ -1,11 +1,7 @@
-{ config, ... }:
 {
   custom.podman.containers.phpmyadmin = {
     dependsOn = [ "mariadb" ];
     image = "lscr.io/linuxserver/phpmyadmin";
-    volumes = [
-      "${config.home.homeDirectory}/.podman/volumes/phpmyadmin:/config"
-    ];
     environment = {
       "PUID" = "1000";
       "PGID" = "1000";

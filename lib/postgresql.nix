@@ -10,10 +10,10 @@ in
 {
   custom.podman.containers."postgresql-${name}" = {
     inherit image;
-    activation = ''
-      mkdir -p ${path}/scripts
-      mkdir -p ${path}/data
-    '';
+    disk.persistOnly = [
+      "postgres-${name}/scripts"
+      "postgres-${name}/data"
+    ];
     volumes = [
       "${path}/data:/var/lib/postgresql/data"
       "${path}/scripts:/var/lib/postgresql/scripts"

@@ -7,10 +7,10 @@
   imports = [ inputs.secrets.server.packages.home.podman.other ];
   custom.podman.containers.postgresql = {
     image = "postgres:17";
-    activation = ''
-      mkdir -p /home/main/.podman/postgres/scripts
-      mkdir -p /home/main/.podman/postgres/data
-    '';
+    disk = {
+      persistOnly = [ "postgres/scripts" ];
+      persistBackup = [ "postgres/data" ];
+    };
     volumes = [
       "${config.home.homeDirectory}/.podman/postgres/data:/var/lib/postgresql/data"
       "${config.home.homeDirectory}/.podman/postgres/scripts:/var/lib/postgresql/scripts"

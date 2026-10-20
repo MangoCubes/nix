@@ -2,6 +2,7 @@
 {
   custom.podman.containers.navidrome = {
     image = "deluan/navidrome:latest";
+    disk.persistOnly = [ "navidrome" ];
     environment = {
       ND_AUTOIMPORTPLAYLISTS = "false";
     };

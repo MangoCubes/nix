@@ -12,6 +12,7 @@
     {
       custom.podman.containers.adguard = {
         image = "adguard/adguardhome";
+        disk.persistOnly = [ "adguard" ];
         needRoot = true;
         volumes = [
           "${config.home.homeDirectory}/.podman/adguard:/opt/adguardhome/conf"

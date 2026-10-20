@@ -3,6 +3,7 @@
   network ? "proxy",
   name,
   volumes ? [ ],
+  disk ? { },
   ports ? [ ],
   environment ? { },
   image,
@@ -29,6 +30,9 @@
   ...
 }:
 let
+  diskPaths = builtins.map (path: "${config.home.homeDirectory}/.podman/${path}") (
+    (disk.persistOnly or [ ]) ++ (disk.persistBackup or [ ])
+  );
   # If domain = null, then it should not be accessible from outside
   # URL is expected in the following form
   # This creates an executable bash script if the entrypoint is given
@@ -141,9 +145,9 @@ in
 {
   timer = dailyBackup.timers;
   service = dailyBackup.services;
-  # Automatically create directory for the container if it has volumes
+  # Automatically create paths for the container
   # Then run other commands specified via [`activation`]
-  activation = lib.mkIf (builtins.length volumes != 0 || activation != "") {
+  activation = lib.mkIf (builtins.length volumes != 0 || diskPaths != [ ] || activation != "") {
     "podman-${name}" = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       ${lib.optionalString (builtins.length volumes != 0) ''
         VOLUMES=${config.home.homeDirectory}/.podman/volumes/${name}
@@ -163,6 +167,7 @@ in
           mkdir -p $DIR
         fi
       ''}
+      ${lib.optionalString (diskPaths != [ ]) "mkdir -p -- ${lib.escapeShellArgs diskPaths} "}
       ${activation}
     '';
   };

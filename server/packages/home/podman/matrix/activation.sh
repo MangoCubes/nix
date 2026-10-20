@@ -1,8 +1,3 @@
-DIR="$HOME/.podman/matrix"
-if [ ! -d "$DIR" ]; then
-  @rootlesskit@ mkdir -p "$DIR/uploads"
-  @rootlesskit@ mkdir -p "$DIR/media"
-fi
 @rootlesskit@ rm -f "$HOME/.podman/matrix/homeserver.yaml"
 @rootlesskit@ cp "@homeserverSecret@" "$HOME/.podman/matrix/homeserver.yaml"
 @rootlesskit@ rm -f "$HOME/.podman/matrix/skew.ch.signing.key"

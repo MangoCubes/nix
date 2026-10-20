@@ -4,10 +4,6 @@
   ...
 }:
 {
-  custom.backups.backblaze = [
-    "${config.home.homeDirectory}/.podman/immich/data"
-    "${config.home.homeDirectory}/.podman/immich/backups"
-  ];
   imports = [
     inputs.secrets.server-main.home.immich
     ((import ../../../../lib/postgresql.nix) {
@@ -18,9 +14,10 @@
     })
   ];
   custom.podman.containers.immich = {
-    activation = ''
-      mkdir -p ${config.home.homeDirectory}/.podman/immich/data
-    '';
+    disk.persistBackup = [
+      "immich/data"
+      "immich/backups"
+    ];
     dependsOn = [
       "redis"
       "postgresql-immich"

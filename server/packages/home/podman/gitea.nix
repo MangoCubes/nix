@@ -4,11 +4,11 @@
   ...
 }:
 {
-  custom.backups.backblaze = [ "${config.home.homeDirectory}/.podman/gitea" ];
   imports = [ inputs.secrets.server-main.home.gitea ];
   custom.podman.containers.gitea = {
     dependsOn = [ "mariadb" ];
     image = "gitea/gitea:latest";
+    disk.persistBackup = [ "gitea" ];
     volumes = [
       "${config.home.homeDirectory}/.podman/gitea:/data"
       "/etc/localtime:/etc/localtime:ro"

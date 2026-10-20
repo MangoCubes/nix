@@ -9,6 +9,7 @@
   custom.podman.containers.pgadmin = {
     dependsOn = [ "postgresql" ];
     image = "dpage/pgadmin4";
+    disk.persistOnly = [ "pgadmin" ];
     # Change owner to 5050
     activation = ''
       ${pkgs.rootlesskit}/bin/rootlesskit chown 5050:5050 -R ${config.home.homeDirectory}/.podman/pgadmin
