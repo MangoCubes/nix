@@ -2,8 +2,12 @@
   pkgs,
   inputs,
   config,
+  osConfig,
   ...
 }:
+let
+  wrapperDir = osConfig.security.wrapperDir;
+in
 {
   home.packages = (
     with pkgs;
@@ -32,8 +36,8 @@
           Type = "notify";
           ExecStartPre = "/run/current-system/sw/bin/mkdir -p %h/Mounts/Cloud";
           ExecStart = "${pkgs.rclone}/bin/rclone --config=${config.sops.secrets.rclone-cloud.path} --vfs-cache-mode full mount \"cloud:\" %h/Mounts/Cloud -vv";
-          Environment = [ "PATH=/run/wrappers/bin/:$PATH" ];
-          ExecStop = "/bin/fusermount -u %h/Mounts/Cloud";
+          Environment = [ "PATH=${wrapperDir}:$PATH" ];
+          ExecStop = "${wrapperDir}/fusermount -u %h/Mounts/Cloud";
         };
       };
       nextcloud-autosync = {

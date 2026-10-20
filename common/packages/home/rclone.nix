@@ -10,6 +10,8 @@ let
   cfg = config.custom.rclone;
   deviceType = osConfig.custom.device.type or config.custom.device.type;
   flags = if deviceType == "server" then "--allow-other" else "";
+  # Setuid wrapper, needed so the user can unmount
+  wrapperDir = osConfig.security.wrapperDir;
 in
 {
   options.custom.rclone = {
@@ -38,8 +40,8 @@ in
             ExecStart = ''${pkgs.rclone}/bin/rclone --config=${
               config.sops.secrets."${name}".path
             } --vfs-cache-mode full mount "${name}:" %h/Mounts/${name} ${flags} -vv'';
-            Environment = [ "PATH=/run/wrappers/bin/:$PATH" ];
-            ExecStop = "/bin/fusermount -u %h/Mounts/${name}";
+            Environment = [ "PATH=${wrapperDir}:$PATH" ];
+            ExecStop = "${wrapperDir}/fusermount -u %h/Mounts/${name}";
           };
           Install.WantedBy = if deviceType == "server" then [ "default.target" ] else [ ];
         };
@@ -61,8 +63,8 @@ in
               Type = "notify";
               ExecStartPre = "/run/current-system/sw/bin/mkdir -p %h/Mounts/${server}";
               ExecStart = ''${pkgs.rclone}/bin/rclone --config=${conf} --vfs-cache-mode full mount "${server}:${config.home.homeDirectory}" %h/Mounts/${server} -vv'';
-              Environment = [ "PATH=/run/wrappers/bin/:$PATH" ];
-              ExecStop = "/bin/fusermount -u %h/Mounts/${server}";
+              Environment = [ "PATH=${wrapperDir}:$PATH" ];
+              ExecStop = "${wrapperDir}/fusermount -u %h/Mounts/${server}";
             };
           };
         }
