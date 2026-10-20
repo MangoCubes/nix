@@ -14,6 +14,7 @@ in
     program = "zsh";
     aliases = {
       # Baseline commands only
+      cleanup = "find . -type d -empty -delete";
       jl = ''sudo journalctl --follow --no-tail -xu "$@" | less -R'';
       jul = ''journalctl --user --follow --no-tail -xu "$@" | less -R'';
       ss = "sudo systemctl status $@";
