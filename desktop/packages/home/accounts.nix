@@ -25,7 +25,6 @@ in
     onNotify = "${pkgs.systemd}/bin/systemctl --user start mbsync";
     extraConfig.passwordCmd = "${checkKeyring}/bin/check-keyring && ${lib.concatStringsSep " " config.accounts.email.accounts.personal.passwordCommand}";
   };
-  systemd.user.services.imapnotify-personal.Service.ExecStartPre = "${checkKeyring}";
   services.mbsync = {
     frequency = "*:0/15";
     enable = true;

@@ -312,11 +312,11 @@
         "rust-overlay": "rust-overlay_4"
       },
       "locked": {
-        "lastModified": 1792548990,
-        "narHash": "sha256-va6IesGgELVa3VHnjCswOw5qXjD64w1Pw+cFdtBkhSM=",
+        "lastModified": 1792559645,
+        "narHash": "sha256-Ip79AfltQpRcN20ZLNm/feN8TFJVb9tYuLaVLceSTuw=",
         "ref": "glow",
-        "rev": "cdb0223c7b160faa882865218f250f19a759c070",
-        "revCount": 10,
+        "rev": "c4fee70ded4104b9cffccc326814661745021fe0",
+        "revCount": 12,
         "type": "git",
         "url": "https://git.int/main/niri-cursor"
       },
@@ -722,8 +722,8 @@
         "sops-nix": "sops-nix"
       },
       "locked": {
-        "lastModified": 1792557054,
-        "narHash": "sha256-b5DyjIxQOZC4S4+M98rYqk7n8PDXFKdoi5pOvKa8tSk=",
+        "lastModified": 1792560088,
+        "narHash": "sha256-mVBzNjRZ3UOvah5uIaPVUvBmvxMMj/n4mvkk/ATxEl4=",
         "path": "/home/main/Sync/NixConfig/secrets",
         "type": "path"
       },

@@ -65,7 +65,7 @@ echo "Install bootloader: $bootloader"
 echo "Boot mode: $boot_mode"
 
 if [ "$rebuild_secrets" = true ]; then
-	sudo nix flake update secrets --flake "$flake"
+	nix flake update secrets --flake "$flake"
 fi
 
 device_name=$(hostname)
@@ -76,11 +76,11 @@ if [ "$presentation" = true ]; then
 fi
 
 if [ "$update_unstable" = true ]; then
-	sudo nix flake update --flake "$flake" unstablePkg
+	nix flake update --flake "$flake" unstablePkg
 fi
 
 if [ "$update_all" = true ]; then
-	sudo nix flake update --flake "$flake"
+	nix flake update --flake "$flake"
 fi
 
 action="switch"
@@ -89,9 +89,9 @@ if [ "$boot_mode" = true ]; then
 fi
 
 if [ "$bootloader" = true ]; then
-	sudo nixos-rebuild --flake "$flake#$device_name" "$action" "${presentation_args[@]}" --install-bootloader --no-reexec
+	nixos-rebuild --flake "$flake#$device_name" "$action" "${presentation_args[@]}" --install-bootloader --no-reexec --sudo
 else 
-	sudo nixos-rebuild --flake "$flake#$device_name" "$action" "${presentation_args[@]}" --no-reexec
+	nixos-rebuild --flake "$flake#$device_name" "$action" "${presentation_args[@]}" --no-reexec --sudo
 fi
 
 if [ $? -eq 0 ] && [ "$reboot" = true ]; then

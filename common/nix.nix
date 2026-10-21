@@ -10,8 +10,6 @@
         "flakes"
       ];
       auto-optimise-store = true;
-      # Delete old logs
-      keep-build-log = false;
     };
     gc = {
       automatic = true;
