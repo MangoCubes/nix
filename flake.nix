@@ -45,7 +45,7 @@
       inputs.nixpkgs.follows = "unstablePkg";
     };
     niri-cursor = {
-      url = "git+https://git.int/main/niri-cursor?ref=diamond";
+      url = "git+https://git.int/main/niri-cursor?ref=glow";
       inputs.nixpkgs.follows = "unstablePkg";
     };
   };

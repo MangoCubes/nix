@@ -9,7 +9,7 @@
     clock24 = true;
     historyLimit = 50000;
     keyMode = "vi";
-    prefix = "C-w";
+    prefix = "C-b";
     reverseSplit = true;
     customPaneNavigationAndResize = true;
 

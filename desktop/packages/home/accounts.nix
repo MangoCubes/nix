@@ -6,11 +6,11 @@
   ...
 }:
 let
-  checkKeyring = pkgs.writeShellScript "check-keyring-unlocked" (
-    builtins.replaceStrings [ "@busctl@" ] [ "${pkgs.systemd}/bin/busctl" ] (
-      builtins.readFile ./accounts/check-keyring.sh
-    )
-  );
+  checkKeyring = pkgs.writeShellApplication {
+    name = "check-keyring";
+    runtimeInputs = [ pkgs.systemd ];
+    text = (builtins.readFile ./accounts/check-keyring.sh);
+  };
 in
 {
   imports = [ inputs.secrets.desktop.packages.home.accounts ];
@@ -23,7 +23,7 @@ in
     enable = true;
     boxes = [ "INBOX" ];
     onNotify = "${pkgs.systemd}/bin/systemctl --user start mbsync";
-    extraConfig.passwordCmd = "${checkKeyring} && ${lib.concatStringsSep " " config.accounts.email.accounts.personal.passwordCommand}";
+    extraConfig.passwordCmd = "${checkKeyring}/bin/check-keyring && ${lib.concatStringsSep " " config.accounts.email.accounts.personal.passwordCommand}";
   };
   systemd.user.services.imapnotify-personal.Service.ExecStartPre = "${checkKeyring}";
   services.mbsync = {
@@ -38,7 +38,7 @@ in
   };
   systemd.user.services.mbsync = {
     Service = {
-      ExecCondition = "${checkKeyring}";
+      ExecCondition = "${checkKeyring}/bin/check-keyring";
     };
   };
   services.vdirsyncer = {
@@ -48,7 +48,7 @@ in
   programs.vdirsyncer.enable = true;
   systemd.user.services.vdirsyncer = {
     Service = {
-      ExecCondition = "${checkKeyring}";
+      ExecCondition = "${checkKeyring}/bin/check-keyring";
     };
   };
   programs.notmuch = {
