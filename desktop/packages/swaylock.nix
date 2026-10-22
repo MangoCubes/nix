@@ -1,7 +1,4 @@
-{
-  username,
-  ...
-}:
+{ username, ... }:
 {
   home-manager.users."${username}" =
     {
@@ -13,8 +10,8 @@
     }:
     let
       lockDesktop = pkgs.writeShellScriptBin "lock-desktop" ''
-        ${pkgs.keepassxc}/bin/keepassxc --lock;
-        ${config.programs.swaylock.package}/bin/swaylock -f;
+        ${pkgs.keepassxc}/bin/keepassxc --lock &
+        ${config.programs.swaylock.package}/bin/swaylock -f
       '';
     in
     {
@@ -22,7 +19,7 @@
       services.swayidle = {
         enable = true;
         events.lock = "${lockDesktop}/bin/lock-desktop";
-        events.before-sleep = config.services.swayidle.events.lock;
+        events.before-sleep = "${pkgs.coreutils}/bin/timeout 5 ${lockDesktop}/bin/lock-desktop";
 
         timeouts = [
           {
