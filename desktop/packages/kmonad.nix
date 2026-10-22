@@ -26,71 +26,20 @@ in
         keyboards = {
           myKMonadOutput = {
             inherit device;
-            config =
-              if (hostname == "work") then
-                ''
-                  (defcfg
-                    ;; For Linux
-                    input  (device-file "${device}")
-                    output (uinput-sink "KMonad")
+            config = ''
+              (defcfg
+                ;; For Linux
+                input  (device-file "${device}")
+                output (uinput-sink "KMonad")
 
-                    ;; Comment this if you want unhandled events not to be emitted
-                    fallthrough true
+                ;; Comment this if you want unhandled events not to be emitted
+                fallthrough true
 
-                    ;; Set this to false to disable any command-execution in KMonad
-                    allow-cmd false 
-                  )
-                  ;; Changes:
-                  ;; Swap out Right Alt -> Korean
-                  ;; Swap Meta with Alt
-                  ;; Fucking Apple messing with me
-                  (deflayer korean
-                    esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12        ssrq slck pause
-                    grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc  ins  home pgup  nlck kp/  kp*  kp-
-                    tab  q    w    e    r    t    y    u    i    o    p    [    ]    \     del  end  pgdn  kp7  kp8  kp9  kp+
-                    caps a    s    d    f    g    h    j    k    l    ;    '    ret                        kp4  kp5  kp6
-                    lsft z    x    c    v    b    n    m    ,    .    /    rsft                 up         kp1  kp2  kp3  kprt
-                    lctl lmet lalt           spc         hangeul rmet  cmp  rctl            left down rght  kp0  kp.
-                  )
-                  (defsrc
-                    esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12        ssrq slck pause
-                    grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc  ins  home pgup  nlck kp/  kp*  kp-
-                    tab  q    w    e    r    t    y    u    i    o    p    [    ]    \     del  end  pgdn  kp7  kp8  kp9  kp+
-                    caps a    s    d    f    g    h    j    k    l    ;    '    ret                        kp4  kp5  kp6
-                    lsft z    x    c    v    b    n    m    ,    .    /    rsft                 up         kp1  kp2  kp3  kprt
-                    lctl lalt lmet         spc            rmet ralt cmp  rctl            left down rght  kp0  kp.
-                  )
-                ''
-              else
-                ''
-                  (defcfg
-                    ;; For Linux
-                    input  (device-file "${device}")
-                    output (uinput-sink "KMonad")
-
-                    ;; Comment this if you want unhandled events not to be emitted
-                    fallthrough true
-
-                    ;; Set this to false to disable any command-execution in KMonad
-                    allow-cmd false 
-                  )
-                  (deflayer korean
-                    esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12        ssrq slck pause
-                    grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc  ins  home pgup  nlck kp/  kp*  kp-
-                    tab  q    w    e    r    t    y    u    i    o    p    [    ]    \     del  end  pgdn  kp7  kp8  kp9  kp+
-                    caps a    s    d    f    g    h    j    k    l    ;    '    ret                        kp4  kp5  kp6
-                    lsft z    x    c    v    b    n    m    ,    .    /    rsft                 up         kp1  kp2  kp3  kprt
-                    lctl lmet lalt           spc            hangeul  rmet cmp  rctl            left down rght  kp0  kp.
-                  )
-                  (defsrc
-                    esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12        ssrq slck pause
-                    grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc  ins  home pgup  nlck kp/  kp*  kp-
-                    tab  q    w    e    r    t    y    u    i    o    p    [    ]    \     del  end  pgdn  kp7  kp8  kp9  kp+
-                    caps a    s    d    f    g    h    j    k    l    ;    '    ret                        kp4  kp5  kp6
-                    lsft z    x    c    v    b    n    m    ,    .    /    rsft                 up         kp1  kp2  kp3  kprt
-                    lctl lmet lalt           spc            ralt rmet cmp  rctl            left down rght  kp0  kp.
-                  )
-                '';
+                ;; Set this to false to disable any command-execution in KMonad
+                allow-cmd false
+              )
+            ''
+            + builtins.readFile (if (hostname == "work") then ./kmonad/work.kbd else ./kmonad/default.kbd);
           };
         };
       };
