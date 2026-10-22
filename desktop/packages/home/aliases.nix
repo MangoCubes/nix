@@ -13,7 +13,7 @@ let
         acc
         // {
           "rebuild-${hostname}" =
-            "${reloadSecrets} && NIX_SSHOPTS=-A nixos-rebuild --flake ${config.home.homeDirectory}/Sync/NixConfig#${hostname} --target-host main@${hostname} --sudo switch";
+            "${reloadSecrets} && NIX_SSHOPTS=-A nixos-rebuild --flake ${config.home.homeDirectory}/Sync/NixConfig#${hostname} --target-host main@${hostname} --sudo --diff switch";
         }
       ) { } remotes;
     in

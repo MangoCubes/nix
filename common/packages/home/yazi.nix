@@ -245,6 +245,11 @@ in
                   "compress"
                 ];
           }
+          {
+            mime = "text/org";
+            use = [ "open" ];
+            orphan = true;
+          }
           # Text
           {
             mime = "text/*";
