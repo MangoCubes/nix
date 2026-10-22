@@ -165,6 +165,11 @@ in
                 default = null;
                 description = "VPN key to use with gluetun";
               };
+              uid = lib.mkOption {
+                type = lib.types.nullOr lib.types.ints.unsigned;
+                default = null;
+                description = "User inside the container that owns newly created disk paths";
+              };
             };
           }
         );

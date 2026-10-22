@@ -22,6 +22,7 @@
   daily ? null,
   ip4 ? null,
   vpn ? null,
+  uid ? null,
 }:
 {
   lib,
@@ -167,7 +168,17 @@ in
           mkdir -p $DIR
         fi
       ''}
-      ${lib.optionalString (diskPaths != [ ]) "mkdir -p -- ${lib.escapeShellArgs diskPaths} "}
+      ${lib.optionalString (diskPaths != [ ]) (
+        let
+          fn =
+            if uid == null then
+              p: "mkdir -p ${lib.escapeShellArg p}"
+            else
+              p:
+              "[ -e ${lib.escapeShellArg p} ] || { mkdir -p ${lib.escapeShellArg p} && ${pkgs.rootlesskit}/bin/rootlesskit chown ${toString uid}:${toString uid} ${lib.escapeShellArg p}; }";
+        in
+        lib.concatMapStringsSep "\n" fn diskPaths
+      )}
       ${activation}
     '';
   };

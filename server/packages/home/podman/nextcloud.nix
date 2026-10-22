@@ -36,6 +36,7 @@
       "cloud:/config/www/nextcloud/apps"
       # "${config.home.homeDirectory}/.podman/cloud/remoteip.conf:/etc/apache2/conf-enabled/remoteip.conf:ro"
     ];
+    uid = 1000;
     environment = {
       "PUID" = "1000";
       "PGID" = "1000";
