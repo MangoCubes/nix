@@ -10,15 +10,6 @@
 let
   isServer = config.custom.device.type == "server";
   linktofile = pkgs.writeShellScriptBin "linktofile" ''cat "$@" > "$@-temp" && rm "$@" && mv "$@-temp" "$@"'';
-  pastecp = pkgs.writeShellScriptBin "pastecp" ''
-    OUTPUT=$(wl-paste -t text/uri-list || exit 0)
-    if [ "$(echo "$OUTPUT" | grep -c -v '^file:///' )" -eq 0 ]; then
-      echo "$OUTPUT" | while read -r line; do
-        FILE_PATH="''${line#file://}"
-        cp -r "$FILE_PATH" .
-      done
-    fi
-  '';
   zips = [
     "zip"
     "rar"
@@ -63,7 +54,6 @@ in
   };
   home.packages = [
     linktofile
-    pastecp
   ];
 
   programs.yazi = {
@@ -297,7 +287,7 @@ in
               }
               {
                 on = "P";
-                run = "shell 'pastecp' ";
+                run = ''shell 'wl-paste -t text/uri-list | grep "^file:" | ${pkgs.trurl}/bin/trurl --url-file - --get "{path}" | xargs -r -d "\n" cp -r -t .' '';
               }
               {
                 on = "T";
@@ -325,9 +315,9 @@ in
           {
             on = "y";
             run = [
-              (lib.mkIf (
-                !isServer
-              ) ''shell 'for path in %s; do echo "file://$path"; done | wl-copy -t text/uri-list' --confirm'')
+              (lib.mkIf (!isServer)
+                ''shell 'for f in %s; do ${pkgs.trurl}/bin/trurl --url file:/// --set "path=$f" --get "{url}\r"; done | wl-copy -t text/uri-list' ''
+              )
               "yank"
             ];
           }
