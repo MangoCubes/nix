@@ -2,7 +2,7 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ inputs, ... }:
+{ inputs, pkgs, ... }:
 {
   imports = [
     inputs.secrets.desktop.base
@@ -26,7 +26,10 @@
     ./options.nix
     ../packages/kdeconnect.nix
   ];
-  custom.kdeconnect.enable = true;
+  custom.kdeconnect = {
+    enable = true;
+    commands."Remote Lock" = "${pkgs.systemd}/bin/loginctl lock-session";
+  };
   custom.traefik.enable = true;
   specialisation.presentation.configuration.custom.device.presentation = true;
   powerManagement.enable = true;
