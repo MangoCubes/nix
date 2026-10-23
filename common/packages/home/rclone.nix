@@ -43,7 +43,7 @@ in
             Environment = [ "PATH=${wrapperDir}:$PATH" ];
             ExecStop = "${wrapperDir}/fusermount -u %h/Mounts/${name}";
           };
-          Install.WantedBy = if deviceType == "server" then [ "default.target" ] else [ ];
+          Install.WantedBy = lib.mkIf (deviceType == "server") [ "default.target" ];
         };
       }) cfg.mounts)
       ++ (map (

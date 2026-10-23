@@ -8,6 +8,7 @@
     package = pkgs.gitFull;
     settings = {
       credential.helper = "libsecret";
+      pull.rebase = false;
       user = {
         email = "10383115+MangoCubes@users.noreply.github.com";
         name = "MangoCubes";

@@ -60,85 +60,76 @@ in
     };
     settings = {
       mgr.linemode = "mtime";
-      opener =
-        (
-          if isServer then
-            { }
-          else
+      opener = lib.mkMerge [
+        (lib.mkIf (!isServer) {
+          flake = [
             {
-              flake = [
-                {
-                  run = (
-                    config.custom.terminal.genCmd {
-                      workingDirectory = "%d1";
-                      command = "nix develop";
-                    }
-                  );
-                  for = "unix";
-                  desc = "Nix Flake";
-                  orphan = true;
+              run = (
+                config.custom.terminal.genCmd {
+                  workingDirectory = "%d1";
+                  command = "nix develop";
                 }
-              ];
-              nix = [
-                {
-                  run = (
-                    config.custom.terminal.genCmd {
-                      command = "nix-shell %s1";
-                    }
-                  );
-                  for = "unix";
-                  desc = "Nix Shell";
-                  orphan = true;
-                }
-              ];
-              terminal = [
-                {
-                  run = (config.custom.terminal.genCmd { workingDirectory = "%s1"; });
-                  desc = "Open in terminal";
-                  orphan = true;
-                }
-              ];
-              vlc = [
-                {
-                  run = "vlc %s";
-                  desc = "Open in VLC";
-                  orphan = true;
-                }
-              ];
-              dolphin = [
-                {
-                  run = "dolphin %s";
-                  desc = "Open in Dolphin";
-                  orphan = true;
-                }
-              ];
-              apk = [
-                {
-                  run = "adb install %s1";
-                  desc = "Install Application";
-                  orphan = true;
-                }
-              ];
-              pdf = [
-                {
-                  run = "browser %s";
-                  desc = "Browser";
-                  orphan = true;
-                }
-                {
-                  run = "pdfjam --outfile %s1 --angle 270 --fitpaper true --rotateoversize true %s1";
-                  desc = "Rotate Clockwise";
-                  orphan = true;
-                }
-                {
-                  run = "pdfjam --outfile %s1 --angle 90 --fitpaper true --rotateoversize true %s1";
-                  desc = "Rotate Anticlockwise";
-                  orphan = true;
-                }
-              ];
+              );
+              for = "unix";
+              desc = "Nix Flake";
+              orphan = true;
             }
-        )
-        // {
+          ];
+          nix = [
+            {
+              run = (config.custom.terminal.genCmd { command = "nix-shell %s1"; });
+              for = "unix";
+              desc = "Nix Shell";
+              orphan = true;
+            }
+          ];
+          terminal = [
+            {
+              run = (config.custom.terminal.genCmd { workingDirectory = "%s1"; });
+              desc = "Open in terminal";
+              orphan = true;
+            }
+          ];
+          vlc = [
+            {
+              run = "vlc %s";
+              desc = "Open in VLC";
+              orphan = true;
+            }
+          ];
+          dolphin = [
+            {
+              run = "dolphin %s";
+              desc = "Open in Dolphin";
+              orphan = true;
+            }
+          ];
+          apk = [
+            {
+              run = "adb install %s1";
+              desc = "Install Application";
+              orphan = true;
+            }
+          ];
+          pdf = [
+            {
+              run = "browser %s";
+              desc = "Browser";
+              orphan = true;
+            }
+            {
+              run = "pdfjam --outfile %s1 --angle 270 --fitpaper true --rotateoversize true %s1";
+              desc = "Rotate Clockwise";
+              orphan = true;
+            }
+            {
+              run = "pdfjam --outfile %s1 --angle 90 --fitpaper true --rotateoversize true %s1";
+              desc = "Rotate Anticlockwise";
+              orphan = true;
+            }
+          ];
+        })
+        {
           extract = [
             {
               run = "ouch decompress %s";
@@ -158,64 +149,56 @@ in
               orphan = true;
             }
           ];
-        };
-      open.rules =
-        (
-          if isServer then
-            [ ]
-          else
-            [
-              {
-                url = "*.apk";
-                use = [ "apk" ];
-              }
-              {
-                url = "*.pdf";
-                use = [ "pdf" ];
-              }
-              {
-                url = "*shell.nix";
-                use = [
-                  "edit"
-                  "nix"
-                ];
-              }
-              {
-                url = "*flake.nix";
-                use = [
-                  "edit"
-                  "flake"
-                ];
-              }
-              {
-                url = "*.m3u";
-                use = [
-                  "vlc"
-                  "open"
-                ];
-              }
-              # Media
-              {
-                mime = "{audio,video}/*";
-                use = [ "vlc" ];
-              }
-            ]
-        )
-        ++ [
+        }
+      ];
+      open.rules = lib.mkMerge [
+        (lib.mkIf (!isServer) [
+          {
+            url = "*.apk";
+            use = [ "apk" ];
+          }
+          {
+            url = "*.pdf";
+            use = [ "pdf" ];
+          }
+          {
+            url = "*shell.nix";
+            use = [
+              "edit"
+              "nix"
+            ];
+          }
+          {
+            url = "*flake.nix";
+            use = [
+              "edit"
+              "flake"
+            ];
+          }
+          {
+            url = "*.m3u";
+            use = [
+              "vlc"
+              "open"
+            ];
+          }
+          # Media
+          {
+            mime = "{audio,video}/*";
+            use = [ "vlc" ];
+          }
+        ])
+        [
           {
             mime = "application/{${builtins.concatStringsSep "," zips}}";
-            use = [
-              "extract"
-            ];
+            use = [ "extract" ];
           }
           # Folder
           {
             url = "*/";
             use =
               if isServer then
-                [
-                  "compress"
-                ]
+                [ "compress" ]
               else
                 [
                   "terminal"
@@ -257,45 +240,35 @@ in
               (lib.mkIf (!isServer) "dolphin")
             ];
           }
-        ];
+        ]
+      ];
     };
     keymap = {
-      mgr.prepend_keymap =
-        (
-          if isServer then
-            [ ]
-          else
-            [
-              {
-                on = [
-                  "L"
-                ];
-                run = ''shell --orphan 'dragevac --load-dir "$PWD"' '';
-                desc = "Mouse drag and drop current directory";
-              }
-              {
-                on = "P";
-                run = ''shell 'wl-paste -t text/uri-list | grep "^file:" | ${pkgs.trurl}/bin/trurl --url-file - --get "{path}" | xargs -r -d "\n" cp -r -t .' '';
-              }
-              {
-                on = "T";
-                run = [
-                  "shell ${config.custom.shell.program} --block --confirm"
-                ];
-              }
-              {
-                on = [
-                  "c"
-                  "c"
-                ];
-                run = [
-                  "shell 'cat %s | wl-copy' "
-                ];
-                desc = "Copy file into clipboard";
-              }
-            ]
-        )
-        ++ [
+      mgr.prepend_keymap = lib.mkMerge [
+        (lib.mkIf (!isServer) [
+          {
+            on = [ "L" ];
+            run = ''shell --orphan 'dragevac --load-dir "$PWD"' '';
+            desc = "Mouse drag and drop current directory";
+          }
+          {
+            on = "P";
+            run = ''shell 'wl-paste -t text/uri-list | grep "^file:" | ${pkgs.trurl}/bin/trurl --url-file - --get "{path}" | xargs -r -d "\n" cp -r -t .' '';
+          }
+          {
+            on = "T";
+            run = [ "shell ${config.custom.shell.program} --block --confirm" ];
+          }
+          {
+            on = [
+              "c"
+              "c"
+            ];
+            run = [ "shell 'cat %s | wl-copy' " ];
+            desc = "Copy file into clipboard";
+          }
+        ])
+        [
           {
             on = "M";
             run = "plugin mount";
@@ -346,9 +319,7 @@ in
               "c"
               "p"
             ];
-            run = [
-              "copy path"
-            ];
+            run = [ "copy path" ];
             desc = "Copy path of the file";
           }
           {
@@ -356,9 +327,7 @@ in
               "c"
               "z"
             ];
-            run = [
-              "shell 'ouch compress %s compressed.zip' "
-            ];
+            run = [ "shell 'ouch compress %s compressed.zip' " ];
             desc = "Archive selected files to .zip";
           }
           {
@@ -366,12 +335,11 @@ in
               "c"
               "t"
             ];
-            run = [
-              "shell 'ouch compress %s compressed.tar.gz' "
-            ];
+            run = [ "shell 'ouch compress %s compressed.tar.gz' " ];
             desc = "Archive selected files to .tar.gz";
           }
-        ];
+        ]
+      ];
     };
     plugins =
       let
@@ -392,9 +360,7 @@ in
           sha256 = "sha256-uQO0C00yOFPWq8KEO/kEZM6tFZRc9SiXfgN7kzlwDeA=";
         };
       };
-
     theme = (import ./yazi/theme.nix) { inherit colours; };
-
     initLua = (builtins.readFile ./yazi/bunny.lua);
   };
 }

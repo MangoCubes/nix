@@ -1,6 +1,7 @@
 {
   config,
   inputs,
+  lib,
   ...
 }:
 let
@@ -18,29 +19,26 @@ in
     let
       device = kb."${hostname}";
     in
-    if device == null then
-      { }
-    else
-      {
-        enable = true;
-        keyboards = {
-          myKMonadOutput = {
-            inherit device;
-            config = ''
-              (defcfg
-                ;; For Linux
-                input  (device-file "${device}")
-                output (uinput-sink "KMonad")
+    lib.mkIf (device != null) {
+      enable = true;
+      keyboards = {
+        myKMonadOutput = {
+          inherit device;
+          config = ''
+            (defcfg
+              ;; For Linux
+              input  (device-file "${device}")
+              output (uinput-sink "KMonad")
 
-                ;; Comment this if you want unhandled events not to be emitted
-                fallthrough true
+              ;; Comment this if you want unhandled events not to be emitted
+              fallthrough true
 
-                ;; Set this to false to disable any command-execution in KMonad
-                allow-cmd false
-              )
-            ''
-            + builtins.readFile (if (hostname == "work") then ./kmonad/work.kbd else ./kmonad/default.kbd);
-          };
+              ;; Set this to false to disable any command-execution in KMonad
+              allow-cmd false
+            )
+          ''
+          + builtins.readFile (if (hostname == "work") then ./kmonad/work.kbd else ./kmonad/default.kbd);
         };
       };
+    };
 }

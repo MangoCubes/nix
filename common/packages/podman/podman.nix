@@ -106,46 +106,37 @@ let
     ++ [ "podman.socket" ]
     ++ (lib.optional vpnEnabled "podman-${vpnContainer}.service");
   # We generate Traefik labels for each domain entry
-  traefikLabels =
-    if (domain == null) then
-      { }
-    else
-      (builtins.foldl' (acc: elem: acc // elem) {
-        "traefik.enable" = "true";
-      } (lib.imap1 genRouters domain));
-  dailyBackup =
-    if (daily != null) then
-      {
-        timers."podman-${name}-daily" = {
-          Install.WantedBy = [ "timers.target" ];
-          Timer = {
-            OnBootSec = "6h";
-            OnUnitActiveSec = "6h";
-            Unit = "podman-${name}-daily.service";
-          };
-          Unit.Description = "Timer for podman-${name}-daily.service";
-        };
-        services."podman-${name}-daily" = {
-          Unit.Description = "Backup preparation command for ${name}";
-          Service = {
-            Type = "oneshot";
-            ExecStart =
-              let
-                cmd = pkgs.writeShellScriptBin "${name}-cmd" daily;
-              in
-              "${cmd}/bin/${name}-cmd";
-          };
-        };
-      }
-    else
-      {
-        timers = { };
-        services = { };
+  traefikLabels = lib.mkIf (domain != null) (
+    builtins.foldl' (acc: elem: acc // elem) { "traefik.enable" = "true"; } (
+      lib.imap1 genRouters domain
+    )
+  );
+  dailyBackup = {
+    timers."podman-${name}-daily" = {
+      Install.WantedBy = [ "timers.target" ];
+      Timer = {
+        OnBootSec = "6h";
+        OnUnitActiveSec = "6h";
+        Unit = "podman-${name}-daily.service";
       };
+      Unit.Description = "Timer for podman-${name}-daily.service";
+    };
+    services."podman-${name}-daily" = {
+      Unit.Description = "Backup preparation command for ${name}";
+      Service = {
+        Type = "oneshot";
+        ExecStart =
+          let
+            cmd = pkgs.writeShellScriptBin "${name}-cmd" daily;
+          in
+          "${cmd}/bin/${name}-cmd";
+      };
+    };
+  };
 in
 {
-  timer = dailyBackup.timers;
-  service = dailyBackup.services;
+  timer = lib.mkIf (daily != null) dailyBackup.timers;
+  service = lib.mkIf (daily != null) dailyBackup.services;
   # Automatically create paths for the container
   # Then run other commands specified via [`activation`]
   activation = lib.mkIf (builtins.length volumes != 0 || diskPaths != [ ] || activation != "") {
@@ -215,6 +206,9 @@ in
     # autoUpdate = "registry";
     # If [`needRoot`], container is run as fakeroot (ie current user)
     user = if needRoot then 0 else null;
-    labels = traefikLabels // labels;
+    labels = lib.mkMerge [
+      traefikLabels
+      labels
+    ];
   };
 }
