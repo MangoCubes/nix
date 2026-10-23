@@ -30,7 +30,6 @@
         ../packages/home/dictionary.nix
         # ../packages/home/dconf.nix
         ../packages/home/ghostty.nix
-        ../packages/home/cursor.nix
         ../packages/home/emacs.nix
         ../packages/home/firefox.nix
         ../packages/home/xdg.nix
