@@ -9,7 +9,6 @@
 }:
 let
   isServer = config.custom.device.type == "server";
-  linktofile = pkgs.writeShellScriptBin "linktofile" ''cat "$@" > "$@-temp" && rm "$@" && mv "$@-temp" "$@"'';
   zips = [
     "zip"
     "rar"
@@ -52,10 +51,6 @@ in
       }
       // merged;
   };
-  home.packages = [
-    linktofile
-  ];
-
   programs.yazi = {
     enableZshIntegration = true;
     shellWrapperName = "y";
@@ -146,7 +141,7 @@ in
         // {
           extract = [
             {
-              run = ''for file in %s; do f=''${file##*/}; ouch decompress "$file" -d "./''${f%.*}"; done'';
+              run = "ouch decompress %s";
               desc = "Extract";
               orphan = true;
             }
@@ -161,13 +156,6 @@ in
               run = "ouch compress %s %s1.tar.gz";
               desc = "Compress to .tar.gz";
               orphan = true;
-            }
-          ];
-          edit = [
-            {
-              run = "\${EDITOR:-vi} %s";
-              desc = "$EDITOR";
-              block = true;
             }
           ];
         };
@@ -236,7 +224,7 @@ in
                 ];
           }
           {
-            mime = "text/org";
+            url = "*.org";
             use = [ "open" ];
             orphan = true;
           }
@@ -282,7 +270,7 @@ in
                 on = [
                   "L"
                 ];
-                run = "shell --orphan 'dragevac --load-dir %d1' ";
+                run = ''shell --orphan 'dragevac --load-dir "$PWD"' '';
                 desc = "Mouse drag and drop current directory";
               }
               {
@@ -349,7 +337,7 @@ in
               "L"
             ];
             run = [
-              "shell 'linktofile %s' "
+              ''shell 'for f in %s; do cp --remove-destination -- "$(readlink -f -- "$f")" "$f"; done' ''
             ];
             desc = "Convert a link into a regular file";
           }
@@ -396,10 +384,7 @@ in
       in
       {
         chmod = "${plugins-repo}/chmod.yazi";
-        compress = "${plugins-repo}/compress.yazi";
-        full-border = "${plugins-repo}/full-border.yazi";
-        max-preview = "${plugins-repo}/max-preview.yazi";
-        mounts = "${plugins-repo}/mount.yazi";
+        mount = "${plugins-repo}/mount.yazi";
         bunny = pkgs.fetchFromGitHub {
           owner = "stelcodes";
           repo = "bunny.yazi";
