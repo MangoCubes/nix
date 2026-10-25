@@ -78,6 +78,8 @@
             globalSection."Number of entries" = 30;
             sections.TriggerKey."0" = "Control+Alt+V";
           };
+          xcb.globalSection."Allow Overriding System XKB Settings" = false;
+          xim.globalSection.UseOnTheSpot = true;
           quickphrase.sections.TriggerKey."0" = "Control+Alt+Q";
           unicode.sections = {
             TriggerKey."0" = "Control+Alt+U";
