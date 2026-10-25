@@ -163,12 +163,12 @@ in
         let
           fn =
             if uid == null then
-              p: "mkdir -p ${lib.escapeShellArg p}"
+              p: "mkdir -p ${p}"
             else
               p:
-              "[ -e ${lib.escapeShellArg p} ] || { mkdir -p ${lib.escapeShellArg p} && ${pkgs.rootlesskit}/bin/rootlesskit chown ${toString uid}:${toString uid} ${lib.escapeShellArg p}; }";
+              "[ -e ${p} ] || { mkdir -p ${p} && PATH=/run/wrappers/bin:$PATH ${pkgs.rootlesskit}/bin/rootlesskit chown ${toString uid}:${toString uid} ${p}; }";
         in
-        lib.concatMapStringsSep "\n" fn diskPaths
+        lib.concatMapStringsSep "\n" fn (map lib.escapeShellArg diskPaths)
       )}
       ${activation}
     '';
