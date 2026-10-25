@@ -11,7 +11,7 @@
       imports = [
         ../packages/home/windows.nix
         ../packages/home/mitm-proxy.nix
-        ../packages/home/lutris.nix
+        ../packages/home/games.nix
       ];
       custom.microsoftTeams.enable = true;
       home.packages = [

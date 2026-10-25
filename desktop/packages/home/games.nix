@@ -1,5 +1,7 @@
-{ unfreeUnstable, ... }:
+{ inputs, unfreeUnstable, ... }:
 {
+  imports = [ inputs.secrets.desktop.packages.home.wine-imefix ];
+
   home.packages = (
     with unfreeUnstable;
     [
@@ -7,7 +9,7 @@
         # Intercept buildFHSEnv to modify target packages
         buildFHSEnv =
           args:
-          pkgs.buildFHSEnv (
+          unfreeUnstable.buildFHSEnv (
             args
             // {
               multiPkgs =

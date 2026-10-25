@@ -6,7 +6,7 @@
       imports = [
         ../packages/home/windows.nix
         ../packages/home/ghidra.nix
-        ../packages/home/lutris.nix
+        ../packages/home/games.nix
       ];
       custom.microsoftTeams.enable = true;
       home.packages = [
