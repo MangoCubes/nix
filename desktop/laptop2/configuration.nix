@@ -10,6 +10,7 @@
   ];
   custom.device = {
     type = "laptop";
+    keyboard = "/dev/input/by-path/platform-i8042-serio-0-event-kbd";
     monitors = [
       {
         x = 1920;

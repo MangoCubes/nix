@@ -18,6 +18,10 @@
         type = lib.types.number;
         default = 1;
       };
+      options.keyboard = lib.mkOption {
+        type = lib.types.nullOr lib.types.str;
+        default = null;
+      };
       options.presentation = lib.mkOption {
         type = lib.types.bool;
         default = false;

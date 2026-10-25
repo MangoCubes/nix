@@ -17,6 +17,7 @@
   custom.device = {
     type = "desktop";
     scale = 1.5;
+    keyboard = "/dev/input/by-id/usb-Apple_Inc._Magic_Keyboard_with_Numeric_Keypad_F0T1244011HJKNNAX-if01-event-kbd"; # "/dev/input/by-id/usb-040b_Gaming_Keyboard-event-kbd";
     monitors = [
       {
         x = 3840;
