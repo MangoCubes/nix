@@ -14,7 +14,7 @@
     ./services.nix
     ./boot.nix
     ./sound.nix
-    ../packages/kmonad.nix
+    ../packages/kanata.nix
     ../packages/bluetooth.nix
     ../packages/fonts.nix
     ../packages/greeter.nix

@@ -5,6 +5,15 @@
     enable = true;
   };
   services.printing.enable = true;
+  # Swap Alt and Meta on the Apple keyboard
+  # I: Bus=0003 Vendor=05ac Product=026c Version=0110
+  services.udev.extraHwdb = ''
+    evdev:input:b0003v05ACp026C*
+     KEYBOARD_KEY_700e2=leftmeta
+     KEYBOARD_KEY_700e3=leftalt
+     KEYBOARD_KEY_700e6=rightmeta
+     KEYBOARD_KEY_700e7=rightalt
+  '';
   custom.device = {
     type = "desktop";
     scale = 1.5;

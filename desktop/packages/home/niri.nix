@@ -59,7 +59,7 @@ let
   input = toKDL {
     input = {
       keyboard = {
-        xkb._props = { };
+        xkb.options = "korean:ralt_hangul";
         repeat-delay = 200;
         repeat-rate = 50;
         numlock._props = { };

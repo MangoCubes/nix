@@ -33,7 +33,6 @@
       inputs.nixpkgs.follows = "unstablePkg";
     };
     ags.url = "github:aylur/ags";
-    kmonad.url = "github:kmonad/kmonad?dir=nix";
     grub2-themes.url = "github:vinceliuice/grub2-themes";
     sops-nix.url = "github:Mic92/sops-nix";
     # Notice that the path starts with path:
