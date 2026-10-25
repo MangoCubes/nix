@@ -7,6 +7,7 @@
     ./networking.nix
     ../packages/avahi.nix
     ../packages/wireshark.nix
+    ../packages/games.nix
   ];
   custom.device = {
     type = "laptop";

@@ -9,6 +9,7 @@
     ../packages/wireshark.nix
     ../packages/nvidia.nix
     ../packages/sunshine.nix
+    ../packages/games.nix
     ./networking.nix
   ];
   custom = {

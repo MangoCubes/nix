@@ -39,6 +39,7 @@
     # This flake is stored in ./secrets
     secrets.url = "path:/home/main/Sync/NixConfig/secrets";
     yazi.url = "github:sxyazi/yazi";
+    steam-config-nix.url = "github:different-name/steam-config-nix";
     niri = {
       url = "git+https://git.int/main/niri";
       inputs.nixpkgs.follows = "unstablePkg";
