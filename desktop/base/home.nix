@@ -10,8 +10,6 @@
       ...
     }:
     {
-      dconf.settings."org/gnome/desktop/interface".icon-theme = "breeze-dark";
-
       custom.rclone.sftp = [
         "server-home"
         "server-main"
@@ -44,7 +42,6 @@
         ../packages/home/ags.nix
         ../packages/home/dragevac.nix
         ../packages/home/qagenda.nix
-        ../packages/home/kde.nix
         ../packages/home/korean.nix
         ../packages/home/mitm-proxy.nix
         ../packages/home/wlr-which-key.nix
@@ -69,7 +66,6 @@
       };
       home.packages = lib.mkMerge [
         (with unstable; [
-          kdiff3
           libreoffice-qt
           wl-clipboard
           adwaita-icon-theme

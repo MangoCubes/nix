@@ -21,7 +21,6 @@
       ++ (with unstable; [
         ungoogled-chromium
         libpcap
-        kdePackages.kdenlive
         pwntools
         jadx
         mitmproxy

@@ -25,6 +25,7 @@
     ../packages/tablet.nix
     ./options.nix
     ../packages/kdeconnect.nix
+    ../packages/kde.nix
   ];
   custom.kdeconnect = {
     enable = true;
