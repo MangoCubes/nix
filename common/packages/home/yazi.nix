@@ -156,6 +156,12 @@ in
               orphan = true;
             }
           ];
+          directory = [
+            {
+              run = "[ ! -s %s1 ] && rm -- %s1 && mkdir -- %s1";
+              desc = "Convert into directory";
+            }
+          ];
         }
       ];
       open.rules = lib.mkMerge [
@@ -240,7 +246,10 @@ in
           # Empty file
           {
             mime = "inode/empty";
-            use = [ "edit" ];
+            use = [
+              "edit"
+              "directory"
+            ];
           }
           # Fallback
           {
