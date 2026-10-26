@@ -284,12 +284,12 @@ in
           }
           {
             on = "`";
-            run = "plugin bunny";
+            run = "plugin whoosh jump_by_key";
             desc = "Jump to a bookmark";
           }
           {
             on = "'";
-            run = "plugin bunny fuzzy";
+            run = "plugin whoosh jump_by_fzf";
             desc = "Jump to a bookmark by fzf";
           }
           {
@@ -353,14 +353,14 @@ in
       {
         chmod = "${plugins-repo}/chmod.yazi";
         mount = "${plugins-repo}/mount.yazi";
-        bunny = pkgs.fetchFromGitHub {
-          owner = "stelcodes";
-          repo = "bunny.yazi";
-          rev = "main";
-          sha256 = "sha256-uQO0C00yOFPWq8KEO/kEZM6tFZRc9SiXfgN7kzlwDeA=";
+        whoosh = pkgs.fetchFromGitHub {
+          owner = "WhoSowSee";
+          repo = "whoosh.yazi";
+          rev = "d6ede9895a0e14b1bb1d65cd0eb783f92f2fc522";
+          sha256 = "sha256-LwugSeuG3+PmPW9KFvRThqx+g792CmUnw+vY6wSZJoo=";
         };
       };
     theme = (import ./yazi/theme.nix) { inherit colours; };
-    initLua = (builtins.readFile ./yazi/bunny.lua);
+    initLua = (builtins.readFile ./yazi/whoosh.lua);
   };
 }
