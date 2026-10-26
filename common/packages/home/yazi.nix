@@ -104,6 +104,13 @@ in
               orphan = true;
             }
           ];
+          sops = [
+            {
+              run = "sops %s1";
+              desc = "Edit decrypted";
+              block = true;
+            }
+          ];
           apk = [
             {
               run = "adb install %s1";
@@ -153,6 +160,10 @@ in
       ];
       open.rules = lib.mkMerge [
         (lib.mkIf (!isServer) [
+          {
+            url = "*.enc.*";
+            use = [ "sops" ];
+          }
           {
             url = "*.apk";
             use = [ "apk" ];
