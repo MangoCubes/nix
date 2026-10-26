@@ -1,9 +1,5 @@
-{ inputs, unfreeUnstable, ... }:
+{ inputs, ... }:
 {
-  virtualisation.vmware.host = {
-    package = unfreeUnstable.vmware-workstation;
-    enable = true;
-  };
   services.printing.enable = true;
   # Swap Alt and Meta on the Apple keyboard
   # I: Bus=0003 Vendor=05ac Product=026c Version=0110

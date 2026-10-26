@@ -13,7 +13,10 @@
     ./networking.nix
   ];
   custom = {
-    android.enable = true;
+    android = {
+      androidStudio = true;
+      enable = true;
+    };
     tablet.enable = true;
     device = {
       type = "desktop";
