@@ -91,24 +91,6 @@ in
         "\"browser:rofi-browser\""
       ];
     };
-    "Ctrl+F11" = {
-      _props = {
-        cooldown-ms = 100;
-      };
-      spawn._args = [
-        "wlr-which-key"
-        "auto"
-      ];
-    };
-    "F11" = {
-      _props = {
-        cooldown-ms = 100;
-      };
-      spawn._args = [
-        "wlr-which-key"
-        "auto"
-      ];
-    };
     "Mod+Shift+C" = {
       spawn._args = [
         "wlr-which-key"

@@ -47,18 +47,16 @@ in
     pkgs.xclip
   ];
 
-  xdg.configFile =
-    lib.mergeAttrsList (
-      builtins.map loadFile [
-        "action"
-        "media"
-        "niri"
-        "browser"
-        "soundboard"
-        "dragevac"
-        "advrun"
-        "restart"
-      ]
-    )
-    // (genFile "auto" inputs.secrets.desktop.packages.home.wlr-which-key.auto);
+  xdg.configFile = lib.mergeAttrsList (
+    builtins.map loadFile [
+      "action"
+      "media"
+      "niri"
+      "browser"
+      "soundboard"
+      "dragevac"
+      "advrun"
+      "restart"
+    ]
+  );
 }
