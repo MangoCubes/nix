@@ -1,4 +1,10 @@
-{ inputs, ... }:
+{
+  inputs,
+  config,
+  username,
+  lib,
+  ...
+}:
 {
   programs.fuse = {
     userAllowOther = true;
@@ -16,4 +22,12 @@
     ../packages/podman/mitmproxy-wg.nix
     ./home.nix
   ];
+  networking.firewall.interfaces.${config.services.netbird.clients.personal.interface}.allowedTCPPorts =
+    [
+      (lib.toInt
+        config.home-manager.users."${
+          username
+        }".custom.podman.containers.gitea.environment.GITEA__server__SSH_PORT
+      )
+    ];
 }

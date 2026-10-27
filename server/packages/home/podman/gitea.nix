@@ -3,6 +3,9 @@
   config,
   ...
 }:
+let
+  sshPort = "2222";
+in
 {
   imports = [ inputs.secrets.server-main.home.gitea ];
   custom.podman.containers.gitea = {
@@ -20,7 +23,10 @@
       "GITEA__server__DOMAIN" = "git.int";
       "GITEA__server__SSH_DOMAIN" = "git.int";
       "GITEA__server__ROOT_URL" = "https://git.int";
+      "GITEA__server__SSH_PORT" = sshPort;
+      "GITEA__server__SSH_LISTEN_PORT" = "22";
     };
+    ports = [ "${sshPort}:22" ];
     domain = [
       {
         url = "git.int";
