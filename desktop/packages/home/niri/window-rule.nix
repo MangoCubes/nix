@@ -74,7 +74,6 @@
       match._props = {
         app-id = "scrcpy";
       };
-      block-out-from = "screen-capture";
       default-column-width._props = { };
     };
   }

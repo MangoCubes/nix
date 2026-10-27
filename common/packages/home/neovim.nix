@@ -18,6 +18,7 @@
         clang-tools
         libxml2
         typescript-language-server
+        vscode-langservers-extracted
       ]
     ))
   ];
