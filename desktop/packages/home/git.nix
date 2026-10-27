@@ -1,7 +1,18 @@
 { pkgs, ... }:
 {
-  programs.lazygit.enableZshIntegration = true;
-  home.packages = [ pkgs.lazygit ];
+  programs.lazygit = {
+    enable = true;
+    enableZshIntegration = true;
+    settings.customCommands = [
+      {
+        key = "<c-a>";
+        context = "files";
+        command = "git commit --amend --no-edit --no-verify";
+        description = "Amend last commit without hooks";
+        loadingText = "Amending...";
+      }
+    ];
+  };
   programs.git = {
     signing.format = "openpgp";
     enable = true;
