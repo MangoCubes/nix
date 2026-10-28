@@ -83,6 +83,13 @@ in
               orphan = true;
             }
           ];
+          detach = [
+            {
+              run = "xdg-open %s";
+              desc = "Open detached";
+              orphan = true;
+            }
+          ];
           terminal = [
             {
               run = (config.custom.terminal.genCmd { workingDirectory = "%s1"; });
@@ -225,8 +232,7 @@ in
           }
           {
             url = "*.org";
-            use = [ "open" ];
-            orphan = true;
+            use = [ "detach" ];
           }
           # Text
           {
