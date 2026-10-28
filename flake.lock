@@ -289,15 +289,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1792685825,
-        "narHash": "sha256-Nlgv5i5gbHNZzd7yZmQfK9Hd21OugO+Ta2iY9ElGZI4=",
-        "ref": "refs/heads/main",
-        "rev": "5fa6b97571de28c52ee8fcd8240b2e9a4c95b572",
-        "revCount": 2948,
+        "lastModified": 1793152131,
+        "narHash": "sha256-Ao6cI7JBdHV03FHeHdXqPieXy+R2ZEv0TTkfwKeBzYE=",
+        "ref": "main",
+        "rev": "2c5ab617d66f40c7c60af5b0a17f760c4ba24f22",
+        "revCount": 2949,
         "type": "git",
         "url": "https://git.int/main/niri"
       },
       "original": {
+        "ref": "main",
         "type": "git",
         "url": "https://git.int/main/niri"
       }
@@ -331,11 +332,11 @@
         "rust-overlay": "rust-overlay_4"
       },
       "locked": {
-        "lastModified": 1792768697,
-        "narHash": "sha256-fNnUQVHypOga2BBH0EZUz6JqvPmsawJwVVg4bt0HGJI=",
+        "lastModified": 1793152207,
+        "narHash": "sha256-FM/Mrt8Cgtar35dyF7eqTB0QOsN6d3Zguxd065NLujw=",
         "ref": "glow",
-        "rev": "196d222439f849c86fafea985de669733f96d64f",
-        "revCount": 20,
+        "rev": "b970aa5f3caf867eb7ad5a68465e6d3b75d9f355",
+        "revCount": 21,
         "type": "git",
         "url": "https://git.int/main/niri-cursor"
       },
@@ -758,8 +759,8 @@
         "sops-nix": "sops-nix"
       },
       "locked": {
-        "lastModified": 1793114514,
-        "narHash": "sha256-OijI2NE4j7h/uUzAMB2ytG749irWAQbgo9GRQwgzON4=",
+        "lastModified": 1793158982,
+        "narHash": "sha256-OHLSHq8KQMpnqz9E7Ga9GOoNM+tEQf5PEf3IvlcdO6U=",
         "path": "/home/main/Sync/NixConfig/secrets",
         "type": "path"
       },

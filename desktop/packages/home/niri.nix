@@ -238,7 +238,10 @@ let
   recent-windows = toKDL ((import ./niri/recent-windows.nix) { inherit colours; });
   # cursor = lib.hm.generators.toKDL { } { cursor.plugin = "${./niri/cursor.lua}"; };
   cursor = toKDL {
-    cursor.plugin = "${cursorPlugin}/lib/libniri_cursor_plugin.so";
+    cursor = {
+      plugin = "${cursorPlugin}/lib/libniri_cursor_plugin.so";
+      hide-when-typing._props = { };
+    };
   };
   binds = toKDL ((import ./niri/binds.nix) { inherit config inputs pkgs; });
   clipboard = toKDL {

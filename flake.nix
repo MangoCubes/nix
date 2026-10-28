@@ -41,7 +41,7 @@
     yazi.url = "github:sxyazi/yazi";
     steam-config-nix.url = "github:different-name/steam-config-nix";
     niri = {
-      url = "git+https://git.int/main/niri";
+      url = "git+https://git.int/main/niri?ref=main";
       inputs.nixpkgs.follows = "unstablePkg";
     };
     niri-cursor = {
