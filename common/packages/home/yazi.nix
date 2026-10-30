@@ -288,10 +288,18 @@ in
           {
             on = [
               "c"
-              "c"
+              "<C-c>"
             ];
             run = [ "shell 'cat %s | wl-copy' " ];
-            desc = "Copy file into clipboard";
+            desc = "Copy entire file content to clipboard";
+          }
+          {
+            on = [
+              "c"
+              "r"
+            ];
+            run = [ ''shell 'for f in %s; do realpath -s --relative-to=. -- "$f"; done | wl-copy -n' '' ];
+            desc = "Copy relative path";
           }
         ])
         [
@@ -339,14 +347,6 @@ in
               ''shell 'for f in %s; do cp --remove-destination -- "$(readlink -f -- "$f")" "$f"; done' ''
             ];
             desc = "Convert a link into a regular file";
-          }
-          {
-            on = [
-              "c"
-              "p"
-            ];
-            run = [ "copy path" ];
-            desc = "Copy path of the file";
           }
           {
             on = [

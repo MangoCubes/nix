@@ -289,11 +289,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1793152131,
-        "narHash": "sha256-Ao6cI7JBdHV03FHeHdXqPieXy+R2ZEv0TTkfwKeBzYE=",
+        "lastModified": 1793323014,
+        "narHash": "sha256-4ulaT7Z40dCWPzWG1dX6mwfWttPumYxaoxLfi+d6+O4=",
         "ref": "main",
-        "rev": "2c5ab617d66f40c7c60af5b0a17f760c4ba24f22",
-        "revCount": 2949,
+        "rev": "091c2b2594d86997a6dea817d7f0908ca6ac068b",
+        "revCount": 2950,
         "type": "git",
         "url": "https://git.int/main/niri"
       },
@@ -759,8 +759,8 @@
         "sops-nix": "sops-nix"
       },
       "locked": {
-        "lastModified": 1793203093,
-        "narHash": "sha256-lPj2wLDNSMKu0pSPEAJzzOeMAnbIrnYf5MpPKdYYyuI=",
+        "lastModified": 1793323043,
+        "narHash": "sha256-6LtQeB+RDVnawW2l4VUZ1CkmoUW7OePoIEnvZa/fRfQ=",
         "path": "/home/main/Sync/NixConfig/secrets",
         "type": "path"
       },
