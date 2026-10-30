@@ -8,7 +8,7 @@ let
       workingDirectory ? null,
       ...
     }:
-    (if detached then [ "e" ] else [ "n" ])
+    (if detached then [ "n" ] else [ ])
     ++ [ "ghostty" ]
     ++ (if workingDirectory == null then [ ] else [ "--working-directory=${workingDirectory}" ])
     ++ (if title == null then [ ] else [ "--title=${title}" ])

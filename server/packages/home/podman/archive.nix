@@ -25,7 +25,7 @@
       environmentFile = [ config.sops.secrets.archive.path ];
       volumes = [
         "cache:/cache"
-        "${config.home.homeDirectory}/Mounts/Drive/Archive/Video:/youtube"
+        "${config.home.homeDirectory}/Mounts/drive/Archive/Video:/youtube"
       ];
     };
     archive-redis = {

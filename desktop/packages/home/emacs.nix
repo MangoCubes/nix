@@ -54,6 +54,7 @@ in
 {
   # Short for Emacs Server
   home.packages = [
+    pkgs.mermaid-cli
     loademacs
     emacs-org
     emacs-web
