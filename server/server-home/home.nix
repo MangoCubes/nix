@@ -5,6 +5,7 @@
     {
       imports = [
         ../packages/home/podman/archive.nix
+        ../packages/home/podman/android.nix
       ];
     };
 }
