@@ -17,10 +17,8 @@
         })
         ../packages/home/podman/phpmyadmin.nix
         ../packages/home/podman/atuin.nix
-        ../packages/home/podman/postgresql.nix
         ../packages/home/podman/gitea.nix
         ../packages/home/podman/website.nix
-        ../packages/home/podman/pgadmin.nix
         ../packages/home/podman/immich.nix
         ../packages/home/podman/calibre.nix
         ../packages/home/podman/redis.nix
