@@ -11,7 +11,6 @@ lib.mkMerge (
         {
           imports = [
             ./packages/home/zsh.nix
-            ./packages/home/scripts.nix
             ./packages/home/tmux.nix
           ];
         };

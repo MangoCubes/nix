@@ -21,8 +21,9 @@ bootloader=false
 # Use boot instead of switch
 boot_mode=false
 
-repo="$HOME/Sync/NixConfig"
-flake="git+file://$repo"
+flake="git+file://$HOME/Sync/NixConfig"
+
+export GIT_SSH_COMMAND="ssh -i @keyLocation@ -o IdentitiesOnly=yes -p 2222 -l git"
 
 if [[ $1 == *"b"* ]]; then
     boot_mode=true

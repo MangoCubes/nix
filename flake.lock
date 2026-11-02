@@ -251,11 +251,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1792818371,
-        "narHash": "sha256-yhEZAzZRNvzYpoAlyFY3wM75V9BmkIXJIueof8S5gOg=",
+        "lastModified": 1793193205,
+        "narHash": "sha256-X6xa6sGA7RnJQuZGbFMC+K+KToWAlBDCCjJXfTwEPsw=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "2cd3234928f60bbff695a7ee56115ef7799c47cd",
+        "rev": "095fef2f265c3c0da4fe315efba8f8a04495ab34",
         "type": "github"
       },
       "original": {
@@ -295,12 +295,12 @@
         "rev": "091c2b2594d86997a6dea817d7f0908ca6ac068b",
         "revCount": 2950,
         "type": "git",
-        "url": "https://git.int/main/niri"
+        "url": "ssh://git.int/main/niri"
       },
       "original": {
         "ref": "main",
         "type": "git",
-        "url": "https://git.int/main/niri"
+        "url": "ssh://git.int/main/niri"
       }
     },
     "niri-adv-rules": {
@@ -338,12 +338,12 @@
         "rev": "b970aa5f3caf867eb7ad5a68465e6d3b75d9f355",
         "revCount": 21,
         "type": "git",
-        "url": "https://git.int/main/niri-cursor"
+        "url": "ssh://git.int/main/niri-cursor"
       },
       "original": {
         "ref": "glow",
         "type": "git",
-        "url": "https://git.int/main/niri-cursor"
+        "url": "ssh://git.int/main/niri-cursor"
       }
     },
     "nixpkgs": {
@@ -444,11 +444,11 @@
     },
     "nixpkgs_15": {
       "locked": {
-        "lastModified": 1792898606,
-        "narHash": "sha256-Mg3rRjsbMqhSMxop5PYMXos8SwAjejrxSgVThTvP9eg=",
+        "lastModified": 1792295010,
+        "narHash": "sha256-F7meJtbqGttmUoMmYjRRgkVs42sn7bh7vvRvLPlUN98=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "1f607aa79b6356ed45d3cd3c8079c196e79efa2c",
+        "rev": "8ce73368d1efd4d657e9064d29b144a52046b4e8",
         "type": "github"
       },
       "original": {
@@ -540,11 +540,11 @@
     },
     "nixpkgs_6": {
       "locked": {
-        "lastModified": 1792832518,
-        "narHash": "sha256-mdAQK+dqSkV2YeaTQ6VjUpU3Y30I0MoEVCoMX3toLdc=",
+        "lastModified": 1793604008,
+        "narHash": "sha256-Q614L2XinFJS+rMcbYPMZ127Wy/LTpN9x8TmKgVt9Zo=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "b669121333cc979d62b16f625397ce196081ed9e",
+        "rev": "c8f910f453661002c12d48742ea120552ee266c3",
         "type": "github"
       },
       "original": {
@@ -780,7 +780,7 @@
         "sops-nix": "sops-nix"
       },
       "locked": {
-        "lastModified": 1793598978,
+        "lastModified": 1793604469,
         "narHash": "sha256-c6nLd9eCU7dhzUZAlhy4rQ9PwiWA9lJO4r+egfU+Xj0=",
         "path": "/home/main/Sync/NixConfig/secrets",
         "type": "path"
@@ -813,11 +813,11 @@
         "nixpkgs": "nixpkgs_14"
       },
       "locked": {
-        "lastModified": 1792809984,
-        "narHash": "sha256-KV+CaZX7QS0hcdKxwGKehDb1jmUgx6lbkTPpaoIW5Nw=",
+        "lastModified": 1793052255,
+        "narHash": "sha256-Y/JIHTnMlOabDfyaSBubWGLDIVGihLEUuoMhFvQKaDo=",
         "owner": "Mic92",
         "repo": "sops-nix",
-        "rev": "442449fa7b1fe6c692d0103ac9fc8f9e82931cf3",
+        "rev": "60182817ee048ac94b4c68ea76d5ef2e8aac730d",
         "type": "github"
       },
       "original": {
@@ -953,11 +953,11 @@
     },
     "unstablePkg": {
       "locked": {
-        "lastModified": 1792502884,
-        "narHash": "sha256-IoNisKcGbUjdd45qCqywGMCYmZ5EnkxezvLII0FWwNA=",
+        "lastModified": 1793341285,
+        "narHash": "sha256-Y1CiZ4SoBUjLQyQM/pY+rS2dXD3CHLPstF0lmOc73D4=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "02c087f3fe673c9e317f206a627cb6b910336dbe",
+        "rev": "1c89083e451e891152365b799595cf7790a43325",
         "type": "github"
       },
       "original": {
@@ -974,11 +974,11 @@
         "rust-overlay": "rust-overlay_7"
       },
       "locked": {
-        "lastModified": 1792730142,
-        "narHash": "sha256-j8WhDW2kjCiTu+nrfLBGUDmARbNet4wa6UeMEqtlOdM=",
+        "lastModified": 1793604553,
+        "narHash": "sha256-e8DRbTwwLC1xv8sKY8es0YbysnLE8iOUjB0F3K8wMlk=",
         "owner": "sxyazi",
         "repo": "yazi",
-        "rev": "40a91421893bfd1ae02ef7a55afd41f886558d8c",
+        "rev": "c9c535c835f96bb6cc399a14137fc93383682de5",
         "type": "github"
       },
       "original": {
