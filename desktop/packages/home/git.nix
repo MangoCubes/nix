@@ -3,6 +3,7 @@
   programs.lazygit = {
     enable = true;
     enableZshIntegration = true;
+    settings.git.ignoreWhitespaceInDiffView = true;
     settings.customCommands = [
       {
         key = "<c-a>";

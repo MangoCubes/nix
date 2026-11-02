@@ -27,6 +27,7 @@ in
   custom.podman.containers.windows = {
     autoStart = false;
     image = "ghcr.io/dockur/windows:latest";
+    network = lib.mkForce [ ];
     volumes = [
       "${config.home.homeDirectory}/Windows/storage:/storage"
       "${config.home.homeDirectory}/Windows/data:/data"
