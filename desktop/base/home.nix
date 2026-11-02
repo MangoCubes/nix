@@ -52,6 +52,7 @@
         ../packages/home/ampterm.nix
         ../packages/home/ssh.nix
         ../packages/home/matrix.nix
+        ../packages/home/rust.nix
       ];
       xdg = {
         # Some programs create entries in ~/.config/autostart/, and it doesn't get deleted when the program is removed

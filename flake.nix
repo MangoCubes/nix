@@ -39,6 +39,10 @@
     # This flake is stored in ./secrets
     secrets.url = "path:/home/main/Sync/NixConfig/secrets";
     yazi.url = "github:sxyazi/yazi";
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs.nixpkgs.follows = "unstablePkg";
+    };
     steam-config-nix.url = "github:different-name/steam-config-nix";
     niri = {
       url = "git+https://git.int/main/niri?ref=main";

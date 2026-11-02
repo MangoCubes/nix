@@ -635,6 +635,7 @@
         "niri-adv-rules": "niri-adv-rules",
         "niri-cursor": "niri-cursor",
         "qagenda": "qagenda",
+        "rust-overlay": "rust-overlay_6",
         "secrets": "secrets",
         "sops-nix": "sops-nix_2",
         "steam-config-nix": "steam-config-nix",
@@ -735,6 +736,26 @@
     "rust-overlay_6": {
       "inputs": {
         "nixpkgs": [
+          "unstablePkg"
+        ]
+      },
+      "locked": {
+        "lastModified": 1793523538,
+        "narHash": "sha256-vHPjEGxtV+StSLW9DJpa3c3gt0UD0s1q4nC98AZ0N0c=",
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "rev": "c85ccd343087c57da6021cafa1647142ad03e32e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "type": "github"
+      }
+    },
+    "rust-overlay_7": {
+      "inputs": {
+        "nixpkgs": [
           "yazi",
           "nixpkgs"
         ]
@@ -759,8 +780,8 @@
         "sops-nix": "sops-nix"
       },
       "locked": {
-        "lastModified": 1793347706,
-        "narHash": "sha256-JW+GdBMgb2VfyfQl1VLDrK3Aghbza1Uz3gZ7CeeE/js=",
+        "lastModified": 1793598978,
+        "narHash": "sha256-c6nLd9eCU7dhzUZAlhy4rQ9PwiWA9lJO4r+egfU+Xj0=",
         "path": "/home/main/Sync/NixConfig/secrets",
         "type": "path"
       },
@@ -950,7 +971,7 @@
       "inputs": {
         "flake-utils": "flake-utils_6",
         "nixpkgs": "nixpkgs_16",
-        "rust-overlay": "rust-overlay_6"
+        "rust-overlay": "rust-overlay_7"
       },
       "locked": {
         "lastModified": 1792730142,
