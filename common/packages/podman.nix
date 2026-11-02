@@ -28,7 +28,9 @@ in
         podman-watcher = pkgs.callPackage ./podman/podman-watcher.nix { };
         mkContainer = c: (import ./podman/podman.nix c) { inherit lib config pkgs; };
         containerConfigs = builtins.attrValues (
-          builtins.mapAttrs (name: c: mkContainer (c // { inherit name; })) config.custom.podman.containers
+          builtins.mapAttrs (
+            name: c: mkContainer (builtins.removeAttrs c [ "postgresql" ] // { inherit name; })
+          ) config.custom.podman.containers
         );
         # Name of VPNs to use
         vpnKeys = lib.unique (
@@ -54,13 +56,39 @@ in
             environmentFile = [ config.sops.secrets."gluetun-${vpn}".path ];
           }
         ) vpnKeys;
+        databases = lib.filterAttrs (_: c: c.postgresql != null) config.custom.podman.containers;
+        postgresqlConfigs = lib.mapAttrsToList (
+          name: c:
+          let
+            path = "${config.home.homeDirectory}/.podman/postgres-${name}";
+          in
+          mkContainer {
+            name = "postgresql-${name}";
+            dependsOn = null;
+            image = c.postgresql.image;
+            disk.persistOnly = [
+              "postgres-${name}/scripts"
+              "postgres-${name}/data"
+            ];
+            volumes = [
+              "${path}/data:/var/lib/postgresql/data"
+              "${path}/scripts:/var/lib/postgresql/scripts"
+            ];
+            environment = {
+              DB_USERNAME = name;
+              DB_DATABASE_NAME = "${name}-db";
+            };
+            environmentFile = [ c.postgresql.secretEnvPath ];
+          }
+        ) databases;
         # All container configs in a form of list
-        allConfigs = containerConfigs ++ vpnConfigs;
+        allConfigs = containerConfigs ++ vpnConfigs ++ postgresqlConfigs;
         mergeAll = key: lib.mkMerge (builtins.catAttrs key allConfigs);
         # List of all container services
         services = builtins.map (name: "podman-${name}.service") (
           (builtins.attrNames config.custom.podman.containers)
           ++ (builtins.map (vpn: "gluetun-${vpn}") vpnKeys)
+          ++ (builtins.map (name: "postgresql-${name}") (builtins.attrNames databases))
         );
         podmanStatus = pkgs.writeShellScriptBin "podman-status" ''
           ${podman-watcher}/bin/podman-watcher ${builtins.concatStringsSep " " services}

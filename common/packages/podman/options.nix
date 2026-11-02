@@ -170,6 +170,22 @@ in
                 default = null;
                 description = "User inside the container that owns newly created disk paths";
               };
+              postgresql = lib.mkOption {
+                type = lib.types.nullOr (
+                  lib.types.submodule {
+                    options = {
+                      image = lib.mkOption {
+                        type = lib.types.str;
+                      };
+                      secretEnvPath = lib.mkOption {
+                        type = lib.types.str;
+                      };
+                    };
+                  }
+                );
+                default = null;
+                description = "PostgreSQL container to create alongside, named postgresql-<name>";
+              };
             };
           }
         );
