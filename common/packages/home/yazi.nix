@@ -282,6 +282,10 @@ in
             run = ''shell 'wl-paste -t text/uri-list | grep "^file:" | ${pkgs.trurl}/bin/trurl --url-file - --get "{path}" | xargs -r -d "\n" cp -r -t .' '';
           }
           {
+            on = "<C-g>";
+            run = [ "shell lazygit --block --confirm" ];
+          }
+          {
             on = "T";
             run = [ "shell ${config.custom.shell.program} --block --confirm" ];
           }

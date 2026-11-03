@@ -11,6 +11,13 @@
         command = "git commit --amend --no-edit --no-verify";
         description = "Amend last commit without hooks";
         loadingText = "Amending...";
+        prompts = [
+          {
+            type = "confirm";
+            title = "Amend last commit";
+            body = "Amend the last commit with the staged changes, skipping hooks?";
+          }
+        ];
       }
     ];
   };
