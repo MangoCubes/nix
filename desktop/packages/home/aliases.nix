@@ -7,7 +7,6 @@ let
   aliases =
     let
       reloadSecrets = "nix flake update secrets --flake ${config.home.homeDirectory}/Sync/NixConfig";
-      remotes = inputs.secrets.servers;
       cmds = builtins.foldl' (
         acc: hostname:
         acc
@@ -15,7 +14,7 @@ let
           "rebuild-${hostname}" =
             "${reloadSecrets} && NIX_SSHOPTS=-A nixos-rebuild --flake ${config.home.homeDirectory}/Sync/NixConfig#${hostname} --target-host main@${hostname} --sudo --diff switch";
         }
-      ) { } remotes;
+      ) { } (builtins.attrNames inputs.self.nixosConfigurations);
     in
     {
       # Bunch of commands I seem to use a lot
