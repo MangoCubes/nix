@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 [
   {
-    key = "e";
+    key = "t";
     desc = "󱓥 Edit Clipboard";
     cmd = (
       config.custom.terminal.genCmd {
@@ -46,24 +46,84 @@
     cmd = "wl-paste | ${pkgs.jq}/bin/jq | wl-copy";
   }
   {
+    key = "e";
+    desc = "Encode";
+    submenu = [
+      {
+        key = "h";
+        desc = "󱊧 Hex Encode";
+        cmd = "wl-paste | xxd -p | tr -d '\n' | wl-copy";
+      }
+      {
+        key = "6";
+        desc = "󰻠 Base64 Encode";
+        cmd = "wl-paste | base64 -w 0 | wl-copy";
+      }
+    ];
+  }
+  {
+    key = "d";
+    desc = "Decode";
+    submenu =
+      let
+        decode = cmd: ''
+          if err=$(wl-paste | { ${cmd}; } 2>&1 >/dev/null); then
+            wl-paste | { ${cmd}; } | wl-copy
+          else
+            ${pkgs.libnotify}/bin/notify-send "Decoding failed" "$err"
+          fi
+        '';
+        force = cmd: "wl-paste | { ${cmd}; } 2>/dev/null | wl-copy";
+        hex = "sed -E 's/0[xX]|\\x//g' | tr -cd '0-9a-fA-F' | xxd -r -p";
+        base64 = "base64 -d -i";
+      in
+      [
+        {
+          key = "h";
+          desc = "󱊧 Hex Decode";
+          cmd = (decode hex);
+        }
+        {
+          key = "H";
+          desc = "󱊧 Force Hex Decode";
+          cmd = (force hex);
+        }
+        {
+          key = "6";
+          desc = "󰻠 Base64 Decode";
+          cmd = (decode base64);
+        }
+        {
+          key = "^";
+          desc = "󰻠 Force Base64 Decode";
+          cmd = (force "tr -cd 'A-Za-z0-9+/' | ${base64}");
+        }
+      ];
+  }
+  {
     key = "h";
-    desc = "󱊧 Hex Decode";
-    cmd = "wl-paste | sed -E 's/0[xX]|\\x//g' | tr -cd '0-9a-fA-F' | xxd -r -p | wl-copy";
-  }
-  {
-    key = "H";
-    desc = "󱊧 Hex Encode";
-    cmd = "wl-paste | xxd -p | tr -d '\n' | wl-copy";
-  }
-  {
-    key = "6";
-    desc = "󰻠 Base64 Decode";
-    cmd = "wl-paste | base64 -d -i | wl-copy";
-  }
-  {
-    key = "^";
-    desc = "󰻠 Base64 Encode";
-    cmd = "wl-paste | base64 -w 0 | wl-copy";
+    desc = "Hash";
+    submenu =
+      let
+        hash = algo: "wl-paste -n | ${algo}sum | cut -d' ' -f1 | tr -d '\n' | wl-copy";
+      in
+      [
+        {
+          key = "2";
+          desc = "SHA256";
+          cmd = (hash "sha256");
+        }
+        {
+          key = "5";
+          desc = "SHA512";
+          cmd = (hash "sha512");
+        }
+        {
+          key = "m";
+          desc = "MD5";
+          cmd = (hash "md5");
+        }
+      ];
   }
   {
     key = "i";
