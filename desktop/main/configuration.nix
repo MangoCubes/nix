@@ -14,7 +14,6 @@
   ];
   custom = {
     android = {
-      androidStudio = true;
       enable = true;
     };
     tablet.enable = true;

@@ -67,7 +67,6 @@
       };
       home.packages = lib.mkMerge [
         (with unstable; [
-          libreoffice-qt
           wl-clipboard
           adwaita-icon-theme
           vlc
