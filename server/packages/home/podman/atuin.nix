@@ -10,7 +10,6 @@
       image = "postgres:17";
       secretEnvPath = config.sops.secrets.atuin-db.path;
     };
-    dependsOn = [ "postgresql-atuin" ];
     image = "ghcr.io/atuinsh/atuin:latest";
     domain = [
       {

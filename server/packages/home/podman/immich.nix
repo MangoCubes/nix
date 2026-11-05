@@ -14,10 +14,7 @@
       "immich/data"
       "immich/backups"
     ];
-    dependsOn = [
-      "redis"
-      "postgresql-immich"
-    ];
+    dependsOn = [ "redis" ];
     image = "ghcr.io/immich-app/immich-server:release";
     volumes = [
       "${config.home.homeDirectory}/.podman/immich/data:/data"

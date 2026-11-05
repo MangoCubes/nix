@@ -28,9 +28,7 @@ in
         podman-watcher = pkgs.callPackage ./podman/podman-watcher.nix { };
         mkContainer = c: (import ./podman/podman.nix c) { inherit lib config pkgs; };
         containerConfigs = builtins.attrValues (
-          builtins.mapAttrs (
-            name: c: mkContainer (builtins.removeAttrs c [ "postgresql" ] // { inherit name; })
-          ) config.custom.podman.containers
+          builtins.mapAttrs (name: c: mkContainer (c // { inherit name; })) config.custom.podman.containers
         );
         # Name of VPNs to use
         vpnKeys = lib.unique (

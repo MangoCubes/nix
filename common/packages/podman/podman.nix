@@ -23,6 +23,7 @@
   ip4 ? null,
   vpn ? null,
   uid ? null,
+  postgresql ? null,
 }:
 {
   lib,
@@ -105,6 +106,7 @@ let
     (lib.optionals (dependsOn != null) (builtins.map (e: "podman-${e}.service") dependsOn))
     ++ [ "podman.socket" ]
     ++ (lib.optional vpnEnabled "podman-${vpnContainer}.service");
+  dbDeps = lib.optional (postgresql != null) "podman-postgresql-${name}.service";
   # We generate Traefik labels for each domain entry
   traefikLabels = lib.mkIf (domain != null) (
     builtins.foldl' (acc: elem: acc // elem) { "traefik.enable" = "true"; } (
@@ -199,8 +201,9 @@ in
       Quadlet.DefaultDependencies = false;
       # Start dependencies first, but don't make container's restart and stops spread to other containers
       Unit = {
-        After = deps;
+        After = deps ++ dbDeps;
         Wants = deps;
+        Requires = dbDeps;
       };
     };
     # autoUpdate = "registry";
