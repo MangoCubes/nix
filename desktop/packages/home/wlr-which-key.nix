@@ -50,6 +50,7 @@ in
   xdg.configFile = lib.mergeAttrsList (
     builtins.map loadFile [
       "action"
+      "clipboard"
       "media"
       "niri"
       "browser"

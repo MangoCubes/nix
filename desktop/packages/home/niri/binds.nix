@@ -91,10 +91,10 @@ in
         "\"browser:rofi-browser\""
       ];
     };
-    "Mod+Shift+C" = {
+    "Mod+C" = {
       spawn._args = [
         "wlr-which-key"
-        "dragevac"
+        "clipboard"
       ];
     };
     "Mod+Shift+S" = {
@@ -124,11 +124,14 @@ in
     "Mod+Shift+Slash" = {
       show-hotkey-overlay._props = { };
     };
+    "Mod+Shift+L" = {
+      spawn._args = [
+        "wlr-which-key"
+        "dragevac"
+      ];
+    };
     "Mod+L" = {
       spawn = "lock-desktop";
-      _props = {
-        allow-when-locked = true;
-      };
     };
     "Mod+O" = {
       focus-window-previous._props = { };
@@ -347,7 +350,7 @@ in
     "Mod+Ctrl+F" = {
       expand-column-to-available-width._props = { };
     };
-    "Mod+C" = {
+    "Mod+Shift+C" = {
       center-column._props = { };
     };
     "Mod+Minus" = {
