@@ -345,6 +345,22 @@ in
           {
             on = [
               "c"
+              "f"
+            ];
+            run = "copy name_without_ext";
+            desc = "Copy filename without extension";
+          }
+          {
+            on = [
+              "c"
+              "F"
+            ];
+            run = "copy filename";
+            desc = "Copy filename with extension";
+          }
+          {
+            on = [
+              "c"
               "L"
             ];
             run = [

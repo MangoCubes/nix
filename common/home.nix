@@ -30,7 +30,7 @@
           ./packages/home/neovim.nix
           ./packages/home/scripts.nix
         ];
-        custom.keys.gitea = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPJ9m2s/tdx27U3vGRk6BH06qd0y47oqi2dCuozzGKug gitea@skew.ch";
+        custom.keys.gitea = "${pkgs.writeText "gitea.pub" "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPJ9m2s/tdx27U3vGRk6BH06qd0y47oqi2dCuozzGKug gitea@skew.ch"}";
         custom.device = osConfig.custom.device;
         custom.rclone.mounts = [
           "koofr"

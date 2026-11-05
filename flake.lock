@@ -22,11 +22,11 @@
     "agsWidget": {
       "flake": false,
       "locked": {
-        "lastModified": 1791733513,
-        "narHash": "sha256-S6PfnChhjMX8KHUxe39UYG83wi5cK+kBlamA4Hh3N2M=",
+        "lastModified": 1793843967,
+        "narHash": "sha256-4WURCvKCyj0MDdVYzM3192WN44uPXEhPxi3/s/sG4I0=",
         "owner": "MangoCubes",
         "repo": "ags-widget",
-        "rev": "0a8d3dfe72e8e6444586497d57120e1c9f12e429",
+        "rev": "005b9a9d378e08898f1d371816c8045d6219cf2c",
         "type": "github"
       },
       "original": {
@@ -780,8 +780,8 @@
         "sops-nix": "sops-nix"
       },
       "locked": {
-        "lastModified": 1793721950,
-        "narHash": "sha256-O5qWISYtTBVOSkuWCHkLVvGjS9JgMOYOCQ44BqT2zgM=",
+        "lastModified": 1793843492,
+        "narHash": "sha256-TYWF6ZBeiAde3nKfVtUmwohuM0QGNextur6qKGA1OTI=",
         "path": "/home/main/Sync/NixConfig/secrets",
         "type": "path"
       },
