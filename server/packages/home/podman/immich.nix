@@ -14,7 +14,8 @@
       "immich/data"
       "immich/backups"
     ];
-    dependsOn = [ "redis" ];
+    redis = true;
+    environment.REDIS_HOSTNAME = "redis-immich";
     image = "ghcr.io/immich-app/immich-server:release";
     volumes = [
       "${config.home.homeDirectory}/.podman/immich/data:/data"

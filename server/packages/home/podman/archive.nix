@@ -2,10 +2,8 @@
 {
   custom.podman.containers = {
     archive = {
-      dependsOn = [
-        "archive-es"
-        "archive-redis"
-      ];
+      dependsOn = [ "archive-es" ];
+      redis = true;
       image = "bbilly1/tubearchivist";
       domain = [
         {
@@ -15,7 +13,7 @@
       ];
       environment = {
         "ES_URL" = "http://archive-es:9200";
-        "REDIS_CON" = "redis://archive-redis:6379";
+        "REDIS_CON" = "redis://redis-archive:6379";
         "HOST_UID" = "1000";
         "HOST_GID" = "1000";
         "TA_HOST" = "https://yt.int";
@@ -27,9 +25,6 @@
         "cache:/cache"
         "${config.home.homeDirectory}/Mounts/drive/Archive/Video:/youtube"
       ];
-    };
-    archive-redis = {
-      image = "redis";
     };
     # UID: 1000
     archive-es = {

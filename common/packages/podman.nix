@@ -79,14 +79,22 @@ in
             environmentFile = [ c.postgresql.secretEnvPath ];
           }
         ) databases;
+        redisConfigs = lib.mapAttrsToList (
+          name: c:
+          mkContainer {
+            name = "redis-${name}";
+            dependsOn = null;
+            image = "docker.io/library/redis:alpine";
+            disk.persistOnly = [ "redis/${name}" ];
+            volumes = [ "${config.home.homeDirectory}/.podman/redis/${name}:/data" ];
+          }
+        ) (lib.filterAttrs (_: c: c.redis) config.custom.podman.containers);
         # All container configs in a form of list
-        allConfigs = containerConfigs ++ vpnConfigs ++ postgresqlConfigs;
+        allConfigs = containerConfigs ++ vpnConfigs ++ postgresqlConfigs ++ redisConfigs;
         mergeAll = key: lib.mkMerge (builtins.catAttrs key allConfigs);
         # List of all container services
         services = builtins.map (name: "podman-${name}.service") (
-          (builtins.attrNames config.custom.podman.containers)
-          ++ (builtins.map (vpn: "gluetun-${vpn}") vpnKeys)
-          ++ (builtins.map (name: "postgresql-${name}") (builtins.attrNames databases))
+          builtins.concatMap (c: builtins.attrNames c.container) allConfigs
         );
         podmanStatus = pkgs.writeShellScriptBin "podman-status" ''
           ${podman-watcher}/bin/podman-watcher ${builtins.concatStringsSep " " services}

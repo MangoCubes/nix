@@ -22,10 +22,8 @@
       ];
     };
     matrix-hookshot = {
-      dependsOn = [
-        "matrix"
-        "redis"
-      ];
+      dependsOn = [ "matrix" ];
+      redis = true;
       image = "halfshot/matrix-hookshot:latest";
       disk.persistOnly = [ "matrix-hookshot" ];
       domain = [

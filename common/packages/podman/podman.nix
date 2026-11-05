@@ -24,6 +24,7 @@
   vpn ? null,
   uid ? null,
   postgresql ? null,
+  redis ? false,
 }:
 {
   lib,
@@ -106,7 +107,9 @@ let
     (lib.optionals (dependsOn != null) (builtins.map (e: "podman-${e}.service") dependsOn))
     ++ [ "podman.socket" ]
     ++ (lib.optional vpnEnabled "podman-${vpnContainer}.service");
-  dbDeps = lib.optional (postgresql != null) "podman-postgresql-${name}.service";
+  dbDeps = builtins.map (db: "podman-${db}-${name}.service") (
+    (lib.optional (postgresql != null) "postgresql") ++ (lib.optional redis "redis")
+  );
   # We generate Traefik labels for each domain entry
   traefikLabels = lib.mkIf (domain != null) (
     builtins.foldl' (acc: elem: acc // elem) { "traefik.enable" = "true"; } (

@@ -37,7 +37,7 @@ listeners:
 cache:
   # (Optional) Cache options for large scale deployments. 
   #    For encryption to work, this must be configured.
-  redisUri: redis://redis:6379
+  redisUri: redis://redis-matrix-hookshot:6379
 
 encryption:
   # (Optional) Configuration for encryption support in the bridge.

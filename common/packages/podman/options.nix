@@ -186,6 +186,11 @@ in
                 default = null;
                 description = "PostgreSQL container to create alongside, named postgresql-<name>";
               };
+              redis = lib.mkOption {
+                type = lib.types.bool;
+                default = false;
+                description = "Redis container to create alongside, named redis-<name>";
+              };
             };
           }
         );
