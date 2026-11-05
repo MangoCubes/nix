@@ -39,7 +39,10 @@
     };
     mas = {
       image = "ghcr.io/element-hq/matrix-authentication-service:latest";
-      disk.persistOnly = [ "matrix" ];
+      postgresql = {
+        image = "postgres:17";
+        secretEnvPath = config.sops.secrets.mas-db.path;
+      };
       domain = [
         {
           url = "auth.skew.ch";
@@ -57,6 +60,10 @@
     };
     matrix = {
       image = "ghcr.io/element-hq/synapse";
+      postgresql = {
+        image = "postgres:17";
+        secretEnvPath = config.sops.secrets.matrix-db.path;
+      };
       disk.persistOnly = [ "matrix" ];
       volumes = [
         "${config.home.homeDirectory}/.podman/matrix:/data"
