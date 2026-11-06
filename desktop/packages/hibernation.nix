@@ -16,8 +16,6 @@ in
 
   config = lib.mkMerge [
     (lib.mkIf cfg.enable {
-      boot.initrd.systemd.enable = true;
-
       services.logind.settings.Login.HandleLidSwitch = lib.mkIf (
         config.custom.device.type == "laptop"
       ) "hibernate";
