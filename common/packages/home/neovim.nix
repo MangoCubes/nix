@@ -34,6 +34,7 @@ in
     (with unstable; [
       nil
       fd
+      tree-sitter
     ])
     (lib.mkIf (config.custom.device.type == "desktop" || config.custom.device.type == "laptop") (
       with unstable;
