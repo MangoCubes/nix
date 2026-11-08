@@ -407,6 +407,18 @@ in
         };
       };
     theme = (import ./yazi/theme.nix) { inherit colours; };
-    initLua = (builtins.readFile ./yazi/whoosh.lua);
+    initLua = ''
+      require("whoosh"):setup(${
+        lib.generators.toLua { } {
+          bookmarks = lib.mapAttrsToList (tag: bookmark: {
+            inherit tag;
+            inherit (bookmark) path;
+            key = if builtins.length bookmark.keys == 1 then builtins.head bookmark.keys else bookmark.keys;
+          }) config.custom.bookmarks;
+          jump_notify = true;
+          bookmarks_path = "${config.custom.bookmarks."Local state".path}/yazi/whoosh-bookmarks";
+        }
+      })
+    '';
   };
 }

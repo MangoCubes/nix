@@ -57,7 +57,7 @@ in
       "new"
     ];
     hooks.postNew = ''
-      ${pkgs.notmuch}/bin/notmuch search --format json tag:new and tag:unread \
+      ${pkgs.notmuch}/bin/notmuch search --format json 'tag:new and tag:unread and not folder:"${config.accounts.email.accounts.personal.maildir.path}/Junk E-Mail"' \
         | ${pkgs.jq}/bin/jq -r '.[] | "New email from \"\(.authors)\"\n\(.subject)"' \
         | while IFS= read -r title && IFS= read -r body; do
           ${pkgs.libnotify}/bin/notify-send "$title" "$body";

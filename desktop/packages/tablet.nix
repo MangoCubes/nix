@@ -21,7 +21,7 @@ in
       }:
       {
         xdg.configFile."OpenTabletDriver/settings.json".source =
-          config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Sync/GeneralConfig/Tablet/Normal.json";
+          config.lib.file.mkOutOfStoreSymlink "${config.custom.bookmarks.GeneralConfig.path}/Tablet/Normal.json";
       };
 
   };

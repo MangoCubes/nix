@@ -120,7 +120,7 @@ lib.mkMerge [
     "browser.bookmarks.addedImportButton" = lock-false;
 
     # Ensure download directory never changes
-    "browser.download.dir" = "${config.home.homeDirectory}/Downloads";
+    "browser.download.dir" = "${config.custom.bookmarks.Downloads.path}";
   }
   (lib.mkIf resetOnClose {
     "privacy.clearOnShutdown_v2.cache" = lock-true;

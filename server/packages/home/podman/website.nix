@@ -36,7 +36,7 @@ let
 in
 {
   custom.web."" = {
-    content = "${config.home.homeDirectory}/Sync/Website/public_html";
+    content = "${config.custom.bookmarks.Sync.path}/Website/public_html";
     index = "index.html";
   };
   imports = [

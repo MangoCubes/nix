@@ -10,11 +10,11 @@
     {
       dconf.settings."org/gnome/desktop/interface".icon-theme = "breeze-dark";
       xdg.configFile."kdeglobals".source =
-        config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Sync/LinuxConfig/kde/kdeglobals";
+        config.lib.file.mkOutOfStoreSymlink "${config.custom.bookmarks.LinuxConfig.path}/kde/kdeglobals";
       xdg.configFile."dolphinrc".source =
-        config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Sync/LinuxConfig/kde/dolphinrc";
+        config.lib.file.mkOutOfStoreSymlink "${config.custom.bookmarks.LinuxConfig.path}/kde/dolphinrc";
       xdg.configFile."Kvantum".source =
-        config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Sync/LinuxConfig/kde/Kvantum";
+        config.lib.file.mkOutOfStoreSymlink "${config.custom.bookmarks.LinuxConfig.path}/kde/Kvantum";
       home.packages =
         (with unstable.kdePackages; [
           dolphin

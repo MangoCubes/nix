@@ -57,7 +57,7 @@ in
         (config.custom.terminal.genCmdList {
           command = "nvim";
         })
-        ++ [ "${config.home.homeDirectory}/Sync/Notes/Org/Main.org" ];
+        ++ [ "${config.custom.bookmarks.Notes.path}/Org/Main.org" ];
     };
     "Mod+Shift+W" = {
       focus-workspace = "windows";

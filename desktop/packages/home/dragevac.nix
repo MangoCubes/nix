@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ inputs, config, ... }:
 {
   imports = [ inputs.dragevac.homeManager.default ];
   programs.dragevac = {
@@ -16,7 +16,7 @@
           command = [
             "mv"
             "%ITEMS"
-            "%HOME/Sync/QuickSecure"
+            "${config.custom.bookmarks.QuickSecure.path}"
           ];
           concat = " ";
           accept = [ "text/uri-list" ];
@@ -28,7 +28,7 @@
           command = [
             "mv"
             "%ITEMS"
-            "%HOME/Downloads/"
+            "${config.custom.bookmarks.Downloads.path}"
           ];
           concat = " ";
           accept = [ "text/uri-list" ];

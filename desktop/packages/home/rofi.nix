@@ -42,7 +42,7 @@
   xdg.dataFile = {
     "rofi/themes/custom.rasi".enable = lib.mkForce false;
     "rofi".source =
-      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Sync/LinuxConfig/rofi";
+      config.lib.file.mkOutOfStoreSymlink "${config.custom.bookmarks.LinuxConfig.path}/rofi";
   };
 
   xdg.configFile."rofi/themes/custom.rasi".text = config.xdg.dataFile."rofi/themes/custom.rasi".text;

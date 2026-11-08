@@ -16,7 +16,7 @@ in
     desc = " Tablet Driver";
     submenu =
       let
-        load = name: "otd loadsettings ${config.home.homeDirectory}/Sync/GeneralConfig/Tablet/${name}.json";
+        load = name: "otd loadsettings ${config.custom.bookmarks.GeneralConfig.path}/Tablet/${name}.json";
       in
       [
         {

@@ -20,21 +20,21 @@ in
     key = "d";
     desc = "󰃶 Create/Open Daily Note";
     cmd = config.custom.terminal.genCmd {
-      command = "nvim ${config.home.homeDirectory}/Sync/Notes/Org/Daily/$(date +%F).org";
+      command = "nvim ${config.custom.bookmarks.Notes.path}/Org/Daily/$(date +%F).org";
     };
   }
   {
     key = "b";
     desc = "󰖟 Open Blog Editor";
     cmd = config.custom.terminal.genCmd {
-      command = "nvim ${config.home.homeDirectory}/Sync/Website/src/org/index.org";
+      command = "nvim ${config.custom.bookmarks.Sync.path}/Website/src/org/index.org";
     };
   }
   {
     key = "h";
     desc = "󱅙 Edit Android Home Note";
     cmd = config.custom.terminal.genCmd {
-      command = "nvim ${config.home.homeDirectory}/Sync/Notes/MD/Android.md";
+      command = "nvim ${config.custom.bookmarks.Notes.path}/MD/Android.md";
     };
   }
   {

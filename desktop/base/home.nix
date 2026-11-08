@@ -18,9 +18,9 @@
         "main"
       ];
       home.activation.dirs = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-        mkdir -p ${config.home.homeDirectory}/Temp
-        mkdir -p ${config.home.homeDirectory}/LocalDocuments
-        mkdir -p ${config.home.homeDirectory}/Downloads
+        mkdir -p ${config.custom.bookmarks.Temp.path}
+        mkdir -p "${config.custom.bookmarks."Local Documents".path}"
+        mkdir -p ${config.custom.bookmarks.Downloads.path}
       '';
       imports = [
         ./home-options.nix

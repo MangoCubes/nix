@@ -67,7 +67,7 @@ in
   };
   xdg = {
     configFile."nvim".source =
-      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Sync/GeneralConfig/Neovim";
+      config.lib.file.mkOutOfStoreSymlink "${config.custom.bookmarks.GeneralConfig.path}/Neovim";
     dataFile."nvim/undo/.keep".text = "";
     mimeApps.defaultApplications."text/plain" = "nvim.desktop";
   };

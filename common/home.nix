@@ -24,6 +24,7 @@
           ./packages/home/rclone.nix
           ./packages/home/atuin.nix
           ./home-options.nix
+          ./bookmarks.nix
           ./options.nix
           ./packages/home/yazi.nix
           ./packages/home/syncthing.nix

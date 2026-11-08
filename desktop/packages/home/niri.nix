@@ -149,7 +149,7 @@ let
     (builtins.map spawnAtStartup [
       [
         "keepassxc"
-        "~/Sync/Passwords/Passwords.kdbx"
+        "${config.custom.bookmarks.Passwords.path}/Passwords.kdbx"
       ]
       [ "niri-adv-rules" ]
       [ "xwayland-satellite" ]
@@ -176,7 +176,7 @@ let
         ];
       }
       { prefer-no-csd._props = { }; }
-      { screenshot-path = "~/Sync/QuickSecure/Pictures/Screenshot from %Y-%m-%d %H-%M-%S.png"; }
+      { screenshot-path = "${config.custom.bookmarks.QuickSecure.path}/Pictures/Screenshot from %Y-%m-%d %H-%M-%S.png"; }
     ]
     ++ lib.optionals multiMonitors [
       (spawnAtStartup [

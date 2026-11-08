@@ -23,7 +23,7 @@
       environmentFile = [ config.sops.secrets.archive.path ];
       volumes = [
         "cache:/cache"
-        "${config.home.homeDirectory}/Mounts/drive/Archive/Video:/youtube"
+        "${config.custom.bookmarks.Mounts.path}/drive/Archive/Video:/youtube"
       ];
     };
     # UID: 1000

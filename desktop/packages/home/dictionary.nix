@@ -3,5 +3,5 @@
   home.packages = [
     pkgs.hunspell
   ];
-  home.sessionVariables.DICPATH = "${config.home.homeDirectory}/Sync/LinuxConfig/Dictionary";
+  home.sessionVariables.DICPATH = "${config.custom.bookmarks.LinuxConfig.path}/Dictionary";
 }

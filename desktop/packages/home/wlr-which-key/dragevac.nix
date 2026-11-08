@@ -1,4 +1,4 @@
-{ ... }:
+{ config, ... }:
 [
   {
     key = "d";
@@ -7,12 +7,12 @@
       {
         key = "d";
         desc = "Downloads";
-        cmd = "dragevac --load-dir ~/Downloads/";
+        cmd = "dragevac --load-dir ${config.custom.bookmarks.Downloads.path}";
       }
       {
         key = "k";
         desc = "Keys";
-        cmd = "dragevac --load-dir ~/Mounts/Secrets";
+        cmd = "dragevac --load-dir ${config.custom.bookmarks.Secrets.path}";
       }
     ];
   }

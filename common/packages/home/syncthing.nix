@@ -6,7 +6,7 @@
   ...
 }:
 let
-  syncPath = "${config.home.homeDirectory}/Sync";
+  syncPath = config.custom.bookmarks.Sync.path;
   st-clear = pkgs.writeShellScriptBin "st-clear" (builtins.readFile ./syncthing/st-clear.sh);
   st-reset-database = pkgs.writeShellScriptBin "st-reset-database" ''
     syncthing debug reset-database;
