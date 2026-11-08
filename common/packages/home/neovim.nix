@@ -39,6 +39,7 @@ in
     (lib.mkIf (config.custom.device.type == "desktop" || config.custom.device.type == "laptop") (
       with unstable;
       [
+        w3m
         lua-language-server
         pyright
         clang-tools
