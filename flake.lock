@@ -295,12 +295,12 @@
         "rev": "091c2b2594d86997a6dea817d7f0908ca6ac068b",
         "revCount": 2950,
         "type": "git",
-        "url": "ssh://git.int/main/niri"
+        "url": "ssh://git@git.int:2222/main/niri.git"
       },
       "original": {
         "ref": "main",
         "type": "git",
-        "url": "ssh://git.int/main/niri"
+        "url": "ssh://git@git.int:2222/main/niri.git"
       }
     },
     "niri-adv-rules": {
@@ -338,12 +338,12 @@
         "rev": "b970aa5f3caf867eb7ad5a68465e6d3b75d9f355",
         "revCount": 21,
         "type": "git",
-        "url": "ssh://git.int/main/niri-cursor"
+        "url": "ssh://git@git.int:2222/main/niri-cursor"
       },
       "original": {
         "ref": "glow",
         "type": "git",
-        "url": "ssh://git.int/main/niri-cursor"
+        "url": "ssh://git@git.int:2222/main/niri-cursor"
       }
     },
     "nixpkgs": {
@@ -780,7 +780,7 @@
         "sops-nix": "sops-nix"
       },
       "locked": {
-        "lastModified": 1793947830,
+        "lastModified": 1793949560,
         "narHash": "sha256-r5SVsnfTyNthF6gGZfKj/csF7VNHiWroM7P6T7zLZ9k=",
         "path": "/home/main/Sync/NixConfig/secrets",
         "type": "path"

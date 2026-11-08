@@ -24,6 +24,7 @@ boot_mode=false
 flake="git+file://$HOME/Sync/NixConfig"
 
 # echo "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPJ9m2s/tdx27U3vGRk6BH06qd0y47oqi2dCuozzGKug gitea@skew.ch" > /home/main/Temp/pub.key
+# chmod 600 /home/main/Temp/pub.key
 # export GIT_SSH_COMMAND="ssh -i /home/main/Temp/pub.key -o IdentitiesOnly=yes -p 2222 -l git"
 # rebuild s
 export GIT_SSH_COMMAND="ssh -i @keyLocation@ -o IdentitiesOnly=yes -p 2222 -l git"

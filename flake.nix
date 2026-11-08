@@ -45,11 +45,11 @@
     };
     steam-config-nix.url = "github:different-name/steam-config-nix";
     niri = {
-      url = "git+ssh://git.int/main/niri?ref=main";
+      url = "git+ssh://git@git.int:2222/main/niri.git?ref=main";
       inputs.nixpkgs.follows = "unstablePkg";
     };
     niri-cursor = {
-      url = "git+ssh://git.int/main/niri-cursor?ref=glow";
+      url = "git+ssh://git@git.int:2222/main/niri-cursor?ref=glow";
       inputs.nixpkgs.follows = "unstablePkg";
     };
   };
