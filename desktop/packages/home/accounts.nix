@@ -66,4 +66,10 @@ in
     '';
     enable = true;
   };
+  programs.neovim.extraWrapperArgs = [
+    "--suffix"
+    "LD_LIBRARY_PATH"
+    ":"
+    "${lib.makeLibraryPath [ pkgs.notmuch ]}"
+  ];
 }

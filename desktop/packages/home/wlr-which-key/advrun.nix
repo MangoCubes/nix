@@ -14,22 +14,28 @@ in
   {
     key = "m";
     desc = " View Mail";
-    cmd = "emacs-mail";
+    cmd = config.custom.terminal.genCmd { command = "nvim -c 'NmSearch tag:inbox'"; };
   }
   {
     key = "d";
-    desc = "󰃶 Create/Open Emacs Daily";
-    cmd = "emacs-daily";
+    desc = "󰃶 Create/Open Daily Note";
+    cmd = config.custom.terminal.genCmd {
+      command = "nvim ${config.home.homeDirectory}/Sync/Notes/Org/Daily/$(date +%F).org";
+    };
   }
   {
     key = "b";
     desc = "󰖟 Open Blog Editor";
-    cmd = "emacs-web";
+    cmd = config.custom.terminal.genCmd {
+      command = "nvim ${config.home.homeDirectory}/Sync/Website/src/org/index.org";
+    };
   }
   {
     key = "h";
     desc = "󱅙 Edit Android Home Note";
-    cmd = config.custom.terminal.genCmd { command = "nvim ~/Sync/Notes/MD/Android.md"; };
+    cmd = config.custom.terminal.genCmd {
+      command = "nvim ${config.home.homeDirectory}/Sync/Notes/MD/Android.md";
+    };
   }
   {
     key = "a";
@@ -39,7 +45,7 @@ in
   {
     key = "M";
     desc = " Send email";
-    cmd = "emacs-mailto";
+    cmd = config.custom.terminal.genCmd { command = "nvim-mailto"; };
   }
 ]
 ++ lib.optionals config.custom.windows [

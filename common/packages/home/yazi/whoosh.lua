@@ -17,7 +17,6 @@ require("whoosh"):setup({
 		{ key = "n",          path = "~/Sync/Notes",                                  tag = "~/Sync/Notes" },
 
 		{ key = { "s", "s" }, path = "~/Sync",                                        tag = "~/Sync" },
-		{ key = { "s", "e" }, path = "~/Sync/EmacsConfig",                            tag = "~/Sync/EmacsConfig" },
 		{ key = { "s", "g" }, path = "~/Sync/GeneralConfig",                          tag = "~/Sync/GeneralConfig" },
 		{ key = { "s", "l" }, path = "~/Sync/LinuxConfig",                            tag = "~/Sync/LinuxConfig" },
 		{ key = { "s", "n" }, path = "~/Sync/NixConfig",                              tag = "~/Sync/NixConfig" },

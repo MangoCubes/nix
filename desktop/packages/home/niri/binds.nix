@@ -53,7 +53,11 @@ in
       );
     };
     "Mod+Shift+O" = {
-      spawn = "emacs-org";
+      spawn._args =
+        (config.custom.terminal.genCmdList {
+          command = "nvim";
+        })
+        ++ [ "${config.home.homeDirectory}/Sync/Notes/Org/Main.org" ];
     };
     "Mod+Shift+W" = {
       focus-workspace = "windows";

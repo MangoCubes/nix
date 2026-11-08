@@ -1,9 +1,34 @@
 {
   config,
   lib,
+  pkgs,
   unstable,
   ...
 }:
+let
+  # Note to self:
+  # If I am searching for a package because of an error "File `stuff.sty' not found", go to https://ctan.org/search and search for the package that contains that sty
+  tex = (
+    pkgs.texliveMedium.withPackages (
+      ps: with ps; [
+        dvisvgm
+        dvipng # for preview and export as html
+        wrapfig
+        amsmath
+        ulem
+        hyperref
+        capt-of
+        collection-langkorean
+        environ
+        sttools
+        breakurl
+        tabularray
+        ninecolors
+        listings
+      ]
+    )
+  );
+in
 {
   home.packages = lib.mkMerge [
     (with unstable; [
@@ -20,6 +45,14 @@
         typescript-language-server
         vscode-langservers-extracted
       ]
+      ++ (with pkgs; [
+        mermaid-cli
+        imagemagick
+        # Necessary for exporting an .org document as .odt
+        zip
+        unzip
+        tex
+      ])
     ))
   ];
   programs.neovim = {

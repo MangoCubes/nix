@@ -160,7 +160,6 @@ let
         "focus-workspace"
         "one"
       ]
-      [ "loademacs" ]
     ])
     ++ [
       {
@@ -276,6 +275,7 @@ in
   ]
   ++ (with pkgs; [
     playerctl
+    xwayland-satellite
   ])
   ++ [
     inputs.niri.packages.${pkgs.stdenv.hostPlatform.system}.default

@@ -10,10 +10,6 @@
           "vm"
         ];
       };
-      options.emacsScale = lib.mkOption {
-        type = lib.types.number;
-        default = 1;
-      };
       options.scale = lib.mkOption {
         type = lib.types.number;
         default = 1;
