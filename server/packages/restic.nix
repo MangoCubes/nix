@@ -57,6 +57,7 @@ in
       ];
     };
   };
+  systemd.services.restic-backups-backblaze.after = [ "home-manager-${username}.service" ];
   security.wrappers.restic = {
     source = lib.getExe pkgs.restic;
     owner = "restic";

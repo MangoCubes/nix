@@ -36,6 +36,28 @@ let
   diskPaths = builtins.map (path: "${config.home.homeDirectory}/.podman/${path}") (
     (disk.persistOnly or [ ]) ++ (disk.persistBackup or [ ])
   );
+  defaultPaths = builtins.map (path: "${config.home.homeDirectory}/.podman/${path}") (
+    lib.optionals (volumes != [ ]) [
+      "mounts/${name}"
+      "logs/${name}"
+      "shared/backups"
+      name
+    ]
+  );
+  rootless = lib.optionalString (
+    uid != null
+  ) "PATH=/run/wrappers/bin:$PATH ${pkgs.rootlesskit}/bin/rootlesskit";
+  mkDiskPaths = builtins.concatStringsSep "\n" (
+    builtins.map (p: "${rootless} mkdir -p ${lib.escapeShellArg p}") (diskPaths ++ defaultPaths)
+    ++ lib.optionals (uid != null) (
+      builtins.map (
+        p: "${rootless} chown ${toString uid}:${toString uid} ${lib.escapeShellArg p}"
+      ) diskPaths
+    )
+  );
+  mkDiskPathsScript = lib.mkIf (
+    mkDiskPaths != ""
+  ) "${pkgs.writeShellScript "podman-${name}-disk" mkDiskPaths}";
   # If domain = null, then it should not be accessible from outside
   # URL is expected in the following form
   # This creates an executable bash script if the entrypoint is given
@@ -130,6 +152,7 @@ let
       Unit.Description = "Backup preparation command for ${name}";
       Service = {
         Type = "oneshot";
+        ExecStartPre = mkDiskPathsScript;
         ExecStart =
           let
             cmd = pkgs.writeShellScriptBin "${name}-cmd" daily;
@@ -144,37 +167,9 @@ in
   service = lib.mkIf (daily != null) dailyBackup.services;
   # Automatically create paths for the container
   # Then run other commands specified via [`activation`]
-  activation = lib.mkIf (builtins.length volumes != 0 || diskPaths != [ ] || activation != "") {
-    "podman-${name}" = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-      ${lib.optionalString (builtins.length volumes != 0) ''
-        VOLUMES=${config.home.homeDirectory}/.podman/volumes/${name}
-        if [ ! -d "$VOLUMES" ]; then
-          mkdir -p $VOLUMES
-        fi
-        LOGS=${config.home.homeDirectory}/.podman/logs/${name}
-        if [ ! -d "$LOGS" ]; then
-          mkdir -p $LOGS
-        fi
-        SHARED=${config.home.homeDirectory}/.podman/shared/backups
-        if [ ! -d "$SHARED" ]; then
-          mkdir -p $SHARED
-        fi
-        DIR=${config.home.homeDirectory}/.podman/${name}
-        if [ ! -d "$DIR" ]; then
-          mkdir -p $DIR
-        fi
-      ''}
-      ${lib.optionalString (diskPaths != [ ]) (
-        let
-          fn =
-            if uid == null then
-              p: "mkdir -p ${p}"
-            else
-              p:
-              "[ -e ${p} ] || { mkdir -p ${p} && PATH=/run/wrappers/bin:$PATH ${pkgs.rootlesskit}/bin/rootlesskit chown ${toString uid}:${toString uid} ${p}; }";
-        in
-        lib.concatMapStringsSep "\n" fn (map lib.escapeShellArg diskPaths)
-      )}
+  activation = lib.mkIf (mkDiskPaths != "" || activation != "") {
+    "podman-${name}" = lib.hm.dag.entryBetween [ "reloadSystemd" ] [ "writeBoundary" ] ''
+      ${mkDiskPaths}
       ${activation}
     '';
   };
@@ -208,6 +203,7 @@ in
         Wants = deps;
         Requires = dbDeps;
       };
+      Service.ExecStartPre = mkDiskPathsScript;
     };
     # autoUpdate = "registry";
     # If [`needRoot`], container is run as fakeroot (ie current user)

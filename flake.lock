@@ -275,11 +275,11 @@
         "rev": "0d59b83a0fa1270644c6a9782301b6b8d455e7fa",
         "revCount": 8,
         "type": "git",
-        "url": "https://git.int/Slop/KakaoTalk"
+        "url": "ssh://git.int:2222/Slop/KakaoTalk"
       },
       "original": {
         "type": "git",
-        "url": "https://git.int/Slop/KakaoTalk"
+        "url": "ssh://git.int:2222/Slop/KakaoTalk"
       }
     },
     "niri": {
@@ -780,8 +780,8 @@
         "sops-nix": "sops-nix"
       },
       "locked": {
-        "lastModified": 1794244216,
-        "narHash": "sha256-Yjq+qtuTEaKjN2OwUc5WQv80LEm5cTSJrXMiAZzTbyM=",
+        "lastModified": 1794274390,
+        "narHash": "sha256-RAvhAgfbXJHS0kgE5U4PPEtVEtFQ6OMeHg8jFgta/TE=",
         "path": "/home/main/Sync/NixConfig/secrets",
         "type": "path"
       },
