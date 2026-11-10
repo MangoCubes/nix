@@ -269,11 +269,11 @@
         "nixpkgs": "nixpkgs_12"
       },
       "locked": {
-        "lastModified": 1792737783,
-        "narHash": "sha256-iMYWcECeE14XJcWi4wFYKGPfEAQZoFswhwYGLQwFedQ=",
+        "lastModified": 1794202606,
+        "narHash": "sha256-DJW9Zur82tox/DCkz6laKkOG7RJHb8l7ozg5cq5FXgQ=",
         "ref": "refs/heads/master",
-        "rev": "4117e55ff8ada418735538f439806657bc72881d",
-        "revCount": 7,
+        "rev": "0d59b83a0fa1270644c6a9782301b6b8d455e7fa",
+        "revCount": 8,
         "type": "git",
         "url": "https://git.int/Slop/KakaoTalk"
       },
@@ -780,8 +780,8 @@
         "sops-nix": "sops-nix"
       },
       "locked": {
-        "lastModified": 1794147529,
-        "narHash": "sha256-lFaQG379D+AsTH71DfJaOJfXu3EISErjKNZXW4XcCEY=",
+        "lastModified": 1794244216,
+        "narHash": "sha256-Yjq+qtuTEaKjN2OwUc5WQv80LEm5cTSJrXMiAZzTbyM=",
         "path": "/home/main/Sync/NixConfig/secrets",
         "type": "path"
       },
@@ -795,11 +795,11 @@
         "nixpkgs": "nixpkgs_13"
       },
       "locked": {
-        "lastModified": 1793995029,
-        "narHash": "sha256-ZlE4BtMjWhfC6rFXLO9Qimn36Ene1INqCgKDDvazjhc=",
+        "lastModified": 1794261845,
+        "narHash": "sha256-Ivif/kuD68yEOKcZZG3zSwNMFUuIgzUgeJuzcHrQy+8=",
         "owner": "Mic92",
         "repo": "sops-nix",
-        "rev": "89a234ce2daf6e568a7d4b4fe250afdd23d84e20",
+        "rev": "fe7b4228405aeac2ce7192c2049a6e2bc8637082",
         "type": "github"
       },
       "original": {

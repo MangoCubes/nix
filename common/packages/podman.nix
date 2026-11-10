@@ -73,8 +73,8 @@ in
               "${path}/scripts:/var/lib/postgresql/scripts"
             ];
             environment = {
-              DB_USERNAME = name;
-              DB_DATABASE_NAME = "${name}-db";
+              POSTGRES_USER = name;
+              POSTGRES_DB = "${name}-db";
             };
             environmentFile = [ c.postgresql.secretEnvPath ];
           }
