@@ -104,6 +104,11 @@ in
             builtins.map (s: ''(echo "Starting ${s}..." && systemctl --user start ${s} &); '') services
           )
         );
+        podmanStop = pkgs.writeShellScriptBin "podman-stop" (
+          builtins.concatStringsSep "\n" (
+            builtins.map (s: ''(echo "Stopping ${s}..." && systemctl --user stop ${s} &); '') services
+          )
+        );
         secrets = name: {
           "gluetun-${name}" = inputs.secrets.common.packages.home.gluetun { inherit name; };
         };
@@ -152,6 +157,7 @@ in
                 rootlesskit
                 podmanStatus
                 podmanStart
+                podmanStop
               ]
             );
             home.activation = mergeAll "activation";
