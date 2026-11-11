@@ -58,15 +58,15 @@ in
         postgresqlConfigs = lib.mapAttrsToList (
           name: c:
           let
-            path = "${config.home.homeDirectory}/.podman/postgres-${name}";
+            path = "${config.home.homeDirectory}/.podman/postgresql/${name}";
           in
           mkContainer {
             name = "postgresql-${name}";
             dependsOn = null;
             image = c.postgresql.image;
             disk.persistOnly = [
-              "postgres-${name}/scripts"
-              "postgres-${name}/data"
+              "postgresql/${name}/scripts"
+              "postgresql/${name}/data"
             ];
             volumes = [
               "${path}/data:/var/lib/postgresql/data"
