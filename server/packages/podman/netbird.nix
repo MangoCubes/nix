@@ -32,14 +32,12 @@
           domain = [
             {
               rule = "Host(`vpn.skew.ch`) && (PathPrefix(`/signalexchange.SignalExchange/`) || PathPrefix(`/management.ManagementService/`))";
-              certResolver = "letsencrypt";
               port = 80;
               extraRouterConfig.priority = "1000";
               extraServiceConfig.loadbalancer.server.scheme = "h2c";
             }
             {
               rule = "Host(`vpn.skew.ch`) && (PathPrefix(`/relay`) || PathPrefix(`/ws-proxy/`) || PathPrefix(`/api`) || PathPrefix(`/oauth2`))";
-              certResolver = "letsencrypt";
               port = 80;
               extraRouterConfig.priority = "1000";
             }

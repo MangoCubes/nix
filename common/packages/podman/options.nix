@@ -19,7 +19,6 @@ in
   options.custom.podman = {
     containers = attrs (lib.types.submodule {
       options = {
-        activation = optional lib.types.lines "" "Commands to execute on activation";
         network = optional (lib.types.either lib.types.str (
           lib.types.listOf lib.types.str
         )) "proxy" "Network for the container";
@@ -37,12 +36,9 @@ in
             readOnly = bool false "Mount as read-only";
           };
         })) "Paths outside the container to bind mount into the container";
-        backup = list hostPath (
-          "Directories outside the container to include in backups"
-          // {
-            apply = builtins.map path;
-          }
-        );
+        backup = list hostPath "Directories outside the container to include in backups" // {
+          apply = builtins.map path;
+        };
         ports = list lib.types.str "Ports to expose";
         environment = attrs (lib.types.oneOf [
           lib.types.str
@@ -55,7 +51,7 @@ in
             options = {
               url = nullable lib.types.str null;
               rule = nullable lib.types.str null;
-              certResolver = nullable lib.types.str null;
+              certResolver = optional lib.types.str "letsencrypt" null;
               port = required lib.types.port null;
               extraRouterConfig = optional lib.types.attrs { } null;
               extraServiceConfig = optional lib.types.attrs { } null;
@@ -67,7 +63,6 @@ in
         labels = attrs lib.types.str "Container labels";
         dropCapabilities = list lib.types.str "Linux capabilities to drop";
         extraPodmanArgs = list lib.types.str "Extra args to pass to podman";
-        addCapabilities = list lib.types.str "Linux capabilities to add";
         devices = list lib.types.str "Host devices to mount into the container";
         needRoot = bool false "If true, then run with container owner's permission";
         dependsOn = nullable (lib.types.listOf lib.types.str) "List of containers this container depends on";
@@ -86,7 +81,6 @@ in
         redis = bool false "Redis container to create alongside, named redis-<name>";
       };
     }) null;
-    dns = required lib.types.str null;
     dnsProvider = required lib.types.str null;
     subnet = required lib.types.str null;
   };

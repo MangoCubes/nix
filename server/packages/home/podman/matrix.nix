@@ -28,7 +28,6 @@
       domain = [
         {
           rule = "Host(`matrix.skew.ch`) && PathPrefix(`/webhook`)";
-          certResolver = "letsencrypt";
           port = 9000;
         }
       ];
@@ -52,7 +51,6 @@
         }
         {
           rule = "Host(`matrix.skew.ch`) && (PathRegexp(`^/_matrix/client/([^/]+)/(login|logout|refresh)`) || PathPrefix(`/oauth2`))";
-          certResolver = "letsencrypt";
           port = 8080;
         }
       ];
@@ -86,7 +84,6 @@
         }
         {
           rule = "Host(`skew.ch`) && PathPrefix(`/_synapse`)";
-          certResolver = "letsencrypt";
           port = 8008;
         }
       ];

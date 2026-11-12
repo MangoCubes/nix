@@ -124,7 +124,6 @@ in
         config = lib.mkMerge [
           {
             custom.podman = {
-              dns = "107.175.189.176";
               dnsProvider = "10.10.0.53";
               subnet = "10.10.0.0/24";
             };

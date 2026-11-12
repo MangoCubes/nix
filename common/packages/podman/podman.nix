@@ -1,5 +1,4 @@
 {
-  activation ? "",
   network ? "proxy",
   name,
   volumes ? [ ],
@@ -176,12 +175,8 @@ in
   timer = lib.mkIf (daily != null) dailyBackup.timers;
   service = lib.mkIf (daily != null) dailyBackup.services;
   # Automatically create paths for the container
-  # Then run other commands specified via [`activation`]
-  activation = lib.mkIf (mkDiskPaths != "" || activation != "") {
-    "podman-${name}" = lib.hm.dag.entryBetween [ "reloadSystemd" ] [ "writeBoundary" ] ''
-      ${mkDiskPaths}
-      ${activation}
-    '';
+  activation = lib.mkIf (mkDiskPaths != "") {
+    "podman-${name}" = lib.hm.dag.entryBetween [ "reloadSystemd" ] [ "writeBoundary" ] mkDiskPaths;
   };
   container."${name}" = {
     # Podman volumes are named after the container and the path inside it
