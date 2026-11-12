@@ -37,8 +37,7 @@ in
       tree-sitter
     ])
     (lib.mkIf (config.custom.device.type == "desktop" || config.custom.device.type == "laptop") (
-      with unstable;
-      [
+      (with unstable; [
         w3m
         lua-language-server
         pyright
@@ -46,10 +45,11 @@ in
         libxml2
         typescript-language-server
         vscode-langservers-extracted
-      ]
+      ])
       ++ (with pkgs; [
         mermaid-cli
         imagemagick
+        ghostscript
         # Necessary for exporting an .org document as .odt
         zip
         unzip
