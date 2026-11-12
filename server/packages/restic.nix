@@ -14,10 +14,9 @@ in
     {
       home.packages = [ pkgs.restic ];
       imports = [ ./restic/options.nix ];
-      custom.backups.backblaze = lib.concatMap (
-        container:
-        builtins.map (path: "${config.home.homeDirectory}/.podman/${path}") container.disk.persistBackup
-      ) (builtins.attrValues config.custom.podman.containers);
+      custom.backups.backblaze = lib.concatMap (container: container.backup) (
+        builtins.attrValues config.custom.podman.containers
+      );
     };
   imports = [
     ./restic/options.nix

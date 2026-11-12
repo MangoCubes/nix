@@ -17,11 +17,16 @@
       custom.podman.containers = {
         netbird-server = {
           image = "netbirdio/netbird-server:latest";
-          disk.persistOnly = [ "netbird" ];
           ports = [ "3478:3478/udp" ];
-          volumes = [
-            "${config.home.homeDirectory}/.podman/netbird:/var/lib/netbird"
-            "${config.sops.secrets.netbird-config.path}:/etc/netbird/config.yaml"
+          mounts = [
+            {
+              inside = "/var/lib/netbird";
+              outside = "netbird";
+            }
+            {
+              inside = "/etc/netbird/config.yaml";
+              outside = config.sops.secrets.netbird-config.path;
+            }
           ];
           entrypoint = "/go/bin/netbird-server --config /etc/netbird/config.yaml";
           domain = [

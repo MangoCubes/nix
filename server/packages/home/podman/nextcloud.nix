@@ -12,15 +12,7 @@
   custom.podman.containers.cloud = {
     dependsOn = [ "mariadb" ];
     image = "linuxserver/nextcloud:latest";
-    disk = {
-      persistOnly = [
-        "cloud/config"
-        "cloud/php"
-        "cloud/crontabs"
-        "cloud/data"
-      ];
-      persistBackup = [ "cloud/data/user/files" ];
-    };
+    backup = [ "cloud/data/user/files" ];
     domain = [
       {
         url = "cloud.skew.ch";
@@ -28,14 +20,31 @@
         extraRouterConfig.middlewares = "m-cloud@docker,m-cloud-dav@docker,m-cloud-webfinger@docker,m-cloud-nodeinfo@docker";
       }
     ];
-    volumes = [
-      "${config.home.homeDirectory}/.podman/cloud/config:/config/www/nextcloud/config"
-      "${config.home.homeDirectory}/.podman/cloud/php:/config/php"
-      "${config.home.homeDirectory}/.podman/cloud/crontabs:/config/crontabs"
-      "${config.home.homeDirectory}/.podman/cloud/data:/data"
-      "cloud:/config/www/nextcloud/apps"
-      # "${config.home.homeDirectory}/.podman/cloud/remoteip.conf:/etc/apache2/conf-enabled/remoteip.conf:ro"
+    mounts = [
+      {
+        inside = "/config/www/nextcloud/config";
+        outside = "cloud/config";
+      }
+      {
+        inside = "/config/php";
+        outside = "cloud/php";
+      }
+      {
+        inside = "/config/crontabs";
+        outside = "cloud/crontabs";
+      }
+      {
+        inside = "/data";
+        outside = "cloud/data";
+      }
+      # {
+      #   inside = "/etc/apache2/conf-enabled/remoteip.conf";
+      #   outside = "cloud/remoteip.conf";
+      #   create = false;
+      #   readOnly = true;
+      # }
     ];
+    volumes = [ "/config/www/nextcloud/apps" ];
     uid = 1000;
     environment = {
       "PUID" = "1000";

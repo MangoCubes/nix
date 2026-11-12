@@ -28,9 +28,17 @@ in
     autoStart = false;
     image = "ghcr.io/dockur/windows:latest";
     network = lib.mkForce [ ];
-    volumes = [
-      "${config.home.homeDirectory}/Windows/storage:/storage"
-      "${config.home.homeDirectory}/Windows/data:/data"
+    mounts = [
+      {
+        inside = "/storage";
+        outside = "${config.home.homeDirectory}/Windows/storage";
+        create = true;
+      }
+      {
+        inside = "/data";
+        outside = "${config.home.homeDirectory}/Windows/data";
+        create = true;
+      }
     ];
     environment = {
       VERSION = "10";
@@ -52,9 +60,4 @@ in
       "8006:8006"
     ];
   };
-
-  home.activation.windows = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    mkdir -p ${config.home.homeDirectory}/Windows/storage
-    mkdir -p ${config.home.homeDirectory}/Windows/data
-  '';
 }

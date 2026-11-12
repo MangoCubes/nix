@@ -2,7 +2,6 @@
 {
   custom.podman.containers.navidrome = {
     image = "deluan/navidrome:latest";
-    disk.persistOnly = [ "navidrome" ];
     environment = {
       ND_AUTOIMPORTPLAYLISTS = "false";
     };
@@ -12,10 +11,19 @@
         port = 4533;
       }
     ];
-    volumes = [
-      "${config.home.homeDirectory}/.podman/navidrome:/data"
-      "${config.custom.bookmarks.Mounts.path}/koofr/Media/Music:/music/koofr"
-      "${config.custom.bookmarks.Mounts.path}/drive/Archive/Music:/music/drive"
+    mounts = [
+      {
+        inside = "/data";
+        outside = "navidrome";
+      }
+      {
+        inside = "/music/koofr";
+        outside = "${config.custom.bookmarks.Mounts.path}/koofr/Media/Music";
+      }
+      {
+        inside = "/music/drive";
+        outside = "${config.custom.bookmarks.Mounts.path}/drive/Archive/Music";
+      }
     ];
   };
 }

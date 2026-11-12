@@ -8,21 +8,35 @@
   custom.podman.containers.ca = {
     image = "smallstep/step-ca";
     needRoot = true;
-    volumes = [
+    mounts = [
+      {
+        inside = "/home/step/secrets/password";
+        outside = config.sops.secrets.caPassword.path;
+      }
+      {
+        inside = "/home/step/secrets/provisioner_password";
+        outside = config.sops.secrets.provisionerPassword.path;
+      }
+      {
+        inside = "/home/step/secrets/intermediate_ca_key";
+        outside = config.sops.secrets.intermediateCaKey.path;
+      }
 
-      "${config.sops.secrets.caPassword.path}:/home/step/secrets/password"
-      "${config.sops.secrets.provisionerPassword.path}:/home/step/secrets/provisioner_password"
-      "${config.sops.secrets.intermediateCaKey.path}:/home/step/secrets/intermediate_ca_key"
+      {
+        inside = "/home/step/certs/root_ca.crt";
+        outside = config.sops.secrets.rootCaCert.path;
+      }
+      {
+        inside = "/home/step/certs/intermediate_ca.crt";
+        outside = config.sops.secrets.intermediateCaCrt.path;
+      }
 
-      "${config.sops.secrets.rootCaCert.path}:/home/step/certs/root_ca.crt"
-      "${config.sops.secrets.intermediateCaCrt.path}:/home/step/certs/intermediate_ca.crt"
-
-      "/etc/ssl/certs/ca-certificates.crt:/etc/ssl/certs/ca-certificates.crt"
-
-      "${./ca/ca.json}:/home/step/config/ca.json"
-
-      "ca:/home/step/db"
+      {
+        inside = "/home/step/config/ca.json";
+        outside = "${./ca/ca.json}";
+      }
     ];
+    volumes = [ "/home/step/db" ];
     domain = [
       {
         url = "ca.int";

@@ -26,12 +26,18 @@ let
     }
   '';
 
-  volumes =
-    (lib.mapAttrsToList (
-      key: value: "${value.content}:/usr/share/nginx/html/${key}:ro"
-    ) config.custom.web)
+  mounts =
+    lib.mapAttrsToList (key: value: {
+      inside = "/usr/share/nginx/html/${key}";
+      outside = value.content;
+      readOnly = true;
+    }) config.custom.web
     ++ [
-      "${conf}:/etc/nginx/conf.d/default.conf:ro"
+      {
+        inside = "/etc/nginx/conf.d/default.conf";
+        outside = "${conf}";
+        readOnly = true;
+      }
     ];
 in
 {
@@ -50,6 +56,6 @@ in
         port = 80;
       }
     ];
-    inherit volumes;
+    inherit mounts;
   };
 }

@@ -21,15 +21,17 @@
         "TA_USERNAME" = "admin";
       };
       environmentFile = [ config.sops.secrets.archive.path ];
-      volumes = [
-        "cache:/cache"
-        "${config.custom.bookmarks.Mounts.path}/drive/Archive/Video:/youtube"
+      volumes = [ "/cache" ];
+      mounts = [
+        {
+          inside = "/youtube";
+          outside = "${config.custom.bookmarks.Mounts.path}/drive/Archive/Video";
+        }
       ];
     };
     # UID: 1000
     archive-es = {
       image = "bbilly1/tubearchivist-es";
-      disk.persistOnly = [ "archive-es" ];
       environment = {
         "ES_JAVA_OPTS" = "-Xms1g -Xmx1g";
         "xpack.security.enabled" = "true";
@@ -37,8 +39,11 @@
         "path.repo" = "/usr/share/elasticsearch/data/snapshot";
       };
       environmentFile = [ config.sops.secrets.archive.path ];
-      volumes = [
-        "${config.home.homeDirectory}/.podman/archive-es:/usr/share/elasticsearch/data"
+      mounts = [
+        {
+          inside = "/usr/share/elasticsearch/data";
+          outside = "archive-es";
+        }
       ];
     };
   };

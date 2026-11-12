@@ -64,13 +64,15 @@ in
             name = "postgresql-${name}";
             dependsOn = null;
             image = c.postgresql.image;
-            disk.persistOnly = [
-              "postgresql/${name}/scripts"
-              "postgresql/${name}/data"
-            ];
-            volumes = [
-              "${path}/data:/var/lib/postgresql/data"
-              "${path}/scripts:/var/lib/postgresql/scripts"
+            mounts = [
+              {
+                inside = "/var/lib/postgresql/data";
+                outside = "${path}/data";
+              }
+              {
+                inside = "/var/lib/postgresql/scripts";
+                outside = "${path}/scripts";
+              }
             ];
             environment = {
               POSTGRES_USER = name;
@@ -85,8 +87,12 @@ in
             name = "redis-${name}";
             dependsOn = null;
             image = "docker.io/library/redis:alpine";
-            disk.persistOnly = [ "redis/${name}" ];
-            volumes = [ "${config.home.homeDirectory}/.podman/redis/${name}:/data" ];
+            mounts = [
+              {
+                inside = "/data";
+                outside = "${config.home.homeDirectory}/.podman/redis/${name}";
+              }
+            ];
           }
         ) (lib.filterAttrs (_: c: c.redis) config.custom.podman.containers);
         # All container configs in a form of list

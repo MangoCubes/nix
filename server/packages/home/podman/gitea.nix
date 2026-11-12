@@ -11,10 +11,17 @@ in
   custom.podman.containers.gitea = {
     dependsOn = [ "mariadb" ];
     image = "gitea/gitea:latest";
-    disk.persistBackup = [ "gitea" ];
-    volumes = [
-      "${config.home.homeDirectory}/.podman/gitea:/data"
-      "/etc/localtime:/etc/localtime:ro"
+    backup = [ "gitea" ];
+    mounts = [
+      {
+        inside = "/data";
+        outside = "gitea";
+      }
+      {
+        inside = "/etc/localtime";
+        outside = "/etc/localtime";
+        readOnly = true;
+      }
     ];
     environment = {
       "USER_UID" = "1000";

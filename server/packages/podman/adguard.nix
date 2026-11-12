@@ -12,12 +12,14 @@
     {
       custom.podman.containers.adguard = {
         image = "adguard/adguardhome";
-        disk.persistOnly = [ "adguard" ];
         needRoot = true;
-        volumes = [
-          "${config.home.homeDirectory}/.podman/adguard:/opt/adguardhome/conf"
-          "dns:/opt/adguardhome/work"
+        mounts = [
+          {
+            inside = "/opt/adguardhome/conf";
+            outside = "adguard";
+          }
         ];
+        volumes = [ "/opt/adguardhome/work" ];
         ip4 = config.custom.podman.dnsProvider;
         # This needs to be specified, otherwise podman's internal DNS stops working.
         ports = [ "3553:3553/udp" ];

@@ -13,8 +13,11 @@ in
   custom.podman.containers."${name}" = {
     image = "ghcr.io/techarohq/anubis:latest";
     vpn = target;
-    volumes = [
-      "${./anubis/botPolicy.json}:/data/cfg/botPolicy.json"
+    mounts = [
+      {
+        inside = "/data/cfg/botPolicy.json";
+        outside = "${./anubis/botPolicy.json}";
+      }
     ];
     # dns = "10.89.0.1";
     domain = [

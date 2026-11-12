@@ -25,7 +25,6 @@
       dependsOn = [ "matrix" ];
       redis = true;
       image = "halfshot/matrix-hookshot:latest";
-      disk.persistOnly = [ "matrix-hookshot" ];
       domain = [
         {
           rule = "Host(`matrix.skew.ch`) && PathPrefix(`/webhook`)";
@@ -33,8 +32,11 @@
           port = 9000;
         }
       ];
-      volumes = [
-        "${config.home.homeDirectory}/.podman/matrix-hookshot:/data"
+      mounts = [
+        {
+          inside = "/data";
+          outside = "matrix-hookshot";
+        }
       ];
     };
     mas = {
@@ -54,8 +56,12 @@
           port = 8080;
         }
       ];
-      volumes = [
-        "${config.home.homeDirectory}/.podman/matrix/mas.yaml:/config.yaml"
+      mounts = [
+        {
+          inside = "/config.yaml";
+          outside = "matrix/mas.yaml";
+          create = false;
+        }
       ];
     };
     matrix = {
@@ -64,9 +70,11 @@
         image = "postgres:17";
         secretEnvPath = config.sops.secrets.matrix-db.path;
       };
-      disk.persistOnly = [ "matrix" ];
-      volumes = [
-        "${config.home.homeDirectory}/.podman/matrix:/data"
+      mounts = [
+        {
+          inside = "/data";
+          outside = "matrix";
+        }
       ];
       environment = {
         "SYNAPSE_CONFIG_PATH" = "/data/homeserver.yaml";

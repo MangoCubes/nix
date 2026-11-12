@@ -3,7 +3,8 @@
   network ? "proxy",
   name,
   volumes ? [ ],
-  disk ? { },
+  mounts ? [ ],
+  backup ? [ ],
   ports ? [ ],
   environment ? { },
   image,
@@ -33,11 +34,20 @@
   ...
 }:
 let
-  diskPaths = builtins.map (path: "${config.home.homeDirectory}/.podman/${path}") (
-    (disk.persistOnly or [ ]) ++ (disk.persistBackup or [ ])
-  );
+  allMounts = [
+    {
+      inside = "/etc/ssl/certs/ca-certificates.crt";
+      outside = "/etc/ssl/certs/ca-certificates.crt";
+    }
+  ]
+  ++ lib.optional (entrypoint != null) {
+    inside = "/my/podman-start.sh";
+    outside = "${start}/bin/podman-start.sh";
+  }
+  ++ mounts;
+  diskPaths = builtins.map (m: m.outside) (builtins.filter (m: m.create or true) mounts);
   defaultPaths = builtins.map (path: "${config.home.homeDirectory}/.podman/${path}") (
-    lib.optionals (volumes != [ ]) [
+    lib.optionals (volumes != [ ] || mounts != [ ]) [
       "mounts/${name}"
       "logs/${name}"
       "shared/backups"
@@ -174,10 +184,12 @@ in
     '';
   };
   container."${name}" = {
-    # Mount entrypoint script as volume so that it exists within the container if specified
+    # Podman volumes are named after the container and the path inside it
     volumes =
-      ([ "/etc/ssl/certs/ca-certificates.crt:/etc/ssl/certs/ca-certificates.crt" ] ++ volumes)
-      ++ (lib.optional (entrypoint != null) "${start}/bin/podman-start.sh:/my/podman-start.sh");
+      builtins.map (inside: "${name}${builtins.replaceStrings [ "/" ] [ "-" ] inside}:${inside}") volumes
+      ++ builtins.map (
+        m: "${m.outside}:${m.inside}${lib.optionalString (m.readOnly or false) ":ro"}"
+      ) allMounts;
     inherit
       environmentFile
       image
