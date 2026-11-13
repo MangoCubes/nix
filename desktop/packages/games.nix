@@ -19,7 +19,10 @@
 
       programs.steam.config = {
         enable = true;
-        apps."1049590".name = "Eternal Return";
+        apps."1049590" = {
+          name = "Eternal Return";
+          compatTool = "proton_10";
+        };
         nonSteamApps."Battle.net" =
           let
             prefix = "${config.home.homeDirectory}/Games/battlenet";

@@ -57,7 +57,10 @@ let
       api.insecure = false;
       accessLog.format = "common";
       providers = {
-        docker.endpoint = "unix:///run/user/1000/podman/podman.sock";
+        docker = {
+          endpoint = "unix:///run/user/1000/podman/podman.sock";
+          exposedByDefault = false;
+        };
         file = {
           filename = "/etc/traefik/config.yaml";
           watch = false;
