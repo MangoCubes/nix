@@ -72,6 +72,13 @@ in
         desc = "⏾ Sleep";
         cmd = (inhibited "suspend");
       }
+    ]
+    ++ lib.optional osConfig.custom.hibernation.enable {
+      key = "h";
+      desc = "󰒲 Hibernate";
+      cmd = (inhibited "hibernate");
+    }
+    ++ [
       {
         key = "r";
         desc = " Reboot";

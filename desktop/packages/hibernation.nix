@@ -16,10 +16,6 @@ in
 
   config = lib.mkMerge [
     (lib.mkIf cfg.enable {
-      services.logind.settings.Login.HandleLidSwitch = lib.mkIf (
-        config.custom.device.type == "laptop"
-      ) "hibernate";
-
       swapDevices = [
         {
           device = swapFile;

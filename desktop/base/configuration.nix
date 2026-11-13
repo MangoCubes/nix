@@ -19,6 +19,7 @@
     ../packages/fonts.nix
     ../packages/greeter.nix
     ../packages/hibernation.nix
+    ../packages/laptop.nix
     ../packages/swaylock.nix
     ../packages/ydotool.nix
     ../packages/android.nix
