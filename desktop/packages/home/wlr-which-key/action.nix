@@ -91,22 +91,22 @@ in
       }
     ];
   }
-  {
-    key = "b";
-    desc = "󰃠 Brightness";
-    submenu = [
-      {
-        key = "Up";
-        desc = " Increase Brightness";
-        cmd = "brightnessctl s +5%";
-        keep_open = true;
-      }
-      {
-        key = "Down";
-        desc = " Decrease Brightness";
-        cmd = "brightnessctl s 5%-";
-        keep_open = true;
-      }
-    ];
-  }
 ]
+++ lib.optional (osConfig.custom.device.type == "laptop") {
+  key = "b";
+  desc = "󰃠 Brightness";
+  submenu = [
+    {
+      key = "Up";
+      desc = " Increase Brightness";
+      cmd = "brightnessctl s +5%";
+      keep_open = true;
+    }
+    {
+      key = "Down";
+      desc = " Decrease Brightness";
+      cmd = "brightnessctl s 5%-";
+      keep_open = true;
+    }
+  ];
+}

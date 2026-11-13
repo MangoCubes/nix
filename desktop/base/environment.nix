@@ -1,13 +1,9 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }:
 {
-  environment.systemPackages = with pkgs; [
-    brightnessctl
-  ];
   environment.sessionVariables = {
     QT_QPA_PLATFORM = "wayland";
     # Seems to make GTK programs faster?
