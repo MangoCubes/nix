@@ -37,7 +37,7 @@ let
         eval "$2"
     fi
   '';
-  rofi-env = pkgs.writeShellScriptBin "rofi-env" ''${pkgs.python3}/bin/python ${./env/env.py} $@'';
+  rofi-env = pkgs.writeShellScriptBin "rofi-env" "${pkgs.python3}/bin/python ${./env/env.py} $@";
 in
 {
   home.packages = [
