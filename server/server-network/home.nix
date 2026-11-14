@@ -5,7 +5,7 @@
     {
       imports = [
         ../packages/home/podman/ca.nix
-        ../packages/home/podman/netbird.nix
+        ../packages/home/podman/tailscale.nix
       ];
     };
 }

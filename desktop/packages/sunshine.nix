@@ -6,7 +6,7 @@
     capSysAdmin = false;
     openFirewall = false;
   };
-  networking.firewall.interfaces.${config.services.netbird.clients.personal.interface} = {
+  networking.firewall.interfaces.${config.services.tailscale.interfaceName} = {
     allowedTCPPorts = [
       47984
       47989

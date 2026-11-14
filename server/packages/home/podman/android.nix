@@ -1,7 +1,4 @@
-{
-  pkgs,
-  ...
-}:
+{ pkgs, ... }:
 let
   # Ignore chown for /dev/kvm only
   chown = pkgs.writeScript "chown" ''
