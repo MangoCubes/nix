@@ -8,7 +8,7 @@
     ./environment.nix
     ./security.nix
     ./home.nix
-    ./packages/netbird.nix
+    ./packages/tailscale.nix
     ./nix.nix
     ./packages/zsh.nix
     ./packages/ssh.nix

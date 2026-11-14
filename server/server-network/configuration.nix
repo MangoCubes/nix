@@ -10,7 +10,7 @@
     ./traefik.nix
 
     ../packages/podman/adguard.nix
-    ../packages/podman/netbird.nix
+    ../packages/podman/headscale.nix
 
     inputs.secrets.server-network.restic
     ../packages/restic.nix
