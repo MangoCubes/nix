@@ -2,6 +2,7 @@
   inputs,
   username,
   lib,
+  config,
   ...
 }:
 let
@@ -40,7 +41,10 @@ in
   };
   networking.firewall = {
     enable = true;
-    allowedUDPPorts = [ 53 ];
+    interfaces.${config.services.tailscale.interfaceName} = {
+      allowedUDPPorts = [ 53 ];
+      allowedTCPPorts = [ 53 ];
+    };
   };
   services.tailscale.extraSetFlags = [ "--accept-dns=false" ];
   home-manager.users."${username}" =
@@ -91,8 +95,8 @@ in
         volumes = [ "/opt/adguardhome/work" ];
         ip4 = config.custom.podman.dnsProvider;
         ports = [
-          "100.64.0.1:53:53/udp"
-          "107.175.189.176:53:53/udp"
+          "${osConfig.custom.headscale.dns}:53:53/udp"
+          "${osConfig.custom.headscale.dns}:53:53/tcp"
         ];
 
         domain = [

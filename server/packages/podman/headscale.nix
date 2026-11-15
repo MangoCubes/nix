@@ -41,7 +41,7 @@ let
       magic_dns = true;
       base_domain = cfg.domain;
       override_local_dns = true;
-      nameservers.global = [ "107.175.189.176" ];
+      nameservers.global = [ cfg.dns ];
     };
     derp = {
       server = {
@@ -65,6 +65,10 @@ in
     domain = lib.mkOption {
       type = lib.types.str;
       default = "local";
+    };
+    dns = lib.mkOption {
+      type = lib.types.str;
+      default = "100.64.0.2";
     };
   };
 
