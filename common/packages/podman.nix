@@ -110,6 +110,11 @@ in
             builtins.map (s: ''(echo "Starting ${s}..." && systemctl --user start ${s} &); '') services
           )
         );
+        podmanRestart = pkgs.writeShellScriptBin "podman-restart" (
+          builtins.concatStringsSep "\n" (
+            builtins.map (s: ''(echo "Restarting ${s}..." && systemctl --user restart ${s} &); '') services
+          )
+        );
         podmanStop = pkgs.writeShellScriptBin "podman-stop" (
           builtins.concatStringsSep "\n" (
             builtins.map (s: ''(echo "Stopping ${s}..." && systemctl --user stop ${s} &); '') services
@@ -164,6 +169,7 @@ in
                 podmanStatus
                 podmanStart
                 podmanStop
+                podmanRestart
               ]
             );
             home.activation = mergeAll "activation";
