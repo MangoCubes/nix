@@ -147,6 +147,7 @@ in
               autoUpdate.enable = true;
               enable = true;
               settings = {
+                containers.network.rootless_port_forwarder = "pasta";
                 storage = {
                   storage.driver = "overlay";
                   storage.options.overlay.mount_program = "${pkgs.fuse-overlayfs}/bin/fuse-overlayfs";
