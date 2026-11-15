@@ -79,32 +79,43 @@ in
     };
 
     home-manager.users."${username}" = {
-      custom.podman.containers.headscale = {
-        image = "headscale/headscale:latest";
-        exec = "serve";
-        ports = [ "3478:3478/udp" ];
-        mounts = [
-          {
-            inside = "/var/lib/headscale";
-            outside = "headscale";
-          }
-          {
-            inside = "/etc/headscale/config.yaml";
-            outside = "${settings}";
-            readOnly = true;
-          }
-          {
-            inside = policyPath;
-            outside = "${policy}";
-            readOnly = true;
-          }
-        ];
-        domain = [
-          {
-            url = cfg.url;
-            port = 8080;
-          }
-        ];
+      custom.podman.containers = {
+        headscale = {
+          image = "headscale/headscale:latest";
+          exec = "serve";
+          ports = [ "3478:3478/udp" ];
+          mounts = [
+            {
+              inside = "/var/lib/headscale";
+              outside = "headscale";
+            }
+            {
+              inside = "/etc/headscale/config.yaml";
+              outside = "${settings}";
+              readOnly = true;
+            }
+            {
+              inside = policyPath;
+              outside = "${policy}";
+              readOnly = true;
+            }
+          ];
+          domain = [
+            {
+              url = cfg.url;
+              port = 8080;
+            }
+          ];
+        };
+        headscale-ui = {
+          image = "ghcr.io/gurucomputing/headscale-ui:latest";
+          domain = [
+            {
+              rule = "Host(`${cfg.url}`) && PathPrefix(`/web`)";
+              port = 8080;
+            }
+          ];
+        };
       };
     };
   };
