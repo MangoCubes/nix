@@ -80,9 +80,6 @@
     access =
       { osConfig, ... }:
       {
-        imports = [
-          ./packages/home/zsh.nix
-        ];
         home.stateVersion = osConfig.system.stateVersion;
       };
   };

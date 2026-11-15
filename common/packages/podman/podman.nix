@@ -3,7 +3,6 @@
   name,
   volumes ? [ ],
   mounts ? [ ],
-  backup ? [ ],
   ports ? [ ],
   environment ? { },
   image,
@@ -25,6 +24,7 @@
   uid ? null,
   postgresql ? null,
   redis ? false,
+  ...
 }:
 {
   lib,
@@ -212,7 +212,6 @@ in
       };
       Service.ExecStartPre = mkDiskPathsScript;
     };
-    # autoUpdate = "registry";
     # If [`needRoot`], container is run as fakeroot (ie current user)
     user = if needRoot then 0 else null;
     labels = lib.mkMerge [

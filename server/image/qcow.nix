@@ -20,6 +20,5 @@
     bootSize = "1G";
     partitionTableType = "efi";
     label = "NixOS";
-    # configFile = ./configuration.nix;
   };
 }

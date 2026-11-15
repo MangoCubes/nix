@@ -237,7 +237,6 @@ let
     )
   );
   recent-windows = toKDL ((import ./niri/recent-windows.nix) { inherit colours; });
-  # cursor = lib.hm.generators.toKDL { } { cursor.plugin = "${./niri/cursor.lua}"; };
   cursor = toKDL {
     cursor = {
       plugin = "${cursorPlugin}/lib/libniri_cursor_plugin.so";

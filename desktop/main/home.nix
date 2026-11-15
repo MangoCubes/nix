@@ -10,12 +10,10 @@
     {
       imports = [
         ../packages/home/windows.nix
-        ../packages/home/mitm-proxy.nix
       ];
       custom.microsoftTeams.enable = true;
       home.packages = [
         unfreeUnstable.osu-lazer-bin
-        # unstable.webcord
         unstable.prismlauncher
         pkgs.xournalpp
       ];

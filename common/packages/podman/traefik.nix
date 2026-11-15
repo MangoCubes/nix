@@ -127,8 +127,6 @@ in
               "traefik.http.routers.traefik-dashboard.service" = "api@internal";
               "traefik.http.routers.traefik-dashboard.tls" = "true";
               "traefik.http.routers.traefik-dashboard.tls.certResolver" = "localca";
-
-              # "traefik.http.routers.dashboard.middlewares" = "m-ip@file";
             };
           };
           networks.proxy = {

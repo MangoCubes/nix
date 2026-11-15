@@ -1,8 +1,4 @@
-{
-  config,
-  inputs,
-  ...
-}:
+{ inputs, ... }:
 {
   # cp ${config.home.homeDirectory}/.config/sops-nix/secrets/cloud ${config.home.homeDirectory}/.podman/cloud/config/config.php
   # ${pkgs.rootlesskit}/bin/rootlesskit chown -R 1000:1000 ${config.home.homeDirectory}/.podman/cloud
@@ -37,12 +33,6 @@
         inside = "/data";
         outside = "cloud/data";
       }
-      # {
-      #   inside = "/etc/apache2/conf-enabled/remoteip.conf";
-      #   outside = "cloud/remoteip.conf";
-      #   create = false;
-      #   readOnly = true;
-      # }
     ];
     volumes = [ "/config/www/nextcloud/apps" ];
     uid = 1000;
@@ -50,9 +40,6 @@
       "PUID" = "1000";
       "PGID" = "1000";
       "NEXTCLOUD_TRUSTED_DOMAINS" = "cloud.skew.ch";
-      #"REDIS_HOST" = "redis"
-      #"REDIS_PORT" = "6379"
-      #"REDIS_HOST_PASSWORD" = "asdfasdf"
     };
     labels = {
 

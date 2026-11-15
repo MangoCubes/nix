@@ -20,7 +20,6 @@
     };
 
     Service = {
-      # Type = "oneshot";
       ExecStart = "${unstable.awww}/bin/awww-daemon";
       ExecStartPost = "${unstable.awww}/bin/awww img ${config.custom.wallpaper}";
       Restart = "always";

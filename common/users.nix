@@ -25,7 +25,6 @@ let
   };
 in
 {
-  nix.settings.trusted-users = [ "@wheel" ];
   imports = [
     # Other stuffs are in secrets
     inputs.secrets.common.users

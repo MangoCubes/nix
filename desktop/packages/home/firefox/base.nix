@@ -5,20 +5,8 @@
   ...
 }:
 let
-  # lock-false = {
-  #   Value = false;
-  #   Status = "locked";
-  # };
   lock-false = false;
-  # lock-true = {
-  #   Value = true;
-  #   Status = "locked";
-  # };
   lock-true = true;
-  # lock-string = val: {
-  #   Value = val;
-  #   Status = "locked";
-  # };
   lock-string = val: val;
 in
 lib.mkMerge [

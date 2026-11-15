@@ -11,7 +11,6 @@ stdenvNoCC.mkDerivation {
 
   meta = with lib; {
     description = "BankGothic fonts";
-    # homepage = "https://www.yourfontwebsite.com/";
     platforms = platforms.all;
   };
 }

@@ -26,7 +26,6 @@
         ./home-options.nix
 
         ../packages/home/dictionary.nix
-        # ../packages/home/dconf.nix
         ../packages/home/ghostty.nix
         ../packages/home/firefox.nix
         ../packages/home/xdg.nix
@@ -87,10 +86,5 @@
           unstable.teams-for-linux
         ])
       ];
-    };
-  home-manager.users.test =
-    { osConfig, ... }:
-    {
-      home.stateVersion = osConfig.system.stateVersion;
     };
 }
