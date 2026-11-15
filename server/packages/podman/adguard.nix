@@ -1,39 +1,37 @@
 {
-  username,
   inputs,
+  username,
   lib,
   ...
 }:
 let
-  records = {
-    server-home = [
-      "yt.int"
-      "slsk.int"
-      "android.int"
-    ];
-    server-main = [
-      "music.int"
-      "mitm.int"
-      "git.int"
-    ];
-    server-network = [ "ca.int" ];
-  };
+  domains =
+    host:
+    builtins.filter (url: url != null && lib.hasSuffix ".int" url) (
+      builtins.concatMap
+        (
+          container:
+          lib.optionals (container.domain != null) (builtins.map (entry: entry.url) container.domain)
+        )
+        (
+          builtins.attrValues
+            inputs.self.nixosConfigurations.${host}.config.home-manager.users.${username}.custom.podman.containers
+        )
+    );
   rewrites =
-    lib.concatMap (device: [
-      {
-        domain = "*.${device}.local";
-        answer = "${device}.local";
-      }
-    ]) (builtins.attrNames inputs.self.nixosConfigurations)
-    ++ lib.concatLists (
-      lib.mapAttrsToList (
+    builtins.concatMap
+      (
         device:
         builtins.map (name: {
           domain = name;
           answer = "${device}.local";
-        })
-      ) records
-    );
+        }) (domains device)
+      )
+      [
+        "server-home"
+        "server-main"
+        "server-network"
+      ];
 in
 {
   boot.kernel.sysctl = {

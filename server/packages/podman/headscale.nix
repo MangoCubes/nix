@@ -7,12 +7,32 @@
 }:
 let
   cfg = config.custom.headscale;
+  policyPath = "/etc/headscale/policy.json";
+  policy = (pkgs.formats.json { }).generate "policy.json" {
+    acls = [
+      {
+        action = "accept";
+        src = [ "*" ];
+        dst = [ "*:*" ];
+      }
+    ];
+    nodeAttrs = [
+      {
+        target = [
+          "autogroup:member"
+          "autogroup:tagged"
+        ];
+        attr = [ "dns-subdomain-resolve" ];
+      }
+    ];
+  };
   settings = (pkgs.formats.yaml { }).generate "config.yaml" {
     server_url = "https://${cfg.url}";
     listen_addr = "0.0.0.0:8080";
     metrics_listen_addr = "127.0.0.1:9090";
     noise.private_key_path = "/var/lib/headscale/noise_private.key";
     prefixes.v4 = "100.64.0.0/10";
+    policy.path = policyPath;
     database = {
       type = "sqlite";
       sqlite.path = "/var/lib/headscale/db.sqlite";
@@ -67,6 +87,11 @@ in
           {
             inside = "/etc/headscale/config.yaml";
             outside = "${settings}";
+            readOnly = true;
+          }
+          {
+            inside = policyPath;
+            outside = "${policy}";
             readOnly = true;
           }
         ];
