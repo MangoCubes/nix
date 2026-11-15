@@ -100,7 +100,7 @@ in
         mergeAll = key: lib.mkMerge (builtins.catAttrs key allConfigs);
         # List of all container services
         services = builtins.map (name: "podman-${name}.service") (
-          builtins.concatMap (c: builtins.attrNames c.container) allConfigs
+          builtins.attrNames config.services.podman.containers
         );
         podmanStatus = pkgs.writeShellScriptBin "podman-status" ''
           ${podman-watcher}/bin/podman-watcher ${builtins.concatStringsSep " " services}
