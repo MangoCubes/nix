@@ -77,7 +77,7 @@ device_name=$(hostname)
 
 presentation_args=()
 if [ "$presentation" = true ]; then
-	presentation_args=(--specialisation presentation)
+	presentation_args=(--override-input presentation "path:$HOME/Sync/NixConfig/desktop/presentation/true.nix")
 fi
 
 if [ "$update_unstable" = true ]; then

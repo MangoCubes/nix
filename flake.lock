@@ -602,6 +602,18 @@
         "type": "github"
       }
     },
+    "presentation": {
+      "flake": false,
+      "locked": {
+        "path": "./desktop/custom/presentation/false.nix",
+        "type": "path"
+      },
+      "original": {
+        "path": "./desktop/custom/presentation/false.nix",
+        "type": "path"
+      },
+      "parent": []
+    },
     "qagenda": {
       "inputs": {
         "flake-utils": "flake-utils_5",
@@ -634,6 +646,7 @@
         "niri": "niri",
         "niri-adv-rules": "niri-adv-rules",
         "niri-cursor": "niri-cursor",
+        "presentation": "presentation",
         "qagenda": "qagenda",
         "rust-overlay": "rust-overlay_6",
         "secrets": "secrets",
@@ -780,8 +793,8 @@
         "sops-nix": "sops-nix"
       },
       "locked": {
-        "lastModified": 1794727496,
-        "narHash": "sha256-PUFl1n6IybrETPLgexh/iCmmHGNufhb+klL/RRQ5ujw=",
+        "lastModified": 1794796232,
+        "narHash": "sha256-1ckTPOufLc28nrcaDUWpOb08CMFqrRiwG/4B03V3kog=",
         "path": "/home/main/Sync/NixConfig/secrets",
         "type": "path"
       },
