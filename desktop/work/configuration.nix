@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ secrets, ... }:
 {
   services.printing.enable = true;
   # Swap Alt and Meta on the Apple keyboard
@@ -26,7 +26,7 @@
     ];
   };
   imports = [
-    inputs.secrets.desktop.work
+    secrets.desktop.work
     ./boot.nix
     ./home.nix
     ../packages/avahi.nix

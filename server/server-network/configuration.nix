@@ -2,17 +2,17 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ inputs, ... }:
+{ secrets, ... }:
 {
   imports = [
-    inputs.secrets.hw.server-network
+    secrets.hw.server-network
     ./home.nix
     ./traefik.nix
 
     ../packages/podman/adguard.nix
     ../packages/podman/headscale.nix
 
-    inputs.secrets.server-network.restic
+    secrets.server-network.restic
     ../packages/restic.nix
 
   ];

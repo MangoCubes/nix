@@ -1,7 +1,7 @@
-{ inputs, ... }:
+{ secrets, ... }:
 {
   imports = [
-    inputs.secrets.desktop.main
+    secrets.desktop.main
     ./boot.nix
     ./home.nix
     ./security.nix

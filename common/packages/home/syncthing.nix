@@ -1,7 +1,7 @@
 {
   config,
   lib,
-  inputs,
+  secrets,
   pkgs,
   ...
 }:
@@ -27,7 +27,7 @@ in
     guiAddress = "0.0.0.0:8384";
   };
   imports = [
-    inputs.secrets.common.packages.home.syncthing
+    secrets.common.packages.home.syncthing
   ];
   systemd.user.services.st-default-folder = {
     Unit = {

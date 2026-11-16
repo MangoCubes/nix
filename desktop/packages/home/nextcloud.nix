@@ -1,6 +1,6 @@
 {
   pkgs,
-  inputs,
+  secrets,
   config,
   osConfig,
   ...
@@ -17,7 +17,7 @@ in
       libsecret
     ]
   );
-  imports = [ inputs.secrets.desktop.packages.home.nextcloud ];
+  imports = [ secrets.desktop.packages.home.nextcloud ];
   systemd.user = {
     timers.nextcloud-autosync = {
       Unit = {

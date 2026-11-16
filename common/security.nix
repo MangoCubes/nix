@@ -1,8 +1,8 @@
-{ inputs, ... }:
+{ secrets, ... }:
 {
   security.pki = {
     # My root certificate is trusted by default
-    certificateFiles = [ "${inputs.secrets.res}/keys/root.crt" ];
+    certificateFiles = [ "${secrets.res}/keys/root.crt" ];
     caCertificateBlacklist = [
       "Comodo AAA Services root"
     ];

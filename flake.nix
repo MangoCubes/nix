@@ -35,9 +35,14 @@
     ags.url = "github:aylur/ags";
     grub2-themes.url = "github:vinceliuice/grub2-themes";
     sops-nix.url = "github:Mic92/sops-nix";
+    self.submodules = true;
     # Notice that the path starts with path:
-    # This flake is stored in ./secrets
-    secrets.url = "path:/home/main/Sync/NixConfig/secrets";
+    # This is stored in ./secrets
+    secrets = {
+      url = "path:./secrets";
+      flake = false;
+    };
+    kakaotalk.url = "git+ssh://git.int:2222/toolbox/KakaoTalk";
     presentation = {
       url = "path:./desktop/inputs/presentation/false.nix";
       flake = false;
@@ -110,6 +115,7 @@
       # Some personal variables
       username = "main";
       colours = (import ./common/colours.nix);
+      secrets = import inputs.secrets;
     in
     # There is no real reasons to have multiple `let ... in`, but I like to add them for dividing variables into sections
     let
@@ -126,6 +132,7 @@
           specialArgs = {
             inherit
               inputs
+              secrets
               unstable
               unfree
               insecure
@@ -144,7 +151,7 @@
             {
               home-manager = {
                 backupFileExtension = "backup";
-                sharedModules = [ inputs.secrets.homeManagerModules.sops ];
+                sharedModules = [ secrets.homeManagerModules.sops ];
                 # Anything I put in here would become available when setting home-manager options
                 # home-manager.users."${username}" =
                 #   {
@@ -159,6 +166,7 @@
                 extraSpecialArgs = {
                   inherit
                     inputs
+                    secrets
                     unfreeUnstable
                     insecure
                     unfree
@@ -171,7 +179,7 @@
               };
             }
             # This allows me to use sops options within my config
-            inputs.secrets.nixosModules.sops
+            secrets.nixosModules.sops
           ]
           # ...then I add all extra modules at the end
           ++ extraModules;

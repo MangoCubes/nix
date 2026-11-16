@@ -1,7 +1,7 @@
-{ inputs, ... }:
+{ secrets, ... }:
 {
   imports = [
-    inputs.secrets.networks.wifi
+    secrets.networks.wifi
   ];
   networking.firewall = {
     enable = true;

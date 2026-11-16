@@ -1,6 +1,6 @@
 {
   config,
-  inputs,
+  secrets,
   lib,
   pkgs,
   ...
@@ -13,7 +13,7 @@ let
   };
 in
 {
-  imports = [ inputs.secrets.desktop.packages.home.accounts ];
+  imports = [ secrets.desktop.packages.home.accounts ];
   programs.msmtp.enable = true;
   services.imapnotify = {
     enable = true;

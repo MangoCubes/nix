@@ -1,5 +1,5 @@
 {
-  inputs,
+  secrets,
   config,
   username,
   lib,
@@ -15,10 +15,10 @@
     "net.ipv4.conf.all.src_valid_mark" = 1;
   };
   imports = [
-    inputs.secrets.hw.image
+    secrets.hw.image
     ../packages/restic.nix
-    inputs.secrets.server-main.restic
-    inputs.secrets.server-main.config
+    secrets.server-main.restic
+    secrets.server-main.config
     ../packages/podman/mitmproxy-wg.nix
     ./home.nix
   ];

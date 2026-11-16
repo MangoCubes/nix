@@ -8,13 +8,14 @@
     {
       pkgs,
       inputs,
+      secrets,
       config,
       ...
     }:
     {
       imports = [
         inputs.steam-config-nix.homeModules.default
-        inputs.secrets.desktop.packages.home.wine-imefix
+        secrets.desktop.packages.home.wine-imefix
       ];
 
       programs.steam.config = {

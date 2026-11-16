@@ -1,5 +1,5 @@
 {
-  inputs,
+  secrets,
   pkgs,
   ...
 }:
@@ -7,6 +7,6 @@ let
   rofi-sl = pkgs.writeShellScriptBin "rofi-sl" "${pkgs.python3}/bin/python ${./simplelogin/simplelogin.py} $@";
 in
 {
-  imports = [ inputs.secrets.desktop.packages.home.simplelogin ];
+  imports = [ secrets.desktop.packages.home.simplelogin ];
   home.packages = [ rofi-sl ];
 }

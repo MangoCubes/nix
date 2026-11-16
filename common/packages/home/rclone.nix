@@ -1,7 +1,7 @@
 {
   pkgs,
   lib,
-  inputs,
+  secrets,
   config,
   osConfig,
   ...
@@ -27,7 +27,7 @@ in
 
   config = {
     sops.secrets = lib.mkMerge (
-      map (name: (inputs.secrets.common.packages.home."${name}").sops.secrets) cfg.mounts
+      map (name: (secrets.common.packages.home."${name}").sops.secrets) cfg.mounts
     );
 
     systemd.user.services = lib.mkMerge (

@@ -1,11 +1,11 @@
 {
   config,
-  inputs,
+  secrets,
   ...
 }:
 {
   # UID: 999
-  imports = [ inputs.secrets.server.packages.home.podman.other ];
+  imports = [ secrets.server.packages.home.podman.other ];
   custom.podman.containers.mariadb = {
     daily = "podman exec -it mariadb mariadb-dump --user=root --password=$MYSQL_ROOT_PASSWORD --lock-tables --all-databases > ${config.home.homeDirectory}/.podman/shared/backups/mariadb.sql";
     image = "mariadb:lts";

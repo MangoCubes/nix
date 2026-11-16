@@ -1,7 +1,7 @@
-{ inputs, ... }:
+{ secrets, ... }:
 {
   imports = [
-    inputs.secrets.desktop.laptop2
+    secrets.desktop.laptop2
     ./boot.nix
     ./home.nix
     ./networking.nix

@@ -1,6 +1,6 @@
 {
   config,
-  inputs,
+  secrets,
   pkgs,
   ...
 }:
@@ -12,8 +12,8 @@ let
       [ "@microphone@" "@playOn@" "@playOff@" ]
       [
         microphone
-        (playSpeaker "${inputs.secrets.res}/media/sounds/on.mp3")
-        (playSpeaker "${inputs.secrets.res}/media/sounds/off.mp3")
+        (playSpeaker "${secrets.res}/media/sounds/on.mp3")
+        (playSpeaker "${secrets.res}/media/sounds/off.mp3")
       ]
       (builtins.readFile ./togglemic.sh)
   );

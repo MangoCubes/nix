@@ -1,8 +1,8 @@
-{ inputs, ... }:
+{ secrets, ... }:
 {
   custom.traefik = {
     enable = true;
-    dynamic = inputs.secrets.server-home.traefik.dynamic;
-    static = inputs.secrets.server-home.traefik.static;
+    dynamic = secrets.server-home.traefik.dynamic;
+    static = secrets.server-home.traefik.static;
   };
 }

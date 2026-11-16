@@ -1,10 +1,7 @@
-# Rebuild secrets flake
-rebuild_secrets=false
-
 # Remove Miku :(
 presentation=false
 
-# Update unstable and secrtes
+# Update unstable
 update_unstable=false
 
 # Update all
@@ -26,15 +23,11 @@ flake="git+file://$HOME/Sync/NixConfig"
 # echo "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPJ9m2s/tdx27U3vGRk6BH06qd0y47oqi2dCuozzGKug gitea@skew.ch" > /home/main/Temp/pub.key
 # chmod 600 /home/main/Temp/pub.key
 # export GIT_SSH_COMMAND="ssh -i /home/main/Temp/pub.key -o IdentitiesOnly=yes -p 2222 -l git"
-# rebuild s
+# rebuild
 export GIT_SSH_COMMAND="ssh -i @keyLocation@ -o IdentitiesOnly=yes -p 2222 -l git"
 
 if [[ $1 == *"b"* ]]; then
     boot_mode=true
-fi
-
-if [[ $1 == *"s"* ]]; then
-    rebuild_secrets=true
 fi
 
 if [[ $1 == *"p"* ]]; then
@@ -42,12 +35,10 @@ if [[ $1 == *"p"* ]]; then
 fi
 
 if [[ $1 == *"u"* ]]; then
-    rebuild_secrets=true
     update_unstable=true
 fi
 
 if [[ $1 == *"a"* ]]; then
-    rebuild_secrets=true
     update_all=true
 fi
 
@@ -61,17 +52,12 @@ if [[ $1 == *"B"* ]]; then
 fi
 
 # Print the results
-echo "Rebuild secrets: $rebuild_secrets"
 echo "Presentation mode: $presentation"
 echo "Update unstable: $update_unstable"
 echo "Update all: $update_all"
 echo "Reboot after successful rebuild: $reboot"
 echo "Install bootloader: $bootloader"
 echo "Boot mode: $boot_mode"
-
-if [ "$rebuild_secrets" = true ]; then
-	nix flake update secrets --flake "$flake"
-fi
 
 device_name=$(hostname)
 

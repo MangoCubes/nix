@@ -1,5 +1,5 @@
 {
-  inputs,
+  secrets,
   config,
   ...
 }:
@@ -7,7 +7,7 @@ let
   sshPort = "2222";
 in
 {
-  imports = [ inputs.secrets.server-main.home.gitea ];
+  imports = [ secrets.server-main.home.gitea ];
   custom.podman.containers.gitea = {
     dependsOn = [ "mariadb" ];
     image = "gitea/gitea:latest";

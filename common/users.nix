@@ -1,6 +1,6 @@
 {
   username,
-  inputs,
+  secrets,
   lib,
   pkgs,
   ...
@@ -27,7 +27,7 @@ in
 {
   imports = [
     # Other stuffs are in secrets
-    inputs.secrets.common.users
+    secrets.common.users
   ];
 
   users.users = builtins.listToAttrs (
