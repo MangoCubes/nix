@@ -1,10 +1,10 @@
 {
   config,
-  inputs,
+  secrets,
   ...
 }:
 {
-  imports = [ inputs.secrets.server-main.home.atuin ];
+  imports = [ secrets.server-main.home.atuin ];
   custom.podman.containers.atuin = {
     postgresql = {
       image = "postgres:17";

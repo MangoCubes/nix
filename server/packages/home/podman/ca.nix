@@ -1,10 +1,10 @@
 {
   config,
-  inputs,
+  secrets,
   ...
 }:
 {
-  imports = [ inputs.secrets.server.packages.home.podman.ca ];
+  imports = [ secrets.server.packages.home.podman.ca ];
   custom.podman.containers.ca = {
     image = "smallstep/step-ca";
     needRoot = true;

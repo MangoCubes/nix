@@ -1,6 +1,7 @@
 {
   config,
   inputs,
+  secrets,
   pkgs,
   lib,
   colours,
@@ -243,7 +244,7 @@ let
       hide-when-typing._props = { };
     };
   };
-  binds = toKDL ((import ./niri/binds.nix) { inherit config inputs pkgs; });
+  binds = toKDL ((import ./niri/binds.nix) { inherit config secrets pkgs; });
   clipboard = toKDL {
     clipboard.disable-primary._props = { };
   };

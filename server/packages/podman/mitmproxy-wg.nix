@@ -7,11 +7,11 @@
   home-manager.users."${username}" =
     {
       config,
-      inputs,
+      secrets,
       ...
     }:
     {
-      imports = [ inputs.secrets.server-main.home.mitm ];
+      imports = [ secrets.server-main.home.mitm ];
       custom.podman.containers.mitm = {
         image = "mitmproxy/mitmproxy";
         domain = [
@@ -24,7 +24,7 @@
         entrypoint = "mitmweb --web-host 0.0.0.0 --set confdir=/etc/mitm --set 'web_password=$argon2i$v=19$m=4096,t=3,p=1$c2FsdEl0V2l0aFNhbHQ$jJHYL8FmjFuaY6nOHa5sCJT6qlk2OPWCg/feeJ3rWk0' --set mode=wireguard";
         mounts =
           let
-            files = inputs.secrets.res;
+            files = secrets.res;
           in
           [
             {

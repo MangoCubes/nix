@@ -1,12 +1,12 @@
 {
   username,
   config,
-  inputs,
+  secrets,
   ...
 }:
 {
   imports = [
-    inputs.secrets.networks.mitm
+    secrets.networks.mitm
   ];
   # How to set up MITM
   # Copy the nmconnection to /etc/static/NetworkManager/system-connections/MITM.nmconnection

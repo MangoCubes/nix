@@ -6,6 +6,7 @@
   colours,
   inputs,
   lib,
+  secrets,
   ...
 }:
 let
@@ -22,6 +23,7 @@ let
                 config
                 inputs
                 lib
+                secrets
                 osConfig
                 ;
             }

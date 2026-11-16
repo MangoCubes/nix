@@ -2,11 +2,11 @@
   config,
   lib,
   pkgs,
-  inputs,
+  secrets,
   ...
 }:
 {
-  imports = [ inputs.secrets.server-main.home.matrix ];
+  imports = [ secrets.server-main.home.matrix ];
   custom.podman.containers = {
     # UID: 991
     element = {

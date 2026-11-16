@@ -21,7 +21,7 @@ in
         pkgs,
         config,
         lib,
-        inputs,
+        secrets,
         ...
       }:
       let
@@ -120,8 +120,8 @@ in
             builtins.map (s: ''(echo "Stopping ${s}..." && systemctl --user stop ${s} &); '') services
           )
         );
-        secrets = name: {
-          "gluetun-${name}" = inputs.secrets.common.packages.home.gluetun { inherit name; };
+        vpnSecrets = name: {
+          "gluetun-${name}" = secrets.common.packages.home.gluetun { inherit name; };
         };
       in
       {
@@ -147,7 +147,7 @@ in
             services.podman.containers = mergeAll "container";
           }
           (lib.mkIf isPodmanUsed {
-            sops.secrets = lib.mkMerge (builtins.map secrets vpnKeys);
+            sops.secrets = lib.mkMerge (builtins.map vpnSecrets vpnKeys);
             services.podman = {
               autoUpdate.enable = true;
               enable = true;

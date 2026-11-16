@@ -4,7 +4,7 @@
     {
       pkgs,
       unstable,
-      inputs,
+      secrets,
       config,
       lib,
       ...
@@ -59,7 +59,7 @@
           readOnly = true;
         };
         configFile."configMedia" = {
-          source = "${inputs.secrets.res}/media";
+          source = "${secrets.res}/media";
           recursive = true;
         };
       };

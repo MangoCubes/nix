@@ -1,9 +1,9 @@
-{ inputs, ... }:
+{ secrets, ... }:
 {
   # cp ${config.home.homeDirectory}/.config/sops-nix/secrets/cloud ${config.home.homeDirectory}/.podman/cloud/config/config.php
   # ${pkgs.rootlesskit}/bin/rootlesskit chown -R 1000:1000 ${config.home.homeDirectory}/.podman/cloud
   imports = [
-    inputs.secrets.server.packages.home.podman.cloud
+    secrets.server.packages.home.podman.cloud
   ];
   custom.podman.containers.cloud = {
     dependsOn = [ "mariadb" ];

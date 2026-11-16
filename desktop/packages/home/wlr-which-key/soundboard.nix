@@ -1,5 +1,5 @@
 {
-  inputs,
+  secrets,
   pkgs,
   ...
 }:
@@ -7,7 +7,7 @@ let
   stopAll = "pkill -x play";
   combined = "Combined";
   microphone = "alsa_input.usb-Samsung_Samsung_USB_C_Earphones_20160406.1-00.analog-stereo";
-  sound = name: "${inputs.secrets.res}/media/sounds/${name}";
+  sound = name: "${secrets.res}/media/sounds/${name}";
   playSpeaker = file: "${pkgs.sox}/bin/play ${file}";
   play = file: "AUDIODEV=${combined} ${pkgs.sox}/bin/play ${file}";
   setup = ''

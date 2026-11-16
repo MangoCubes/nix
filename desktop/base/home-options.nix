@@ -1,7 +1,7 @@
 {
   lib,
   config,
-  inputs,
+  secrets,
   ...
 }:
 {
@@ -9,9 +9,9 @@
     type = lib.types.str;
     default =
       if config.custom.device.presentation then
-        "${inputs.secrets.res}/media/wallpaper/sc2.png"
+        "${secrets.res}/media/wallpaper/sc2.png"
       else
-        "${inputs.secrets.res}/media/wallpaper/miku.png";
+        "${secrets.res}/media/wallpaper/miku.png";
   };
 
   options.custom.microsoftTeams = {
