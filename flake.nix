@@ -38,6 +38,10 @@
     # Notice that the path starts with path:
     # This flake is stored in ./secrets
     secrets.url = "path:/home/main/Sync/NixConfig/secrets";
+    presentation = {
+      url = "path:./desktop/inputs/presentation/false.nix";
+      flake = false;
+    };
     yazi.url = "github:sxyazi/yazi";
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
@@ -195,7 +199,7 @@
         }:
         (genSystem ./desktop {
           inherit hostname;
-          inherit extraModules;
+          extraModules = [ "${inputs.presentation}" ] ++ extraModules;
         });
       genServerSystem =
         {

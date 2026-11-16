@@ -1,0 +1,3 @@
+{
+  custom.device.presentation = false;
+}
