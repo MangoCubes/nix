@@ -51,6 +51,7 @@ let
         region_name = "Headscale Embedded DERP";
         stun_listen_addr = "0.0.0.0:3478";
         private_key_path = "/var/lib/headscale/derp_server_private.key";
+        ipv4 = cfg.ipv4;
       };
       urls = [ ];
     };
@@ -61,6 +62,10 @@ in
     url = lib.mkOption {
       type = lib.types.str;
       default = "vpn.skew.ch";
+    };
+    ipv4 = lib.mkOption {
+      type = lib.types.str;
+      default = "107.175.189.176";
     };
     domain = lib.mkOption {
       type = lib.types.str;
