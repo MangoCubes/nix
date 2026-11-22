@@ -26,6 +26,8 @@ let
     "keepassxc-browser@keepassxc.org" = extension "keepassxc-browser";
     # Vimium
     "{d7742d87-e61d-4b78-b8a1-b469842139fa}" = extension "vimium-ff";
+    # TubeArchivist
+    "{08f0f80f-2b26-4809-9267-287a5bdda2da}" = extension "tubearchivist-companion";
     # "@testpilot-containers" = {
     #   install_url = "https://addons.mozilla.org/firefox/downloads/latest/multi-account-containers/latest.xpi";
     #   installation_mode = "force_installed";
@@ -85,6 +87,12 @@ let
       autoReconnect = true;
       saveDomainOnly = true;
     };
+    "3rdparty".Extensions."uBlock0@raymondhill.net".userSettings = [
+      [
+        "cloudStorageEnabled"
+        "true"
+      ]
+    ];
     DisableSetDesktopBackground = true;
   };
   searches = (import ./firefox/search.nix);
