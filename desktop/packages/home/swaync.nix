@@ -79,6 +79,7 @@ in
 
       .notification-row .notification-background {
         padding: ${builtins.toString borderWidth}px;
+        padding-bottom: 0;
       }
 
       .notification-row .notification-background .notification .notification-default-action {
