@@ -41,6 +41,14 @@ in
           "${config.users.users.${username}.home}/.podman/shared/backups/"
         ]
         ++ config.home-manager.users."${username}".custom.backups.backblaze;
+      exclude = [
+        ".git"
+        "*~"
+        ".venv"
+        # When lines start with #
+        "[#]*#"
+        "ltximg"
+      ];
       repositoryFile = config.sops.secrets.restic-repo.path;
       passwordFile = config.sops.secrets.restic-key.path;
       timerConfig = {
