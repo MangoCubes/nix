@@ -24,7 +24,7 @@ in
     enable = true;
     overrideDevices = false;
     overrideFolders = false;
-    guiAddress = "0.0.0.0:8384";
+    guiAddress = "https://127.0.0.1:8384";
   };
   imports = [
     secrets.common.packages.home.syncthing

@@ -28,6 +28,7 @@
     settings = {
       credential.helper = "libsecret";
       pull.rebase = false;
+      safe.bareRepository = "explicit";
       user = {
         email = "10383115+MangoCubes@users.noreply.github.com";
         name = "MangoCubes";

@@ -1,6 +1,7 @@
 { secrets, ... }:
 {
   services.printing.enable = true;
+  systemd.services.cups-browsed.after = [ "cups.service" ];
   # Swap Alt and Meta on the Apple keyboard
   # I: Bus=0003 Vendor=05ac Product=026c Version=0110
   services.udev.extraHwdb = ''
