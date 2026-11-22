@@ -4,6 +4,8 @@
   imports = [
     secrets.hw.server-home
     secrets.server-home.config
+    secrets.server-home.restic
+    ../packages/restic.nix
     ./traefik.nix
     ./home.nix
   ];
