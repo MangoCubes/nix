@@ -18,6 +18,11 @@
     id = 3;
   }
   {
+    name = "VPN";
+    vpn = true;
+    id = 4;
+  }
+  {
     name = "Sandbox";
     alias = [
       "Ephemeral"

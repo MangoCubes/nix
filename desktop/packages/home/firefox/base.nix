@@ -2,6 +2,7 @@
   lib,
   config,
   resetOnClose,
+  vpn,
   ...
 }:
 let
@@ -113,5 +114,15 @@ lib.mkMerge [
   (lib.mkIf resetOnClose {
     "privacy.clearOnShutdown_v2.cache" = lock-true;
     "privacy.clearOnShutdown_v2.cookiesAndStorage" = lock-true;
+  })
+  (lib.mkIf vpn {
+    # Every connection goes through wireproxy
+    "network.proxy.type" = 1;
+    "network.proxy.socks" = (lock-string "127.0.0.1");
+    "network.proxy.socks_port" = 25345;
+    "network.proxy.socks_version" = 5;
+    "network.proxy.socks5_remote_dns" = lock-true;
+    "media.peerconnection.ice.proxy_only" = lock-true;
+    "network.http.http3.enable" = lock-false;
   })
 ]

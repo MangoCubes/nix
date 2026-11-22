@@ -104,6 +104,7 @@ let
       id,
       engines ? [ ],
       resetOnClose ? false,
+      vpn ? false,
       ...
     }:
     {
@@ -117,6 +118,7 @@ let
               inherit
                 lib
                 resetOnClose
+                vpn
                 config
                 ;
             }
@@ -137,6 +139,7 @@ in
   imports = [
     ./firefox/options.nix
     ./firefox/permissions.nix
+    ./firefox/vpn.nix
   ];
   home.packages = [
     profilebrowser

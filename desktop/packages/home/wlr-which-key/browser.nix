@@ -15,6 +15,11 @@
     desc = "Community";
     cmd = "profilebrowser Community";
   }
+  {
+    key = "v";
+    desc = "VPN";
+    cmd = "profilebrowser VPN";
+  }
 ]
 ++ lib.optionals (osConfig.networking.hostName == "main") [
   {
