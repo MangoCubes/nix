@@ -16,7 +16,7 @@
     };
     tablet.enable = true;
     device = {
-      type = "desktop";
+      type = "laptop";
       keyboard = "/dev/input/by-id/usb-GIGABYTE_USB-HID_Keyboard_AP0000000003-event-kbd";
       monitors = [
         {

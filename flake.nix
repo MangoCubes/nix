@@ -42,7 +42,6 @@
       url = "path:./secrets";
       flake = false;
     };
-    kakaotalk.url = "git+ssh://git.int:2222/toolbox/KakaoTalk";
     presentation = {
       url = "path:./desktop/inputs/presentation/false.nix";
       flake = false;
