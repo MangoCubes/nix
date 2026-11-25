@@ -210,7 +210,6 @@ let
       "security"
       "media"
       "config"
-      "scratch"
     ])
     ++ (
       if multiMonitors then

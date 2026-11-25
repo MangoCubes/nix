@@ -301,7 +301,8 @@ in
       focus-workspace = "security";
     };
     "Mod+Return" = {
-      focus-workspace = "scratch";
+      _props.allow-inhibiting = false;
+      toggle-keyboard-shortcuts-inhibit._props = { };
     };
     "Mod+Shift+1" = {
       move-column-to-workspace = "one";
