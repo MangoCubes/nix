@@ -22,11 +22,11 @@
     "agsWidget": {
       "flake": false,
       "locked": {
-        "lastModified": 1793843967,
-        "narHash": "sha256-4WURCvKCyj0MDdVYzM3192WN44uPXEhPxi3/s/sG4I0=",
+        "lastModified": 1795571121,
+        "narHash": "sha256-OX2bmtAigIlRNPkr7QtY3Yr5YkgDvJZVn3kg9z2Zo/w=",
         "owner": "MangoCubes",
         "repo": "ags-widget",
-        "rev": "005b9a9d378e08898f1d371816c8045d6219cf2c",
+        "rev": "f87a96b2ed4ec59436f3f5e47a9a93151cb9e936",
         "type": "github"
       },
       "original": {

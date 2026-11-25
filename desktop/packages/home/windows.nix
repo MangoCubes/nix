@@ -17,10 +17,12 @@ let
     fi
     ${rdpCmd}
   '';
+  remoteRdp = pkgs.writeShellScriptBin "rdp" ''${freerdp}/bin/sdl-freerdp /v:$@ /u:$(secret-tool search Title 'Windows RDP' 2>&1 >/dev/null | sed -n 's/^attribute\.UserName = //p') /p:$(secret-tool lookup Title 'Windows RDP') /dynamic-resolution /drive:shared,${config.home.homeDirectory}'';
 
 in
 {
   home.packages = [
+    remoteRdp
     run-windows
   ];
   custom.windows = true;
