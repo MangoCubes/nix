@@ -35,7 +35,10 @@
     ../packages/mitmproxy-wifi.nix
     ../packages/afl.nix
   ];
-  custom.android.enable = true;
+  custom.android = {
+    enable = true;
+    androidStudio = true;
+  };
   networking.wireless = {
     enable = true;
     userControlled = true;
