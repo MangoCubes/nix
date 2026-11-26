@@ -32,7 +32,8 @@ in
 {
   home.packages = lib.mkMerge [
     (with unstable; [
-      nil
+      nixd
+      nixfmt
       fd
       tree-sitter
     ])
