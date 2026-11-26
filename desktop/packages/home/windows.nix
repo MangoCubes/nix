@@ -5,9 +5,17 @@
   ...
 }:
 let
+  freerdp = (
+    pkgs.freerdp.overrideAttrs (old: {
+      buildInputs = (old.buildInputs or [ ]) ++ [ pkgs.libpng ];
+      cmakeFlags = (old.cmakeFlags or [ ]) ++ [
+        "-DWINPR_UTILS_IMAGE_PNG=ON"
+      ];
+    })
+  );
   username = "Windows";
   password = "Password";
-  rdpCmd = "${pkgs.freerdp}/bin/sdl-freerdp /u:${username} /p:${password} /dynamic-resolution /drive:shared,${config.home.homeDirectory} /v:127.0.0.1";
+  rdpCmd = "${freerdp}/bin/sdl-freerdp /u:${username} /p:${password} /dynamic-resolution /drive:shared,${config.home.homeDirectory} /v:127.0.0.1";
   run-windows = pkgs.writeShellScriptBin "run-windows" ''
     if systemctl --user is-active --quiet "podman-windows"; then
         ${pkgs.libnotify}/bin/notify-send "Opening RDP..." "Windows is already running.";
@@ -22,6 +30,7 @@ let
 in
 {
   home.packages = [
+    freerdp
     remoteRdp
     run-windows
   ];
